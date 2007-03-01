@@ -1,0 +1,141 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with jLaTeX2HTML 2002-2-1 (1.70) JA patch-2.0
+patched version by:  Kenshi Muto, Debian Project.
+* modified by:  Shige TAKENO
+LaTeX2HTML 2002-2-1 (1.70),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Function/procedure</TITLE>
+<META NAME="description" CONTENT="Function/procedure">
+<META NAME="keywords" CONTENT="fussy">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002-2-1 JA patch-2.0">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="fussy.css">
+
+<LINK REL="next" HREF="node22.html">
+<LINK REL="previous" HREF="node20.html">
+<LINK REL="up" HREF="node14.html">
+<LINK REL="next" HREF="node22.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html267"
+  HREF="node22.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html265"
+  HREF="node14.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html259"
+  HREF="node20.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html268"
+  HREF="node22.html">Control statements</A>
+<B> Up:</B> <A NAME="tex2html266"
+  HREF="node14.html">Syntax</A>
+<B> Previous:</B> <A NAME="tex2html260"
+  HREF="node20.html">Variables and function/procedure names</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00076000000000000000"></A>
+<A NAME="APPEN:SYNTAX_FUNC"></A>
+<BR>
+Function/procedure
+</H2>
+
+<P>
+Sub-programs can be written as functions or procedures.  The only
+difference between functions and procedures is that functions <I>must</I> return a value while procedures must <I>not</I> return a value.
+The type of a sub-program which returns a value using the <TT>return</TT>&nbsp;<TT>&lt;expression&gt;</TT> statement becomes <TT>func</TT>.  If <TT>return</TT> is not used, or is used without an <TT>expression</TT>, the type
+becomes <TT>proc</TT>.  The type of the sub-program therefore need not be
+declared.  It is an error to use a procedure in an expression or pass
+a procedure as an argument to another sub-program where a function
+should have been passed.
+
+<P>
+A function or procedure declaration begins with a variable name
+followed by an argument list.  The argument list is enclosed by a
+round bracket pair (<TT>'('</TT> and <TT>')'</TT>).  A <TT>'()'</TT> specifies
+an empty argument list.  The function body is in enclosed between the
+<TT>'{'</TT> and <TT>'}'</TT> brackets.  E.g.
+<PRE>
+   &gt;/* An example of a funtion declaration */
+   &gt;f() { return sin(PI/2); }
+   &gt;/* An example of a procedure declaration */ 
+   &gt;p() {print "Value of f() = ",f(),"\n";}
+   &gt;f()
+              1.00000
+   &gt;p() 
+   Value of f() =    1.00000
+</PRE>
+A sub-program can be passed as an argument to another sub-program.  An
+argument corresponding to a sub-program can be specified using the
+<TT>func</TT> (for a function) or <TT>proc</TT> (for a procedure) directive.
+E.g.
+<PRE>
+   &gt;f(x) { return sin(x); }
+   &gt;p(func fa,x) {print "The value of f(",x%5.2f,") =",fa(x),"\n";}
+   &gt;p(f,10)
+   The value of f(10.00) =  -0.54402
+</PRE>
+All symbols (variables, functions, procedures) used in the sub-program
+code must be either global variables declared <I>before</I> the
+sub-program declaration or must be one of the argument list.
+Temporary variables, the scope of which is within the sub-program
+only, can be declared using the <TT>auto</TT> directive.  E.g.
+<PRE>
+   &gt;f(x) { return sin(x); }
+   &gt;p(func fa,x)
+     {
+       auto t;
+       t=fa(x);
+       print "The value of f(",x%5.2f,") =",t,"\n";
+     }
+   &gt;p(f,10)
+   The value of f(10.00) =  -0.54402
+</PRE>
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html267"
+  HREF="node22.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html265"
+  HREF="node14.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html259"
+  HREF="node20.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html268"
+  HREF="node22.html">Control statements</A>
+<B> Up:</B> <A NAME="tex2html266"
+  HREF="node14.html">Syntax</A>
+<B> Previous:</B> <A NAME="tex2html260"
+  HREF="node20.html">Variables and function/procedure names</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Sanjay Bhatnagar
+2006-10-17
+</ADDRESS>
+</BODY>
+</HTML>

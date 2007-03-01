@@ -1,0 +1,96 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with jLaTeX2HTML 2002-2-1 (1.70) JA patch-2.0
+patched version by:  Kenshi Muto, Debian Project.
+* modified by:  Shige TAKENO
+LaTeX2HTML 2002-2-1 (1.70),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The addition operator</TITLE>
+<META NAME="description" CONTENT="The addition operator">
+<META NAME="keywords" CONTENT="fussy">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002-2-1 JA patch-2.0">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="fussy.css">
+
+<LINK REL="next" HREF="node8.html">
+<LINK REL="previous" HREF="node6.html">
+<LINK REL="up" HREF="node4.html">
+<LINK REL="next" HREF="node8.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html118"
+  HREF="node8.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html116"
+  HREF="node4.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html110"
+  HREF="node6.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html119"
+  HREF="node8.html">The subtraction operator</A>
+<B> Up:</B> <A NAME="tex2html117"
+  HREF="node4.html">Error propagation: Algorithm for</A>
+<B> Previous:</B> <A NAME="tex2html111"
+  HREF="node6.html">The division operator</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00033000000000000000">
+The addition operator</A>
+</H2>
+
+<P>
+The first set of operations is same as that for other operators except
+that the value pushed on the <TT>VMS</TT> is <TT>L+R</TT>.
+<PRE>
+   Expr(L,R) {return L+R};  /* Compute the value for 
+   ComputeResult(L,R,Expr);    the addition operator */
+</PRE>
+Since the partial derivatives of the expression with respect to the
+non-common variables is already on the appropriate <TT>DS</TT>, no separate
+operation is required for these variables.  The partial derivatives
+with respect to the common set of variables is computed as <!-- MATH
+ ${\partial
+f(x,a) \over {\partial x}}$
+ -->
+<IMG
+ WIDTH="53" HEIGHT="45" ALIGN="MIDDLE" BORDER="0"
+ SRC="img50.png"
+ ALT="${\partial
+f(x,a) \over {\partial x}}$"> and <!-- MATH
+ ${\partial g(x,b) \over {\partial
+x}}$
+ -->
+<IMG
+ WIDTH="51" HEIGHT="45" ALIGN="MIDDLE" BORDER="0"
+ SRC="img51.png"
+ ALT="${\partial g(x,b) \over {\partial
+x}}$">.  The pseudo code for these operations is:
+<PRE>
+   Expr(L,R,dxL,dxR) {return (dxL + dxR)};
+   dCommonVar(L,R,Expr);
+</PRE>
+<BR><HR>
+<ADDRESS>
+Sanjay Bhatnagar
+2006-10-17
+</ADDRESS>
+</BODY>
+</HTML>

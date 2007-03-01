@@ -1,0 +1,115 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with jLaTeX2HTML 2002-2-1 (1.70) JA patch-2.0
+patched version by:  Kenshi Muto, Debian Project.
+* modified by:  Shige TAKENO
+LaTeX2HTML 2002-2-1 (1.70),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Operators and built-in functions</TITLE>
+<META NAME="description" CONTENT="Operators and built-in functions">
+<META NAME="keywords" CONTENT="fussy">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002-2-1 JA patch-2.0">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="fussy.css">
+
+<LINK REL="next" HREF="node18.html">
+<LINK REL="previous" HREF="node15.html">
+<LINK REL="up" HREF="node14.html">
+<LINK REL="next" HREF="node18.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html227"
+  HREF="node18.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html225"
+  HREF="node14.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html219"
+  HREF="node16.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html228"
+  HREF="node18.html">Expressions/Statements</A>
+<B> Up:</B> <A NAME="tex2html226"
+  HREF="node14.html">Syntax</A>
+<B> Previous:</B> <A NAME="tex2html220"
+  HREF="node16.html">Units</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00072000000000000000">
+Operators and built-in functions</A>
+</H2>
+
+<P>
+The normal binary operators of type <TT>expr &lt;op&gt; expr</TT>, where <TT>expr</TT> is any expression/variable/constant and <TT>&lt;op&gt;</TT> is one of
+<TT>'+', '-', '/', '*'</TT>, '<TT>^</TT>' and <TT>'**'</TT> binary
+operators perform the usual mathematical operations in addition to
+error propagation.  The comparison operators '<TT>&lt;</TT>',
+'<TT>&gt;</TT>', '<TT>=</TT>', '<TT>!=</TT>',
+'<TT>&lt;=</TT>', '<TT>&gt;=</TT>' and the logical
+operators '<TT>||</TT>' and '<TT>&amp;&amp;</TT>'
+have the usual meaning.  Apart from the usual operation, the <TT>var=expr</TT> assignment operator also does the error propagation in the
+expression on the RHS and assigns it as the error for the variable on
+the LHS.  In addition to this, the assignment operator for partial
+variables (<TT>pvar:=expr</TT>) is also defined.  This does not propagate
+the errors on the RHS but instead transfers all the required
+information for error propagation to the variable on the LHS (see
+Section&nbsp;<A HREF="node19.html#APPEN:SUBEXPRESSIONS">B.4</A>).  The result of these assignment
+statements is the value of the variable on the LHS.  Hence expressions
+like <TT>sin(x=0.1pm0.02)</TT> are equivalent to <TT>'x=0.1pm0.02;sin(x);'</TT>.  The prefix and postfix operators <TT>&lt;op&gt;var</TT> and <TT>var&lt;op&gt;</TT> where <TT>&lt;op&gt;</TT> is either <TT>'++'</TT> or
+<TT>'-'</TT> and <TT>var</TT> is any user defined variable are also
+defined.  These increment or decrement the value of the variables by
+one.  The prefix and postfix operators operate on the variables before
+and after the variable is further used respectively.
+
+<P>
+In addition, two operators of type <TT>expr.&lt;op&gt;</TT> where <TT>&lt;op&gt;</TT> is
+either <TT>val</TT> or <TT>rms</TT> are also defined.  These operators
+extract the value and the associated (propagated) error in <TT>expr</TT>
+which can be any mathematical expression or a variable.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html227"
+  HREF="node18.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html225"
+  HREF="node14.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html219"
+  HREF="node16.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html228"
+  HREF="node18.html">Expressions/Statements</A>
+<B> Up:</B> <A NAME="tex2html226"
+  HREF="node14.html">Syntax</A>
+<B> Previous:</B> <A NAME="tex2html220"
+  HREF="node16.html">Units</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Sanjay Bhatnagar
+2006-10-17
+</ADDRESS>
+</BODY>
+</HTML>

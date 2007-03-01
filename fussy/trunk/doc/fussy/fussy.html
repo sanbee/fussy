@@ -1,0 +1,204 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with jLaTeX2HTML 2002-2-1 (1.70) JA patch-2.0
+patched version by:  Kenshi Muto, Debian Project.
+* modified by:  Shige TAKENO
+LaTeX2HTML 2002-2-1 (1.70),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The fussy language: Implementation of an automatic
+error propagation algorithm</TITLE>
+<META NAME="description" CONTENT="The fussy language: Implementation of an automatic
+error propagation algorithm">
+<META NAME="keywords" CONTENT="fussy">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002-2-1 JA patch-2.0">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="fussy.css">
+
+<LINK REL="next" HREF="node1.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html6"
+  HREF="node1.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up_g.png"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev_g.png">   
+<BR>
+<B> Next:</B> <A NAME="tex2html7"
+  HREF="node1.html">Introduction</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1 ALIGN="CENTER">The <TT>fussy</TT> language: Implementation of an automatic
+error propagation algorithm</H1>
+<DIV>
+
+<P ALIGN="CENTER"><STRONG>S. Bhatnagar</STRONG></P>
+<P ALIGN="CENTER"><STRONG>Nov. 2003</STRONG></P>
+</DIV>
+<DIV ALIGN="CENTER">
+<A NAME="tex2html1"
+  HREF="http://www.aoc.nrao.edu/~sbhatnag/Softwares/fussy/fussy.ps">[Postscript version]</A>
+
+</DIV>
+
+<P>
+
+<H3>Abstract:</H3>
+<DIV>
+Formal propagation of random errors in a mathematical expression
+follow a precise prescription based on calculus.  This requires the
+computation of the variation of the function with respect to each of
+the independent variables used to construct the function.  These
+variations are added in quadrature to compute the final numerical
+error.  For complicated expressions, computation of all the partial
+derivatives is often cumbersome and hence error prone.
+
+<P>
+The <TT>fussy</TT><A NAME="tex2html2"
+  HREF="footnode.html#foot26"><SUP>1</SUP></A> scripting language, described here, implements an
+algorithm for automatic propagation of random measurement errors in an
+arbitrary mathematical expression.  It is internally implemented as a
+virtual machine for efficient runtime performance and can be used as
+an interpreter by the user.  A simple <TT>C</TT> binding to the
+interpreter is also provided.  Mathematical expressions can be
+implemented as a collection of sub-expressions, as sub-program units
+(functions or procedures) or as single atomic expressions.  Errors are
+correctly propagated when a complex expression is broken up into
+smaller sub-expressions.  Sub-expressions are assigned to temporary
+variables which can then be used to write the final expression.  These
+temporary variables are not independent variables and the information
+about their dependence on other constituent independent variables is
+preserved and used on-the-fly in error propagation.
+
+<P>
+The scripting syntax of <TT>fussy</TT> is similar to that of <TT>C</TT>.  It is
+therefore easy to use with minimal learning and can be used in every
+day scientific work.  Most other related work found in the literature
+is in the form of libraries for automatic differentiation.  Only two
+tools appear to have used it for automatic error propagation.  Use of
+these libraries and tools require sophisticated programing and are
+targeted more for programmers than for regular every day scientific
+use.  Also, such libraries and tools are difficult to use for correct
+error propagation in expressions composed of sub-expressions.
+</DIV>
+<P>
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"></A>
+
+<UL>
+<LI><A NAME="tex2html8"
+  HREF="node1.html">Introduction</A>
+<LI><A NAME="tex2html9"
+  HREF="node2.html">Error propagation: Single variable case</A>
+<UL>
+<LI><A NAME="tex2html10"
+  HREF="node3.html">Example</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html11"
+  HREF="node4.html">Error propagation: Algorithm for the multi-variate case</A>
+<UL>
+<LI><A NAME="tex2html12"
+  HREF="node5.html">The multiplication operator</A>
+<LI><A NAME="tex2html13"
+  HREF="node6.html">The division operator</A>
+<LI><A NAME="tex2html14"
+  HREF="node7.html">The addition operator</A>
+<LI><A NAME="tex2html15"
+  HREF="node8.html">The subtraction operator</A>
+<LI><A NAME="tex2html16"
+  HREF="node9.html">The power operator</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html17"
+  HREF="node10.html">Examples</A>
+<UL>
+<LI><A NAME="tex2html18"
+  HREF="node11.html">Recursion</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html19"
+  HREF="node12.html">APPENDIX</A>
+<LI><A NAME="tex2html20"
+  HREF="node13.html">An example of a multi-variate expression</A>
+<LI><A NAME="tex2html21"
+  HREF="node14.html">Syntax</A>
+<UL>
+<LI><A NAME="tex2html22"
+  HREF="node15.html">Numbers</A>
+<UL>
+<LI><A NAME="tex2html23"
+  HREF="node16.html">Units</A>
+</UL>
+<LI><A NAME="tex2html24"
+  HREF="node17.html">Operators and built-in functions</A>
+<LI><A NAME="tex2html25"
+  HREF="node18.html">Expressions/Statements</A>
+<LI><A NAME="tex2html26"
+  HREF="node19.html">Sub-expressions</A>
+<LI><A NAME="tex2html27"
+  HREF="node20.html">Variables and function/procedure names</A>
+<LI><A NAME="tex2html28"
+  HREF="node21.html">Function/procedure</A>
+<LI><A NAME="tex2html29"
+  HREF="node22.html">Control statements</A>
+<UL>
+<LI><A NAME="tex2html30"
+  HREF="node23.html"><TT>if-else</TT></A>
+<LI><A NAME="tex2html31"
+  HREF="node24.html"><TT>while-loop</TT></A>
+<LI><A NAME="tex2html32"
+  HREF="node25.html"><TT>for-loop</TT></A>
+</UL>
+<LI><A NAME="tex2html33"
+  HREF="node26.html">Print statement</A>
+<LI><A NAME="tex2html34"
+  HREF="node27.html">Formatting</A>
+</UL>
+<BR>
+<LI><A NAME="tex2html35"
+  HREF="node28.html">ACKNOWLEDGEMENTS</A>
+<LI><A NAME="tex2html36"
+  HREF="node29.html">Bibliography</A>
+<LI><A NAME="tex2html37"
+  HREF="node30.html">About this document ...</A>
+</UL>
+<!--End of Table of Child-Links-->
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html6"
+  HREF="node1.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up_g.png"> 
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev_g.png">   
+<BR>
+<B> Next:</B> <A NAME="tex2html7"
+  HREF="node1.html">Introduction</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Sanjay Bhatnagar
+2006-10-17
+</ADDRESS>
+</BODY>
+</HTML>

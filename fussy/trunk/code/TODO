@@ -1,0 +1,155 @@
+X Add function and procedure declarations in the grammar. [DONE]
+
+    A procedure which calls "return expr" becomes a function which
+    can be used in an expression.  A procedure cannot be used in
+    an expression.
+
+X Allow declaration of local variables/arguments in functions/procedures [DONE]
+  and arguments should be passed as formal named arguments.
+
+    DONE
+
+X Allow storing partial results in temp. variables.  [DONE]
+
+X BUG: Currently, when this is done, the errors don't propagate properly [DONE]
+  when the temp. variables are used in an expressions.  This is
+  because the symbol table (which is where temp variables reside)
+  cannot hold an object from the stack (which is where the partial
+  results are properly handled).
+
+    DONE   Nov. 2003
+
+o Ultimately, allow arrays (on an if-and-when-required basis!)!
+
+o Write the document!
+
+   Current doc is more of a note-book for the author.
+
+    Submitted a paper to ACM TOMS.
+                     Nov.17, 2003
+
+o Have someone build a graphic calculator for this?  (Welll....)
+
+o In the interactive mode, add commands to give help on various
+  language constructs.
+   [LOW PRIORITY] Needed at all?
+
+X Handle error propagation a bit more robustly.  [DONE] See fussy.tex for details. 
+
+   Algo. designed.
+   Implementation in progress.
+             Dec. 2001
+   Implemented for expression and not too deep function calls.
+             28Dec 2001
+
+
+New List (Dec 17, 2003):
+------------------------
+
+X Better garbage collection.  [DONE!]
+
+   IDs are now optimally allocated (i.e., a unique ID is assigned only
+   for symbols/constants which will produce a finite propagated
+   error).  However the IDs are not contiguous.  E.g. the allocated
+   IDs can be 0,1,7,8.  The size of DS and MeasurementError arrays is
+   equal the highest allocated ID plus 1.  Hence, although the size of
+   these arrays for the above examples needs to be only 4 long, it
+   will be 8 long and will only use 4 locations from it.
+
+   The garbage collector needs to re-assign the IDs making them
+   contiguous and systematically change to the values everywhere in
+   the compiled VM code.  This will reduce the runtime memory usage. 
+
+   It is however not clear to me at this stage if this is a good idea
+   (such a garbage collector).  If non-contiguous IDs get allocated
+   only because of auto variables in a sub-program - then it's better
+   to leave it that way.  The arrays will not need to be resized when
+   the sub-programs are called (the IDs which were released after the
+   sub-program definition was finished will be used).
+
+        This was easier than I thought.  IDs are simply not allocated
+        during sub-program construction phase for auto variables.
+        This eliminates non-contiguous ID allocation and hence the
+        need for an improved garbage collector! :)) Dec., 2003
+
+o A read command.
+
+o Ability to pass arguments by reference.
+
+X The increment and decrement (++ and --) operators.  [Done]
+
+o Implement the <op>= operators. 
+
+o CAVEAT: Code of the following type will give inconsistent results.
+  When a auto defined variable is converted into a partial
+  var. composed of other auto. vars and returned, the IDList of the
+  return var. carries IDs of the temp. auto vars.  When the
+  sub-program returns, these temp. auto var. IDs are released.  If the
+  return value of the function is used to created another partial
+  var., the resulting partial var will have IDs which are undefined
+  now.  The following code illustrates this:
+   
+    g(x) { auto tt,c; c=3pm1; tt:=c; return tt; } t:=g(10pm1);
+
+    Have to think how to resolve this problem.
+
+
+X BUG: x:=10;f(x){return x;} gives a syntax error. [DONE]
+ 
+  If the argument in a function declaration has the same name as a
+  global PARTIAL_VAR, sub-program declaration breaks.  It should not
+  (the argument is in the scope of the sub-program and resides in the
+  LocalSymbTab and hence can have same name).
+    
+X BUG: The following code sets the value of the global variable y to zero! [DONE]
+
+   y:=10;f(x){return x;}
+
+  This is because the interpretor detects a function declaration.  It
+  then emits the instructions for the function.  The instructions
+  emitted for the first assignment statement also remains in the VM
+  and are never executed (since the instructions for a function are
+  not automatically executed - they are executed only when the
+  function is called).
+ 
+  Need to remember the value of PC before the line is parsed.  And run
+  the VM from this value of the PC to the value of the PC where a
+  sub-program declaration begins.
+
+X BUG: Code after the func. declaration in the parsing cycle is never executed. [DONE]
+
+  E.g., after the following code segement, x is still undefined.
+
+  f(){;};x=10;
+
+  The "defn" rule was returning zero.  It should not return at all and
+  instead set the "pc" (the program counter) to the base of the Virtual
+  Machine (held in the "Prog" variable).  The vcode is emitted at this
+  location in the VM and also executed from there on.
+  
+X BUG: String assignment to auto variables does not work. [DONE]
+
+X BUG: Seg fault in case of a syntax error involving an auto var. [DONE]
+
+    This is fixed! [July 18,2005]
+    The problem was in the cleanup operation to clear the symbol table
+    of zombie symbols. In this case, it was the "test" symbol of type
+    {P,F}SUC_TYPE.  This symbol should be removed since the error exception
+    was thrown during the construction of the body of the sub-program.
+
+X BUG:  The following code generates a seg. fault (in CleanupLocalSymbTab()) [DONE]
+  AFTER it prints the error message:
+
+   test()
+   {
+     auto tx;
+     tx-=2;
+   }
+ 
+  The "-=" operator is not defined in the language.  When doing the
+  garbage collection after the error detection during parsing, the
+  auto symbol in the local symbol table is not constructed (has no
+  type - that's assigned at runtime).  This is a problem in
+  CleanupLocalSymbTab() which assumes that all symbols are properly
+  initialized.
+

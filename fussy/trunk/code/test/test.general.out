@@ -1,0 +1,110 @@
+Test for stmt_list
+------------------
+	   1.00000
+	   2.00000
+	   1.00000
+	   2.00000
+Test for stmt_list with embedded NEWLINES
+-----------------------------------------
+	   1.00000
+	   2.00000
+	   3.00000
+	   1.00000
+	   2.00000
+	   3.00000
+	   1.00000
+	   2.00000
+	   3.00000
+	   1.00000
+	   2.00000
+	   3.00000
+	   1.00000
+	   2.00000
+	   3.00000
+	   1.00000
+	   2.00000
+sin(1.5)=   0.99749
+this is a test to print a number "one" with precision %8.3f    1.000
+Test for various forms of for-statements
+----------------------------------------
+a=1   1.00000
+a>1   1.10000
+	   1.10000
+b=   2.00000
+b=  10.00000
+Test for while-statement
+------------------------
+	  10.00000
+	   9.00000
+	   8.00000
+	   7.00000
+	   6.00000
+	  -4.00000
+	  -3.00000
+	  -2.00000
+	  -1.00000
+	  -0.00000
+Test for for-statement
+----------------------
+a=0.000000	b=0.000000
+a=1.000000	b=1.000000
+a=2.000000	b=2.000000
+a=3.000000	b=3.000000
+a=4.000000	b=4.000000
+a=5.000000	b=5.000000
+a=6.000000	b=6.000000
+a=7.000000	b=7.000000
+a=8.000000	b=8.000000
+a=9.000000	b=9.000000
+Test for for-statement
+----------------------
+a=0.000000	b=0.000000
+a=1.000000	b=1.000000
+a=2.000000	b=2.000000
+a=3.000000	b=3.000000
+a=4.000000	b=4.000000
+a=5.000000	b=5.000000
+a=6.000000	b=6.000000
+a=7.000000	b=7.000000
+a=8.000000	b=8.000000
+a=9.000000	b=9.000000
+Before change of FMT a =    1.00000
+After change of FMT a = 1.000000E+00
+Test for break statement
+------------------------
+Value of b =    1.00000
+Value of b =    2.00000
+Value of b =    3.00000
+Value of b =    4.00000
+Value of b =    5.00000
+Value of a =    6.00000
+a=5.000000E+01
+
+Testing f(10): 
+--------------
+From f: Arg=  10.00000
+	1.000000E+01
+From f: Auto var y=  10.00000
+	  10.00000
+
+Testing ff(10): 
+--------------
+From ff: Arg=  10.00000
+	20.000000
+
+Testing p(ff,10): 
+-----------------
+From p: Arg=  10.00000
+From ff: Arg=  10.00000
+From ff: Arg=  10.00000
+From p: Function called as a arg list of print statement. Result = 20.000000
+From p: Value of function call in an auto. var. = 20.000000
+
+Testing pp(p,ff,10): 
+--------------------
+From pp: Arg=  10.00000
+From p: Arg=  10.00000
+From ff: Arg=  10.00000
+From ff: Arg=  10.00000
+From p: Function called as a arg list of print statement. Result = 20.000000
+From p: Value of function call in an auto. var. = 20.000000

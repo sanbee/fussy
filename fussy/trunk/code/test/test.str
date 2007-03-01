@@ -1,0 +1,2 @@
+f(x){auto y;y="test = ";print y,x,"\n";}
+

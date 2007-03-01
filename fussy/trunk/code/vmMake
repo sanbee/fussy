@@ -1,0 +1,8 @@
+# -*- sh -*-
+$1 -E -DVMDBGHELP calc.h | \
+sed -e "s/()/ /g" | \
+sed -e"s/,//g" | \
+sed -e "s/;//g" | \
+grep -v "#" | \
+awk '{for (i=2;i<=NF;i++) \
+printf("else if (Prog[i]==%s) cerr << \" %s\" << endl;\n",$(i),$(i))} '

@@ -1,0 +1,22 @@
+#! /bin/bash
+#
+# Script the copyright year information strating from 2000 to the
+# current year.
+#
+year=`date "+%G"`
+let pyear=$year-1
+years=`echo "2000-"$pyear, $year`
+files=`ls`
+for f in $files
+do
+ if ( test -d $f );
+ then
+   echo "Not updating directory"$f;
+ else
+ echo "Updating copyright info. for "$f
+ cmd=`echo "sed -e\"s/200[0-9]-200[0-9], 200[0-9]/$years/\" $f > $f.new"`
+ eval $cmd
+ mv $f $f.old
+ mv $f.new $f
+ fi
+done
