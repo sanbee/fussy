@@ -164,11 +164,12 @@ The print format of a value can also be temporarily modified by specifying the f
 
 An extra formatting, not available in printf formatting, is that of printing the individual bit values using the %b format. With this, the value is printed in binary (1 or 0) format. %B does the same thing except that it prints a space after every 8 bits. The value is casted into a unsigned long integer before printing.
 
+{{{
    >x=10;x%B
         00000000 00000000 00000000 00001010
+}}}
 
 If the units of a value are specified, the print format is also appropriately modified. If a variable has units of time or angle, its print format is automatically set to %hms or %dms and are printed in the XXhXXmXX.XXs and XXdXX'XX.XX" styles respectively.
-
 
 
 
