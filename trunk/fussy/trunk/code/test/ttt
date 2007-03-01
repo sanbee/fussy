@@ -1,0 +1,5 @@
+x:=10pm1
+y:=10pm1
+showsym
+x+y
+

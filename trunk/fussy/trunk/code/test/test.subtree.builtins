@@ -1,0 +1,161 @@
+/* -*- C -*- */
+line="------------------------------------------------------\n";
+msg="Error on the above expression should be = ";
+
+test()
+{
+  auto x,y,x1,x2,tt,s,tsq,ssq,c,as,ac,at,sh,ch,th,ash,ach,l,e,em,s2,c2,t,ath;
+  print "----------------------------------------------------------------------------\n";
+  print "Script to test error propogation using builtin functions and sub-expressions\n"
+  print "----------------------------------------------------------------------------\n";
+  x=1pm0.1;
+  y=2pm0.2;
+  x1=1pm0.1;
+  x2=1pm0.1;
+  print "Value of x=\t",x,"\n";
+  print "Value of y=\t",y,"\n";
+  print "Value of x1=\t",x1,"\n";
+  print "Value of x2=\t",x2,"\n";
+  print line;
+    
+  s:=sin(x);
+  print "s:=sin(x)\n";
+  print "sin(x)=\t",sin(x),"\n";
+  print "s=\t",s,"\n";
+  print "sqrt(1-s^2)=\t",sqrt(1-s^2),"\n";
+  ssq:=s^2;
+  print "ssq:=s^2\n";
+  print "sqrt(1-ssq)=\t",sqrt(1-ssq),"\n";
+  print line;
+  
+  tt:=s;
+  tsq:=tt^2;
+  print "tt:=s\n";
+  print "tsq:=tt^2\n";
+  print "s= ",s,"\nssq= ",ssq,"\ntt= ",tt,"\ntsq= ",tsq,"\n";
+  print line;
+  
+  c:=cos(x);
+  print "c:=cos(x)\n";
+  print "cos(x)=\t",cos(x),"\n";
+  print line;
+  
+  t:=tan(x);
+  print "t:=tan(x)\n";
+  print "tan(x)=\t",tan(x),"\n";
+  print "t=\t",t,"\n";
+  print line;
+  
+  print "sin(x)/cos(x)=\t",sin(x)/cos(x),"\n";
+  print "s/c=\t",s/c,"\n";
+  print line;
+  
+  as:=asin(s);
+  print "as:=asin(s);\n";
+  print "asin(sin(x))=\t",asin(sin(x)),"\n";
+  print "asin(s) as a partial var.=\t",as,"\n";
+  print line;
+  
+  ac:=acos(c);
+  print "ac:=acos(c);\n";
+  print "acos(cos(x))=\t",acos(cos(x)),"\n";
+  print "acos(c) as a partial var.=\t",ac,"\n";
+  print line;
+  
+  at:=atan(t);
+  print "at:=atan(t);\n";
+  print "atan(tan(x))=\t",atan(tan(x)),"\n";
+  print "atan(t) as a partial var.=\t",at,"\n";
+  print line;
+  
+  sh:=sinh(x);
+  ch:=cosh(x);
+  th:=tanh(x);
+  ash:=asinh(sh);
+  ach:=acosh(ch);
+  ath:=atanh(th);
+  print "sh:=sinh(x)\n";
+  print "ch:=cosh(x)\n";
+  print "th:=tanh(x)\n";
+  print "ash:=asinh(sh)\n";
+  print "ach:=acosh(ch)\n";
+  print "ath:=atanh(th)\n";
+  
+  print "asinh(sinh(x))=\t",asinh(sinh(x)),"\n";
+  print "ash=\t",ash,"\n";
+  print line;
+  
+  print "acosh(cosh(x))=\t",acosh(cosh(x)),"\n";
+  print "ach=\t",ach,"\n";
+  print line;
+  
+  print "atanh(tanh(x))=\t",atanh(tanh(x)),"\n";
+  print "ath=\t",ath,"\n";
+  print line;
+  
+  l:=ln(x);
+  print "l:=ln(x)\n";
+  print "exp(ln(x))=\t",exp(ln(x)),"\n";
+  print "exp(l)=\t",exp(l),"\n";
+  print line;
+  
+  print "sinh(x)=\t",sinh(x),"\n";
+  print "sh=\t",sh,"\n";
+  print "(exp(x)-exp(-x))/2=\t",(exp(x)-exp(-x))/2,"\n";
+  e:=exp(x);em:=exp(-x);
+  print "e:=exp(x);em:=exp(-x)\n";
+  
+  print "e=\t",e,"\n";
+  print "em=\t",em,"\n";
+  print "(e-em)/2=\t",(e-em)/2,"\n";
+  print line;
+  
+  print "sinh(x)/((exp(x)-exp(-x))/2)=\t",sinh(x)/((exp(x)-exp(-x))/2),"\n";
+  print "sh/((e-em)/2)=\t",sh/((e-em)/2),"\n";
+  print line;
+  
+  print "x/exp(ln(x))=",x/exp(ln(x)),"\n";
+  print "x/exp(l)=",x/exp(l),"\n";
+  print line;
+  
+  print "y/(1-y) =",(y/(1-y))%16.6f,"\n";
+  print "y/(-y+1)=",(y/(-y+1))%16.6f,"\n";
+  print line;
+  
+  s2:=sin(x2);
+  c2:=cos(x2);
+  print "s2:=sin(x2)\n";
+  print "c2:=cos(x2)\n";
+  
+  print "sin(x1)*sin(x1)=\t",sin(x1)*sin(x1),"\n";
+  print "s*s=\t",s*s,"\n";
+  print line;
+  
+  print "sin(x1)*sin(x2)=\t",sin(x1)*sin(x2),"\n";
+  print "s*s2=\t",s*s2,"\n";
+  print line;
+  
+  print "(sin(x1)^2+cos(x1)^2)=\t",(sin(x1)^2+cos(x1)^2),"\n";
+  print "(s^2+c^2)=\t",(s^2+c^2),"\n";
+  print line;
+  
+  print "(sin(x1)^2+cos(x1)^2)/(sin(x2)^2+cos(x2)^2)=\t",(sin(x1)^2+cos(x1)^2)/(sin(x2)^2+cos(x2)^2),"\n";
+  print "(s^2+c^2)/(s2^2+c2^2)=\t",(s^2+c^2)/(s2^2+c2^2),"\n";
+  print line;
+  
+  print "sin(x1)^2+cos(x2)^2=\t",sin(x1)^2+cos(x2)^2,"\n";
+  print "s^2+c2^2=\t",s^2+c2^2,"\n";
+  print line;
+  
+  x=2pm0.2;
+  y=3pm0.3;
+  print "sin(x)^cos(x) = ",sin(x)^cos(x),"\n";
+  print msg,.2*(sin(x)^cos(x))* (cos(x)*cos(x)/sin(x) - log(sin(x))*sin(x)),"\n";
+  
+  print "x^y = ",x^y,"\n";
+  print msg,(x^y)*sqrt(((y/x)*0.2)^2+(log(x)*0.3)^2),"\n";
+  
+  print line;
+}
+
+test();

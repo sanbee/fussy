@@ -1,0 +1,5 @@
+test()
+{
+  auto tx;
+  tx-=2;
+}

@@ -1,0 +1,88 @@
+/* -*-C-*- */
+/* 
+   Test for three functions
+   f(x)=sin(x)^cos(x) 
+   f(x,y)=x^y
+   f(x,y)=sin(x)^cos(y)
+   
+   Error propagation in this expression was tested by working out the
+   derivative in calc.  The derivative of the derivative (second
+   derivative! ;-)) was also computed in calc.
+   
+   It is shown that the computed error in f(x) and f(x,y) and the
+   error on the computed error is same as that worked out in calc.
+   
+   The first print statement prints the result of the function.  The
+   second print statement prints the result of the propagated error.
+   Since this is another expression in x (or y or x and y), it has its
+   own propagated error.  The third print statement prints the
+   propagated error in the expression for the propagated error in the
+   original expression.
+*/
+msg="Error on the above expression should be = ";
+
+test()
+{
+  auto tx,ty;
+  auto dtx,dty,tmp;
+
+  tx=2pm0.2;
+  ty=3pm0.3;
+  
+  /*----------------------------------------------------------------------------
+    f(tx)=sin(tx)^cos(tx)
+    ----------------------------------------------------------------------------*/
+  print "sin(tx)^cos(tx) = ",sin(tx)^cos(tx),"\n";
+  tmp= 0.2*(sin(tx)^cos(tx))* (cos(tx)*cos(tx)/sin(tx) - log(sin(tx))*sin(tx));
+  print msg,tmp,"\n";
+  tmp=0.2*0.2*(cos(tx)*(cos(tx)*((cos(tx) - 1)*(sin(tx)**(cos(tx) - 2)*cos(tx)) - log(sin(tx))*(sin(tx)**(cos(tx) - 1)*sin(tx))) - sin(tx)**(cos(tx) - 1)*sin(tx)) - sin(tx)**(cos(tx) - 1)*(cos(tx)*sin(tx)) - sin(tx)**cos(tx)*cos(tx) - log(sin(tx))*(sin(tx)*(cos(tx)*(sin(tx)**(cos(tx) - 1)*cos(tx)) - log(sin(tx))*(sin(tx)**cos(tx)*sin(tx))) + sin(tx)**cos(tx)*cos(tx)));
+  print msg,tmp ,"\n";
+  
+  /*----------------------------------------------------------------------------
+    f(tx,ty)=tx^ty
+    ----------------------------------------------------------------------------*/
+  print "tx^ty = ",tx^ty,"\n";
+  tmp=(tx^ty)*sqrt(((ty/tx)*0.2)^2+(log(tx)*0.3)^2);
+  print msg,tmp,"\n";
+  tmp=sqrt((0.2*(0.5*(0.04*(ty**2*((2*ty - 2)*tx**(2*ty - 3)))+0.09*(2*(tx**(2*ty)*log(tx)) / tx + 2*(log(tx)**2*(ty*tx**(2*ty - 1)))))/sqrt(0.04*(ty**2*tx**(2*ty - 2)) + 0.09*(log(tx)**2*tx**(2*ty)))))**2 + (0.3*(0.5*(0.04*(2*(tx**(2*ty - 2)*ty) + 2*(ty**2*(log(tx)*tx**(2*ty - 2))))+0.18*(log(tx)**3*tx**(2*ty)))/sqrt(0.04*(ty**2*tx**(2*ty - 2)) + 0.09*(log(tx)**2*tx**(2*ty)))))**2);
+  print msg,tmp,"\n";
+  
+  /*----------------------------------------------------------------------------
+    f(tx,ty)=sin(tx)^cos(ty)
+    ----------------------------------------------------------------------------*/
+  print "sin(tx)**cos(ty) = ",sin(tx)**cos(ty),"\n";
+  
+  dtx :=cos(ty)*(sin(tx)**(cos(ty) - 1)*cos(tx));
+  dty :=-(log(sin(tx))*(sin(tx)**cos(ty)*sin(ty)));
+
+  tmp=sqrt((dtx*0.2)**2 + (dty*0.3)**2);
+  print msg,tmp,"\n";
+  
+  /*
+    The non-partial var version
+
+    print msg,sqrt(((0.2*(cos(ty)*(sin(tx)**(cos(ty) - 1)*cos(tx))))**2) + ((0.3*(-(log(sin(tx))*(sin(tx)**cos(ty)*sin(ty)))))**2)),"\n";
+  */
+  
+  dtx := 0.5*(0.04*(cos(ty)**2*(cos(tx)**2*((2*cos(ty) - 2)*(sin(tx)**(2*cos(ty) - 3)*cos(tx))) - 2*(sin(tx)**(2*cos(ty) - 2)*(cos(tx)*sin(tx))))) + 0.09*(2*(sin(tx)**(2*cos(ty))*(sin(ty)**2*(log(sin(tx))*cos(tx)))) / sin(tx) + 2*(log(sin(tx))**2*(sin(ty)**2*(cos(ty)*(sin(tx)**(2*cos(ty) - 1)*cos(tx))))))) / sqrt(0.04*(cos(ty)**2*(sin(tx)**(2*cos(ty) - 2)*cos(tx)**2)) + 0.09*(log(sin(tx))**2*(sin(tx)**(2*cos(ty))*sin(ty)**2)));
+
+  /*  Phew!  Same expression as above but computed entirely in Calc */
+ dtx:=0.5*(0.04*(cos(ty)*(cos(tx)*(cos(ty)*(sin(tx)**(cos(ty) - 1)*(cos(tx)*((cos(ty) - 1)*(sin(tx)**(cos(ty) - 2)*cos(tx)))))) + sin(tx)**(cos(ty) - 1)*(cos(tx)*(cos(ty)*(cos(tx)*((cos(ty) - 1)*(sin(tx)**(cos(ty) - 2)*cos(tx))) - sin(tx)**(cos(ty) - 1)*sin(tx))) - cos(ty)*(sin(tx)**(cos(ty) - 1)*(cos(tx)*sin(tx)))))) + 0.09*(sin(tx)**cos(ty)*(sin(ty)*(log(sin(tx))*(sin(tx)**cos(ty)*(sin(ty)*cos(tx))))) / sin(tx) + log(sin(tx))*(sin(ty)*(log(sin(tx))*(sin(tx)**cos(ty)*(sin(ty)*(cos(ty)*(sin(tx)**(cos(ty) - 1)*cos(tx)))))) + sin(tx)**cos(ty)*(sin(ty)*(sin(tx)**cos(ty)*(sin(ty)*cos(tx)) / sin(tx) + log(sin(tx))*(sin(ty)*(cos(ty)*(sin(tx)**(cos(ty) - 1)*cos(tx))))))))) / sqrt(0.04*(cos(ty)*(sin(tx)**(cos(ty) - 1)*(cos(tx)*(cos(ty)*(sin(tx)**(cos(ty) - 1)*cos(tx)))))) + 0.09*(log(sin(tx))*(sin(tx)**cos(ty)*(sin(ty)*(log(sin(tx))*(sin(tx)**cos(ty)*sin(ty)))))));
+
+  dty :=0.5*(0.09*(log(sin(tx))**2*(2*(sin(tx)**(2*cos(ty))*(sin(ty)*cos(ty))) - 2*(sin(ty)**2*(log(sin(tx))*(sin(tx)**(2*cos(ty))*sin(ty)))))) - 0.04*(2*(cos(ty)**2*(cos(tx)**2*(log(sin(tx))*(sin(tx)**(2*cos(ty) - 2)*sin(ty))))) + 2*(sin(tx)**(2*cos(ty) - 2)*(cos(tx)**2*(cos(ty)*sin(ty)))))) / sqrt(0.04*(cos(ty)**2*(sin(tx)**(2*cos(ty) - 2)*cos(tx)**2)) + 0.09*(log(sin(tx))**2*(sin(tx)**(2*cos(ty))*sin(ty)**2)));
+	
+  tmp=sqrt((dtx*0.2)**2 + (dty*0.3)**2);
+  print msg,tmp,"\n";
+
+
+
+  /* The non-partial var version.
+
+  
+  print msg,sqrt(0.25*(0.04*(((2*cos(ty) - 2)*(cos(tx)**3*sin(tx)**(2*cos(ty) - 3)) - 2*(sin(tx)**(2*cos(ty) - 1)*cos(tx)))*cos(ty)**2) + 0.09*(2*(sin(tx)**(2*cos(ty) - 1)*(sin(ty)**2*(cos(tx)*log(sin(tx))))) + 2*(log(sin(tx))**2*(sin(tx)**(2*cos(ty) - 1)*(sin(ty)**2*(cos(tx)*cos(ty)))))))**2 / (cos(tx)**2*(cos(ty)**2*sin(tx)**(2*cos(ty) - 2)) + 2.25*(log(sin(tx))**2*(sin(tx)**(2*cos(ty))*sin(ty)**2))) + 0.5625*(0.09*((2*(sin(tx)**(2*cos(ty))*(cos(ty)*sin(ty))) - 2*(sin(tx)**(2*cos(ty))*(sin(ty)**3*log(sin(tx)))))*log(sin(tx))**2) - 0.04*(2*(cos(tx)**2*(cos(ty)**2*(sin(tx)**(2*cos(ty) - 2)*(log(sin(tx))*sin(ty))))) + 2*(cos(tx)**2*(sin(tx)**(2*cos(ty) - 2)*(cos(ty)*sin(ty))))))**2 / (cos(tx)**2*(cos(ty)**2*sin(tx)**(2*cos(ty) - 2)) + 2.25*(log(sin(tx))**2*(sin(tx)**(2*cos(ty))*sin(ty)**2)))),"\n";
+
+    print msg,sqrt(((0.2*(0.5*(0.04*(cos(ty)**2*(cos(tx)**2*((2*cos(ty) - 2)*(sin(tx)**(2*cos(ty) - 3)*cos(tx))) - 2*(sin(tx)**(2*cos(ty) - 2)*(cos(tx)*sin(tx))))) + 0.09*(2*(sin(tx)**(2*cos(ty))*(sin(ty)**2*(log(sin(tx))*cos(tx)))) / sin(tx) + 2*(log(sin(tx))**2*(sin(ty)**2*(cos(ty)*(sin(tx)**(2*cos(ty) - 1)*cos(tx))))))) / sqrt(0.04*(cos(ty)**2*(sin(tx)**(2*cos(ty) - 2)*cos(tx)**2)) + 0.09*(log(sin(tx))**2*(sin(tx)**(2*cos(ty))*sin(ty)**2)))))**2) + ((0.3*(0.5*(0.09*(log(sin(tx))**2*(2*(sin(tx)**(2*cos(ty))*(sin(ty)*cos(ty))) - 2*(sin(ty)**2*(log(sin(tx))*(sin(tx)**(2*cos(ty))*sin(ty)))))) - 0.04*(2*(cos(ty)**2*(cos(tx)**2*(log(sin(tx))*(sin(tx)**(2*cos(ty) - 2)*sin(ty))))) + 2*(sin(tx)**(2*cos(ty) - 2)*(cos(tx)**2*(cos(ty)*sin(ty)))))) / sqrt(0.04*(cos(ty)**2*(sin(tx)**(2*cos(ty) - 2)*cos(tx)**2)) + 0.09*(log(sin(tx))**2*(sin(tx)**(2*cos(ty))*sin(ty)**2)))))**2)),"\n";
+  */
+};
+test();
+

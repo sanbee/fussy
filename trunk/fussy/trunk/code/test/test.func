@@ -1,0 +1,61 @@
+/* -*- C -*- */
+/* calling b should give a seg fault */
+/* LocalSymbTab needs to be changed to a list instead of a vector */
+/* 
+   The above is done.  In fact the code would have failed earlier
+   if e() was called even without going to lists!
+*/
+t=0;
+fa(x){return (x^2);}
+fb(x) {auto t; t:=x;return x;}
+fc(x) {return 2;}
+fd(x){return sin(fa(x));}
+fd1(x){ auto t;t:=sin(fa(x));return t;}
+fd2(x){ auto t;t=sin(fa(x));return t;}
+
+x=2pm0.2;
+y=x;
+NL="\n";
+line="-------------------------------------------\n";
+
+f(x)
+{
+  auto c,e;
+  c=30pm1;
+  e:=c*x
+  return e;
+}
+
+test()
+{
+  print "fb(x) = \t",fb(x),NL;
+  print "Following should have same value and error: ",NL,line;
+  print "fd(x) = \t",fd(x),NL;
+  print "fd1(x) = \t",fd1(x),NL;
+  print "sin(fa(x)) = \t",sin(fa(x)),NL;
+  print "sin(x^2) = \t",sin(x^2),NL;
+  print "fd2(x) = \t",fd2(x),NL;
+  print "Following should have same value and error: ",NL,line;
+  print "x*fd(x) = \t",x*fd(x),NL;
+  print "x*fd1(x) = \t",x*fd1(x),NL;
+  print "x*sin(fa(x)) = \t",x*sin(fa(x)),NL;
+  print "x*sin(x*x) = \t",x*sin(x*x), NL;
+  y=x;
+  line="--------------------------------------------------------------\n";
+  print "Following should have same value as above but different error: ",NL,line;
+  print "y*fd1(x) = \t",y*fd1(x),NL;
+  print "y*sin(fa(x)) = \t",y*sin(fa(x)),NL;
+  print "y*sin(x^2) = \t", y*sin(x^2),NL;
+  print "x*fd2(x) = \t",x*fd2(x),NL;
+  print "Value of f(11) = ",f(11),"\n";
+};
+
+test();
+
+/*
+a(x){return cos(x);}
+b(x){auto t;t=1.1;t=a(x);print "from b: ",t,"\n";}
+c(x){auto t,t0;t0=10*x; t=t0;print "from c: ",t,"\n";print a(x),t0,"\n";}
+d(x){return a(x);}
+e(x){auto t,t0;t0=10*x; t=t0;print "from e: ",t,"\n";b(x);print d(x),t0,"\n";}
+*/

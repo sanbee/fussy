@@ -1,0 +1,44 @@
+test(){
+auto x,y,x1,x2
+x=1pm0.1
+y=2pm0.2
+x1=1pm0.1
+x2=1pm0.1
+print "Value of x=\t",x,"\n"
+print "Value of y=\t",y,"\n"
+print "Value of x1=\t",x1,"\n"
+print "Value of x2=\t",x2,"\n"
+print "sin(x)=\t",sin(x),"\n"
+print "sqrt(1-sin(x)^2)=\t",sqrt(1-sin(x)^2),"\n"
+print "cos(x)=\t",cos(x),"\n"
+print "tan(x)=\t",tan(x),"\n"
+print "sin(x)/cos(x)=\t",sin(x)/cos(x),"\n"
+
+print "asin(sin(x))=\t",asin(sin(x)),"\n"
+print "acos(cos(x))=\t",acos(cos(x)),"\n"
+print "atan(tan(x))=\t",atan(tan(x)),"\n"
+
+print "asinh(sinh(x))=\t",asinh(sinh(x)),"\n"
+print "acosh(cosh(x))=\t",acosh(cosh(x)),"\n"
+print "atanh(tanh(x))=\t",atanh(tanh(x)),"\n"
+
+print "exp(ln(x))=\t",exp(ln(x)),"\n";
+print "sinh(x)=\t",sinh(x),"\n"
+print "(exp(x)-exp(-x))/2=\t",(exp(x)-exp(-x))/2,"\n"
+print "sinh(x)/((exp(x)-exp(-x))/2)=\t",sinh(x)/((exp(x)-exp(-x))/2),"\n"
+print "acosh(cosh(x))=\t",acosh(cosh(x)),"\n"
+print "atanh(tanh(x))=\t",atanh(tanh(x)),"\n"
+
+print "exp(ln(x))=",exp(ln(x)),"\n"
+print "x/exp(ln(x))=",x/exp(ln(x)),"\n"
+
+print "y/(1-y) =",(y/(1-y))%16.6f,"\n";
+print "y/(-y+1)=",(y/(-y+1))%16.6f,"\n"
+
+print "sin(x1)*sin(x1)=\t",sin(x1)*sin(x1),"\n";
+print "sin(x1)*sin(x2)=\t",sin(x1)*sin(x2),"\n";
+print "(sin(x1)^2+cos(x1)^2)=\t",(sin(x1)^2+cos(x1)^2),"\n";
+print "(sin(x1)^2+cos(x1)^2)/(sin(x2)^2+cos(x2)^2)=\t",(sin(x1)^2+cos(x1)^2)/(sin(x2)^2+cos(x2)^2),"\n";
+print "sin(x1)^2+cos(x2)^2=\t",sin(x1)^2+cos(x2)^2,"\n";
+};
+test();

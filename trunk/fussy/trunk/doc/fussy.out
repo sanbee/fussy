@@ -1,0 +1,26 @@
+\BOOKMARK [1][-]{section.1}{Introduction}{}
+\BOOKMARK [1][-]{section.2}{Error propagation: Single variable case}{}
+\BOOKMARK [2][-]{subsection.2.1}{Example}{section.2}
+\BOOKMARK [1][-]{section.3}{Error propagation: Algorithm for the multi-variate case}{}
+\BOOKMARK [2][-]{subsection.3.1}{The multiplication operator}{section.3}
+\BOOKMARK [2][-]{subsection.3.2}{The division operator}{section.3}
+\BOOKMARK [2][-]{subsection.3.3}{The addition operator}{section.3}
+\BOOKMARK [2][-]{subsection.3.4}{The subtraction operator}{section.3}
+\BOOKMARK [2][-]{subsection.3.5}{The power operator}{section.3}
+\BOOKMARK [1][-]{section.4}{Examples}{}
+\BOOKMARK [2][-]{subsection.4.1}{Recursion}{section.4}
+\BOOKMARK [1][-]{section.A}{An example of a multi-variate expression}{}
+\BOOKMARK [1][-]{section.B}{Syntax}{}
+\BOOKMARK [2][-]{subsection.B.1}{Numbers}{section.B}
+\BOOKMARK [3][-]{subsubsection.B.1.1}{Units}{subsection.B.1}
+\BOOKMARK [2][-]{subsection.B.2}{Operators and built-in functions}{section.B}
+\BOOKMARK [2][-]{subsection.B.3}{Expressions/Statements}{section.B}
+\BOOKMARK [2][-]{subsection.B.4}{Sub-expressions}{section.B}
+\BOOKMARK [2][-]{subsection.B.5}{Variables and function/procedure names}{section.B}
+\BOOKMARK [2][-]{subsection.B.6}{Function/procedure}{section.B}
+\BOOKMARK [2][-]{subsection.B.7}{Control statements}{section.B}
+\BOOKMARK [3][-]{subsubsection.B.7.1}{if-else}{subsection.B.7}
+\BOOKMARK [3][-]{subsubsection.B.7.2}{while-loop}{subsection.B.7}
+\BOOKMARK [3][-]{subsubsection.B.7.3}{for-loop}{subsection.B.7}
+\BOOKMARK [2][-]{subsection.B.8}{Print statement}{section.B}
+\BOOKMARK [2][-]{subsection.B.9}{Formatting}{section.B}

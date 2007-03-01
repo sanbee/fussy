@@ -1,0 +1,170 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with jLaTeX2HTML 2002-2-1 (1.70) JA patch-2.0
+patched version by:  Kenshi Muto, Debian Project.
+* modified by:  Shige TAKENO
+LaTeX2HTML 2002-2-1 (1.70),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Examples</TITLE>
+<META NAME="description" CONTENT="Examples">
+<META NAME="keywords" CONTENT="fussy">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002-2-1 JA patch-2.0">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="fussy.css">
+
+<LINK REL="next" HREF="node12.html">
+<LINK REL="previous" HREF="node4.html">
+<LINK REL="up" HREF="fussy.html">
+<LINK REL="next" HREF="node11.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html146"
+  HREF="node11.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html144"
+  HREF="fussy.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html138"
+  HREF="node9.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html147"
+  HREF="node11.html">Recursion</A>
+<B> Up:</B> <A NAME="tex2html145"
+  HREF="fussy.html">The fussy language: Implementation</A>
+<B> Previous:</B> <A NAME="tex2html139"
+  HREF="node9.html">The power operator</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00040000000000000000"></A>
+<A NAME="SEC:EXAMPLES"></A>
+<BR>
+Examples
+</H1>
+Following are some examples to demonstrate as well as test the
+correctness of the error propagation algorithm of
+Section&nbsp;<A HREF="node4.html#SEC:MULTI_VAR">3</A>.  In the following examples, various
+functions are written in different algebraic forms and the results for
+the different forms is shown to be exactly same (e.g. <IMG
+ WIDTH="55" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img18.png"
+ ALT="$\cos(x)$"> vs.
+<!-- MATH
+ $\sqrt{1-\sin^2(x)}$
+ -->
+<IMG
+ WIDTH="109" HEIGHT="50" ALIGN="MIDDLE" BORDER="0"
+ SRC="img59.png"
+ ALT="$\sqrt{1-\sin^2(x)}$">, <IMG
+ WIDTH="57" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img60.png"
+ ALT="$\tan(x)$"> vs. <!-- MATH
+ $\sin(x)/\cos(x)$
+ -->
+<IMG
+ WIDTH="116" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img61.png"
+ ALT="$\sin(x)/\cos(x)$">).  These
+examples also verify that the combination of a function and its
+inverse simply returns the argument (e.g <!-- MATH
+ $asin(\sin(x))=x$
+ -->
+<IMG
+ WIDTH="139" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img62.png"
+ ALT="$asin(\sin(x))=x$">), as well
+as functions like <!-- MATH
+ $\sinh(x)/((\exp(x)-\exp(-x))/2)$
+ -->
+<IMG
+ WIDTH="266" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
+ SRC="img63.png"
+ ALT="$\sinh(x)/((\exp(x)-\exp(-x))/2)$"> (which is really a
+complicated way of writing <IMG
+ WIDTH="14" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img13.png"
+ ALT="$1$">!) returns a value of <IMG
+ WIDTH="14" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img13.png"
+ ALT="$1$"> with no error.
+However, if the values of two independent variates <IMG
+ WIDTH="23" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="img34.png"
+ ALT="$x_1$"> and <IMG
+ WIDTH="23" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
+ SRC="img35.png"
+ ALT="$x_2$"> and
+their corresponding errors are same, the value of expressions like
+<!-- MATH
+ $\sin^2(x_1) + \cos^2(x_2)$
+ -->
+<IMG
+ WIDTH="156" HEIGHT="40" ALIGN="MIDDLE" BORDER="0"
+ SRC="img64.png"
+ ALT="$\sin^2(x_1) + \cos^2(x_2)$"> will be <IMG
+ WIDTH="14" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img13.png"
+ ALT="$1$"> but the error will not be zero.
+<PRE>
+   Value of x         =  1.00000 +/- 0.10000
+   Value of y         =  2.00000 +/- 0.20000
+   Value of x1        =  1.00000 +/- 0.10000
+   Value of x2        =  1.00000 +/- 0.10000
+
+   sin(x)             =  0.84147 +/-  0.05403
+   sqrt(1-sin(x)^2)   =  0.54030 +/-  0.08415
+   cos(x)             =  0.54030 +/-  0.08415
+
+   tan(x)             =  1.55741 +/-  0.34255
+   sin(x)/cos(x)      =  1.55741 +/-  0.34255
+
+   asin(sin(x))       =  1.00000 +/-  0.10000
+   asinh(sinh(x))     =  1.00000 +/-  0.10000
+   atanh(tanh(x))     =  1.00000 +/-  0.10000
+   exp(ln(x))         =  1.00000 +/-  0.10000
+
+   sinh(x)            =  1.17520 +/-  0.15431
+   (exp(x)-exp(-x))/2 =  1.17520 +/-  0.15431
+
+   sinh(x)/((exp(x)-exp(-x))/2) =  1.00000
+   x/exp(ln(x))                 =  1.00000
+
+   sin(x1)*sin(x1)       =  0.70807 +/- 0.09093
+   sin(x1)*sin(x2)       =  0.70807 +/- 0.06430
+   sin(x1)^2+cos(x1)^2   =  1.00000 +/- 0.00000
+   sin(x1)^2+cos(x2)^2   =  1.00000 +/- 0.12859
+</PRE>
+
+<P>
+<BR><HR>
+<!--Table of Child-Links-->
+<A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
+
+<UL>
+<LI><A NAME="tex2html148"
+  HREF="node11.html">Recursion</A>
+</UL>
+<!--End of Table of Child-Links-->
+<BR><HR>
+<ADDRESS>
+Sanjay Bhatnagar
+2006-10-17
+</ADDRESS>
+</BODY>
+</HTML>

@@ -1,0 +1,118 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with jLaTeX2HTML 2002-2-1 (1.70) JA patch-2.0
+patched version by:  Kenshi Muto, Debian Project.
+* modified by:  Shige TAKENO
+LaTeX2HTML 2002-2-1 (1.70),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Formatting</TITLE>
+<META NAME="description" CONTENT="Formatting">
+<META NAME="keywords" CONTENT="fussy">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002-2-1 JA patch-2.0">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="fussy.css">
+
+<LINK REL="previous" HREF="node26.html">
+<LINK REL="up" HREF="node14.html">
+<LINK REL="next" HREF="node28.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html326"
+  HREF="node28.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html324"
+  HREF="node14.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html320"
+  HREF="node26.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html327"
+  HREF="node28.html">ACKNOWLEDGEMENTS</A>
+<B> Up:</B> <A NAME="tex2html325"
+  HREF="node14.html">Syntax</A>
+<B> Previous:</B> <A NAME="tex2html321"
+  HREF="node26.html">Print statement</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00079000000000000000"></A>
+<A NAME="FORMATTING"></A>
+<BR>
+Formatting
+</H2>
+
+<P>
+Values can be formatted for printing in a variety of ways.  The format
+in which a variable is printed is associated with the variable and
+consists of a <TT>printf</TT> styled formatting string (with extensions
+for specifying the units of the numerical values as well).  E.g., if
+<TT>x=75pm10</TT>, by default <TT>x</TT> will be printed using the <TT>'%10.5f'</TT> format.  The default print format can be modified using the
+<TT>'.'</TT> operator on a variable.  E.g., one can fix the default print
+format of <TT>x</TT> to <TT>'%5.2f'</TT> by <TT>x.=%5.2f</TT>.
+
+<P>
+The print format of a value can also be temporarily modified by
+specifying the format along with the variable/value.  E.g. the value
+of <TT>x</TT> can be printed in the exponent format as <TT>print x%E</TT>
+or in the in hexadecimal format as <TT>print x%x</TT>.
+
+<P>
+An extra formatting, not available in <TT>printf</TT> formatting, is that
+of printing the individual bit values using the <TT>%b</TT> format.
+With this, the value is printed in binary (1 or 0) format.  <TT>%B</TT> does the same thing except that it prints a space after every 8 bits.
+The value is casted into a <TT>unsigned long</TT> integer before
+printing.
+<PRE>
+   &gt;x=10;x%B
+        00000000 00000000 00000000 00001010
+</PRE>
+If the units of a value are specified, the print format is also
+appropriately modified.  If a variable has units of time or angle, its
+print format is automatically set to <TT>%hms</TT> or <TT>%dms</TT>
+and are printed in the <TT>XXhXXmXX.XXs</TT> and <TT>XXdXX<TT>'</TT>XX.XX<TT>"</TT></TT> styles respectively.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html326"
+  HREF="node28.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html324"
+  HREF="node14.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html320"
+  HREF="node26.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html327"
+  HREF="node28.html">ACKNOWLEDGEMENTS</A>
+<B> Up:</B> <A NAME="tex2html325"
+  HREF="node14.html">Syntax</A>
+<B> Previous:</B> <A NAME="tex2html321"
+  HREF="node26.html">Print statement</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Sanjay Bhatnagar
+2006-10-17
+</ADDRESS>
+</BODY>
+</HTML>

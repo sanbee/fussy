@@ -1,0 +1,9 @@
+sin(tx)^cos(tx) =    1.04036 +/-    0.05762
+Error on the above expression should be =    0.05762 +/-    0.05712
+Error on the above expression should be =    0.05712 +/-    0.03496
+tx^ty =    8.00000 +/-    2.92017
+Error on the above expression should be =    2.92017 +/-    1.14554
+Error on the above expression should be =    1.14554 +/-    0.48978
+sin(tx)**cos(ty) =    1.09870 +/-    0.09966
+Error on the above expression should be =    0.09966 +/-    0.06193
+Error on the above expression should be =    0.06193 +/-    0.02512

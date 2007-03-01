@@ -1,0 +1,41 @@
+\begin{thebibliography}{9}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+
+\bibitem[{Barton \& Nackman(1994)}]{ScComp}
+Barton, J.~J. \& Nackman, L.~R. 1994, Scientific and Engineering C++: an
+  introduction with advanced techniques and examples (Reading, Mass.:
+  Addison-Wesley Publishing Company)
+
+\bibitem[{Bischof {et~al.}(1997)Bischof, Roh, \& Mauer}]{Bischof1997A-A}
+Bischof, C.~H., Roh, L., \& Mauer, A. 1997, Software--Practice and Experience,
+  27, 1427
+
+\bibitem[{Gillespie(1992)}]{Calc}
+Gillespie, D. 1992, GNU Emacs Calc Manual: For Calc Version 2.02 (59 Temple
+  Place, Suite 330 Boston, MA 02111, USA.: Free Software Foundation)
+
+\bibitem[{Griewank {et~al.}(1996)Griewank, Juedes, \& Utke}]{Griewank:1996:AAP}
+Griewank, A., Juedes, D., \& Utke, J. 1996, {ACM} Transactions on Mathematical
+  Software, 22, 131
+
+\bibitem[{Harrison(1995)}]{EDA}
+Harrison, D. 1995, Experimental Data Analysis ({E}{D}{A}) tool for
+  {M}athematica,
+  http://www.upscale.utoronto.ca/GeneralInterest/$\sim$Harrison/ErrProp.html
+
+\bibitem[{Hearn(1971)}]{REDUCE2}
+Hearn, A.~C. 1971, in Proceedings of the Second Symposium on Symbolic and
+  Algebraic Manipulation, Los Angeles, 128--133
+
+\bibitem[{Hearn(1995)}]{REDUCE}
+Hearn, A.~C. 1995, REDUCE User's Manual Version 3.6 (RAND Publication CP78
+  (Rev. 7/95))
+
+\bibitem[{Stoutemyer(1977)}]{Stoutemyer:1977}
+Stoutemyer, D.~R. 1977, {ACM} Transactions on Mathematical Software, 3, 26
+
+\bibitem[{Tsukanov \& Hall(2003)}]{Tsukanov2003Dsa}
+Tsukanov, I. \& Hall, M. 2003, International Journal for Numerical Methods in
+  Engineering, 56, 1949
+
+\end{thebibliography}

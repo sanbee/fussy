@@ -1,0 +1,62 @@
+#!/bin/bash 
+
+UnitTests="test.general test.func test.builtins test.subtree.builtins test.pow test.factorial test.laguerre test.constants"
+
+tmp=`ls test.*`;
+UnitTests=`for f in $tmp; do echo $f | grep -v out;done;`
+if [ $# -ge 1 ];
+then
+    FUSSY=$1;
+else
+    FUSSY=../fussy;
+fi
+
+PrintStatus()
+{
+  let i=$2;
+  STATUS="[FAILED]";
+
+  if [ -z "$1" ];
+  then
+    STATUS="[PASSED]";
+  fi
+
+  if [ $i -gt 0 ];
+  then
+    while [ $i -ne 0 ]; 
+    do 
+      echo -n ' '; 
+      let i=i-1; 
+    done; 
+  fi; 
+  echo $STATUS;
+
+  if [ $STATUS = "[FAILED]" ];
+  then
+    echo "###Output of the above test = ";
+    eval $3;
+  fi;
+}    
+#
+#--------------------------------------------------------------
+#
+if [ -e $FUSSY ]; then 
+  echo 'Testing '$FUSSY' for the following unit tests:';
+  echo -e '\t'$UnitTests;
+  echo;
+  PGM=`basename "$FUSSY"`
+  for f in $UnitTests
+  do
+    c="("$FUSSY" "$f" quit 2> /dev/null ) | diff - "$f.out;
+    cmd="($PGM "$f" quit 2> /dev/null ) | diff - "$f.out;
+    msg="Unit test "$cmd;
+    wc=`echo $msg|wc -c`;
+    let n=85-wc;
+    echo -n $msg'...';
+    r=`eval $c`;
+    PrintStatus "$r" $n "$c";
+  done
+else
+  echo $FUSSY" not found!";
+  exit 0;
+fi
