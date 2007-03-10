@@ -1,6 +1,4 @@
-Instructions for compiling
-
-= Compiling=
+= Instructions for Compiling=
 
 This software has been tested to compile on Linux operating system
 with GCC 3.2.3.  The software utilizes a few routines from the Star
