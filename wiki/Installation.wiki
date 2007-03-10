@@ -2,8 +2,8 @@
 = Instructions for Compiling=
 
 This software has been tested to compile on Linux operating system
-with GCC 3.2.3.  The software utilizes a few routines from the [http://star-www.rl.ac.uk !Star
-Link Astronomy library].  The software can be compiled on Linux with the
+with GCC 3.2.3.  The software utilizes a few routines from the [http://star-www.rl.ac.uk Star
+link Astronomy library].  The software can be compiled on Linux with the
 command
 {{{
 	gmake check
