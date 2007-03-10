@@ -1,3 +1,4 @@
+#labels Phase-Deploy,Featured
 = Instructions for Compiling=
 
 This software has been tested to compile on Linux operating system
