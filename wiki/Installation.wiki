@@ -4,8 +4,9 @@ This software has been tested to compile on Linux operating system
 with GCC 3.2.3.  The software utilizes a few routines from the Star
 Link Astronomy library.  The software can be compiled on Linux with the
 command
-
+{{{
 	gmake check
+}}}
 
 Use "gmake allclean" to clean up any previous builds (.o, .a and
 executable binary files).
@@ -14,9 +15,9 @@ You might need to set the CCPATH, CC and CCINCL variables in the
 makefile to use the right compiler.
 
 Finally issue the command:
-
+{{{
 	cp exit.dat ~/.exit.dat
-
+}}}
 The functions used from the StarLink Astronomy Library are in the
 directory "sla" and the class used for the extended numbers which
 holds the value and associated random error is in the directory
