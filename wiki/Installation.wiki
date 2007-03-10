@@ -27,7 +27,7 @@ for the extended numbers are overloaded here.
 The lexical analyzer uses the GNU Readline library for commandline
 editing features.
 
-= Tests =
+== Units tests ==
 
 The "gmake check" command will build and check the interpretor (use
 "gmake fussy" if you only want to build it).
