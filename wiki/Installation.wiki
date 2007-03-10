@@ -41,6 +41,7 @@ this script is the name of the binary executable which needs to be
 tested).  If the tests pass, the output of the script should look
 like:
 
+{{{
 Testing fussy ...
 Unit test (fussy test.general quit 2> /dev/null ) | diff - test.general.out...         [PASSED]
 Unit test (fussy test.func quit 2> /dev/null ) | diff - test.func.out...               [PASSED]
@@ -49,6 +50,6 @@ Unit test (fussy test.subtree.builtins quit 2> /dev/null ) | diff - test.subtree
 Unit test (fussy test.pow quit 2> /dev/null ) | diff - test.pow.out...                 [PASSED]
 Unit test (fussy test.factorial quit 2> /dev/null ) | diff - test.factorial.out...     [PASSED]
 Unit test (fussy test.laguerre quit 2> /dev/null ) | diff - test.laguerre.out...       [PASSED]
-
+}}}
 
 If the tests pass, that's it!  Usher yourself into the fussy world.
