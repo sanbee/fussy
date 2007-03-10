@@ -56,9 +56,6 @@ If the tests pass, that's it!  Usher yourself into the fussy world.
 
 = Files =
 
-Files:
------
-
 {{{
 AngFmt.cc,AngFmt.h:     Class to print the numbers in angular or time
                         formats.
