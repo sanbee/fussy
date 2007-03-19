@@ -347,19 +347,19 @@ void showHelp()
   cerr << "Sub-program units (functions/procedures) can be passed as arguments to" << endl;
   cerr << "other sub-program units." <<endl;
 
-  cerr << endl << "Mathematical functions:" << endl;
+  cerr << endl << "Mathematical functions available:" << endl;
   cerr << "\t" << "sin, cos, tan, asin, acos, atan, atan2, sinh, cosh, tanh" << endl;
   cerr << "\t" << "asinh, acosh, atanh, exp, ln, log, fabs, fmod, sqrt, int" << endl;
 
   cerr << endl << "Some useful constants:" << endl;
   cerr << "\t PI: The value of PI" << endl;
-  cerr << "\t C: The speed of line in meter/second" << endl;
+  cerr << "\t C: The speed of line in metre/second" << endl;
   cerr << "\t R2D: Factor to convert angles in degree to radian" << endl;
   cerr << "\t A2R: Factor to convert angles in arcsecond to radian" << endl;
   cerr << "\t kb: The Boltzmann constant" << endl;
-  cerr << "\t PC2M: Factor to convert from Parsec to meter" << endl;
+  cerr << "\t PC2M: Factor to convert from Parsec to metre" << endl;
   cerr << "\t PC2LY: Factor to convert from Parsec to Lighyear" << endl;
-  cerr << "\t AU2M: Factor to convert from Astronomical Unit to meter" << endl;
+  cerr << "\t AU2M: Factor to convert from Astronomical Unit to metre" << endl;
   cerr << "\t sigma: [NOT YET USED] Threshold to use for the result of logical" << endl
        << INDENT << "operators" << endl;
   cerr << endl << "System variables:" << endl;
@@ -370,7 +370,7 @@ void showHelp()
   cerr << "\t These variables can be set only by special commands" << endl
        << "\t setlong, setlat and seteps (see below)." << endl;
 
-  cerr << endl << "Astronomical functions:" << endl;
+  cerr << endl << "Astronomical functions available:" << endl;
   cerr << "\t" << "time():  returns the current time in the hms format." << endl;
   cerr << "\t" << "lst():   returns the Local Sidereal time in the hms format." << endl;
   cerr << "\t" << "day():   returns the current day." << endl;
