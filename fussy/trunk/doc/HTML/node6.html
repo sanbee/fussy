@@ -1,0 +1,131 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with jLaTeX2HTML 2002-2-1 (1.70) JA patch-2.0
+patched version by:  Kenshi Muto, Debian Project.
+* modified by:  Shige TAKENO
+LaTeX2HTML 2002-2-1 (1.70),
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>The division operator</TITLE>
+<META NAME="description" CONTENT="The division operator">
+<META NAME="keywords" CONTENT="fussy">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="jLaTeX2HTML v2002-2-1 JA patch-2.0">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="fussy.css">
+
+<LINK REL="next" HREF="node7.html">
+<LINK REL="previous" HREF="node5.html">
+<LINK REL="up" HREF="node4.html">
+<LINK REL="next" HREF="node7.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html108"
+  HREF="node7.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html106"
+  HREF="node4.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html100"
+  HREF="node5.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html109"
+  HREF="node7.html">The addition operator</A>
+<B> Up:</B> <A NAME="tex2html107"
+  HREF="node4.html">Error propagation: Algorithm for</A>
+<B> Previous:</B> <A NAME="tex2html101"
+  HREF="node5.html">The multiplication operator</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H2><A NAME="SECTION00032000000000000000">
+The division operator</A>
+</H2>
+
+<P>
+As before, the result of the division operator is computed as <TT>L/R</TT> and returned on the <TT>VMS</TT> using the following code.
+<PRE>
+   Expr(L,R) {return L/R};  /* Compute the value for 
+   ComputeResult(L,R,Expr);    the division operator */
+</PRE>
+For all IDs common between <TT>L</TT> and <TT>R</TT>, the partial derivative
+is computes as <TT>(R*dxL - L*dxR)/(R*R)</TT> and returned on the
+appropriate <TT>DS</TT>s using the following code.  
+<PRE>
+   Expr(L,R,dxL,dxR) {return (R*dxL - L*dxR)/(R*R)};
+   dCommonVar(L,R,Expr);
+</PRE>
+This is equivalent to computing
+<BR>
+<DIV ALIGN="RIGHT">
+
+<!-- MATH
+ \begin{equation}
+{\partial \over {\partial x}}\left[{f(x,a) \over g(x,b)}\right] =
+{1 \over g(x,a)^2}\left[{g(x,a) {{\partial f(x,a)} \over  {\partial
+x}}} - f(x,a) {{\partial g(x,b)} \over {\partial x}}\right]
+\end{equation}
+ -->
+<TABLE WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE"><TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="477" HEIGHT="54" BORDER="0"
+ SRC="img47.png"
+ ALT="\begin{displaymath}
+{\partial \over {\partial x}}\left[{f(x,a) \over g(x,b)}\rig...
+...l
+x}}} - f(x,a) {{\partial g(x,b)} \over {\partial x}}\right]
+\end{displaymath}"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(3)</TD></TR>
+</TABLE>
+<BR CLEAR="ALL"></DIV><P></P>
+Next, partial derivatives with respect to each of the non-common
+variables are computed (here with respect to <IMG
+ WIDTH="15" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
+ SRC="img41.png"
+ ALT="$a$"> as <!-- MATH
+ ${1 \over g(x,b)}
+{\partial f(x,a) \over \partial a}$
+ -->
+<IMG
+ WIDTH="92" HEIGHT="45" ALIGN="MIDDLE" BORDER="0"
+ SRC="img48.png"
+ ALT="${1 \over g(x,b)}
+{\partial f(x,a) \over \partial a}$"> and with respect to <IMG
+ WIDTH="13" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
+ SRC="img42.png"
+ ALT="$b$"> as
+<!-- MATH
+ $-{f(x,a) \over {g(x,b)^2}}{\partial g(x,b) \over \partial b}$
+ -->
+<IMG
+ WIDTH="111" HEIGHT="45" ALIGN="MIDDLE" BORDER="0"
+ SRC="img49.png"
+ ALT="$-{f(x,a) \over {g(x,b)^2}}{\partial g(x,b) \over \partial b}$">) and
+returned on the appropriate <TT>DS</TT>s by the following code.
+<PRE>
+   LExpr(L,R,dx) {return dx/R};
+   RExpr(L,R,dx) {return -L*dx/(R*R)};
+   dNoncommonVar(L,R,LExpr,RExpr);
+</PRE>
+<BR><HR>
+<ADDRESS>
+Sanjay Bhatnagar
+2006-10-17
+</ADDRESS>
+</BODY>
+</HTML>
