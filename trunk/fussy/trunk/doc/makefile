@@ -3,23 +3,17 @@ LATEX=latex
 LATEX2HTML:=latex2html
 BIBTEX=bibtex
 DVIPS=dvips
+SOURCEDIR=LaTeX
 
-fussy.html: fussy.dvi
-	$(LATEX2HTML) fussy
-fussy.ps: fussy.dvi
-	$(DVIPS) fussy.dvi -o fussy.ps
+all: 
+	cd $(SOURCEDIR); gmake
+	cd HTML; gmake
 
-fussy.dvi: fussy.tex fussy.bbl
-	$(LATEX) fussy.tex
+fussy.ps:
+	cd $(SOURCEDIR); gmake
 
-fussy.aux: fussy.tex
-	$(LATEX) fussy.tex
+fussy.html: 
+	cd HTML; gmake
 
-fussy.bbl: fussy.aux fussy.bib
-	$(LATEX) fussy.tex
-	$(BIBTEX) fussy
-	$(LATEX) fussy.tex
-	$(LATEX) fussy.tex
-
-clean: 
-	\rm -f *.dvi *.aux *.log *.bbl *.blg *~
+clean:
+	cd HTML;gmake clean;
