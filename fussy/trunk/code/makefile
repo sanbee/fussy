@@ -52,7 +52,7 @@ INCL          = -I. -I$(READLINEINCL) -I$(ROOT)/emath -I/usr/freeware/include/g+
 GENLIBS       = $(READLINE) $(SLA) \
 	        -lreadline -lhistory -ltermcap -lfl -lg2c -lm
 
-OBJS          = calc.o calcinit.o tables.o vcode.o prtVM.o ErrorObj.o func.o \
+OBJS          = calc.o calcinit.o tables.o vcode.o prtFuncs.o ErrorObj.o func.o \
 		BitField.o IDResource.o ExitMsg.o
 #
 #----------------------------------------------------------------
@@ -91,8 +91,8 @@ vm.a: calc.h vmMake
 type.a: y.tab.h typeMake
 	./typeMake y.tab.h > type.a
 
-prtVM.o: prtFuncs.cc vm.a y.tab.h type.a
-	$(CC) -c prtFuncs.cc -o prtVM.o
+prtFuncs.o: prtFuncs.cc vm.a y.tab.h type.a
+	$(CC) -c prtFuncs.cc -o prtFuncs.o
 
 vcode.o: vcode.cc calc.h
 	$(CC) -c vcode.cc -o vcode.o
@@ -211,17 +211,17 @@ IDResource.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
 IDResource.o: /usr/include/stdlib.h ./BitField.h namespace.h
 IDResource.o: /usr/include/math.h /usr/include/bits/huge_val.h
 IDResource.o: /usr/include/bits/mathdef.h /usr/include/bits/mathcalls.h
-prtVM.o: ./calc.h /usr/include/math.h /usr/include/features.h
-prtVM.o: /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h
-prtVM.o: /usr/include/bits/huge_val.h /usr/include/bits/mathdef.h
-prtVM.o: /usr/include/bits/mathcalls.h ./emath/emath.h ./emath/Err.h
-prtVM.o: ./units.h ./defns.h ./BitField.h /usr/include/stdio.h
-prtVM.o: /usr/include/bits/types.h /usr/include/bits/wordsize.h
-prtVM.o: /usr/include/bits/typesizes.h /usr/include/libio.h
-prtVM.o: /usr/include/_G_config.h /usr/include/wchar.h
-prtVM.o: /usr/include/bits/wchar.h /usr/include/gconv.h
-prtVM.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
-prtVM.o: /usr/include/stdlib.h namespace.h
+prtFuncs.o: ./calc.h /usr/include/math.h /usr/include/features.h
+prtFuncs.o: /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h
+prtFuncs.o: /usr/include/bits/huge_val.h /usr/include/bits/mathdef.h
+prtFuncs.o: /usr/include/bits/mathcalls.h ./emath/emath.h ./emath/Err.h
+prtFuncs.o: ./units.h ./defns.h ./BitField.h /usr/include/stdio.h
+prtFuncs.o: /usr/include/bits/types.h /usr/include/bits/wordsize.h
+prtFuncs.o: /usr/include/bits/typesizes.h /usr/include/libio.h
+prtFuncs.o: /usr/include/_G_config.h /usr/include/wchar.h
+prtFuncs.o: /usr/include/bits/wchar.h /usr/include/gconv.h
+prtFuncs.o: /usr/include/bits/stdio_lim.h /usr/include/bits/sys_errlist.h
+prtFuncs.o: /usr/include/stdlib.h namespace.h
 tables.o: ./tables.h /usr/include/values.h /usr/include/features.h
 tables.o: /usr/include/sys/cdefs.h /usr/include/gnu/stubs.h
 tables.o: /usr/include/limits.h /usr/include/math.h
