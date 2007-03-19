@@ -65,7 +65,7 @@ fussy: updatecopyright fussy.o libcalc.a $(SLA)
 $(SLA): 
 	cd $(ROOT)/sla;gmake
 
-updatecopyright:
+updatecopyright: *.cc *.c *.h
 	../scripts/updatecopyright
 	\rm -f *.old
 
