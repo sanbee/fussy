@@ -54,14 +54,20 @@ GENLIBS       = $(READLINE) $(SLA) \
 
 OBJS          = calc.o calcinit.o tables.o vcode.o prtFuncs.o ErrorObj.o func.o \
 		BitField.o IDResource.o ExitMsg.o
+VMMAKE        = sh ./vmMake
+TYPEMAKE      = sh ./typeMake
 #
 #----------------------------------------------------------------
 #
-fussy: fussy.o libcalc.a $(SLA)
+fussy: updatecopyright fussy.o libcalc.a $(SLA)
 	$(CC) fussy.o libcalc.a $(INCS) $(GENLIBS) -o fussy
 
 $(SLA): 
 	cd $(ROOT)/sla;gmake
+
+updatecopyright:
+	../scripts/updatecopyright
+	\rm -f *.old
 
 libcalc.a: $(OBJS) AngFmt.h
 	ar r libcalc.a $(OBJS)
@@ -86,10 +92,10 @@ ErrorObj.o: ErrorObj.cc ErrorObj.h
 	$(CC) -c ErrorObj.cc -o ErrorObj.o
 
 vm.a: calc.h vmMake
-	./vmMake $(CC) > vm.a
+	$(VMMAKE) $(CC) > vm.a
 
 type.a: y.tab.h typeMake
-	./typeMake y.tab.h > type.a
+	$(TYPEMAKE) y.tab.h > type.a
 
 prtFuncs.o: prtFuncs.cc vm.a y.tab.h type.a
 	$(CC) -c prtFuncs.cc -o prtFuncs.o
