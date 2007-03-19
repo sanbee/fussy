@@ -91,8 +91,8 @@ vm.a: calc.h vmMake
 type.a: y.tab.h typeMake
 	./typeMake y.tab.h > type.a
 
-prtVM.o: prtVM.cc vm.a y.tab.h type.a
-	$(CC) -c prtVM.cc
+prtVM.o: prtFuncs.cc vm.a y.tab.h type.a
+	$(CC) -c prtFuncs.cc -o prtVM.o
 
 vcode.o: vcode.cc calc.h
 	$(CC) -c vcode.cc -o vcode.o
