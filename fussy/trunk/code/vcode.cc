@@ -207,7 +207,9 @@ template <class X> X& TOP(vector<X>& v)
 //
 void prtIDs(StackType &d)
 {
-  for(IDList::iterator i=d.symb->IDL.begin();i!=d.symb->IDL.end();i++)
+  IDList::iterator iterend=d.symb->IDL.end();
+  //  for(IDList::iterator i=d.symb->IDL.begin();i!=d.symb->IDL.end();i++)
+  for(IDList::iterator i=d.symb->IDL.begin();i!=iterend;++i)
     ERROUT << *i << " ";
   ERROUT << endl;
 }
@@ -286,7 +288,9 @@ int prtStckSize()
 //
 void ClearDS(StackType &d) 
 {
-  for(IDList::iterator i=d.ID.begin();i!=d.ID.end();i++) 
+  IDList::iterator iterend=d.ID.end();
+  //  for(IDList::iterator i=d.ID.begin();i!=d.ID.end();i++) 
+  for(IDList::iterator i=d.ID.begin();i!=iterend;++i) 
   {
     if (DS[*i].size() > 0) 
       {
@@ -307,7 +311,11 @@ void ClearDS(StackType &d)
 //   IDList& d     The ID list to be cleared.
 //
 void ClearIDL(IDList &d) 
-{for(IDList::iterator i=d.begin();i!=d.end();i++) d.erase(*i);}
+{
+  IDList::iterator iterend=d.end();
+  //  for(IDList::iterator i=d.begin();i!=d.end();i++) d.erase(*i);
+  for(IDList::iterator i=d.begin();i!=iterend;++i) d.erase(*i);
+}
 //
 //-------------------------------------------------------------------
 //
@@ -343,7 +351,9 @@ void LetGoID(StackType &d, unsigned int TYPE, int ReleaseID=1,
   Calc_Symbol *PersistantVar=NULL, *TmpVar=NULL;
 
   if (ISSET(d.symb->type,QSTRING_TYPE)) return;
-  for(IDList::iterator i=d.ID.begin();i!=d.ID.end();i++)  
+  IDList::iterator iterend=d.ID.end();
+  //  for(IDList::iterator i=d.ID.begin();i!=d.ID.end();i++)  
+  for(IDList::iterator i=d.ID.begin();i!=iterend;++i)  
     {
       TmpVar = IsIDinTab(*i,1);
 #ifdef VERBOSE
@@ -409,7 +419,9 @@ BASIC_NUM PropagateError(StackType &d)
 #ifdef VERBOSE
   ERROUT << "PropagateError: ID dx ME: " << endl;
 #endif
-  for(IDList::iterator j=d.ID.begin();j!=d.ID.end();++j)
+  IDList::iterator iterend=d.ID.end();
+  //  for(IDList::iterator j=d.ID.begin();j!=d.ID.end();++j)
+  for(IDList::iterator j=d.ID.begin();j!=iterend;++j)
     {
       dx = TOP(DS[*j]); POP(DS[*j]);
 #ifdef VERBOSE      
@@ -895,7 +907,9 @@ int eq()
 
   d1.val = (d1.val.val() == d2.val.val());
 
-  for(IDList::iterator i=d1.symb->IDL.begin();i!=d1.symb->IDL.end();i++)
+  IDList::iterator iterend=d1.symb->IDL.end();
+  //  for(IDList::iterator i=d1.symb->IDL.begin();i!=d1.symb->IDL.end();i++)
+  for(IDList::iterator i=d1.symb->IDL.begin();i!=iterend;++i)
     PUSH(DS[*(i)],0);
     //  PUSH(DS[*(d1.ID.begin())],0);
   PUSH(stck,d1);
@@ -929,7 +943,9 @@ int ne()
 
   d1.val = (d1.val.val() != d2.val.val());
 
-  for(IDList::iterator i=d1.symb->IDL.begin();i!=d1.symb->IDL.end();i++)
+  IDList::iterator iterend=d1.symb->IDL.end();
+  //  for(IDList::iterator i=d1.symb->IDL.begin();i!=d1.symb->IDL.end();i++)
+  for(IDList::iterator i=d1.symb->IDL.begin();i!=iterend;++i)
     PUSH(DS[*(i)],0);
   //  PUSH(DS[*(d1.ID.begin())],0);
   PUSH(stck,d1);
@@ -958,7 +974,9 @@ int gt()
 
   d1.val = (d1.val.val() > d2.val.val());
 
-  for(IDList::iterator i=d1.symb->IDL.begin();i!=d1.symb->IDL.end();i++)
+  IDList::iterator iterend=d1.symb->IDL.end();
+  //  for(IDList::iterator i=d1.symb->IDL.begin();i!=d1.symb->IDL.end();i++)
+  for(IDList::iterator i=d1.symb->IDL.begin();i!=iterend;++i)
     PUSH(DS[*(i)],0);
   //  PUSH(DS[*(d1.ID.begin())],0);
   PUSH(stck,d1);
@@ -998,7 +1016,9 @@ int lt()
 
   d1.val = (d1.val.val() < d2.val.val());
 
-  for(IDList::iterator i=d1.symb->IDL.begin();i!=d1.symb->IDL.end();i++)
+  IDList::iterator iterend=d1.symb->IDL.end();
+  //  for(IDList::iterator i=d1.symb->IDL.begin();i!=d1.symb->IDL.end();i++)
+  for(IDList::iterator i=d1.symb->IDL.begin();i!=iterend;++i)
     PUSH(DS[*(i)],0);
   //  PUSH(DS[*(d1.ID.begin())],0);
   PUSH(stck,d1);
@@ -1028,7 +1048,9 @@ int ge()
 
   d1.val = (d1.val.val() >= d2.val.val());
 
-  for(IDList::iterator i=d1.symb->IDL.begin();i!=d1.symb->IDL.end();i++)
+  IDList::iterator iterend=d1.symb->IDL.end();
+  //  for(IDList::iterator i=d1.symb->IDL.begin();i!=d1.symb->IDL.end();i++)
+  for(IDList::iterator i=d1.symb->IDL.begin();i!=iterend;++i)
     PUSH(DS[*(i)],0);
   //  PUSH(DS[*(d1.ID.begin())],0);
   PUSH(stck,d1);
@@ -1057,7 +1079,9 @@ int le()
 
   d1.val = (d1.val.val() <= d2.val.val());
 
-  for(IDList::iterator i=d1.symb->IDL.begin();i!=d1.symb->IDL.end();i++)
+  IDList::iterator iterend=d1.symb->IDL.end();
+  //  for(IDList::iterator i=d1.symb->IDL.begin();i!=d1.symb->IDL.end();i++)
+  for(IDList::iterator i=d1.symb->IDL.begin();i!=iterend;++i)
     PUSH(DS[*(i)],0);
   //  PUSH(DS[*(d1.ID.begin())],0);
   PUSH(stck,d1);
@@ -1197,7 +1221,9 @@ int add()
   //
   // Computation of partial derivatives w.r.t. independent variates
   //
-  for(i=res.begin();i!=res.end();++i)
+  IDList::iterator iterend=res.end();
+  //  for(i=res.begin();i!=res.end();++i)
+  for(i=res.begin();i!=iterend;++i)
     {
       //
       // Remove this checking once it's all debugged!
@@ -1250,7 +1276,9 @@ int sub()
   //
   // Computation of partial derivatives w.r.t. independent variates
   //
-  for(i=res.begin();i!=res.end();++i)
+  IDList::iterator iterend=res.end();
+  //  for(i=res.begin();i!=res.end();++i)
+  for(i=res.begin();i!=iterend;++i)
     {
       //
       // Remove this checking once it's all debugged!
@@ -1306,8 +1334,9 @@ int uminus()
   DBG("uminus");
 
   d =  TOP(stck);     POP(stck);
-
-  for(i=d.ID.begin();i!=d.ID.end();++i)
+  IDList::iterator iterend=d.ID.end();
+  //  for(i=d.ID.begin();i!=d.ID.end();++i)
+  for(i=d.ID.begin();i!=iterend;++i)
     {
       TOP(DS[*i]) *= -1;
       //      BASIC_NUM dx;
@@ -3096,7 +3125,9 @@ int ret()
 	  r.symb->dx.resize(N);
 	  N=0;
 
-	  for(IDList::iterator i=d.ID.begin();i!=d.ID.end();i++) 
+	  IDList::iterator iterend=d.ID.end();
+	  //	  for(IDList::iterator i=d.ID.begin();i!=d.ID.end();i++) 
+	  for(IDList::iterator i=d.ID.begin();i!=iterend;++i) 
 	    {
 	      r.ID.insert(r.ID.end(),*i);
 	      r.symb->IDL.insert(r.symb->IDL.end(),*i);
@@ -3109,7 +3140,8 @@ int ret()
 		     << r.symb->DSList[N]  << " " 
 		     << r.symb->dx[N] << " " << endl;
 	      ERROUT << "Ret Obj. IDs: ";
-	      for(IDList::iterator i=r.ID.begin();i!=r.ID.end();i++) 
+	      IDList::iterator iterend=r.ID.end();
+	      for(IDList::iterator i=r.ID.begin();i!=iterend;++i) 
 		ERROUT  << *i << " ";
 	      ERROUT << endl;
 #endif

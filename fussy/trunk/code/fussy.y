@@ -550,7 +550,7 @@ varname: VAR                 {mpush($1);}
                               emit2(vpush,(Instruction)$1);
                              }
 | qstr                       {}
-| UNDEF error                {string msg="Undefined var \"" + 
+| UNDEF error                {string msg="Undefined variable \"" + 
 			        Token + "\" used in rval";
                               ReportErr(msg.c_str(),"###Error",0);
                              }
