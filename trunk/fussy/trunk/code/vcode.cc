@@ -65,7 +65,7 @@
     functions) still need modification.  The documentation also needs
     to be augmented - particularly for the fact that changing values
     of variables used earlier in sub-expressions can have unexpected
-    results (the author, Yours Truely, himself went on a wild chase
+    results (the author, Yours Truly, himself went on a wild chase
     for a bug which was not there in the first place!).
 
                     Sanjay Bhatnagar, Oct. 2003
@@ -119,7 +119,7 @@
     Added the setgfmt() VM instruction and associated code. This is 
     called from the fussy command "setfmt(QSTRING)" which sets the
     global numerical print format.  The print format associated with
-    symbols takes predicence.
+    symbols takes precedence.
 
                      Sanjay Bhatnagar, Mar 10, 2006.
 ******************************************************************/
