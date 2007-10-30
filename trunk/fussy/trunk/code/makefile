@@ -50,7 +50,8 @@ READLINEINCL  = .
 INCL          = -I. -I$(READLINEINCL) -I$(ROOT)/emath -I/usr/freeware/include/g++
 
 GENLIBS       = $(READLINE) $(SLA) \
-	        -lreadline -lhistory -ltermcap -lfl -lg2c -lm
+	        -lreadline -lhistory -ltermcap -lfl -lm
+#-lg2c -lm
 
 OBJS          = calc.o calcinit.o tables.o vcode.o prtFuncs.o ErrorObj.o func.o \
 		BitField.o IDResource.o ExitMsg.o
