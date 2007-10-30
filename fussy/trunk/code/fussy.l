@@ -71,8 +71,8 @@ extern list<Calc_Symbol>     ConstTab;
 extern short int             InCStmt;
 extern ErrorObj              MsgStream;// The global error message stream
 extern Calc_Symbol*          GlobalDefaultFmt;
+extern int                   InFuncDefn;
 extern "C"{
- extern int       InFuncDefn;
 /*
   char *readline (char *);
 */
