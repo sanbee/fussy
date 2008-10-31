@@ -1,6 +1,6 @@
 // $Id: fussy.cc,v 1.3 2006/03/10 21:38:37 sbhatnag Exp $
 /******************************************************************
- * Copyright (c) 2000-2006, 2007 S.Bhatnagar
+ * Copyright (c) 2000-2007, 2008 S.Bhatnagar
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -126,6 +126,7 @@ int main(int argc, char *argv[])
 {
   string Name(getenv("HOME"));
   int n;
+  bool beQuiet=false;
 #ifdef YYDEBUG
   calc_debug=1;
 #endif
@@ -146,7 +147,12 @@ int main(int argc, char *argv[])
       n=1;
       if (argc>=2)
 	for(int i=1;i<argc;i++)
-	  if (!strcmp(argv[i],"-d"))
+	  if (!strcmp(argv[i],"-q"))
+	    {
+	      beQuiet=true;
+	      n++;
+	    }
+	  else if (!strcmp(argv[i],"-d"))
 	    {
 	      if (ERROUT) ERROUT.close();
 	      ERROUT.open("/dev/tty");
@@ -164,10 +170,11 @@ int main(int argc, char *argv[])
 	  else if ((!strcmp(argv[i],"-h")) || (!strcmp(argv[i],"--help")))
 	    {
 	      MsgStream << "Usage: " << argv[0] 
-			<< " [-h|--help] [-d] [-t N] [prog1,prog2,...]" 
+			<< " [-h|--help] [-q] [-d] [-t N] [prog1,prog2,...]" 
 			<< endl
 			<< " \"-h or --help\": Gives this help" << endl
-			<< " \"-d\":   sets the debugging mode (meant for developers)" << endl
+			<< " \"-q\":   Do not print the copyright information" << endl
+			<< " \"-d\":   Sets the debugging mode (meant for developers)" << endl
 			<< " \"-t N\": N is the number of Ctrl-C trials after which the interpreter" << endl
 			<< "         gives up preaching good behavior and quits" << endl
 			<< " Use the interpreter \"help\" command to get more help about the language syntax" 
@@ -179,7 +186,7 @@ int main(int argc, char *argv[])
       // Initialize internal tables etc.
       //
       InitFussy(); // Initialze all internal tables
-      showCopyright("   For details type `warranty'.");
+      if (!beQuiet) showCopyright("   For details type `warranty'.");
       boot();      // Boot the virtual machine
       if (n>=argc)
 	{
@@ -188,8 +195,8 @@ int main(int argc, char *argv[])
 	    {
 	      LoadFile(Name.c_str());
 
-	      MsgStream << "###Informational: Loaded file \"" << Name
-			<< "\"..." << endl;
+// 	      MsgStream << "###Informational: Loaded file \"" << Name
+// 			<< "\"..." << endl;
 	    }
 	  catch(ErrorObj&x) 
 	    {
