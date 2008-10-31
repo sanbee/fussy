@@ -1,6 +1,6 @@
 //$Id: vcode.cc,v 1.5 2006/08/07 23:03:52 sbhatnag Exp $
 /******************************************************************
- * Copyright (c) 2000-2006, 2007 S.Bhatnagar
+ * Copyright (c) 2000-2007, 2008 S.Bhatnagar
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -171,8 +171,8 @@ extern IDResource       IDR;                    // The central ID resource
 DSType                  DS;             // The derivative stack (DS)
 VMac                    Prog;           // The VM program
 Stack                   stck;           // The VM stack (VMS)
-unsigned int            sp=0;           // Stack pointer register
-unsigned int            pc=0;           // Program counter register
+long int            sp=0;           // Stack pointer register
+long int            pc=0;           // Program counter register
 
 vector<BASIC_NUM>       MeasurementError;       // The ME table
 
@@ -810,11 +810,12 @@ int rvpush()
   StackType d;
   BASIC_NUM dx;
   LocalSymbTabType::const_iterator CI=LocalSymbTab.begin();
-  int OffSet;
+  long OffSet;
 
   DBG("rvpush");
 
-  OffSet=((int)*Prog[pc++]);
+  //OffSet=((int)*Prog[pc++]);
+  OffSet=((long)*Prog[pc++]);
 
   for(unsigned int i=0;i<OffSet+sp;i++) CI++;
   d.symb=(Calc_Symbol *)&(*CI);
@@ -2617,10 +2618,10 @@ int ifcode()
   ClearDS(d);
   LetGoID(d,RETVAR_TYPE);
   
-  if (d.val.val()) pc=(int) Prog[bodyPC+1];
-  else             pc=(int) Prog[bodyPC+2];
+  if (d.val.val()) pc=(long) Prog[bodyPC+1];
+  else             pc=(long) Prog[bodyPC+2];
   Run(Prog);
-  pc=(int) Prog[bodyPC+3];
+  pc=(long) Prog[bodyPC+3];
   
   DEFAULT_RETURN;
 }
@@ -2650,7 +2651,7 @@ int whilecode()
 #ifdef VERBOSE
 	  memCheck();
 #endif
-	  pc=(int)Prog[bodyPC+1];     // Body code - it's part of the PROG
+	  pc=(long)Prog[bodyPC+1];     // Body code - it's part of the PROG
 	  Run(Prog);
 	  //d=TOP(stck);   	  POP(stck);
 	  //	  IDR.ReleaseID((unsigned int)*(d.ID.begin()));
@@ -2671,7 +2672,7 @@ int whilecode()
   catch (BreakException& x)
     {
     }      
-  pc=(int)Prog[bodyPC+2];             // End-of-while
+  pc=(long)Prog[bodyPC+2];             // End-of-while
   DEFAULT_RETURN;
 }
 //
@@ -2683,7 +2684,7 @@ int forcode()
   //
   // Execution of the for(INIT;CONDITION;PREDICATE) BODY; loop
   //
-  int bodyPC=pc-1, CondPC=(int)Prog[bodyPC+1];
+  int bodyPC=pc-1, CondPC=(long)Prog[bodyPC+1];
 
   StackType d;
 
@@ -2714,10 +2715,10 @@ int forcode()
 	  memCheck();
 #endif
 
-	  pc=(int)Prog[bodyPC+2]; // Body code
+	  pc=(long)Prog[bodyPC+2]; // Body code
 	  Run(Prog);
 
-	  pc=(int)Prog[bodyPC+3]; // Predicate code
+	  pc=(long)Prog[bodyPC+3]; // Predicate code
 	  Run(Prog);
 
  	  d=TOP(stck);   
@@ -2735,9 +2736,9 @@ int forcode()
     }
   catch (BreakException& x)
     {
-      //pc=(int)Prog[bodyPC+4];   // End-of-while
+      //pc=(long)Prog[bodyPC+4];   // End-of-while
     }
-  pc=(int)Prog[bodyPC+4];         // End-of-while
+  pc=(long)Prog[bodyPC+4];         // End-of-while
   DEFAULT_RETURN;
 }
 //
@@ -2816,7 +2817,8 @@ int call()
   FrameType Frame;
 
   StackType d,ArgsOnStack;
-  int NArgs=0, NAutos=0,N=0;
+  int NArgs=0, NAutos=0;
+  long N=0;
   LocalSymbTabType::iterator CI;
   int i,M;
   
@@ -2855,20 +2857,20 @@ int call()
       d=TOP(stck);POP(stck);      
       POP(DS[*d.ID.begin()]);
 
-      N=(int)d.val.val();  // No. of arguments on the stack
+      N=(long)d.val.val();  // No. of arguments on the stack
 
       d=TOP(stck);POP(stck); // Pointer to the start of the sub-prog. code
       
       pc=d.symb->otype.FuncStartPC;
-      if (pc > Prog.size() || pc < 0)
+      if (pc > (int)Prog.size() || pc < 0)
 	ReportErr("Program conuter gets invalid value for a function call",
 		  "###Runtime",0);
       //
       // Next 2 locations of the VM program have the no. of autos and
       // arguments declared in the sub-prog. code respectively.
       //
-      NArgs  = (int)Prog[pc++]; 
-      NAutos = (int)Prog[pc++];
+      NArgs  = (long)Prog[pc++]; 
+      NAutos = (long)Prog[pc++];
       
       if (N > NArgs)
 	ReportErr("Too many arguments in function call!","###Runtime",0);
@@ -2882,7 +2884,7 @@ int call()
       MkSpaceOnLocalSymbTab(NArgs+NAutos);
       //      N=LocalSymbTab.size()-1;
       
-      //      for(i=sp+NArgs-1;i>=(int)sp;--i)
+      //      for(i=sp+NArgs-1;i>=(long)sp;--i)
       //
       // Fill in the values of the arguments into temp. variables on
       // Local Symb. tab.  These temp. symbols are at the end of the
