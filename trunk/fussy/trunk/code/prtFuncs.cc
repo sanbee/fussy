@@ -1,6 +1,6 @@
 // $Id$
 /******************************************************************
- * Copyright (c) 2000-2006, 2007 S.Bhatnagar
+ * Copyright (c) 2000-2007, 2008 S.Bhatnagar
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -120,21 +120,21 @@ void prtVM()
       // forward declerations in calc.h
       //
 #include "./vm.a"
-      else if ((unsigned int)Prog[i] < Prog.size()) 
+      else if ((unsigned long)Prog[i] < Prog.size()) 
 	{
 	  if ((PrevInst == rvpush)) cerr << " LSYM <TBD>" << endl;
 	  else if ((PrevInst==ifcode) || (PrevInst==forcode))
 	    {
-	      cerr <<      " JMP " << (int)Prog[i] << endl;i++;
-	      cerr << i << " JMP " << (int)Prog[i] << endl;i++;
-	      cerr << i << " JMP " << (int)Prog[i] << endl;
+	      cerr <<      " JMP " << (long)Prog[i] << endl;i++;
+	      cerr << i << " JMP " << (long)Prog[i] << endl;i++;
+	      cerr << i << " JMP " << (long)Prog[i] << endl;
 	    }
 	  else if (PrevInst==whilecode)
 	    {
-	      cerr <<      " JMP " << (int)Prog[i] << endl;i++;
-	      cerr << i << " JMP " << (int)Prog[i] << endl;
+	      cerr <<      " JMP " << (long)Prog[i] << endl;i++;
+	      cerr << i << " JMP " << (long)Prog[i] << endl;
 	    }
-	  else cerr << " CONST " << (int)Prog[i] << endl;
+	  else cerr << " CONST " << (long)Prog[i] << endl;
 	}
       //      else if (ISSET(s->type,BUILTIN_TYPE))  {cerr << " bultin_fn" << endl;}
       else if (ISSET(s->type,QSTRING_TYPE))  {prtString(s->otype.qstr->c_str());cerr << endl;}
