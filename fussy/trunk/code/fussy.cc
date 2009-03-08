@@ -1,6 +1,6 @@
 // $Id: fussy.cc,v 1.3 2006/03/10 21:38:37 sbhatnag Exp $
 /******************************************************************
- * Copyright (c) 2000-2007, 2008 S.Bhatnagar
+ * Copyright (c) 2000-2008, 2009 S.Bhatnagar
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -237,7 +237,7 @@ int main(int argc, char *argv[])
     catch (ErrorObj& e)        {e << e.what() << endl;}
     catch (BreakException& x)  {}
     catch (ReturnException& x) {}
-    catch (ExitException& x)   {exit(0);}
+    catch (ExitException& x)   {ErrorObj tt; tt << "Goodbye!" << endl;exit(0);}
     catch (...) {MsgStream << "Caught an unknown exception" << endl;}
 
 }
