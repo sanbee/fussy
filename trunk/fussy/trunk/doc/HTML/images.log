@@ -1,14 +1,18 @@
-This is TeX, Version 3.14159 (Web2C 7.3.1) (format=latex 2003.2.18)  12 JUL 2005 23:41
+This is pdfeTeX, Version 3.141592-1.21a-2.2 (Web2C 7.5.4) (format=latex 2010.12.15)  28 MAY 2011 14:54
+entering extended mode
 **./images.tex
 (./images.tex
-LaTeX2e <2001/06/01>
-Babel <v3.7h> and hyphenation patterns for american, french, german, ngerman, i
-talian, nohyphenation, loaded.
+LaTeX2e <2003/12/01>
+Babel <v3.8d> and hyphenation patterns for american, french, german, ngerman, b
+ahasa, basque, bulgarian, catalan, croatian, czech, danish, dutch, esperanto, e
+stonian, finnish, greek, icelandic, irish, italian, latin, magyar, norsk, polis
+h, portuges, romanian, russian, serbian, slovak, slovene, spanish, swedish, tur
+kish, ukrainian, nohyphenation, loaded.
 
 (/usr/share/texmf/tex/latex/base/article.cls
-Document Class: article 2001/04/21 v1.4e Standard LaTeX document class
+Document Class: article 2004/02/16 v1.4f Standard LaTeX document class
 (/usr/share/texmf/tex/latex/base/size12.clo
-File: size12.clo 2001/04/21 v1.4e Standard LaTeX file (size option)
+File: size12.clo 2004/02/16 v1.4f Standard LaTeX file (size option)
 )
 \c@part=\count79
 \c@section=\count80
@@ -23,76 +27,238 @@ File: size12.clo 2001/04/21 v1.4e Standard LaTeX file (size option)
 \bibindent=\dimen102
 ) (/usr/share/texmf/tex/latex/base/ifthen.sty
 Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
-) (/usr/local/share/texmf/tex/latex/html/html.sty
-Package: html 1999/07/19 v1.38 hypertext commands for latex2html (nd, hws, rrm)
-
-\c@lpart=\count87
-\c@lchapter=\count88
-\c@chapter=\count89
-\c@lsection=\count90
-\c@lsubsection=\count91
-\c@lsubsubsection=\count92
-\c@lparagraph=\count93
-\c@lsubparagraph=\count94
-\c@lsubsubparagraph=\count95
-\ptrfile=\write3
-) (/usr/local/share/texmf/tex/latex/html/url.sty
-Package: url 1999/03/02  ver 1.4  Verb mode for urls, email addresses, and file
- names
-) (/usr/share/texmf/tex/latex/natbib/natbib.sty
-Package: natbib 1999/05/28 7.0 (PWD)
-\bibhang=\skip43
-\bibsep=\skip44
-LaTeX Info: Redefining \cite on input line 508.
-\c@NAT@ctr=\count96
-) (/usr/share/texmf/tex/latex/graphics/graphicx.sty
-Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+) (/usr/share/texmf/tex/latex/txfonts/txfonts.sty
+Package: txfonts 2005/01/03 v3.2
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 20.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> OT1/txr/m/n on input line 20.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/txr/m/n on input line 20.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/txr/m/n --> OT1/txr/bx/n on input line 21.
+\symitalic=\mathgroup4
+LaTeX Font Info:    Overwriting symbol font `italic' in version `bold'
+(Font)                  OT1/txr/m/it --> OT1/txr/bx/it on input line 25.
+LaTeX Font Info:    Redeclaring math alphabet \mathrm on input line 27.
+LaTeX Font Info:    Redeclaring math alphabet \mathbf on input line 28.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> OT1/txr/bx/n on input line 28.
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `bold'
+(Font)                  OT1/cmr/bx/n --> OT1/txr/bx/n on input line 28.
+LaTeX Font Info:    Redeclaring math alphabet \mathit on input line 29.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> OT1/txr/m/it on input line 29.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> OT1/txr/m/it on input line 29.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/txr/m/it --> OT1/txr/bx/it on input line 30.
+LaTeX Font Info:    Redeclaring math alphabet \mathsf on input line 39.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
+(Font)                  OT1/cmss/m/n --> OT1/txss/m/n on input line 39.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  OT1/cmss/bx/n --> OT1/txss/m/n on input line 39.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  OT1/txss/m/n --> OT1/txss/b/n on input line 40.
+LaTeX Font Info:    Redeclaring math alphabet \mathtt on input line 49.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
+(Font)                  OT1/cmtt/m/n --> OT1/txtt/m/n on input line 49.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
+(Font)                  OT1/cmtt/m/n --> OT1/txtt/m/n on input line 49.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
+(Font)                  OT1/txtt/m/n --> OT1/txtt/b/n on input line 50.
+LaTeX Font Info:    Redeclaring symbol font `letters' on input line 57.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `normal'
+(Font)                  OML/cmm/m/it --> OML/txmi/m/it on input line 57.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
+(Font)                  OML/cmm/b/it --> OML/txmi/m/it on input line 57.
+LaTeX Font Info:    Overwriting symbol font `letters' in version `bold'
+(Font)                  OML/txmi/m/it --> OML/txmi/bx/it on input line 58.
+\symlettersA=\mathgroup5
+LaTeX Font Info:    Overwriting symbol font `lettersA' in version `bold'
+(Font)                  U/txmia/m/it --> U/txmia/bx/it on input line 66.
+LaTeX Font Info:    Redeclaring symbol font `symbols' on input line 76.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `normal'
+(Font)                  OMS/cmsy/m/n --> OMS/txsy/m/n on input line 76.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  OMS/cmsy/b/n --> OMS/txsy/m/n on input line 76.
+LaTeX Font Info:    Overwriting symbol font `symbols' in version `bold'
+(Font)                  OMS/txsy/m/n --> OMS/txsy/bx/n on input line 77.
+\symAMSa=\mathgroup6
+LaTeX Font Info:    Overwriting symbol font `AMSa' in version `bold'
+(Font)                  U/txsya/m/n --> U/txsya/bx/n on input line 93.
+\symAMSb=\mathgroup7
+LaTeX Font Info:    Overwriting symbol font `AMSb' in version `bold'
+(Font)                  U/txsyb/m/n --> U/txsyb/bx/n on input line 102.
+\symsymbolsC=\mathgroup8
+LaTeX Font Info:    Overwriting symbol font `symbolsC' in version `bold'
+(Font)                  U/txsyc/m/n --> U/txsyc/bx/n on input line 112.
+LaTeX Font Info:    Redeclaring symbol font `largesymbols' on input line 119.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `normal'
+(Font)                  OMX/cmex/m/n --> OMX/txex/m/n on input line 119.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
+(Font)                  OMX/cmex/m/n --> OMX/txex/m/n on input line 119.
+LaTeX Font Info:    Overwriting symbol font `largesymbols' in version `bold'
+(Font)                  OMX/txex/m/n --> OMX/txex/bx/n on input line 120.
+\symlargesymbolsA=\mathgroup9
+LaTeX Font Info:    Overwriting symbol font `largesymbolsA' in version `bold'
+(Font)                  U/txexa/m/n --> U/txexa/bx/n on input line 128.
+LaTeX Info: Redefining \not on input line 1042.
+) (/usr/share/texmf/tex/latex/html/html.sty (/usr/share/texmf/tex/latex/hyperre
+f/hyperref.sty
+Package: hyperref 2003/11/30 v6.74m Hypertext links for LaTeX
 (/usr/share/texmf/tex/latex/graphics/keyval.sty
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks14
-) (/usr/share/texmf/tex/latex/graphics/graphics.sty
+)
+\@linkdim=\dimen103
+\Hy@linkcounter=\count87
+\Hy@pagecounter=\count88
+(/usr/share/texmf/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2003/11/30 v6.74m Hyperref: PDFDocEncoding definition (HO)
+) (/usr/share/texmf/tex/latex/hyperref/hyperref.cfg
+File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive and teTeX
+)
+Package hyperref Info: Hyper figures OFF on input line 1880.
+Package hyperref Info: Link nesting OFF on input line 1885.
+Package hyperref Info: Hyper index ON on input line 1888.
+Package hyperref Info: Plain pages ON on input line 1893.
+Package hyperref Info: Backreferencing OFF on input line 1900.
+Implicit mode ON; LaTeX internals redefined
+Package hyperref Info: Bookmarks ON on input line 2004.
+(/usr/share/texmf/tex/latex/html/url.sty
+Package: url 1999/03/02  ver 1.4  Verb mode for urls, email addresses, and file
+ names
+)
+LaTeX Info: Redefining \url on input line 2143.
+\Fld@menulength=\count89
+\Field@Width=\dimen104
+\Fld@charsize=\dimen105
+\Choice@toks=\toks15
+\Field@toks=\toks16
+Package hyperref Info: Hyper figures OFF on input line 2618.
+Package hyperref Info: Link nesting OFF on input line 2623.
+Package hyperref Info: Hyper index ON on input line 2626.
+Package hyperref Info: backreferencing OFF on input line 2633.
+Package hyperref Info: Link coloring OFF on input line 2638.
+\c@Item=\count90
+\c@Hfootnote=\count91
+)
+*hyperref using default driver hdvips*
+(/usr/share/texmf/tex/latex/hyperref/hdvips.def
+File: hdvips.def 2003/11/30 v6.74m Hyperref driver for dvips
+(/usr/share/texmf/tex/latex/hyperref/pdfmark.def
+File: pdfmark.def 2003/11/30 v6.74m Hyperref definitions for pdfmark specials
+\pdf@docset=\toks17
+\pdf@box=\box26
+\pdf@toks=\toks18
+\pdf@defaulttoks=\toks19
+\Fld@listcount=\count92
+\@outlinefile=\write3
+))
+Package: html 1999/07/19 v1.38 hypertext commands for latex2html (nd, hws, rrm)
+
+\c@lpart=\count93
+\c@lchapter=\count94
+\c@chapter=\count95
+\c@lsection=\count96
+\c@lsubsection=\count97
+\c@lsubsubsection=\count98
+\c@lparagraph=\count99
+\c@lsubparagraph=\count100
+\c@lsubsubparagraph=\count101
+\ptrfile=\write4
+) (/usr/share/texmf/tex/latex/natbib/natbib.sty
+Package: natbib 2003/06/06 7.1 (PWD)
+\bibhang=\skip43
+\bibsep=\skip44
+LaTeX Info: Redefining \cite on input line 518.
+\c@NAT@ctr=\count102
+) (/usr/share/texmf/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+(/usr/share/texmf/tex/latex/graphics/graphics.sty
 Package: graphics 2001/07/07 v1.0n Standard LaTeX Graphics (DPC,SPQR)
 (/usr/share/texmf/tex/latex/graphics/trig.sty
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
-) (/usr/share/texmf/tex/latex/config/graphics.cfg)
+) (/usr/share/texmf/tex/latex/graphics/graphics.cfg
+File: graphics.cfg 2005/02/03 v1.3 graphics configuration of teTeX/TeXLive
+)
 Package graphics Info: Driver file: dvips.def on input line 80.
 (/usr/share/texmf/tex/latex/graphics/dvips.def
 File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
 ))
-\Gin@req@height=\dimen103
-\Gin@req@width=\dimen104
+\Gin@req@height=\dimen106
+\Gin@req@width=\dimen107
 ) (/usr/share/texmf/tex/latex/graphics/color.sty
 Package: color 1999/02/16 v1.0i Standard LaTeX Color (DPC)
-(/usr/share/texmf/tex/latex/config/color.cfg)
+(/usr/share/texmf/tex/latex/graphics/color.cfg
+File: color.cfg 2005/02/03 v1.3 color configuration of teTeX/TeXLive
+)
 Package color Info: Driver file: dvips.def on input line 125.
 (/usr/share/texmf/tex/latex/graphics/dvipsnam.def
 File: dvipsnam.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
 )) (/usr/share/texmf/tex/latex/base/inputenc.sty
-Package: inputenc 2001/07/10 v0.99a Input encoding file 
+Package: inputenc 2004/02/05 v1.0d Input encoding file
 (/usr/share/texmf/tex/latex/base/latin1.def
-File: latin1.def 2001/07/10 v0.99a Input encoding file 
+File: latin1.def 2004/02/05 v1.0d Input encoding file
 ))
-\sizebox=\box26
-\lthtmlwrite=\write4
-(images.aux)
+\sizebox=\box27
+\lthtmlwrite=\write5
+(./images.aux)
 \openout1 = `images.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 120.
-LaTeX Font Info:    ... okay on input line 120.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 120.
-LaTeX Font Info:    ... okay on input line 120.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 120.
-LaTeX Font Info:    ... okay on input line 120.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 120.
-LaTeX Font Info:    ... okay on input line 120.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 120.
-LaTeX Font Info:    ... okay on input line 120.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 120.
-LaTeX Font Info:    ... okay on input line 120.
+LaTeX Font Info:    Checking defaults for OML/txmi/m/it on input line 144.
+LaTeX Font Info:    Try loading font information for OML+txmi on input line 144
+.
+(/usr/share/texmf/tex/latex/txfonts/omltxmi.fd
+File: omltxmi.fd 2000/12/15 v3.1
+)
+LaTeX Font Info:    ... okay on input line 144.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 144.
+LaTeX Font Info:    ... okay on input line 144.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 144.
+LaTeX Font Info:    ... okay on input line 144.
+LaTeX Font Info:    Checking defaults for OMS/txsy/m/n on input line 144.
+LaTeX Font Info:    Try loading font information for OMS+txsy on input line 144
+.
+(/usr/share/texmf/tex/latex/txfonts/omstxsy.fd
+File: omstxsy.fd 2000/12/15 v3.1
+)
+LaTeX Font Info:    ... okay on input line 144.
+LaTeX Font Info:    Checking defaults for OMX/txex/m/n on input line 144.
+LaTeX Font Info:    Try loading font information for OMX+txex on input line 144
+.
+(/usr/share/texmf/tex/latex/txfonts/omxtxex.fd
+File: omxtxex.fd 2000/12/15 v3.1
+)
+LaTeX Font Info:    ... okay on input line 144.
+LaTeX Font Info:    Checking defaults for U/txexa/m/n on input line 144.
+LaTeX Font Info:    Try loading font information for U+txexa on input line 144.
+
+(/usr/share/texmf/tex/latex/txfonts/utxexa.fd
+File: utxexa.fd 2000/12/15 v3.1
+)
+LaTeX Font Info:    ... okay on input line 144.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 144.
+LaTeX Font Info:    ... okay on input line 144.
+LaTeX Font Info:    Try loading font information for OT1+txr on input line 144.
+
+(/usr/share/texmf/tex/latex/txfonts/ot1txr.fd
+File: ot1txr.fd 2000/12/15 v3.1
+)
+Package hyperref Info: Link coloring OFF on input line 144.
+(/usr/share/texmf/tex/latex/hyperref/nameref.sty
+Package: nameref 2003/12/03 v2.21 Cross-referencing by name of section
+\c@section@level=\count103
+)
+LaTeX Info: Redefining \ref on input line 144.
+LaTeX Info: Redefining \pageref on input line 144.
+(./images.out) (./images.out)
+\openout3 = `images.out'.
+
 
 latex2htmlLength hsize=349.0pt
 
-latex2htmlLength vsize=632.5pt
+latex2htmlLength vsize=678.73425pt
 
 latex2htmlLength hoffset=0.0pt
 
@@ -106,485 +272,45 @@ latex2htmlLength headheight=0.0pt
 
 latex2htmlLength headsep=0.0pt
 
-latex2htmlLength parskip=0.0pt plus 1.0pt
+latex2htmlLength parskip=5.0pt
 
-latex2htmlLength oddsidemargin=39.0pt
+latex2htmlLength oddsidemargin=0.0pt
 
-latex2htmlLength evensidemargin=39.0pt
+latex2htmlLength evensidemargin=0.0pt
 
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <12> on input line 145.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <8> on input line 145.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <6> on input line 145.
-l2hSize :tex2html_wrap_inline700:8.55331pt::0.0pt::7.26456pt.
+LaTeX Font Info:    Try loading font information for U+txmia on input line 195.
+
+(/usr/share/texmf/tex/latex/txfonts/utxmia.fd
+File: utxmia.fd 2000/12/15 v3.1
+)
+LaTeX Font Info:    Try loading font information for U+txsya on input line 195.
+
+(/usr/share/texmf/tex/latex/txfonts/utxsya.fd
+File: utxsya.fd 2000/12/15 v3.1
+)
+LaTeX Font Info:    Try loading font information for U+txsyb on input line 195.
+
+(/usr/share/texmf/tex/latex/txfonts/utxsyb.fd
+File: utxsyb.fd 2000/12/15 v3.1
+)
+LaTeX Font Info:    Try loading font information for U+txsyc on input line 195.
+
+(/usr/share/texmf/tex/latex/txfonts/utxsyc.fd
+File: utxsyc.fd 2000/12/15 v3.1
+)
+l2hSize :tex2html_wrap_inline3030:8.09999pt::0.0pt::8.23203pt.
 [1
 
 
 
-]
-l2hSize :tex2html_wrap_inline702:8.55331pt::0.0pt::12.91862pt.
-[2
-
-
-]
-l2hSize :tex2html_wrap_inline704:9.5pt::9.5pt::23.47621pt.
-[3
-
-
-]
-l2hSize :displaymath24:37.40033pt::0.0pt::349.0pt.
-[4
-
-
-]
-l2hSize :tex2html_wrap_inline708:9.5pt::9.5pt::92.70953pt.
-[5
-
-
-]
-l2hSize :tex2html_wrap_inline710:8.83331pt::8.83331pt::7.66039pt.
-[6
-
-
-]
-l2hSize :displaymath28:27.4828pt::0.0pt::349.0pt.
-[7
-
-
-]
-l2hSize :tex2html_wrap_inline712:8.83331pt::8.83331pt::13.31445pt.
-[8
-
-
-]
-l2hSize :tex2html_wrap_inline714:9.5pt::9.5pt::37.31725pt.
-[9
-
-
-]
-l2hSize :tex2html_wrap_inline716:8.83331pt::8.83331pt::16.31258pt.
-[10
-
-
-]
-l2hSize :tex2html_wrap_inline718:8.25pt::8.25pt::10.65851pt.
-[11
-
-
-]
-l2hSize :tex2html_wrap_inline724:7.75pt::0.0pt::7.26456pt.
-[12
-
-
-]
-l2hSize :tex2html_wrap_inline726:7.75pt::0.0pt::6.46246pt.
-[13
-
-
-]
-l2hSize :tex2html_wrap_inline728:9.5pt::9.5pt::33.52747pt.
-[14
-
-
-]
-l2hSize :tex2html_wrap_inline730:9.5pt::9.5pt::112.40451pt.
-[15
-
-
-]
-l2hSize :tex2html_wrap_inline732:7.75pt::0.0pt::6.58754pt.
-[16
-
-
-]
-l2hSize :tex2html_wrap_inline734:9.5pt::9.5pt::30.82959pt.
-[17
-
-
-]
-l2hSize :tex2html_wrap_inline736:9.5pt::9.5pt::32.13513pt.
-[18
-
-
-]
-l2hSize :tex2html_wrap_inline738:9.5pt::9.5pt::106.44543pt.
-[19
-
-
-]
-l2hSize :tex2html_wrap_inline740:9.5pt::9.5pt::117.77876pt.
-[20
-
-
-]
-l2hSize :tex2html_wrap_inline744:9.5pt::9.5pt::217.8312pt.
-[21
-
-
-]
-l2hSize :tex2html_wrap_inline746:9.5pt::9.5pt::181.9892pt.
-[22
-
-
-]
-File: Figs/fig1.ps Graphic file (type eps)
-<Figs/fig1.ps>
-l2hSize :tex2html_wrap2391:87.62677pt::0.0pt::349.0pt.
-[23
-
-
-]
-l2hSize :tex2html_wrap_inline752:7.96431pt::0.0pt::15.01376pt.
-[24
-
-
-]
-l2hSize :tex2html_wrap_inline756:8.33331pt::0.0pt::13.37006pt.
-[25
-
-
-]
-l2hSize :tex2html_wrap_inline762:9.5pt::9.5pt::147.76944pt.
-[26
-
-
-]
-l2hSize :tex2html_wrap_inline772:9.5pt::9.5pt::42.16292pt.
-[27
-
-
-]
-l2hSize :tex2html_wrap_inline776:9.5pt::9.5pt::73.71046pt.
-[28
-
-
-]
-l2hSize :tex2html_wrap_inline778:10.4532pt::10.4532pt::86.54393pt.
-[29
-
-
-]
-l2hSize :tex2html_wrap_inline786:7.75pt::0.0pt::16.3193pt.
-[30
-
-
-]
-l2hSize :tex2html_wrap_inline802:9.5pt::9.5pt::103.06493pt.
-[31
-
-
-]
-l2hSize :tex2html_wrap_inline804:9.5pt::9.5pt::163.97357pt.
-[32
-
-
-]
-l2hSize :tex2html_wrap_inline806:9.5pt::9.5pt::33.9233pt.
-[33
-
-
-]
-l2hSize :tex2html_wrap_inline808:8.25pt::8.25pt::12.01462pt.
-[34
-
-
-]
-l2hSize :tex2html_wrap_inline810:8.25pt::8.25pt::12.01462pt.
-[35
-
-
-]
-l2hSize :tex2html_wrap_inline814:7.75pt::0.0pt::6.46246pt.
-[36
-
-
-]
-l2hSize :tex2html_wrap_inline816:8.25pt::8.25pt::34.77498pt.
-[37
-
-
-]
-l2hSize :tex2html_wrap_inline822:9.91026pt::0.0pt::13.06363pt.
-[38
-
-
-]
-l2hSize :tex2html_wrap_inline828:9.5pt::9.5pt::34.90802pt.
-[39
-
-
-]
-l2hSize :tex2html_wrap_inline830:9.5pt::9.5pt::32.71982pt.
-[40
-
-
-]
-l2hSize :tex2html_wrap_inline834:7.75pt::0.0pt::6.75551pt.
-[41
-
-
-]
-l2hSize :tex2html_wrap_inline836:8.33331pt::0.0pt::5.58328pt.
-[42
-
-
-]
-l2hSize :tex2html_wrap_inline840:10.78033pt::10.78033pt::12.72235pt.
-[43
-
-
-]
-l2hSize :tex2html_wrap_inline848:12.09998pt::12.09998pt::31.1749pt.
-[44
-
-
-]
-l2hSize :tex2html_wrap_inline850:12.09998pt::12.09998pt::29.66287pt.
-[45
-
-
-]
-l2hSize :tex2html_wrap_inline852:7.75pt::0.0pt::8.58754pt.
-[46
-
-
-]
-l2hSize :displaymath192:31.00029pt::0.0pt::349.0pt.
-[47
-
-
-]
-l2hSize :tex2html_wrap_inline856:12.09998pt::12.09998pt::55.30019pt.
-[48
-
-
-]
-l2hSize :tex2html_wrap_inline860:12.09998pt::12.09998pt::67.28813pt.
-[49
-
-
-]
-l2hSize :tex2html_wrap_inline862:12.09998pt::12.09998pt::31.1749pt.
-[50
-
-
-]
-l2hSize :tex2html_wrap_inline864:12.09998pt::12.09998pt::29.66287pt.
-[51
-
-
-]
-l2hSize :tex2html_wrap_inline866:12.09998pt::12.09998pt::74.91685pt.
-[52
-
-
-]
-l2hSize :tex2html_wrap_inline868:9.5pt::9.5pt::57.30145pt.
-[53
-
-
-]
-l2hSize :tex2html_wrap_inline870:9.82137pt::0.0pt::15.53336pt.
-[54
-
-
-]
-Overfull \hbox (17.06079pt too wide) detected at line 503
-[] [] \OT1/cmr/m/n/12 = \OML/cmm/m/it/12 f\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 x; 
-a\OT1/cmr/m/n/12 )[] []
- []
-
-l2hSize :displaymath226:31.00029pt::0.0pt::349.0pt.
-[55
-
-
-]
-l2hSize :tex2html_wrap_inline876:12.09998pt::12.09998pt::135.43654pt.
-[56
-
-
-]
-l2hSize :tex2html_wrap_inline878:12.09998pt::12.09998pt::145.67262pt.
-[57
-
-
-]
-l2hSize :tex2html_wrap_inline882:8.25pt::8.25pt::6.64441pt.
-[58
-
-
-]
-l2hSize :tex2html_wrap_inline894:13.82664pt::13.82664pt::66.12122pt.
-[59
-
-
-]
-l2hSize :tex2html_wrap_inline896:9.5pt::9.5pt::33.3754pt.
-[60
-
-
-]
-l2hSize :tex2html_wrap_inline898:9.5pt::9.5pt::70.2521pt.
-[61
-
-
-]
-l2hSize :tex2html_wrap_inline900:9.5pt::9.5pt::85.17566pt.
-[62
-
-
-]
-l2hSize :tex2html_wrap_inline902:9.5pt::9.5pt::164.79373pt.
-[63
-
-
-]
-l2hSize :tex2html_wrap_inline912:10.4532pt::10.4532pt::95.84949pt.
-[64
-
-
-]
-l2hSize :tex2html_wrap_inline918:9.5pt::9.5pt::23.47621pt.
-[65
-
-
-]
-l2hSize :tex2html_wrap_inline920:12.50008pt::12.50008pt::177.08267pt.
-[66
-
-
-]
-l2hSize :tex2html_wrap_inline922:9.5pt::9.5pt::27.6234pt.
-[67
-
-
-]
-l2hSize :tex2html_wrap_inline926:9.5pt::9.5pt::62.84319pt.
-[68
-
-
-]
-l2hSize :tex2html_wrap_inline928:7.75pt::0.0pt::7.60133pt.
-[69
-
-
-]
-l2hSize :tex2html_wrap_indisplay2495:9.5pt::9.5pt::30.05519pt.
-[70
-
-
-]
-l2hSize :tex2html_wrap_indisplay2496:25.97499pt::25.97499pt::213.26552pt.
-[71
-
-
-]
-l2hSize :tex2html_wrap_indisplay2497:9.5pt::9.5pt::30.05519pt.
-[72
-
-
-]
-l2hSize :tex2html_wrap_indisplay2498:9.5pt::9.5pt::134.75507pt.
-[73
-
-
-]
-l2hSize :tex2html_wrap_inline932:9.5pt::9.5pt::30.05519pt.
-[74
-
-
-]
-l2hSize :tex2html_wrap_inline934:9.5pt::9.5pt::42.38629pt.
-[75
-
-
-]
-l2hSize :tex2html_wrap_inline936:10.05815pt::10.05815pt::103.19911pt.
-[76
-
-
-]
-File: Figs/fig2.ps Graphic file (type eps)
-<Figs/fig2.ps>
-l2hSize :tex2html_wrap2509:91.24025pt::0.0pt::349.0pt.
-[77
-
-
-]
-l2hSize :tex2html_wrap_inline940:8.25pt::8.25pt::5.33759pt.
-[78
-
-
-]
-l2hSize :tex2html_wrap_inline942:8.25pt::8.25pt::5.33759pt.
-[79
-
-
-]
-l2hSize :tex2html_wrap_inline944:7.75pt::0.0pt::6.46246pt.
-[80
-
-
-]
-l2hSize :tex2html_wrap_inline954:7.75pt::0.0pt::21.75404pt.
-[81
-
-
-]
-l2hSize :tex2html_wrap_inline956:7.75pt::0.0pt::21.75404pt.
-[82
-
-
-]
-l2hSize :tex2html_wrap_inline962:8.25pt::8.25pt::14.67094pt.
-[83
-
-
-]
-l2hSize :tex2html_wrap_inline980:9.5pt::9.5pt::18.4625pt.
-[84
-
-
-]
-l2hSize :tex2html_wrap_inline1000:9.5pt::9.5pt::60.8095pt.
-[85
-
-
-]
-l2hSize :tex2html_wrap_inline1010:10.01027pt::10.01027pt::5.33759pt.
-[86
-
-
-]
-l2hSize :tex2html_wrap_inline1012:10.05815pt::10.05815pt::41.45995pt.
-[87
-
-
-]
-l2hSize :tex2html_wrap_inline1014:16.87796pt::16.87796pt::179.19824pt.
-[88
-
-
-]
-l2hSize :tex2html_wrap_inline1016:8.25pt::8.25pt::57.03148pt.
-[89
-
-
-]
-l2hSize :tex2html_wrap_inline2595:7.75pt::0.0pt::9.92088pt.
-[90
-
-
-] (images.aux) ) 
+] (./images.aux) ) 
 Here is how much of TeX's memory you used:
- 1397 strings out of 20880
- 16632 string characters out of 196184
- 62586 words of memory out of 350001
- 4374 multiletter control sequences out of 10000+15000
- 6881 words of font info for 26 fonts, out of 400000 for 1000
- 14 hyphenation exceptions out of 10000
- 25i,9n,21p,185b,217s stack positions out of 3000i,100n,1500p,50000b,4000s
+ 3690 strings out of 94501
+ 47827 string characters out of 1176788
+ 94010 words of memory out of 1000000
+ 6834 multiletter control sequences out of 10000+50000
+ 13895 words of font info for 45 fonts, out of 500000 for 2000
+ 580 hyphenation exceptions out of 1000
+ 32i,6n,23p,220b,241s stack positions out of 1500i,500n,5000p,200000b,5000s
 
-Output written on images.dvi (90 pages, 23844 bytes).
+Output written on images.dvi (1 page, 2056 bytes).

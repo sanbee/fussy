@@ -1,311 +1,313 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
 
-<!--Converted with jLaTeX2HTML 2002-2-1 (1.70) JA patch-2.0
-patched version by:  Kenshi Muto, Debian Project.
-* modified by:  Shige TAKENO
-LaTeX2HTML 2002-2-1 (1.70),
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
 original version by:  Nikos Drakos, CBLU, University of Leeds
 * revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
 * with significant contributions from:
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>Error propagation: Algorithm for the multi-variate case</TITLE>
-<META NAME="description" CONTENT="Error propagation: Algorithm for the multi-variate case">
+<TITLE>Examples</TITLE>
+<META NAME="description" CONTENT="Examples">
 <META NAME="keywords" CONTENT="fussy">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
-<META NAME="Generator" CONTENT="jLaTeX2HTML v2002-2-1 JA patch-2.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
 <LINK REL="STYLESHEET" HREF="fussy.css">
 
-<LINK REL="next" HREF="node10.html">
-<LINK REL="previous" HREF="node2.html">
+<LINK REL="next" HREF="node5.html">
+<LINK REL="previous" HREF="node3.html">
 <LINK REL="up" HREF="fussy.html">
 <LINK REL="next" HREF="node5.html">
 </HEAD>
 
 <BODY >
 <!--Navigation Panel-->
-<A NAME="tex2html83"
+<A NAME="tex2html90"
   HREF="node5.html">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
- SRC="file:/usr/share/latex2html/icons/next.png"></A> 
-<A NAME="tex2html81"
+ SRC="/icons/next.png"></A> 
+<A NAME="tex2html88"
   HREF="fussy.html">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
- SRC="file:/usr/share/latex2html/icons/up.png"></A> 
-<A NAME="tex2html75"
+ SRC="/icons/up.png"></A> 
+<A NAME="tex2html82"
   HREF="node3.html">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
- SRC="file:/usr/share/latex2html/icons/prev.png"></A>   
+ SRC="/icons/prev.png"></A>   
 <BR>
-<B> Next:</B> <A NAME="tex2html84"
-  HREF="node5.html">The multiplication operator</A>
-<B> Up:</B> <A NAME="tex2html82"
+<B> Next:</B> <A NAME="tex2html91"
+  HREF="node5.html">APPENDIX</A>
+<B> Up:</B> <A NAME="tex2html89"
   HREF="fussy.html">The fussy language: Implementation</A>
-<B> Previous:</B> <A NAME="tex2html76"
-  HREF="node3.html">Example</A>
+<B> Previous:</B> <A NAME="tex2html83"
+  HREF="node3.html">Error propagation: Algorithm for</A>
 <BR>
 <BR>
 <!--End of Navigation Panel-->
-
-<H1><A NAME="SECTION00030000000000000000"></A>
-<A NAME="SEC:MULTI_VAR"></A>
-<BR>
-Error propagation: Algorithm for the multi-variate case
-</H1>
-
-<P>
-The algorithm for the multi-variate case is similar to the
-single-variate case described above, but slightly more complicated.
-Multi-variate expressions have the added complication that the terms
-in the summation of Eq.&nbsp;<A HREF="node1.html#FERR">1</A> have to be evaluated separately for
-<I>each independent</I> variable.  This means that a <TT>DS</TT> and a table
-of measurement errors (<TT>ME</TT>) <I>per independent</I> variable have
-to be maintained.
-
-<P>
-Symbols (variables and constants) in <TT>fussy</TT> are tagged with a number
-or a list of numbers (the IDs) and a type.  Symbols representing
-normal variables are of the type <TT>VAR</TT> and have a single unique
-ID, a random error and a partial derivative (of value 1) associated
-with them.  Symbols representing sub-expressions are of the type <TT>PARTIAL_VAR</TT> and have a list of IDs and a corresponding list of
-random errors and partial derivatives associated with them.  List of
-unique IDs and the random errors of the independent variables in the
-expression on the right-hand side (RHS) of the assignment operator
-constitute the list of IDs and random errors for the <TT>PARTIAL_VAR</TT> type symbols.  When a symbol (of either type) is pushed
-on the <TT>VMS</TT>, the entire list of associated IDs is copied to the ID
-list of the object on the stack.  The corresponding random errors and
-partial derivatives are also copied in the appropriate locations in
-the <TT>ME</TT> table and pushed on the appropriate <TT>DS</TT> respectively.
-For example, let the IDs of <IMG
- WIDTH="23" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="img34.png"
- ALT="$x_1$"> and <IMG
- WIDTH="23" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="img35.png"
- ALT="$x_2$"> be <IMG
- WIDTH="14" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
- SRC="img13.png"
- ALT="$1$"> and <IMG
- WIDTH="14" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
- SRC="img36.png"
- ALT="$2$">
-respectively.  The result of <IMG
- WIDTH="59" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="img37.png"
- ALT="$x_1 * x_2$"> on the top of the <TT>VMS</TT> will
-have an ID list of <TT>{1,2}</TT> retaining the information that the
-result is statistically dependent on the independent variates <IMG
- WIDTH="23" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="img34.png"
- ALT="$x_1$">
-and <IMG
- WIDTH="23" HEIGHT="33" ALIGN="MIDDLE" BORDER="0"
- SRC="img35.png"
- ALT="$x_2$">.  If this result is further used as part of another
-expression, this information will be used to propagate the chain rule
-for these variables correctly.
-
-<P>
-Since any expression is built using basic mathematical operators or
-built-in functions, for the purpose of proving the correctness of the
-error propagation algorithm for any arbitrary expression, it is
-sufficient to prove that the algorithm works for the fundamental
-mathematical operators and built-in functions.  The algorithms for
-evaluating the partial derivatives involving mathematical operators
-and the final evaluation of the resulting error is described below as
-pseudo code (see Appendix&nbsp;<A HREF="node13.html#APPEN:EX">A</A> for an example).  The
-algorithms are described using the following pseudo functions:
-
-<UL>
-<LI><TT>push(S)</TT>: to push the symbol or value <TT>S</TT> on the <TT>VMS</TT>. 
-</LI>
-<LI><TT>push(S,DS[i])</TT>: to push the symbol or value <TT>S</TT> on the
-<IMG
- WIDTH="25" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
- SRC="img38.png"
- ALT="$i^{th}$"> <TT>DS</TT>.  
-</LI>
-<LI><TT>pop()</TT>: to pop a symbol from the <TT>VMS</TT>.
-</LI>
-<LI><TT>Top(DS[i])</TT>:  represents the value on the top of the
-<IMG
- WIDTH="25" HEIGHT="20" ALIGN="BOTTOM" BORDER="0"
- SRC="img38.png"
- ALT="$i^{th}$"> <TT>DS</TT>. 
-</LI>
-</UL>
-The <TT>DS</TT> is indexed by the symbol ID(s) (say, <TT>N</TT>).  When a symbol
-from one of the symbol tables is pushed on the <TT>VMS</TT>, a value of <IMG
- WIDTH="14" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
- SRC="img13.png"
- ALT="$1$"> is
-pushed on <TT>DS[N]</TT> and the associated measurement error is copied
-into <TT>ME[N]</TT>.  <TT>L</TT> and <TT>R</TT> in the pseudo code represents
-the symbols on the left-hand-side (LHS) and right-hand side (RHS) of
-the operator respectively.  Two functions <IMG
- WIDTH="59" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="img39.png"
- ALT="$f(x,a)$"> and <IMG
- WIDTH="56" HEIGHT="37" ALIGN="MIDDLE" BORDER="0"
- SRC="img40.png"
- ALT="$g(x,b)$"> with
-one common variable (<IMG
- WIDTH="15" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
- SRC="img12.png"
- ALT="$x$">) and one non-common variable each (<IMG
- WIDTH="15" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
- SRC="img41.png"
- ALT="$a$"> and
-<IMG
- WIDTH="13" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
- SRC="img42.png"
- ALT="$b$">) are used as the LHS and RHS operands in the explanation below.
-
-<P>
-All the operators described below are binary operators.  They all pop
-two values from the top of the <TT>VMS</TT>, compute the result by applying
-the corresponding operator, store the value in a temporary stack
-object, set its ID to the union of the IDs of the operands and push it
-on the <TT>VMS</TT>.  These operations are performed by the following pseudo
-function:
-<PRE>
-   ComputeResult(L,R,Expr)
-     {
-         L = pop();     R = pop();
-         S = Expr(L,R);
-         S.IDList = union(L.IDList,R.IDList);
-         push(S);
-     }
-</PRE>
-<TT>Expr</TT> implements the arithmetic of the mathematical operation on
-<TT>L</TT> and <TT>R</TT>. 
-
-<P>
-Partial derivatives with respect to all the IDs in the ID lists of the
-operands are at the top of the corresponding <TT>DS</TT>s.  For all the IDs
-common between the two operands, two values are poped from the
-corresponding <TT>DS</TT>, say <TT>dxR</TT> and <TT>dxL</TT>.  The common IDs
-represent the variables which are part of both the operands (here
-<IMG
- WIDTH="15" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
- SRC="img12.png"
- ALT="$x$">).  Operations to compute the partial derivatives with respect to
-these common variables (equivalent of the <!-- MATH
- ${\partial \over \partial
-x}$
- -->
-<IMG
- WIDTH="24" HEIGHT="41" ALIGN="MIDDLE" BORDER="0"
- SRC="img43.png"
- ALT="${\partial \over \partial
-x}$"> operator) are represented by the pseudo function <TT>dCommonVar</TT>
-below.  The function <TT>CommonExpr</TT> implements the arithmetic for
-the derivative computation and is set to the appropriate function for
-the various operators.  These values are computed for each ID in the
-set composed of the intersection of the ID lists of the two operands,
-and pushed on the corresponding <TT>DS</TT> (here, the ID of <IMG
- WIDTH="15" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
- SRC="img12.png"
- ALT="$x$">).  Finally,
-all IDs common between the two operands are removed from the ID lists
-of each operand.
-<PRE>
-   dCommonVar(L,R,CommonExpr) 
-     { 
-         IDList = intersection(L.ID,R.ID); 
-         for ID in IDList 
-           { 
-              dxR = pop(DS[ID]); 
-              dxL = pop(DS[ID]); 
-              push(CommonExpr(L,R,dxL,dxR),DS[ID]);
-              L.Remove(ID);  R.Remove(ID); 
-           } 
-     }
-</PRE>
-The list of IDs of the two operands now has IDs corresponding to the
-non-common variables only (<IMG
- WIDTH="15" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
- SRC="img41.png"
- ALT="$a$"> and <IMG
- WIDTH="13" HEIGHT="18" ALIGN="BOTTOM" BORDER="0"
- SRC="img42.png"
- ALT="$b$"> here).  Operations for the
-partial derivatives of the operands with respect to these variables is
-represented by the pseudo function <TT>dNonCommonVar</TT> below.  <TT>LExpr</TT> and <TT>RExpr</TT> computes the value of these derivatives for the
-LHS and RHS of the operator (equivalent of computing <!-- MATH
- $\frac{\partial
-f(x,a)}{\partial a}$
- -->
-<IMG
- WIDTH="53" HEIGHT="45" ALIGN="MIDDLE" BORDER="0"
- SRC="img44.png"
- ALT="$\frac{\partial
-f(x,a)}{\partial a}$"> and <!-- MATH
- $\frac{\partial g(x,b)}{\partial b}$
- -->
-<IMG
- WIDTH="51" HEIGHT="45" ALIGN="MIDDLE" BORDER="0"
- SRC="img45.png"
- ALT="$\frac{\partial g(x,b)}{\partial b}$">) using
-the values from the top of the appropriate
-<TT>DS</TT>.
-<PRE>
-   dNonCommonVar(L,R,LExpr, RExpr)
-     {
-         for ID in L.IDList
-            Top(DS[ID]) = LExpr(L,R,Top(DS[ID]));
-
-         for ID in R.IDList
-            Top(DS[ID]) = RExpr(L,R,Top(DS[ID]));
-     }
-</PRE>
-<BR><HR>
 <!--Table of Child-Links-->
 <A NAME="CHILD_LINKS"><STRONG>Subsections</STRONG></A>
 
 <UL>
-<LI><A NAME="tex2html85"
-  HREF="node5.html">The multiplication operator</A>
-<LI><A NAME="tex2html86"
-  HREF="node6.html">The division operator</A>
-<LI><A NAME="tex2html87"
-  HREF="node7.html">The addition operator</A>
-<LI><A NAME="tex2html88"
-  HREF="node8.html">The subtraction operator</A>
-<LI><A NAME="tex2html89"
-  HREF="node9.html">The power operator</A>
+<LI><A NAME="tex2html92"
+  HREF="node4.html#SECTION00041000000000000000">Recursion</A>
 </UL>
 <!--End of Table of Child-Links-->
 <HR>
+
+<H1><A NAME="SECTION00040000000000000000"></A>
+<A NAME="SEC:EXAMPLES"></A>
+<BR>
+Examples
+</H1>
+Following are some examples to demonstrate as well as test the
+correctness of the error propagation algorithm of
+Section&nbsp;<A HREF="node3.html#SEC:MULTI_VAR">3</A>.  In the following examples, various
+functions are written in different algebraic forms and the results for
+the different forms is shown to be exactly same (e.g. <IMG
+ WIDTH="52" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img18.png"
+ ALT="$\cos(x)$"> vs.
+<!-- MATH
+ $\sqrt{1-\sin^2(x)}$
+ -->
+<IMG
+ WIDTH="104" HEIGHT="49" ALIGN="MIDDLE" BORDER="0"
+ SRC="img59.png"
+ ALT="$\sqrt{1-\sin^2(x)}$">, <IMG
+ WIDTH="50" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img60.png"
+ ALT="$\tan(x)$"> vs. <!-- MATH
+ $\sin(x)/\cos(x)$
+ -->
+<IMG
+ WIDTH="108" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="img61.png"
+ ALT="$\sin(x)/\cos(x)$">).  These
+examples also verify that the combination of a function and its
+inverse simply returns the argument (e.g <!-- MATH
+ $asin(\sin(x))=x$
+ -->
+<IMG
+ WIDTH="127" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="img62.png"
+ ALT="$asin(\sin(x))=x$">), as well
+as functions like <!-- MATH
+ $\sinh(x)/((\exp(x)-\exp(-x))/2)$
+ -->
+<IMG
+ WIDTH="242" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="img63.png"
+ ALT="$\sinh(x)/((\exp(x)-\exp(-x))/2)$"> (which is really a
+complicated way of writing <IMG
+ WIDTH="14" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img13.png"
+ ALT="$1$">!) returns a value of <IMG
+ WIDTH="14" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img13.png"
+ ALT="$1$"> with no error.
+However, if the values of two independent variates <IMG
+ WIDTH="21" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img34.png"
+ ALT="$x_1$"> and <IMG
+ WIDTH="21" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img35.png"
+ ALT="$x_2$"> and
+their corresponding errors are same, the value of expressions like
+<!-- MATH
+ $\sin^2(x_1) + \cos^2(x_2)$
+ -->
+<IMG
+ WIDTH="146" HEIGHT="42" ALIGN="MIDDLE" BORDER="0"
+ SRC="img64.png"
+ ALT="$\sin^2(x_1) + \cos^2(x_2)$"> will be <IMG
+ WIDTH="14" HEIGHT="16" ALIGN="BOTTOM" BORDER="0"
+ SRC="img13.png"
+ ALT="$1$"> but the error will not be zero.
+<PRE>
+   Value of x         =  1.00000 +/- 0.10000
+   Value of y         =  2.00000 +/- 0.20000
+   Value of x1        =  1.00000 +/- 0.10000
+   Value of x2        =  1.00000 +/- 0.10000
+
+   sin(x)             =  0.84147 +/-  0.05403
+   sqrt(1-sin(x)^2)   =  0.54030 +/-  0.08415
+   cos(x)             =  0.54030 +/-  0.08415
+
+   tan(x)             =  1.55741 +/-  0.34255
+   sin(x)/cos(x)      =  1.55741 +/-  0.34255
+
+   asin(sin(x))       =  1.00000 +/-  0.10000
+   asinh(sinh(x))     =  1.00000 +/-  0.10000
+   atanh(tanh(x))     =  1.00000 +/-  0.10000
+   exp(ln(x))         =  1.00000 +/-  0.10000
+
+   sinh(x)            =  1.17520 +/-  0.15431
+   (exp(x)-exp(-x))/2 =  1.17520 +/-  0.15431
+
+   sinh(x)/((exp(x)-exp(-x))/2) =  1.00000
+   x/exp(ln(x))                 =  1.00000
+
+   sin(x1)*sin(x1)       =  0.70807 +/- 0.09093
+   sin(x1)*sin(x2)       =  0.70807 +/- 0.06430
+   sin(x1)^2+cos(x1)^2   =  1.00000 +/- 0.00000
+   sin(x1)^2+cos(x2)^2   =  1.00000 +/- 0.12859
+</PRE>
+
+<P>
+
+<H2><A NAME="SECTION00041000000000000000">
+Recursion</A>
+</H2>
+
+<P>
+Following is an example of error propagation in a recursive function.
+The factorial of <IMG
+ WIDTH="14" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img12.png"
+ ALT="$x$"> is written as a recursive function <IMG
+ WIDTH="38" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img65.png"
+ ALT="$f(x)$">.  Its
+derivative is given by 
+<!-- MATH
+ $f(x)\left[\frac{1}{x} + \frac{1}{x-1} + \frac{1}{x-2} +\cdots +
+\frac{1}{2} + 1\right]$
+ -->
+<IMG
+ WIDTH="257" HEIGHT="48" ALIGN="MIDDLE" BORDER="0"
+ SRC="img66.png"
+ ALT="$f(x)\left[\frac{1}{x} + \frac{1}{x-1} + \frac{1}{x-2} +\cdots +
+\frac{1}{2} + 1\right]$">.  The term in the parenthesis is also written
+as a recursive function <IMG
+ WIDTH="48" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img67.png"
+ ALT="$df(x)$">.  It is shown that the propagated
+error in <IMG
+ WIDTH="38" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img65.png"
+ ALT="$f(x)$"> is equal to <!-- MATH
+ $f(x)df(x)\delta x$
+ -->
+<IMG
+ WIDTH="100" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img68.png"
+ ALT="$f(x)df(x)\delta x$">.
+<PRE>
+   &gt;f(x) {if (x==1) return x; else return x*f(--x);}
+   &gt;df(x){if (x==1) return x; else return 1/x+df(--x);}
+   &gt;f(x=10pm1)
+           3628800.00000 +/- 10628640.00000
+   &gt;(f(x)*df(x)*x.rms).val
+           10628640.00000
+</PRE>
+Similarly, the recurrence relations for the Laguerre polynomial of
+order <IMG
+ WIDTH="14" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img69.png"
+ ALT="$n$"> and its derivative evaluated at <IMG
+ WIDTH="14" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img12.png"
+ ALT="$x$"> are given by
+<BR>
+<DIV ALIGN="CENTER">
+
+<!-- MATH
+ \begin{eqnarray}
+&L_n(x)& = \left\{
+	\begin{array}{lr}
+	1&~~n=0\\
+	1-x&~~n=1\\
+	\frac{\left(2n-1-x\right)L_{n-1}(x)-\left(n-1\right)L_{n-2}(x)}{n}&~~n\ge2
+	\end{array}
+	\right. \\
+&L^\prime_n(x)&  = \left(n/x\right)\left[L_n(x) - L_{n-1}(x)\right]
+\end{eqnarray}
+ -->
+<TABLE ALIGN="CENTER" CELLPADDING="0" WIDTH="100%">
+<TR VALIGN="MIDDLE"><TD NOWRAP ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="45" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img70.png"
+ ALT="$\textstyle L_n(x)$"></TD>
+<TD ALIGN="LEFT" NOWRAP><IMG
+ WIDTH="286" HEIGHT="89" ALIGN="MIDDLE" BORDER="0"
+ SRC="img71.png"
+ ALT="$\displaystyle = \left\{
+\begin{array}{lr}
+1&amp;&nbsp;&nbsp;n=0\\
+1-x&amp;&nbsp;&nbsp;n=1\\
+\frac{\left(2n-1-x\right)L_{n-1}(x)-\left(n-1\right)L_{n-2}(x)}{n}&amp;&nbsp;&nbsp;n\ge2
+\end{array}\right.$"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(5)</TD></TR>
+<TR VALIGN="MIDDLE"><TD NOWRAP ALIGN="RIGHT">&nbsp;</TD>
+<TD ALIGN="CENTER" NOWRAP><IMG
+ WIDTH="45" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img72.png"
+ ALT="$\textstyle L^\prime_n(x)$"></TD>
+<TD ALIGN="LEFT" NOWRAP><IMG
+ WIDTH="194" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="img73.png"
+ ALT="$\displaystyle = \left(n/x\right)\left[L_n(x) - L_{n-1}(x)\right]$"></TD>
+<TD WIDTH=10 ALIGN="RIGHT">
+(6)</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+These are written as recursive functions <TT>l(n,x)</TT> and <TT>dl(n,x)</TT> and it is shown that the propagated error in <IMG
+ WIDTH="45" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img74.png"
+ ALT="$L_n(x)$"> is
+equal to <!-- MATH
+ $L^\prime_n(x)\delta x$
+ -->
+<IMG
+ WIDTH="64" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img75.png"
+ ALT="$L^\prime_n(x)\delta x$">.
+<PRE>
+   &gt;l(n,x){
+      if (n&lt;=0) return 1;
+      if (n==1) return 1-x;
+      return ((2*n-1-x)*l(n-1,x)-(n-1)*l(n-2,x))/n;
+    }
+   &gt;dl(n,x){return (n/x)*(l(n,x)-l(n-1,x));}
+   &gt;l(4,x=3pm1)
+               1.37500 +/-    0.50000
+   &gt;(dl(4,x)*x.rms).val
+           0.50000
+</PRE>
+
+<P>
+
+<HR>
 <!--Navigation Panel-->
-<A NAME="tex2html83"
+<A NAME="tex2html90"
   HREF="node5.html">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
- SRC="file:/usr/share/latex2html/icons/next.png"></A> 
-<A NAME="tex2html81"
+ SRC="/icons/next.png"></A> 
+<A NAME="tex2html88"
   HREF="fussy.html">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
- SRC="file:/usr/share/latex2html/icons/up.png"></A> 
-<A NAME="tex2html75"
+ SRC="/icons/up.png"></A> 
+<A NAME="tex2html82"
   HREF="node3.html">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
- SRC="file:/usr/share/latex2html/icons/prev.png"></A>   
+ SRC="/icons/prev.png"></A>   
 <BR>
-<B> Next:</B> <A NAME="tex2html84"
-  HREF="node5.html">The multiplication operator</A>
-<B> Up:</B> <A NAME="tex2html82"
+<B> Next:</B> <A NAME="tex2html91"
+  HREF="node5.html">APPENDIX</A>
+<B> Up:</B> <A NAME="tex2html89"
   HREF="fussy.html">The fussy language: Implementation</A>
-<B> Previous:</B> <A NAME="tex2html76"
-  HREF="node3.html">Example</A>
+<B> Previous:</B> <A NAME="tex2html83"
+  HREF="node3.html">Error propagation: Algorithm for</A>
 <!--End of Navigation Panel-->
 <ADDRESS>
 Sanjay Bhatnagar
-2006-10-17
+2011-05-28
 </ADDRESS>
 </BODY>
 </HTML>
