@@ -1,91 +1,61 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
 
-<!--Converted with jLaTeX2HTML 2002-2-1 (1.70) JA patch-2.0
-patched version by:  Kenshi Muto, Debian Project.
-* modified by:  Shige TAKENO
-LaTeX2HTML 2002-2-1 (1.70),
+<!--Converted with LaTeX2HTML 2002-2-1 (1.71)
 original version by:  Nikos Drakos, CBLU, University of Leeds
 * revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
 * with significant contributions from:
   Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
 <HTML>
 <HEAD>
-<TITLE>The multiplication operator</TITLE>
-<META NAME="description" CONTENT="The multiplication operator">
+<TITLE>APPENDIX</TITLE>
+<META NAME="description" CONTENT="APPENDIX">
 <META NAME="keywords" CONTENT="fussy">
 <META NAME="resource-type" CONTENT="document">
 <META NAME="distribution" CONTENT="global">
 
-<META NAME="Generator" CONTENT="jLaTeX2HTML v2002-2-1 JA patch-2.0">
+<META NAME="Generator" CONTENT="LaTeX2HTML v2002-2-1">
 <META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
 
 <LINK REL="STYLESHEET" HREF="fussy.css">
 
 <LINK REL="next" HREF="node6.html">
 <LINK REL="previous" HREF="node4.html">
-<LINK REL="up" HREF="node4.html">
+<LINK REL="up" HREF="fussy.html">
 <LINK REL="next" HREF="node6.html">
 </HEAD>
 
 <BODY >
 <!--Navigation Panel-->
-<A NAME="tex2html98"
+<A NAME="tex2html101"
   HREF="node6.html">
 <IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
- SRC="file:/usr/share/latex2html/icons/next.png"></A> 
-<A NAME="tex2html96"
-  HREF="node4.html">
+ SRC="/icons/next.png"></A> 
+<A NAME="tex2html99"
+  HREF="fussy.html">
 <IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
- SRC="file:/usr/share/latex2html/icons/up.png"></A> 
-<A NAME="tex2html90"
+ SRC="/icons/up.png"></A> 
+<A NAME="tex2html93"
   HREF="node4.html">
 <IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
- SRC="file:/usr/share/latex2html/icons/prev.png"></A>   
+ SRC="/icons/prev.png"></A>   
 <BR>
-<B> Next:</B> <A NAME="tex2html99"
-  HREF="node6.html">The division operator</A>
-<B> Up:</B> <A NAME="tex2html97"
-  HREF="node4.html">Error propagation: Algorithm for</A>
-<B> Previous:</B> <A NAME="tex2html91"
-  HREF="node4.html">Error propagation: Algorithm for</A>
+<B> Next:</B> <A NAME="tex2html102"
+  HREF="node6.html">An example of a</A>
+<B> Up:</B> <A NAME="tex2html100"
+  HREF="fussy.html">The fussy language: Implementation</A>
+<B> Previous:</B> <A NAME="tex2html94"
+  HREF="node4.html">Examples</A>
 <BR>
 <BR>
 <!--End of Navigation Panel-->
 
-<H2><A NAME="SECTION00031000000000000000">
-The multiplication operator</A>
-</H2>
-
-<P>
-The following code returns the result of the operator (<TT>L*R</TT>) on
-the top of the <TT>VMS</TT> with an ID equal to <TT>L.ID <IMG
- WIDTH="17" HEIGHT="17" ALIGN="BOTTOM" BORDER="0"
- SRC="img46.png"
- ALT="$\cup$"> R.ID</TT>.
-<PRE>
-   Expr(L,R) {return L*R};  /* Compute the value for 
-   ComputeResult(L,R,Expr);    the multipication operator */
-</PRE>
-Following code returns the value(s) of the partial derivative(s) (here
-<TT>dxR*L + dxL*R</TT>) with respect to <I>all</I> the common variables in
-the two operands, on the top of the appropriate <TT>DS</TT>s.  
-<PRE>
-   Expr(L,R,dxL,dxR) {return dxR*L + dxL*R;}
-   dCommonVar(L,R,Expr);
-</PRE>
-The following code returns the value of the partial derivatives with
-respect to the variables not common between the operands.  These
-values are returned on the top of the <TT>DS</TT> corresponding to the remaining
-IDs of the two operands.
-<PRE>
-   LExpr(L,R,dx) {return dx*L};
-   RExpr(L,R,dx) {return dx*R};
-   dNoncommonVar(L,R,LExpr,RExpr)
-</PRE>
+<H1><A NAME="SECTION00050000000000000000">
+APPENDIX</A>
+</H1>
 <BR><HR>
 <ADDRESS>
 Sanjay Bhatnagar
-2006-10-17
+2011-05-28
 </ADDRESS>
 </BODY>
 </HTML>
