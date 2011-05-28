@@ -19,6 +19,14 @@
 %\newdef{definition}[theorem]{Definition}
 %\newdef{remark}[theorem]{Remark}
 
+\setlength{\textheight}{22.0cm}
+\setlength{\textwidth}{16.00cm}
+\setlength{\topmargin}{-0.5cm}
+\setlength{\oddsidemargin}{0.0cm}
+\setlength{\evensidemargin}{0.5cm}
+\setlength{\parskip}{5pt}
+\setlength{\parindent}{20pt}
+
 \newcommand{\Fussy}{{\tt fussy}}
 \newcommand{\DS}{{\tt DS}}
 \newcommand{\VMS}{{\tt VMS}}
@@ -31,11 +39,11 @@
 \begin{document}
 \title{The {\tt fussy} language: Implementation of an automatic
 error propagation algorithm}
-\author{S. Bhatnagar}%\\National Radio Astronomy Observatory}
+\author{S. Bhatnagar \\National Radio Astronomy Observatory}
 \date{Nov. 2003}
 \maketitle
 \begin{center}
-\htmladdnormallinkfoot{[Postscript version]}{http://www.aoc.nrao.edu/~sbhatnag/Softwares/fussy/fussy.ps}
+\htmladdnormallinkfoot{[PDF version]}{http://www.aoc.nrao.edu/~sbhatnag/Softwares/fussy/fussy.pdf}
 \end{center}
 
 \begin{abstract} 
@@ -47,19 +55,22 @@ variations are added in quadrature to compute the final numerical
 error.  For complicated expressions, computation of all the partial
 derivatives is often cumbersome and hence error prone.
 
-The \Fussy\footnote{The name reflects the original intention of designing a language for fuzzy arithemetic.  It is also a pun on those who (wrongly) consider error propagation as too much fuss!} scripting language, described here, implements an
-algorithm for automatic propagation of random measurement errors in an
-arbitrary mathematical expression.  It is internally implemented as a
-virtual machine for efficient runtime performance and can be used as
-an interpreter by the user.  A simple {\tt C} binding to the
-interpreter is also provided.  Mathematical expressions can be
-implemented as a collection of sub-expressions, as sub-program units
-(functions or procedures) or as single atomic expressions.  Errors are
-correctly propagated when a complex expression is broken up into
-smaller sub-expressions.  Sub-expressions are assigned to temporary
-variables which can then be used to write the final expression.  These
-temporary variables are not independent variables and the information
-about their dependence on other constituent independent variables is
+The \Fussy\footnote{The name reflects the original intention of
+  designing a language for fuzzy arithemetic.  It is also a pun on
+  those who (wrongly) consider error propagation as too much fuss!}
+scripting language, described here, implements an algorithm for
+automatic propagation of random measurement errors in an arbitrary
+mathematical expression.  It is internally implemented as a virtual
+machine for efficient runtime performance and can be used as an
+interpreter by the user.  A simple {\tt C} binding to the interpreter
+is also provided.  Mathematical expressions can be implemented as a
+collection of sub-expressions, as sub-program units (functions or
+procedures) or as single atomic expressions.  Errors are correctly
+propagated when a complex expression is broken up into smaller
+sub-expressions.  Sub-expressions are assigned to temporary variables
+which can then be used to write the final expression.  These temporary
+variables are not independent variables and the information about
+their dependence on other constituent independent variables is
 preserved and used on-the-fly in error propagation.
 
 The scripting syntax of \Fussy\ is similar to that of {\tt C}.  It is
@@ -247,7 +258,7 @@ will also be correctly handled.
 \subsection{Example}
 \begin{figure}[t]
 \begin{center}
-  \includegraphics[scale=0.45]{Figs/fig1.ps}
+  \includegraphics[scale=0.45]{Figs/fig1}
 \caption[]{The parsing tree for the expression $f(x)=\sin(x)*\cos(x) + \sin(\cos(x))$}
 \label{EX1}
 \end{center}
@@ -698,7 +709,7 @@ follows.  In the following, {\tt <variablename>.rms()} and {\tt
 with the variable respectively.
 \begin{figure}[t]
 \begin{center}
-  \includegraphics[scale=0.45]{Figs/fig2.ps}
+  \includegraphics[scale=0.45]{Figs/fig2}
 \caption[]{The parsing tree for $f(x_1,x_2)={x_1\times x_2+x_1 \over {x_2}}$}
 \label{EX2}
 \end{center}
