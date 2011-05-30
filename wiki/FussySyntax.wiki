@@ -8,7 +8,7 @@ Numbers in fussy are represented as floating point numbers and can be specified 
 
 ==Units==
 
-Numerical values can be specified along with their units. As of now, the only units supported are degree, arcmin, arcsec, hours, minute, and seconds. These can be specified by appending 'd', ''', '"', 'h', 'm', 's' respectively to the numeric values. Internally, all numeric values are always stored in the MKS system of units. The default units for a variable used to specify angles or time is radians. If the values are specified along with any of the above mentioned units, the values are still stored internally as radians. However while printing (see Section on *Print Statement*), the values are formatted automatically and printed with the appropriate units.
+Numerical values can be specified along with their units. As of now, the only units supported are degree, arcmin, arcsec, hours, minute, and seconds. These can be specified by appending 'd', ''', '"', 'h', 'm', 's' respectively to the numeric values. Internally, all numeric values are always stored in the MKS system of units. The default units for a variable used to specify angles or time is radians. If the values are specified along with any of the above mentioned units, the values are still stored internally as radians. However while printing (see Section on [FussySyntax#Print_Statement]), the values are formatted automatically and printed with the appropriate units.
 
 ==Operators and built-in functions==
 
@@ -21,7 +21,7 @@ In addition, two operators of type {{{expr.<op>}}} where {{{<op>}}} is either va
 
 Numbers and variables can be combined with the mathematical operators and logical operators to form an expression. Expressions can be used as arguments to built-in or user defined functions (see Section B.6). An expression followed by a NEWLINE prints its result on the output stream (see Section B.8) in the default format (see Section B.9).
 
-For the purpose of error propagation, the print statement and the assignment operator (the "='' operator but not the ":='' operator; see Section on *Sub-expressions*) are treated as the terminal nodes of the parsing tree which invokes the final error propagation.
+For the purpose of error propagation, the print statement and the assignment operator (the "='' operator but not the ":='' operator; see Section on [FussySyntax#Sub-expressions]) are treated as the terminal nodes of the parsing tree which invokes the final error propagation.
 
 Assigning a value to a variable also creates the variable. The type of the value assigned to the variable determines its type (and overrides the value or the type of a previously declared variable). E.g.
 
