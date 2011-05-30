@@ -153,3 +153,9 @@ X BUG:  The following code generates a seg. fault (in CleanupLocalSymbTab()) [DO
   CleanupLocalSymbTab() which assumes that all symbols are properly
   initialized.
 
+  UPDATE:
+  This actually does not generate seg. fault, but gives the following
+  syntax error message:
+  
+    ###Error: syntax error near token '=' in "tx-=2;"
+
