@@ -146,7 +146,7 @@ The syntax for the for-loop is:
 where init is a comma (',') separate list of simple statements for initializing the loop variables. E.g. init can be i=0,j=0,k=0. condition is a simple, single statement while incr is a list of comma separated statement(s). The body-statement can be any valid simple or compound statement. init statements are executed first followed by the condition statement. If the result of the condition statement is non-zero (logical true), the body-statements, the incr statement(s) and the condition statements are executed in a sequence till the result of the condition statement is zero (logical false). E.g. following is a valid for-loop with 3 loop-variables, only one of which is checked in the condition:
 
 {{{
-    for (i=0,j=0,k=0;i<10;i=i+1,j=j+1;k=k+1) 
+    for (i=0,j=0,k=0;i<10;i=i+1,j=j+1,k=k+1) 
        print "i= ",i," j= ",j," k= ",k,"\n";
 }}}
 
@@ -170,8 +170,6 @@ An extra formatting, not available in printf formatting, is that of printing the
 }}}
 
 If the units of a value are specified, the print format is also appropriately modified. If a variable has units of time or angle, its print format is automatically set to %hms or %dms and are printed in the XXhXXmXX.XXs and XXdXX'XX.XX" styles respectively.
-
-
 
 
 
