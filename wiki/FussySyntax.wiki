@@ -12,7 +12,7 @@ Numerical values can be specified along with their units. As of now, the only un
 
 ==Operators and built-in functions==
 
-The normal binary operators of type {{{expr <op> expr}}}, where {{{expr}}} is any expression/variable/constant and {{{<op>}}} is one of '+', '-', '/', {{{'*'}}}, '^' and {{{'**'}}} binary operators perform the usual mathematical operations in addition to error propagation. The comparison operators '<', '>', '=', '!=', '<=', '>=' and the logical operators '||' and '&&' have the usual meaning. Apart from the usual operation, the var=expr assignment operator also does the error propagation in the expression on the RHS and assigns it as the error for the variable on the LHS. In addition to this, the assignment operator for partial variables (pvar:=expr) is also defined. This does not propagate the errors on the RHS but instead transfers all the required information for error propagation to the variable on the LHS (see Section [FussySyntax#Sub-expressions]). The result of these assignment statements is the value of the variable on the LHS. Hence expressions like sin(x=0.1pm0.02) are equivalent to 'x=0.1pm0.02;sin(x);'. The prefix and postfix operators {{{<op>var}}} and {{{var<op>}}} where {{{<op>}}} is either '++' or '--' and var is any user defined variable are also defined. These increment or decrement the value of the variables by one. The prefix and postfix operators operate on the variables before and after the variable is further used respectively.
+The normal binary operators of type {{{expr <op> expr}}}, where {{{expr}}} is any expression/variable/constant and {{{<op>}}} is one of '+', '-', '/', {{{'*'}}}, '^' and {{{'**'}}} binary operators perform the usual mathematical operations in addition to error propagation. The comparison operators '<', '>', '=', '!=', '<=', '>=' and the logical operators '||' and '&&' have the usual meaning. Apart from the usual operation, the var=expr assignment operator also does the error propagation in the expression on the RHS and assigns it as the error for the variable on the LHS. In addition to this, the assignment operator for partial variables (pvar:=expr) is also defined. This does not propagate the errors on the RHS but instead transfers all the required information for error propagation to the variable on the LHS (see Section [FussySyntax#Sub-expressions]). The result of these assignment statements is the value of the variable on the LHS. Hence expressions like {{{sin(x=0.1pm0.02)}}} are equivalent to {{{x=0.1pm0.02;sin(x);}}}. The prefix and postfix operators {{{<op>var}}} and {{{var<op>}}} where {{{<op>}}} is either '++' or '--' and var is any user defined variable are also defined. These increment or decrement the value of the variables by one. The prefix and postfix operators operate on the variables before and after the variable is further used respectively.
 
 In addition, two operators of type {{{expr.<op>}}} where {{{<op>}}} is either val or rms are also defined. These operators extract the value and the associated (propagated) error in expr which can be any mathematical expression or a variable.
 
@@ -34,7 +34,7 @@ Assigning a value to a variable also creates the variable. The type of the value
     The Hubble constant
 }}}
 
-A semi-colon (';') is a delimiter to separate multiple expressions in a single line. Statements on separate lines need not be delimited by semi-colons (though it is not an error to do so). Compound statements are a group of simple statements, grouped using the curly-brace pair ('{' and '}') (e.g. {a=1.5; b=2;}). As may be obvious, compound statements can also be nested. The {{{'/*'}}} and{{{'*/'}}} pair can be used as comment delimiters. Comment delimiters however cannot be nested.
+A semi-colon (';') is a delimiter to separate multiple expressions in a single line. Statements on separate lines need not be delimited by semi-colons (though it is not an error to do so). Compound statements are a group of simple statements, grouped using the curly-brace pair ('{' and '}') (e.g. {{{{a=1.5; b=2;}}}}). As may be obvious, compound statements can also be nested. The {{{'/*'}}} and{{{'*/'}}} pair can be used as comment delimiters. Comment delimiters however cannot be nested.
 
 
 ==Sub-expressions==
@@ -143,7 +143,7 @@ The syntax for the for-loop is:
       body-statment
 }}}
 
-where init is a comma (',') separate list of simple statements for initializing the loop variables. E.g. init can be i=0,j=0,k=0. condition is a simple, single statement while incr is a list of comma separated statement(s). The body-statement can be any valid simple or compound statement. init statements are executed first followed by the condition statement. If the result of the condition statement is non-zero (logical true), the body-statements, the incr statement(s) and the condition statements are executed in a sequence till the result of the condition statement is zero (logical false). E.g. following is a valid for-loop with 3 loop-variables, only one of which is checked in the condition:
+where init is a comma (',') separate list of simple statements for initializing the loop variables. E.g. init can be {{{i=0,j=0,k=0}}}. condition is a simple, single statement while incr is a list of comma separated statement(s). The body-statement can be any valid simple or compound statement. init statements are executed first followed by the condition statement. If the result of the condition statement is non-zero (logical true), the body-statements, the incr statement(s) and the condition statements are executed in a sequence till the result of the condition statement is zero (logical false). E.g. following is a valid for-loop with 3 loop-variables, only one of which is checked in the condition:
 
 {{{
     for (i=0,j=0,k=0;i<10;i=i+1,j=j+1,k=k+1) 
@@ -158,15 +158,15 @@ The print statement takes a comma separated list of objects to be printed. These
 
 ==Formatting==
 
-Values can be formatted for printing in a variety of ways. The format in which a variable is printed is associated with the variable and consists of a printf styled formatting string (with extensions for specifying the units of the numerical values as well). E.g., if x=75pm10, by default x will be printed using the '%10.5f' format. The default print format can be modified using the '.' operator on a variable. E.g., one can fix the default print format of x to '%5.2f' by x.=%5.2f.
+Values can be formatted for printing in a variety of ways. The format in which a variable is printed is associated with the variable and consists of a printf styled formatting string (with extensions for specifying the units of the numerical values as well). E.g., if {{{x=75pm10}}}, by default {{{x}}} will be printed using the {{{'%10.5f'}}} format. The default print format can be modified using the '.' operator on a variable. E.g., one can fix the default print format of {{{x}}} to {{{'%5.2f'}}} by {{{x.=%5.2f}}}.
 
-The print format of a value can also be temporarily modified by specifying the format along with the variable/value. E.g. the value of x can be printed in the exponent format as print x%E or in the in hexadecimal format as print x%x.
+The print format of a value can also be temporarily modified by specifying the format along with the variable/value. E.g. the value of {{{x}}} can be printed in the exponent format as print {{{x%E}}} or in the in hexadecimal format as print {{{x%x}}}.
 
-An extra formatting, not available in printf formatting, is that of printing the individual bit values using the %b format. With this, the value is printed in binary (1 or 0) format. %B does the same thing except that it prints a space after every 8 bits. The value is casted into a unsigned long integer before printing.
+An extra formatting, not available in printf formatting, is that of printing the individual bit values using the {{{%b}}} format. With this, the value is printed in binary (1 or 0) format. {{{%B}}} does the same thing except that it prints a space after every 8 bits. The value is casted into a unsigned long integer before printing.
 
 {{{
    >x=10;x%B
         00000000 00000000 00000000 00001010
 }}}
 
-If the units of a value are specified, the print format is also appropriately modified. If a variable has units of time or angle, its print format is automatically set to %hms or %dms and are printed in the XXhXXmXX.XXs and XXdXX'XX.XX" styles respectively.
+If the units of a value are specified, the print format is also appropriately modified. If a variable has units of time or angle, its print format is automatically set to {{{%hms}}} or {{{%dms}}} and are printed in the {{{XXhXXmXX.XXs}}} and {{{XXdXX'XX.XX"}}} styles respectively.
