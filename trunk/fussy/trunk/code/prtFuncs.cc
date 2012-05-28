@@ -1,6 +1,6 @@
 // $Id$
 /******************************************************************
- * Copyright (c) 2000-2007, 2008 S.Bhatnagar
+ * Copyright (c) 2000-2010, 2011 S.Bhatnagar
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -350,6 +350,7 @@ void showHelp()
   cerr << endl << "Mathematical functions available:" << endl;
   cerr << "\t" << "sin, cos, tan, asin, acos, atan, atan2, sinh, cosh, tanh" << endl;
   cerr << "\t" << "asinh, acosh, atanh, exp, ln, log, fabs, fmod, sqrt, int" << endl;
+  cerr << "\t" << "floor, ceil" << endl;
 
   cerr << endl << "Some useful constants:" << endl;
   cerr << "\t PI: The value of PI" << endl;
