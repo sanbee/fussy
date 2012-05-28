@@ -1,6 +1,6 @@
 /* $Id: calc.h,v 1.3 2006/03/10 21:38:37 sbhatnag Exp $ */
 /***************************************************************
- * Copyright (c) 2000-2007, 2008 S.Bhatnagar
+ * Copyright (c) 2000-2010, 2011 S.Bhatnagar
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -51,6 +51,8 @@ Instruction   calcgetInst(char *);
 NUMTYPE       todeg(NUMTYPE);
 NUMTYPE       todms(NUMTYPE);
 NUMTYPE       Eint(NUMTYPE);
+NUMTYPE       Efloor(NUMTYPE);
+NUMTYPE       Eceil(NUMTYPE);
 NUMTYPE       b2j(NUMTYPE, NUMTYPE);
 NUMTYPE       j2b(NUMTYPE, NUMTYPE);
 int           calc_error(char *);

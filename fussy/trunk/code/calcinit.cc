@@ -1,6 +1,6 @@
 // $Id: calcinit.cc,v 1.3 2006/03/10 21:38:37 sbhatnag Exp $
 /******************************************************************
- * Copyright (c) 2000-2007, 2008 S.Bhatnagar
+ * Copyright (c) 2000-2010, 2011 S.Bhatnagar
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -123,6 +123,8 @@ void InitSymbTab()
   PUTID(s,0); s.name="fabs";  s.type=BUILTIN_TYPE;  s.otype.func1=fabs;  SymbTab.push_back(s);
   PUTID(s,0); s.name="fmod";  s.type=BUILTIN2_TYPE; s.otype.func2=fmod;  SymbTab.push_back(s);
   PUTID(s,0); s.name="int";   s.type=BUILTIN_TYPE;  s.otype.func1=Eint;  SymbTab.push_back(s);
+  PUTID(s,0); s.name="floor"; s.type=BUILTIN_TYPE;  s.otype.func1=Efloor; SymbTab.push_back(s);
+  PUTID(s,0); s.name="ceil"; s.type=BUILTIN_TYPE;  s.otype.func1=Eceil; SymbTab.push_back(s);
   //
   // Constants
   //
@@ -293,6 +295,19 @@ edouble Eint(edouble x)
   return t;
 }
 
+edouble Efloor(edouble x)
+{
+  edouble t;
+  t.setval(floor(x.val()),floor(x.rms()));
+  return t;
+}
+
+edouble Eceil(edouble x)
+{
+  edouble t;
+  t.setval(ceil(x.val()),ceil(x.rms()));
+  return t;
+}
 extern ostream OUTPUT;
 //
 //-------------------------------------------------------------------
