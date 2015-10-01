@@ -3,4 +3,7 @@ The fussy scripting language implements an algorithm for automatic propagation o
 
 Please also refer to its usage in your publication by quoting the following:      
     Project: https://github.com/sanbee/fussy
+    
     Web-paper describing the algorithm: http://www.aoc.nrao.edu/~sbhatnag/Softwares/fussy/fussy/fussy.html
+    
+    Syntax: https://github.com/sanbee/fussy/blob/wiki/FussySyntax.md#syntax-for-the-fussy-scripting-language
