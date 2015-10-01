@@ -2,11 +2,15 @@
 %\documentclass[acmtoms,acmnow]{acmtrans2m}
 \documentclass[12pt]{article}
 %\usepackage{utopia}     % Use Utopia font
-\usepackage{txfonts}     % Use Utopia font
-\usepackage{html}
-\usepackage{url}
-\usepackage{natbib}
+\usepackage{ifpdf}
+\usepackage{amsmath}
 \usepackage[dvips]{graphicx, color}  % The figure package
+\usepackage{palatino}
+%\usepackage{txfonts}     % Use Utopia font
+\usepackage{natbib}
+\usepackage{marvosym}
+\usepackage{xcolor}
+\usepackage[breaklinks,colorlinks]{hyperref}
 
 %\acmYear{03}
 %\acmMonth{11}
@@ -30,8 +34,7 @@
 \newcommand{\Fussy}{{\tt fussy}}
 \newcommand{\DS}{{\tt DS}}
 \newcommand{\VMS}{{\tt VMS}}
-\def\runningfoot{\def\@runningfoot{}}
-\def\firstfoot{\def\@firstfoot{}}
+\newcommand{\PDFVersion}  {\htmladdnormallinkfoot{PDF version}{http://www.aoc.nrao.edu/~sbhatnag/Softwares/fussy/fussy.pdf}}
            
 \pagestyle{myheadings}
 %\markright{S. Bhatnagar}
@@ -45,9 +48,13 @@ error propagation algorithm}
 \author{S. Bhatnagar \\National Radio Astronomy Observatory}
 \date{Nov. 2003}
 \maketitle
+\normalsize
+\ifpdf
+\else
 \begin{center}
-\htmladdnormallinkfoot{[PDF version]}{http://www.aoc.nrao.edu/~sbhatnag/Softwares/fussy/fussy.pdf}
+  \PDFVersion
 \end{center}
+\fi
 
 \begin{abstract} 
 Formal propagation of random errors in a mathematical expression
@@ -87,6 +94,9 @@ use.  Also, such libraries and tools are difficult to use for correct
 error propagation in expressions composed of sub-expressions.
 \end{abstract}
             
+\newpage
+\tableofcontents
+\newpage
 %\category{D.0}{Software}{General}[Automatic error propagation]
             
 %\terms{Algorithms}

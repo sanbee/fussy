@@ -1,6 +1,6 @@
 FUSSYDOC=fussy.tex
 LATEX=latex
-LATEX2HTML:=latex2html
+LATEX2HTML:=htlatex
 BIBTEX=bibtex
 DVIPS=dvips
 SOURCEDIR=.
