@@ -1,0 +1,302 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+
+<!--Converted with LaTeX2HTML 2008 (1.71)
+original version by:  Nikos Drakos, CBLU, University of Leeds
+* revised and updated by:  Marcus Hennecke, Ross Moore, Herb Swan
+* with significant contributions from:
+  Jens Lippmann, Marek Rouchal, Martin Wilck and others -->
+<HTML>
+<HEAD>
+<TITLE>Introduction</TITLE>
+<META NAME="description" CONTENT="Introduction">
+<META NAME="keywords" CONTENT="fussy">
+<META NAME="resource-type" CONTENT="document">
+<META NAME="distribution" CONTENT="global">
+
+<META NAME="Generator" CONTENT="LaTeX2HTML v2008">
+<META HTTP-EQUIV="Content-Style-Type" CONTENT="text/css">
+
+<LINK REL="STYLESHEET" HREF="fussy.css">
+
+<LINK REL="next" HREF="node2.html">
+<LINK REL="previous" HREF="fussy.html">
+<LINK REL="up" HREF="fussy.html">
+<LINK REL="next" HREF="node2.html">
+</HEAD>
+
+<BODY >
+<!--Navigation Panel-->
+<A NAME="tex2html45"
+  HREF="node2.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html43"
+  HREF="fussy.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html37"
+  HREF="fussy.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html46"
+  HREF="node2.html">Error propagation: Single variable</A>
+<B> Up:</B> <A NAME="tex2html44"
+  HREF="fussy.html">The fussy language: Implementation</A>
+<B> Previous:</B> <A NAME="tex2html38"
+  HREF="fussy.html">The fussy language: Implementation</A>
+<BR>
+<BR>
+<!--End of Navigation Panel-->
+
+<H1><A NAME="SECTION00010000000000000000">
+Introduction</A>
+</H1>
+
+<P>
+If <IMG
+ WIDTH="15" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="img1.png"
+ ALT="$\vec x$">
+ is a vector of independent experimentally measured
+quantities with associated random measurement error <!-- MATH
+ $\delta \vec
+x$
+ -->
+<IMG
+ WIDTH="24" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="img2.png"
+ ALT="$\delta \vec
+x$">
+, the formal error on a function <IMG
+ WIDTH="38" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3.png"
+ ALT="$f(\vec x)$">
+ is given by
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="FERR"></A><!-- MATH
+ \begin{equation}
+\delta f = \sqrt{\sum_i {\left( {\partial f \over {\partial x_i}} 
+        \delta x_i \right)}^2}
+\end{equation}
+ -->
+<TABLE CELLPADDING="0" WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="CENTER"><IMG
+ WIDTH="169" HEIGHT="87" ALIGN="MIDDLE" BORDER="0"
+ SRC="img4.png"
+ ALT="$\displaystyle \delta f = \sqrt{\sum_i {\left( {\partial f \over {\partial x_i}} \delta x_i \right)}^2}$"></TD>
+<TD NOWRAP WIDTH="10" ALIGN="RIGHT">
+(1)</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+Further, if <IMG
+ WIDTH="38" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="img3.png"
+ ALT="$f(\vec x)$">
+ is a functional, e.g. <!-- MATH
+ $f(\vec x)=g(h(k(\vec
+x)))$
+ -->
+<IMG
+ WIDTH="136" HEIGHT="39" ALIGN="MIDDLE" BORDER="0"
+ SRC="img5.png"
+ ALT="$f(\vec x)=g(h(k(\vec
+x)))$">
+, then the partial derivative of <IMG
+ WIDTH="16" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img6.png"
+ ALT="$f$">
+ is given by the derivative
+chain rule:
+<P></P>
+<DIV ALIGN="CENTER"><A NAME="DFUNCTIONAL"></A><!-- MATH
+ \begin{equation}
+{\partial f \over \partial x_i} = {\partial f \over \partial h} 
+{\partial h \over \partial k} {\partial k \over \partial x_i}
+\end{equation}
+ -->
+<TABLE CELLPADDING="0" WIDTH="100%" ALIGN="CENTER">
+<TR VALIGN="MIDDLE">
+<TD NOWRAP ALIGN="CENTER"><IMG
+ WIDTH="130" HEIGHT="61" ALIGN="MIDDLE" BORDER="0"
+ SRC="img7.png"
+ ALT="$\displaystyle {\partial f \over \partial x_i} = {\partial f \over \partial h} {\partial h \over \partial k} {\partial k \over \partial x_i}$"></TD>
+<TD NOWRAP WIDTH="10" ALIGN="RIGHT">
+(2)</TD></TR>
+</TABLE></DIV>
+<BR CLEAR="ALL"><P></P>
+Therefore, for the computation of <IMG
+ WIDTH="25" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img8.png"
+ ALT="$\delta f$">
+, one requires:
+
+<OL>
+<LI>the partial derivative of the function with respect to each
+independent variable (<!-- MATH
+ $\partial f / \partial x_i$
+ -->
+<IMG
+ WIDTH="57" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="img9.png"
+ ALT="$\partial f / \partial x_i$">
+)
+</LI>
+<LI><!-- MATH
+ $\delta x_i$
+ -->
+<IMG
+ WIDTH="27" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img10.png"
+ ALT="$\delta x_i$">
+ - the measurement error
+</LI>
+<LI>chain rules of differential calculus for the
+mathematical operators (which will use the <IMG
+ WIDTH="19" HEIGHT="36" ALIGN="MIDDLE" BORDER="0"
+ SRC="img11.png"
+ ALT="$x_i$">
+'s and <!-- MATH
+ $\partial f /
+\partial x_i$
+ -->
+<IMG
+ WIDTH="57" HEIGHT="35" ALIGN="MIDDLE" BORDER="0"
+ SRC="img9.png"
+ ALT="$\partial f / \partial x_i$">
+'s).  
+</LI>
+</OL>
+
+<P>
+In the following sections, the implementation of an algorithm for
+automatic computation of partial derivatives and propagation of random
+errors in an arbitrary mathematical expression is described.  The
+algorithm is implemented as a scripting language called <TT>fussy</TT> and
+can be used as an interpreter by the user.  The syntax is similar to
+that of the <TT>C</TT> language making it easy to use in an interactive
+session or as a scripting environment.  Each user defined variable in
+<TT>fussy</TT> is treated as an independent variable and expressions can be
+constructed using an arbitrary number of variables.  It is error prone
+to express complicated expressions as single atomic statements and
+usually the final expression is built out of sub-expressions and
+temporary variables.  For the purpose of random error propagation
+however, temporary variables are dependent on the independent
+variables (normal user defined variables) on the right hand side of an
+assignment operator.  The algorithm described below does correct error
+propagation in the final expression composed of such temporary
+variables.  A special language feature is used to distinguish between
+such temporary and normal variables as well as to associate
+measurement errors with numbers (see
+Appendix&nbsp;<A HREF="node18.html#APPEN:SYNTAX_EXPR">B.3</A>).
+
+<P>
+Although it is possible to code Eq.&nbsp;<A HREF="#FERR">1</A> in other tools
+(<A NAME="tex2html47"
+  HREF="node29.html#Calc">Gillespie, 1992</A>; <A NAME="tex2html48"
+  HREF="node29.html#Bischof1997A-A">Bischof et&nbsp;al., 1997</A>; <A NAME="tex2html49"
+  HREF="node29.html#EDA">Harrison, 1995</A>), it requires sophisticated programing
+and learning often arcane, new programing tools.  This is usually time
+consuming and enough of a bother to discourage its use for the purpose
+of error propagation in every-day scientific use.  The work of
+<A
+ HREF="node29.html#Stoutemyer:1977">Stoutemyer (1977)</A> using the <TT>REDUCE</TT> algebraic manipulation
+language (<A NAME="tex2html50"
+  HREF="node29.html#REDUCE">Hearn, 1995</A>; <A NAME="tex2html51"
+  HREF="node29.html#REDUCE2">Hearn, 1971</A>) was one of the first which used
+automatic symbolic differentiation for error analysis in <I>single
+  atomic mathematical expressions</I>.  <A
+ HREF="node29.html#EDA">Harrison (1995)</A> has used a similar
+approach and developed a tool for <TT>  Mathematica</TT><A NAME="tex2html2"
+  HREF="footnode.html#foot70"><SUP>2</SUP></A>.
+There are program development libraries
+(<A NAME="tex2html52"
+  HREF="node29.html#Tsukanov2003Dsa">Tsukanov &amp; Hall, 2003</A>; <A NAME="tex2html53"
+  HREF="node29.html#ScComp">Barton &amp; Nackman, 1994</A>; <A NAME="tex2html54"
+  HREF="node29.html#Griewank:1996:AAP">Griewank et&nbsp;al., 1996</A>) for automatic
+differentiation which could be used for similar purpose.  However they
+too suffer from the same problem of requiring more effort from the
+user than is possible in everyday work.  Besides, most of these
+existing tools will be hard to use for multi-variate expressions and
+functionals.  They are even harder (if not impossible) to use directly
+for complicated expressions expressed as a combination of
+sub-expressions.  Apart from the difficulty of use, the two tools
+which do use automatic differentiation for error propagation require
+access and familiarity with other packages (the <TT>REDUCE</TT> package
+or the commercially sold package <TT>Mathematica</TT>).
+
+<P>
+The <TT>fussy</TT> interpreter is implemented internally as a virtual machine
+(VM) with a stack of its own.  The derivative chain rule
+(Eq.&nbsp;<A HREF="#DFUNCTIONAL">2</A>) is implemented using a separate VM which has a
+separate stack <I>per independent variable</I> to hold the intermediate
+partial derivatives.  At the terminal nodes of a parsing tree (e.g.
+the '<TT>=</TT>' operator) the values from these stacks are used to
+evaluate Eq.&nbsp;<A HREF="#FERR">1</A>.  A user program written in <TT>fussy</TT> is
+compiled into the VM instruction-set, referred to as the op-codes, to
+manipulate the VM stack (<TT>VMS</TT>), call built-in functions, perform basic
+mathematical operations or call user defined sub-program (functions or
+procedures).  These op-codes are function calls which perform the
+operation they represent (mathematical operators, built-in function
+call or branching to a sub-program unit) as well as the steps required
+for automatic error propagation.  Since user defined
+programs/expressions are translated into these op-codes, errors are
+correctly propagated in the mathematical expression in any arbitrary
+user program.
+
+<P>
+A simple <TT>C</TT> binding to the interpreter is also provided.  The
+user program can be supplied to the interpreter via an in-memory
+string using the function <TT>calc(char</TT> <TT>*InString,</TT> <TT>edouble</TT> <TT>&amp;ans,</TT> <TT>FILE</TT> <TT>*InStream,</TT> <TT>FILE</TT> <TT>*OutStream)</TT>.  The contents of the <TT>InString</TT> are parsed and
+converted to a VM instruction set.  The result of the execution of
+this program is returned in <TT>ans</TT>.  The last two arguments are not
+used in this case.  Alternatively, if <TT>InString</TT> is set to <TT>NULL</TT> and the last two arguments set to valid file pointers, the
+interpreter will take the input from <TT>InFile</TT> and use <TT>OutFile</TT> as the output stream.  A similar <TT>C++</TT> interface of type
+<TT>calc(char *InString,</TT> <TT>ostream &amp;ResultStream,</TT> <TT>FILE *InStream,</TT> <TT>FILE *OutStream)</TT> writes the result of the
+program supplied in <TT>InString</TT> or via the file pointer <TT>InStream</TT> to the output stream <TT>ResultStream</TT>.  <TT>OutStream</TT> in
+both interfaces is used as the output file for the error messages.
+
+<P>
+For a better understanding, in Section&nbsp;<A HREF="node2.html#SEC:SINGLE_VAR">2</A> I describe
+the algorithm for automatic random error propagation for the simpler
+case of a single variate expression.  Section&nbsp;<A HREF="node4.html#SEC:MULTI_VAR">3</A>
+describes the complete algorithm, along with the logic for the various
+operators in the form of pseudo code.  The correctness of the
+algorithm is demonstrated in Section&nbsp;<A HREF="node10.html#SEC:EXAMPLES">4</A> using
+numerical examples.  On the lines of proof of correctness of the
+algorithm, it is also argued that the algorithm is general and will
+work for any arbitrary expression.  In Appendix&nbsp;<A HREF="node13.html#APPEN:EX">A</A>, a
+step-wise description of the algorithm for a general mathematical
+expression is given.  Appendix&nbsp;<A HREF="node14.html#APPEN:SYNTAX">B</A> describes the syntax
+of the <TT>fussy</TT> language.
+
+<P>
+<HR>
+<!--Navigation Panel-->
+<A NAME="tex2html45"
+  HREF="node2.html">
+<IMG WIDTH="37" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="next"
+ SRC="file:/usr/share/latex2html/icons/next.png"></A> 
+<A NAME="tex2html43"
+  HREF="fussy.html">
+<IMG WIDTH="26" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="up"
+ SRC="file:/usr/share/latex2html/icons/up.png"></A> 
+<A NAME="tex2html37"
+  HREF="fussy.html">
+<IMG WIDTH="63" HEIGHT="24" ALIGN="BOTTOM" BORDER="0" ALT="previous"
+ SRC="file:/usr/share/latex2html/icons/prev.png"></A>   
+<BR>
+<B> Next:</B> <A NAME="tex2html46"
+  HREF="node2.html">Error propagation: Single variable</A>
+<B> Up:</B> <A NAME="tex2html44"
+  HREF="fussy.html">The fussy language: Implementation</A>
+<B> Previous:</B> <A NAME="tex2html38"
+  HREF="fussy.html">The fussy language: Implementation</A>
+<!--End of Navigation Panel-->
+<ADDRESS>
+Sanjay Bhatnagar
+2015-10-01
+</ADDRESS>
+</BODY>
+</HTML>
