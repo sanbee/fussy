@@ -9,7 +9,8 @@ fussy.ps: fussy.dvi
 	$(DVIPS) fussy.dvi -o fussy.ps
 
 fussy.html: fussy.dvi
-	$(LATEX2HTML) fussy
+#	$(LATEX2HTML) fussy
+	$(LATEX2HTML) fussy.tex "html,2,sec-filename" "" "-dHTML/"
 
 fussy.dvi: fussy.tex fussy.bbl
 	$(LATEX) fussy.tex
@@ -27,5 +28,4 @@ clean:
 	\rm -rf *.dvi *.aux *.log *.bbl *.blg *~ fussy \
 	  *.png \
  	*.aux *.lg *.xref *.html \
- 	*.4* *.css *.tmp \
-
+ 	*.4* *.css *.tmp *.out *.toc *.idv
