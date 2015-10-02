@@ -1,0 +1,344 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>An example of a multi-variate expression</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<!-- html,2,sec-filename --> 
+<meta name="src" content="fussy.tex"> 
+<meta name="date" content="2015-10-02 11:00:00"> 
+<link rel="stylesheet" type="text/css" href="fussy.css"> 
+</head><body 
+>
+    <!--l. 716--><div class="crosslinks"><p class="noindent">[<a 
+href="APPENDIX.html" >prev</a>] [<a 
+href="APPENDIX.html#tailAPPENDIX.html" >prev-tail</a>] [<a 
+href="ErrorpropagationAlgorithmforthemultivariatecase.html#tailAnexampleofamultivariateexpression.html">tail</a>] [<a 
+href="fussy.html#refnamemkbothMakeUppercaserefnameMakeUppercaserefname.html" >up</a>] </p></div>
+    <h3 class="sectionHead"><span class="titlemark">A    </span> <a 
+ id="x11-14000A"></a>An example of a multi-variate expression</h3>
+<!--l. 718--><p class="noindent" >Parsing tree for the multi-variate expression <span 
+class="cmmi-12">f</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-12">,x</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmr-12">) =</span> <span 
+class="cmmi-8">x</span><sub><span 
+class="cmr-6">1</span></sub><span 
+class="cmsy-8">&#x00D7;</span><span 
+class="cmmi-8">x</span><sub><span 
+class="cmr-6">2</span></sub><span 
+class="cmr-8">+</span><span 
+class="cmmi-8">x</span><sub><span 
+class="cmr-6">1</span></sub> 
+      <span 
+class="cmmi-8">x</span><sub><span 
+class="cmr-6">2</span></sub>        is shown in Fig.&#x00A0;<a 
+href="#x11-140012">2<!--tex4ht:ref: EX2 --></a>. The
+sequence of operations at the stages marked by <span 
+class="pplb7t-x-x-120">1,2 </span>and <span 
+class="pplb7t-x-x-120">3 </span>are as follows. In the following,
+<span 
+class="pcrr7t-x-x-120">&#x003C;variablename&#x003E;.rms() </span>and <span 
+class="pcrr7t-x-x-120">&#x003C;variablename&#x003E;.ID </span>refers to the random error and the ID
+associated with the variable respectively. <hr class="figure"><div class="figure" 
+>
+                                                                                       
+                                                                                       
+<a 
+ id="x11-140012"></a>
+                                                                                       
+                                                                                       
+<div class="center" 
+>
+<!--l. 725--><p class="noindent" >
+<!--l. 726--><p class="noindent" ><img 
+src="fussy17x.png" alt="PIC" class="graphics" width="106.59752pt" height="91.24025pt" ><!--tex4ht:graphics  
+name="fussy17x.png" src="Figs/fig2.ps"  
+-->
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;2: </span><span  
+class="content">The parsing tree for <span 
+class="cmmi-12">f</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmmi-12">,x</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="cmr-12">) =</span> <span 
+class="cmmi-8">x</span><sub><span 
+class="cmr-6">1</span></sub><span 
+class="cmsy-8">&#x00D7;</span><span 
+class="cmmi-8">x</span><sub><span 
+class="cmr-6">2</span></sub><span 
+class="cmr-8">+</span><span 
+class="cmmi-8">x</span><sub><span 
+class="cmr-6">1</span></sub> 
+      <span 
+class="cmmi-8">x</span><sub><span 
+class="cmr-6">2</span></sub>       </span></div><!--tex4ht:label?: x11-140012 -->
+</div>
+                                                                                       
+                                                                                       
+<!--l. 730--><p class="indent" >    </div><hr class="endfigure">
+      <ol  class="enumerate1" >
+      <li 
+  class="enumerate" id="x11-14003x1">Stage <span 
+class="pplb7t-x-x-120">1</span>:
+      <!--l. 735--><p class="noindent" >The  IDs  of  <span 
+class="pcrr7t-x-x-120">x</span><sub><span 
+class="cmr-8">1</span></sub>  and  <span 
+class="pcrr7t-x-x-120">x</span><sub><span 
+class="cmr-8">2</span></sub>  are  set  to  <span 
+class="cmr-12">0 </span>and  <span 
+class="cmr-12">1 </span>respectively  and  they  are  pushed  on
+      the <span 
+class="pcrr7t-x-x-120">VMS</span>. <span 
+class="pcrr7t-x-x-120">x</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="pcrr7t-x-x-120">.rms() </span>and <span 
+class="pcrr7t-x-x-120">x</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="pcrr7t-x-x-120">.rms() </span>are copied in <span 
+class="pcrr7t-x-x-120">ME[0] </span>and <span 
+class="pcrr7t-x-x-120">ME[1] </span>respectively,
+      while a value of <span 
+class="cmr-12">1 </span>is pushed on <span 
+class="pcrr7t-x-x-120">DS[0] </span>and <span 
+class="pcrr7t-x-x-120">DS[1]</span>.
+      <!--l. 742--><p class="noindent" >Operator <span 
+class="pcrr7t-x-x-120">'&#x22C6;' </span>pops two values (say <span 
+class="pcrr7t-x-x-120">L </span>and <span 
+class="pcrr7t-x-x-120">R</span>) from the <span 
+class="pcrr7t-x-x-120">VMS</span>. A value <span 
+class="pcrr7t-x-x-120">L&#x22C6;R </span>with an
+      ID equal to <span 
+class="pcrr7t-x-x-120">L.ID</span><span 
+class="cmmi-12">&#x00A0; </span><span 
+class="cmsy-10x-x-120">&#x222A;</span> <span 
+class="cmmi-12">&#x00A0;</span><span 
+class="pcrr7t-x-x-120">R.ID </span>is pushed on the <span 
+class="pcrr7t-x-x-120">VMS</span>&#x00A0;and a list of common IDs is
+      made as <span 
+class="pcrr7t-x-x-120">IDList = L.IDList</span><span 
+class="cmmi-12">&#x00A0;</span><span 
+class="cmsy-10x-x-120">&#x2229;</span><span 
+class="cmmi-12">&#x00A0;</span><span 
+class="pcrr7t-x-x-120">R.IDList </span>(here, an empty list). Next, for all
+      IDs in <span 
+class="pcrr7t-x-x-120">L</span>, a value is poped from <span 
+class="pcrr7t-x-x-120">DS[L.ID] </span>(say, <span 
+class="pcrr7t-x-x-120">dx</span>), and <span 
+class="pcrr7t-x-x-120">dx&#x22C6;R </span>is pushed back on
+      <span 
+class="pcrr7t-x-x-120">DS[L.ID]</span>. Similar operation is done for all IDs in <span 
+class="pcrr7t-x-x-120">R</span>.
+      <!--l. 750--><p class="noindent" >Top of <span 
+class="pcrr7t-x-x-120">DS[0] </span>and <span 
+class="pcrr7t-x-x-120">DS[1] </span>now has <span 
+class="pcrr7t-x-x-120">x</span><sub><span 
+class="cmr-8">2</span></sub> and <span 
+class="pcrr7t-x-x-120">x</span><sub><span 
+class="cmr-8">1</span></sub> respectively, while the top of the
+      <span 
+class="pcrr7t-x-x-120">VMS</span>&#x00A0;has the value <span 
+class="pcrr7t-x-x-120">x</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmsy-10x-x-120">&#x00D7;</span><span 
+class="pcrr7t-x-x-120">x</span><sub><span 
+class="cmr-8">2</span></sub> with an <span 
+class="pcrr7t-x-x-120">IDList=</span><span 
+class="cmsy-10x-x-120">{</span><span 
+class="pcrr7t-x-x-120">1,0</span><span 
+class="cmsy-10x-x-120">}</span>.
+      </li>
+      <li 
+  class="enumerate" id="x11-14005x2">Stage <span 
+class="pplb7t-x-x-120">2</span>:
+      <!--l. 756--><p class="noindent" ><span 
+class="pcrr7t-x-x-120">x</span><sub><span 
+class="cmr-8">1</span></sub> is pushed on the <span 
+class="pcrr7t-x-x-120">VMS</span>, its ID is set to zero, <span 
+class="pcrr7t-x-x-120">x</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="pcrr7t-x-x-120">.rms() </span>is copied to <span 
+class="pcrr7t-x-x-120">ME[0] </span>(a
+      redundant operation) and a value of <span 
+class="cmr-12">1 </span>is pushed on <span 
+class="pcrr7t-x-x-120">DS[0]</span>.
+      <!--l. 760--><p class="noindent" >Operator &#8217;<span 
+class="pcrr7t-x-x-120">+</span>&#8217; pops two values (<span 
+class="pcrr7t-x-x-120">L </span>and <span 
+class="pcrr7t-x-x-120">R</span>) from the <span 
+class="pcrr7t-x-x-120">VMS</span>&#x00A0;(these have values <span 
+class="pcrr7t-x-x-120">x</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmsy-10x-x-120">&#x00D7;</span><span 
+class="pcrr7t-x-x-120">x</span><sub><span 
+class="cmr-8">2</span></sub>
+      and <span 
+class="pcrr7t-x-x-120">x</span><sub><span 
+class="cmr-8">1</span></sub>). <span 
+class="pcrr7t-x-x-120">L+R </span>with an <span 
+class="pcrr7t-x-x-120">IDList= L.ID</span><span 
+class="cmmi-12">&#x00A0; </span><span 
+class="cmsy-10x-x-120">&#x222A;</span> <span 
+class="cmmi-12">&#x00A0;</span><span 
+class="pcrr7t-x-x-120">R.ID </span>is pushed back on the <span 
+class="pcrr7t-x-x-120">VMS</span>. This
+      <span 
+class="pcrr7t-x-x-120">IDList </span>will be <span 
+class="cmsy-10x-x-120">{</span><span 
+class="pcrr7t-x-x-120">0,1</span><span 
+class="cmsy-10x-x-120">}</span>. For IDs common between <span 
+class="pcrr7t-x-x-120">L </span>and <span 
+class="pcrr7t-x-x-120">R </span>(here <span 
+class="cmsy-10x-x-120">{</span><span 
+class="cmr-12">0</span><span 
+class="cmsy-10x-x-120">}</span>), two values
+      are poped from the <span 
+class="pcrr7t-x-x-120">DS</span>, and their addition pushed back on the <span 
+class="pcrr7t-x-x-120">DS</span>. The common
+      ID is then removed from the ID list of both operands. For the remaining IDs in <span 
+class="pcrr7t-x-x-120">L</span>
+      (<span 
+class="pcrr7t-x-x-120">R </span>has no IDs left), values are poped from the corresponding <span 
+class="pcrr7t-x-x-120">DS</span>, added together
+      and pushed back on the appropriate <span 
+class="pcrr7t-x-x-120">DS</span>.
+      <!--l. 771--><p class="noindent" >Hence, at the end of the operator <span 
+class="pcrr7t-x-x-120">'+'</span>, <span 
+class="pcrr7t-x-x-120">DS[0] </span>will have <span 
+class="pcrr7t-x-x-120">x</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="pcrr7t-x-x-120">+1 </span>and <span 
+class="pcrr7t-x-x-120">DS[1] </span>will
+      have <span 
+class="pcrr7t-x-x-120">x</span><sub><span 
+class="cmr-8">1</span></sub>. Top of the <span 
+class="pcrr7t-x-x-120">VMS</span>&#x00A0;has the value <span 
+class="pcrr7t-x-x-120">x</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="cmsy-10x-x-120">&#x00D7;</span><span 
+class="pcrr7t-x-x-120">x</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="pcrr7t-x-x-120">+x</span><sub><span 
+class="cmr-8">1</span></sub>.
+      </li>
+      <li 
+  class="enumerate" id="x11-14007x3">Stage <span 
+class="pplb7t-x-x-120">3</span>:
+      <!--l. 777--><p class="noindent" ><span 
+class="pcrr7t-x-x-120">x</span><sub><span 
+class="cmr-8">2</span></sub>  is  pushed  on  the  <span 
+class="pcrr7t-x-x-120">VMS</span>,  <span 
+class="pcrr7t-x-x-120">x</span><sub><span 
+class="cmr-8">2</span></sub><span 
+class="pcrr7t-x-x-120">.rms() </span>is  copied  in  <span 
+class="pcrr7t-x-x-120">ME[1] </span>(another  redundant
+      operation) and a value of <span 
+class="cmr-12">1 </span>is pushed on <span 
+class="pcrr7t-x-x-120">DS[1]</span>.
+      <!--l. 781--><p class="noindent" >Operator <span 
+class="pcrr7t-x-x-120">'/' </span>pops two values (<span 
+class="pcrr7t-x-x-120">L </span>and <span 
+class="pcrr7t-x-x-120">R</span>) from the <span 
+class="pcrr7t-x-x-120">VMS</span>. A value of <span 
+class="pcrr7t-x-x-120">L/R </span>with an
+      <span 
+class="pcrr7t-x-x-120">IDList=L.ID</span><span 
+class="cmmi-12">&#x00A0; </span><span 
+class="cmsy-10x-x-120">&#x222A;</span> <span 
+class="cmmi-12">&#x00A0;</span><span 
+class="pcrr7t-x-x-120">R.ID </span>(<span 
+class="cmsy-10x-x-120">{</span><span 
+class="cmr-12">0</span><span 
+class="cmmi-12">, </span><span 
+class="cmr-12">1</span><span 
+class="cmsy-10x-x-120">}&#x222A;{</span><span 
+class="cmr-12">0</span><span 
+class="cmsy-10x-x-120">}</span>) is pushed on the <span 
+class="pcrr7t-x-x-120">VMS</span>. A list of common
+      IDs between <span 
+class="pcrr7t-x-x-120">L </span>and <span 
+class="pcrr7t-x-x-120">R </span>is made using <span 
+class="pcrr7t-x-x-120">IDList = L.IDList</span><span 
+class="cmmi-12">&#x00A0; </span><span 
+class="cmsy-10x-x-120">&#x2229;</span> <span 
+class="cmmi-12">&#x00A0;</span><span 
+class="pcrr7t-x-x-120">R.IDList</span>. For
+      all IDs in <span 
+class="pcrr7t-x-x-120">IDList</span>, two values are poped from the corresponding <span 
+class="pcrr7t-x-x-120">DS </span>(say, <span 
+class="pcrr7t-x-x-120">dxR</span>
+      (<span 
+class="pcrr7t-x-x-120">=x</span><sub><span 
+class="cmr-8">1</span></sub>) and <span 
+class="pcrr7t-x-x-120">dxL </span>(=1)) and <span 
+class="pcrr7t-x-x-120">(R&#x22C6;dxL - L&#x22C6;dxR)/(R&#x22C6;R) </span>pushed back on the same
+      <span 
+class="pcrr7t-x-x-120">DS</span>. The corresponding IDs are then removed from <span 
+class="pcrr7t-x-x-120">L </span>and <span 
+class="pcrr7t-x-x-120">R</span>.
+                                                                                       
+                                                                                       
+      <!--l. 791--><p class="noindent" >Next, for all the remaining IDs in <span 
+class="pcrr7t-x-x-120">L</span>, a value is poped (say <span 
+class="pcrr7t-x-x-120">dx</span>) from <span 
+class="pcrr7t-x-x-120">DS[L.ID]</span>
+      and <span 
+class="pcrr7t-x-x-120">dx/R </span>is pushed back on the same <span 
+class="pcrr7t-x-x-120">DS</span>. Similarly, for all IDs in <span 
+class="pcrr7t-x-x-120">R</span>, a value from
+      <span 
+class="pcrr7t-x-x-120">DS[R.ID] </span>is poped into <span 
+class="pcrr7t-x-x-120">dx </span>and <span 
+class="pcrr7t-x-x-120">-L&#x22C6;dx/(R&#x22C6;R) </span>is pushed back on the same <span 
+class="pcrr7t-x-x-120">DS</span>.
+      <!--l. 797--><p class="noindent" >At the end of this stage, <span 
+class="pcrr7t-x-x-120">DS[0] </span>has the value <span 
+class="pcrr7t-x-x-120">1+1/x</span><sub><span 
+class="cmr-8">2</span></sub> and <span 
+class="pcrr7t-x-x-120">DS[1] </span>has the value
+      <span 
+class="pcrr7t-x-x-120">-x</span><sub><span 
+class="cmr-8">1</span></sub><span 
+class="pcrr7t-x-x-120">/x</span><sub><span 
+class="cmr-8">2</span></sub><sup><span 
+class="cmr-8">2</span></sup>. <span 
+class="pcrr7t-x-x-120">VMS</span>&#x00A0;now has <span 
+class="cmmi-8">x</span><sub><span 
+class="cmr-6">1</span></sub><span 
+class="cmsy-8">&#x00D7;</span><span 
+class="cmmi-8">x</span><sub><span 
+class="cmr-6">2</span></sub><span 
+class="cmr-8">+</span><span 
+class="cmmi-8">x</span><sub><span 
+class="cmr-6">1</span></sub> 
+      <span 
+class="cmmi-8">x</span><sub><span 
+class="cmr-6">2</span></sub>       .
+      </li></ol>
+<!--l. 803--><p class="indent" >    Finally, the values from the top of <span 
+class="pplri7t-x-x-120">all </span><span 
+class="pcrr7t-x-x-120">DS</span>s are multiplied with corresponding values in <span 
+class="pcrr7t-x-x-120">ME</span>
+table, squared, added and the square root of the final result is taken. That value will be
+<img 
+src="fussy18x.png" alt="&#x2218;  ----------------------------------
+   [(    -1)      ]2   [  x1      ]2
+     1 + x2  &#x00D7; &#x03B4;x1   +  - x22 &#x00D7; &#x03B4;x2"  class="sqrt" >. This is the final error propagated through the
+expression.
+                                                                                       
+                                                                                       
+    <!--l. 811--><div class="crosslinks"><p class="noindent">[<a 
+href="APPENDIX.html" >prev</a>] [<a 
+href="APPENDIX.html#tailAPPENDIX.html" >prev-tail</a>] [<a 
+href="Anexampleofamultivariateexpression.html" >front</a>] [<a 
+href="fussy.html#refnamemkbothMakeUppercaserefnameMakeUppercaserefname.html" >up</a>] </p></div>
+<!--l. 811--><p class="indent" >    <a 
+ id="tailAnexampleofamultivariateexpression.html"></a>  
+</body></html> 

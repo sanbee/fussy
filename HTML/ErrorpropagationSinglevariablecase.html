@@ -1,0 +1,416 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>Error propagation: Single variable case</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<!-- html,2,sec-filename --> 
+<meta name="src" content="fussy.tex"> 
+<meta name="date" content="2015-10-02 11:00:00"> 
+<link rel="stylesheet" type="text/css" href="fussy.css"> 
+</head><body 
+>
+    <!--l. 236--><div class="crosslinks"><p class="noindent">[<a 
+href="Anexampleofamultivariateexpression.html" >next</a>] [<a 
+href="Introduction.html" >prev</a>] [<a 
+href="Introduction.html#tailIntroduction.html" >prev-tail</a>] [<a 
+href="contentsname.html#tailErrorpropagationSinglevariablecase.html">tail</a>] [<a 
+href="fussy.html#APPENDIX.html" >up</a>] </p></div>
+    <h3 class="sectionHead"><span class="titlemark">2    </span> <a 
+ id="x7-30002"></a>Error propagation: Single variable case</h3>
+<!--l. 239--><p class="noindent" >For the case where <span 
+class="cmmi-12">f </span>is a function of a single measurable <span 
+class="cmmi-12">x</span>, the right hand side of Eq.&#x00A0;<a 
+href="Introduction.html#x5-2001r1">1<!--tex4ht:ref: FERR --></a> can be
+evaluated as follows. Each leaf of the parsing tree will either be (1) a constant, (2) a variable,
+or (3) another sub-tree representing a sub-expression. The derivatives can be computed by
+the repeated application of the derivative chain rule. Starting from the bottom of the tree, a
+value of <span 
+class="cmr-12">1 </span>is pushed on the Derivative Stack (<span 
+class="pcrr7t-x-x-120">DS</span>) (equivalent of putting <span 
+class="cmmi-12">&#x2202;x&#x2215;&#x2202;x</span>
+on the stack) for every leaf of the tree (which, at the bottom, correspond to the
+symbols from the symbol table or constants). The nodes of a tree corresponds to one
+of the arithmetic operators (&#8217;<span 
+class="pcrr7t-x-x-120">+</span>&#8217;, &#8217;<span 
+class="pcrr7t-x-x-120">-</span>&#8217;, &#8217;<span 
+class="pcrr7t-x-x-120">/</span>&#8217;, &#8217;<span 
+class="pcrr7t-x-x-120">&#x22C6;</span>&#8217;, &#8217;<img 
+src="fussy8x.png" alt="^  "  class="circ" >&#8217;, and &#8217;<span 
+class="pcrr7t-x-x-120">&#x22C6;&#x22C6;</span>&#8217;) or built-in functions,
+which are implemented as function calls. These functions push the result of the
+operations on the <span 
+class="pcrr7t-x-x-120">VMS</span>&#x00A0;while the corresponding partial derivatives are pushed on the
+<span 
+class="pcrr7t-x-x-120">DS</span>.
+<!--l. 255--><p class="indent" >    The final result and the error propagation will in general use the values from both the
+stacks (the <span 
+class="pcrr7t-x-x-120">VMS</span>&#x00A0;and the <span 
+class="pcrr7t-x-x-120">DS</span>). E.g. for <span 
+class="cmmi-12">f</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">) =</span> <span 
+class="cmr-12">sin</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">) </span><span 
+class="cmsy-10x-x-120">*</span> <span 
+class="cmr-12">cos</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">)</span>, when the execution reaches
+the node for the &#8217;<span 
+class="cmsy-10x-x-120">*</span>&#8217; operator, the <span 
+class="pcrr7t-x-x-120">VMS</span>&#x00A0;will have two values, namely <span 
+class="cmr-12">sin</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">) </span>and
+<span 
+class="cmr-12">cos</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">)</span>. The <span 
+class="pcrr7t-x-x-120">DS</span>&#x00A0;also has two values, namely the two derivatives <span 
+class="cmmi-12">&#x2202;</span> <span 
+class="cmr-12">sin</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">)</span><span 
+class="cmmi-12">&#x2215;&#x2202;x </span><span 
+class="cmr-12">=</span> <span 
+class="cmr-12">cos</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">)</span>
+and <span 
+class="cmmi-12">&#x2202;</span> <span 
+class="cmr-12">cos</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">)</span><span 
+class="cmmi-12">&#x2215;&#x2202;x </span><span 
+class="cmr-12">= </span><span 
+class="cmsy-10x-x-120">-</span> <span 
+class="cmr-12">sin</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">)</span>. The value of <span 
+class="cmmi-12">f </span>is pushed on the <span 
+class="pcrr7t-x-x-120">VMS</span>, and its derivate
+(<span 
+class="cmmi-12">&#x2202;</span> <span 
+class="cmr-12">sin</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">)</span><span 
+class="cmmi-12">&#x2215;&#x2202;x </span><span 
+class="cmsy-10x-x-120">*</span> <span 
+class="cmr-12">cos</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">) +</span> <span 
+class="cmr-12">sin</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">) </span><span 
+class="cmsy-10x-x-120">* </span><span 
+class="cmmi-12">&#x2202;</span> <span 
+class="cmr-12">cos</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">)</span><span 
+class="cmmi-12">&#x2215;&#x2202;x</span>), computed using both the stacks, pushed on the
+<span 
+class="pcrr7t-x-x-120">DS</span>. The &#8217;<span 
+class="pcrr7t-x-x-120">=</span>&#8217; operator rule finally takes the value from the <span 
+class="pcrr7t-x-x-120">DS</span>, and compute the right hand side
+of Eq.&#x00A0;<a 
+href="Introduction.html#x5-2001r1">1<!--tex4ht:ref: FERR --></a>.
+<!--l. 267--><p class="indent" >    An arbitrary expression composed of user defined variables or built-in functions, will
+itself be represented as a sub-tree. Hence, applying the above algorithm recursively, case (3)
+above (a sub-expression) will also be correctly handled.
+<!--l. 272--><p class="noindent" >
+    <h4 class="subsectionHead"><span class="titlemark">2.1    </span> <a 
+ id="x7-40002.1"></a>Example</h4>
+<!--l. 273--><p class="noindent" ><hr class="figure"><div class="figure" 
+>
+                                                                                       
+                                                                                       
+<a 
+ id="x7-40011"></a>
+                                                                                       
+                                                                                       
+<div class="center" 
+>
+<!--l. 274--><p class="noindent" >
+<!--l. 275--><p class="noindent" ><img 
+src="fussy9x.png" alt="PIC" class="graphics" width="121.5031pt" height="87.62677pt" ><!--tex4ht:graphics  
+name="fussy9x.png" src="Figs/fig1.ps"  
+-->
+<br /> <div class="caption" 
+><span class="id">Figure&#x00A0;1: </span><span  
+class="content">The parsing tree for the expression <span 
+class="cmmi-12">f</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">) =</span> <span 
+class="cmr-12">sin</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">) </span><span 
+class="cmsy-10x-x-120">*</span> <span 
+class="cmr-12">cos</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">) +</span> <span 
+class="cmr-12">sin</span><span 
+class="cmr-12">(</span><span 
+class="cmr-12">cos</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">))</span></span></div><!--tex4ht:label?: x7-40011 -->
+</div>
+                                                                                       
+                                                                                       
+<!--l. 279--><p class="noindent" ></div><hr class="endfigure">
+<!--l. 280--><p class="indent" >    Let <span 
+class="cmmi-12">f</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">) =</span> <span 
+class="cmr-12">sin</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">) </span><span 
+class="cmsy-10x-x-120">*</span> <span 
+class="cmr-12">cos</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">) +</span> <span 
+class="cmr-12">sin</span><span 
+class="cmr-12">(</span><span 
+class="cmr-12">cos</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">)) </span>(this includes three sub-expressions one of which is
+a functional), represented as a tree in Fig.&#x00A0;<a 
+href="#x7-40011">1<!--tex4ht:ref: EX1 --></a>. A value of <span 
+class="cmr-12">1 </span>is pushed on the <span 
+class="pcrr7t-x-x-120">DS</span>&#x00A0;whenever a
+symbol from the symbol-table is pushed on the <span 
+class="pcrr7t-x-x-120">VMS</span>. When branch <span 
+class="pplb7t-x-x-120">1 </span>in the above tree is
+reduced, a call to the built-in function <span 
+class="cmr-12">sin</span> pops a value from the <span 
+class="pcrr7t-x-x-120">VMS</span>&#x00A0;(which is <span 
+class="cmmi-12">x</span>) and a value
+from the <span 
+class="pcrr7t-x-x-120">DS</span>&#x00A0;(say <span 
+class="cmmi-12">dx</span>, which is <span 
+class="cmr-12">1</span>). It then pushes the value of <span 
+class="cmr-12">sin</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">) </span>on the <span 
+class="pcrr7t-x-x-120">VMS</span>&#x00A0;and a value of
+<span 
+class="cmmi-12">dx </span><span 
+class="cmsy-10x-x-120">* </span><span 
+class="cmmi-12">&#x2202;</span> <span 
+class="cmr-12">sin</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">)</span><span 
+class="cmmi-12">&#x2215;&#x2202;x </span><span 
+class="cmr-12">= 1 </span><span 
+class="cmsy-10x-x-120">*</span> <span 
+class="cmr-12">cos</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">) </span>on the <span 
+class="pcrr7t-x-x-120">DS</span>. Similar operations are done for evaluating
+<span 
+class="cmr-12">cos</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">)</span>. When the execution reaches node <span 
+class="pplb7t-x-x-120">2</span>, the <span 
+class="pcrr7t-x-x-120">VMS</span>&#x00A0;has the values <span 
+class="cmr-12">sin</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">) </span>(<span 
+class="pcrr7t-x-x-120">L</span>) and
+<span 
+class="cmr-12">cos</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">) </span>(<span 
+class="pcrr7t-x-x-120">R</span>) and the <span 
+class="pcrr7t-x-x-120">DS</span>&#x00A0;has <span 
+class="cmr-12">cos</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">) </span>(<span 
+class="pcrr7t-x-x-120">dL</span>) and <span 
+class="cmsy-10x-x-120">-</span> <span 
+class="cmr-12">sin</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">) </span>(<span 
+class="pcrr7t-x-x-120">dR</span>). Since &#8217;<span 
+class="cmsy-10x-x-120">*</span>&#8217; is a binary operator,
+when node <span 
+class="pplb7t-x-x-120">2 </span>is reduced, two values each from the <span 
+class="pcrr7t-x-x-120">VMS</span>&#x00A0;and the <span 
+class="pcrr7t-x-x-120">DS</span>&#x00A0;are poped. The
+multiplication operator then pushes <span 
+class="pcrr7t-x-x-120">L&#x22C6;R</span>=<span 
+class="cmr-12">sin</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">) </span><span 
+class="cmsy-10x-x-120">*</span> <span 
+class="cmr-12">cos</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">) </span>on the <span 
+class="pcrr7t-x-x-120">VMS</span>&#x00A0;while <span 
+class="pcrr7t-x-x-120">L&#x22C6;dR +</span>
+<span 
+class="pcrr7t-x-x-120">R&#x22C6;dL</span>=<span 
+class="cmr-12">cos</span> <sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">) </span><span 
+class="cmsy-10x-x-120">-</span> <span 
+class="cmr-12">sin</span> <sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">) </span>is pushed on the <span 
+class="pcrr7t-x-x-120">DS</span>&#x00A0;(note that this uses values from the <span 
+class="pcrr7t-x-x-120">DS</span>&#x00A0;as well
+as from the VMS). Both the stacks now have one value each - <span 
+class="pcrr7t-x-x-120">VMS</span>&#x00A0;the value of
+the sub-expression <span 
+class="cmr-12">sin</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">) </span><span 
+class="cmsy-10x-x-120">*</span> <span 
+class="cmr-12">cos</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">) </span>and the <span 
+class="pcrr7t-x-x-120">DS</span>&#x00A0;the value of the derivative of this
+sub-expression.
+<!--l. 301--><p class="indent" >    Next, branch <span 
+class="pplb7t-x-x-120">3 </span>is evaluated. Again, <span 
+class="cmr-12">1 </span>and <span 
+class="cmmi-12">x </span>are pushed on the <span 
+class="pcrr7t-x-x-120">DS</span>&#x00A0;and the <span 
+class="pcrr7t-x-x-120">VMS</span>&#x00A0;respectively.
+A call to <span 
+class="cmr-12">cos</span> compute the derivative of <span 
+class="cmr-12">cos</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">) </span>(namely, <span 
+class="cmsy-10x-x-120">-</span> <span 
+class="cmr-12">sin</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">)</span>) and multiplies it by the top of
+the <span 
+class="pcrr7t-x-x-120">DS</span>&#x00A0;(which is <span 
+class="cmr-12">1</span>). When call for <span 
+class="cmr-12">sin</span> is made, its argument (<span 
+class="cmr-12">cos</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">)</span>) and the derivative of the
+argument are on the <span 
+class="pcrr7t-x-x-120">DS</span>&#x00A0;and <span 
+class="pcrr7t-x-x-120">VMS</span>&#x00A0;respectively. A value from the <span 
+class="pcrr7t-x-x-120">VMS</span>&#x00A0;and <span 
+class="pcrr7t-x-x-120">DS</span>&#x00A0;each
+(say <span 
+class="pcrr7t-x-x-120">L</span>=<span 
+class="cmr-12">cos</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">) </span>and <span 
+class="pcrr7t-x-x-120">dL </span>=<span 
+class="cmsy-10x-x-120">-</span> <span 
+class="cmr-12">sin</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">)</span>) respectively) are poped. <span 
+class="cmr-12">sin</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">L</span><span 
+class="cmr-12">) =</span> <span 
+class="cmr-12">sin</span><span 
+class="cmr-12">(</span><span 
+class="cmr-12">cos</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">)) </span>and
+<span 
+class="pcrr7t-x-x-120">dL</span><span 
+class="cmsy-10x-x-120">*</span> <span 
+class="cmr-12">sin</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">L</span><span 
+class="cmr-12">) = </span><span 
+class="cmsy-10x-x-120">-</span> <span 
+class="cmr-12">sin</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">) </span><span 
+class="cmsy-10x-x-120">*</span> <span 
+class="cmr-12">sin</span><span 
+class="cmr-12">(</span><span 
+class="cmr-12">cos</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">)) </span>are pushed on the <span 
+class="pcrr7t-x-x-120">VMS</span>&#x00A0;and <span 
+class="pcrr7t-x-x-120">DS</span>&#x00A0;respectively. This is the
+equivalent of Eq.&#x00A0;<a 
+href="Introduction.html#x5-2002r2">2<!--tex4ht:ref: DFUNCTIONAL --></a> for branch <span 
+class="pplb7t-x-x-120">3</span>. At this stage, the two values on the <span 
+class="pcrr7t-x-x-120">VMS</span>&#x00A0;are the values of
+the two sub-expression and <span 
+class="pcrr7t-x-x-120">DS</span>&#x00A0;has the values of the partial derivatives of the two
+sub-expressions.
+<!--l. 314--><p class="indent" >    Reduction of the node <span 
+class="pplb7t-x-x-120">4 </span>will then again invoke the rule for the derivative and the binary
+operator for addition: pop two values each from the <span 
+class="pcrr7t-x-x-120">VMS</span>&#x00A0;and <span 
+class="pcrr7t-x-x-120">DS</span>, push the result of the
+operator on the <span 
+class="pcrr7t-x-x-120">VMS</span>, and the derivative (<span 
+class="pcrr7t-x-x-120">dL+dR </span>in this case) on the <span 
+class="pcrr7t-x-x-120">DS</span>. Top of the <span 
+class="pcrr7t-x-x-120">DS</span>&#x00A0;now
+has <span 
+class="cmmi-12">&#x2202;f&#x2215;&#x2202;x </span>and the &#8217;<span 
+class="pcrr7t-x-x-120">=</span>&#8217; operator computes Eq. <a 
+href="Introduction.html#x5-2001r1">1<!--tex4ht:ref: FERR --></a>.
+                                                                                       
+                                                                                       
+    <!--l. 321--><div class="crosslinks"><p class="noindent">[<a 
+href="Anexampleofamultivariateexpression.html" >next</a>] [<a 
+href="Introduction.html" >prev</a>] [<a 
+href="Introduction.html#tailIntroduction.html" >prev-tail</a>] [<a 
+href="ErrorpropagationSinglevariablecase.html" >front</a>] [<a 
+href="fussy.html#APPENDIX.html" >up</a>] </p></div>
+<!--l. 321--><p class="indent" >    <a 
+ id="tailErrorpropagationSinglevariablecase.html"></a>   
+</body></html> 

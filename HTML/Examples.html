@@ -1,0 +1,229 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>Examples</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<!-- html,2,sec-filename --> 
+<meta name="src" content="fussy.tex"> 
+<meta name="date" content="2015-10-02 11:00:00"> 
+<link rel="stylesheet" type="text/css" href="fussy.css"> 
+</head><body 
+>
+    <!--l. 619--><div class="crosslinks"><p class="noindent">[<a 
+href="ACKNOWLEDGEMENTS.html" >next</a>] [<a 
+href="ErrorpropagationAlgorithmforthemultivariatecase.html" >prev</a>] [<a 
+href="ErrorpropagationAlgorithmforthemultivariatecase.html#tailErrorpropagationAlgorithmforthemultivariatecase.html" >prev-tail</a>] [<a 
+href="#tailExamples.html">tail</a>] [<a 
+href="fussy.html#Syntax.html" >up</a>] </p></div>
+    <h3 class="sectionHead"><span class="titlemark">4    </span> <a 
+ id="x9-110004"></a>Examples</h3>
+<!--l. 621--><p class="noindent" >Following are some examples to demonstrate as well as test the correctness of the error
+propagation algorithm of Section&#x00A0;<a 
+href="ErrorpropagationAlgorithmforthemultivariatecase.html#x8-50003">3<!--tex4ht:ref: SEC:MULTI_VAR --></a>. In the following examples, various functions are written
+in different algebraic forms and the results for the different forms is shown to be exactly same
+(e.g. <span 
+class="cmr-12">cos</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">) </span>vs. <img 
+src="fussy14x.png" alt="&#x2218; -------2---
+  1 - sin (x)"  class="sqrt" >, <span 
+class="cmr-12">tan</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">) </span>vs. <span 
+class="cmr-12">sin</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">)</span><span 
+class="cmmi-12">&#x2215;</span> <span 
+class="cmr-12">cos</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">)</span>). These examples also verify that
+the combination of a function and its inverse simply returns the argument (e.g
+<span 
+class="cmmi-12">asin</span><span 
+class="cmr-12">(</span><span 
+class="cmr-12">sin</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">)) = </span><span 
+class="cmmi-12">x</span>), as well as functions like <span 
+class="cmr-12">sinh</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">)</span><span 
+class="cmmi-12">&#x2215;</span><span 
+class="cmr-12">((</span><span 
+class="cmr-12">exp</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">) </span><span 
+class="cmsy-10x-x-120">-</span> <span 
+class="cmr-12">exp</span><span 
+class="cmr-12">(</span><span 
+class="cmsy-10x-x-120">-</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">))</span><span 
+class="cmmi-12">&#x2215;</span><span 
+class="cmr-12">2) </span>(which is really a
+complicated way of writing <span 
+class="cmr-12">1</span>!) returns a value of <span 
+class="cmr-12">1 </span>with no error. However, if the values
+of two independent variates <span 
+class="cmmi-12">x</span><sub><span 
+class="cmr-8">1</span></sub> and <span 
+class="cmmi-12">x</span><sub><span 
+class="cmr-8">2</span></sub> and their corresponding errors are same,
+the value of expressions like <span 
+class="cmr-12">sin</span> <sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><sub>
+<span 
+class="cmr-8">1</span></sub><span 
+class="cmr-12">) +</span> <span 
+class="cmr-12">cos</span> <sup><span 
+class="cmr-8">2</span></sup><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><sub>
+<span 
+class="cmr-8">2</span></sub><span 
+class="cmr-12">) </span>will be <span 
+class="cmr-12">1 </span>but the error will not be
+zero.
+                                                                                       
+                                                                                       
+    <div class="verbatim" id="verbatim-17">
+&#x00A0;&#x00A0;&#x00A0;Value&#x00A0;of&#x00A0;x&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;=&#x00A0;&#x00A0;1.00000&#x00A0;+/-&#x00A0;0.10000
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;Value&#x00A0;of&#x00A0;y&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;=&#x00A0;&#x00A0;2.00000&#x00A0;+/-&#x00A0;0.20000
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;Value&#x00A0;of&#x00A0;x1&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;=&#x00A0;&#x00A0;1.00000&#x00A0;+/-&#x00A0;0.10000
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;Value&#x00A0;of&#x00A0;x2&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;=&#x00A0;&#x00A0;1.00000&#x00A0;+/-&#x00A0;0.10000
+&#x00A0;<br />
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;sin(x)&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;=&#x00A0;&#x00A0;0.84147&#x00A0;+/-&#x00A0;&#x00A0;0.05403
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;sqrt(1-sin(x)^2)&#x00A0;&#x00A0;&#x00A0;=&#x00A0;&#x00A0;0.54030&#x00A0;+/-&#x00A0;&#x00A0;0.08415
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;cos(x)&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;=&#x00A0;&#x00A0;0.54030&#x00A0;+/-&#x00A0;&#x00A0;0.08415
+&#x00A0;<br />
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;tan(x)&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;=&#x00A0;&#x00A0;1.55741&#x00A0;+/-&#x00A0;&#x00A0;0.34255
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;sin(x)/cos(x)&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;=&#x00A0;&#x00A0;1.55741&#x00A0;+/-&#x00A0;&#x00A0;0.34255
+&#x00A0;<br />
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;asin(sin(x))&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;=&#x00A0;&#x00A0;1.00000&#x00A0;+/-&#x00A0;&#x00A0;0.10000
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;asinh(sinh(x))&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;=&#x00A0;&#x00A0;1.00000&#x00A0;+/-&#x00A0;&#x00A0;0.10000
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;atanh(tanh(x))&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;=&#x00A0;&#x00A0;1.00000&#x00A0;+/-&#x00A0;&#x00A0;0.10000
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;exp(ln(x))&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;=&#x00A0;&#x00A0;1.00000&#x00A0;+/-&#x00A0;&#x00A0;0.10000
+&#x00A0;<br />
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;sinh(x)&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;=&#x00A0;&#x00A0;1.17520&#x00A0;+/-&#x00A0;&#x00A0;0.15431
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;(exp(x)-exp(-x))/2&#x00A0;=&#x00A0;&#x00A0;1.17520&#x00A0;+/-&#x00A0;&#x00A0;0.15431
+&#x00A0;<br />
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;sinh(x)/((exp(x)-exp(-x))/2)&#x00A0;=&#x00A0;&#x00A0;1.00000
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;x/exp(ln(x))&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;=&#x00A0;&#x00A0;1.00000
+&#x00A0;<br />
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;sin(x1)&#x22C6;sin(x1)&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;=&#x00A0;&#x00A0;0.70807&#x00A0;+/-&#x00A0;0.09093
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;sin(x1)&#x22C6;sin(x2)&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;=&#x00A0;&#x00A0;0.70807&#x00A0;+/-&#x00A0;0.06430
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;sin(x1)^2+cos(x1)^2&#x00A0;&#x00A0;&#x00A0;=&#x00A0;&#x00A0;1.00000&#x00A0;+/-&#x00A0;0.00000
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;sin(x1)^2+cos(x2)^2&#x00A0;&#x00A0;&#x00A0;=&#x00A0;&#x00A0;1.00000&#x00A0;+/-&#x00A0;0.12859
+</div>
+<!--l. 662--><p class="nopar" >
+<!--l. 664--><p class="noindent" >
+    <h4 class="subsectionHead"><span class="titlemark">4.1    </span> <a 
+ id="x9-120004.1"></a>Recursion</h4>
+<!--l. 666--><p class="noindent" >Following is an example of error propagation in a recursive function. The factorial of <span 
+class="cmmi-12">x </span>is written
+as a recursive function <span 
+class="cmmi-12">f</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">)</span>. Its derivative is given by <span 
+class="cmmi-12">f</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">)</span><img 
+src="fussy15x.png" alt="[1 + -1- +  -1-+  &#x22C5;&#x22C5;&#x22C5; + 1 + 1]
+ x   x- 1   x- 2        2"  class="left" align="middle">. The
+term in the parenthesis is also written as a recursive function <span 
+class="cmmi-12">df</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">)</span>. It is shown that the
+propagated error in <span 
+class="cmmi-12">f</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">) </span>is equal to <span 
+class="cmmi-12">f</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">)</span><span 
+class="cmmi-12">df</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">)</span><span 
+class="cmmi-12">&#x03B4;x</span>.
+                                                                                       
+                                                                                       
+    <div class="verbatim" id="verbatim-18">
+&#x00A0;&#x00A0;&#x00A0;&#x003E;f(x)&#x00A0;{if&#x00A0;(x==1)&#x00A0;return&#x00A0;x;&#x00A0;else&#x00A0;return&#x00A0;x&#x22C6;f(--x);}
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x003E;df(x){if&#x00A0;(x==1)&#x00A0;return&#x00A0;x;&#x00A0;else&#x00A0;return&#x00A0;1/x+df(--x);}
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x003E;f(x=10pm1)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;3628800.00000&#x00A0;+/-&#x00A0;10628640.00000
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x003E;(f(x)&#x22C6;df(x)&#x22C6;x.rms).val
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;10628640.00000
+</div>
+<!--l. 683--><p class="nopar" > Similarly, the recurrence relations for the Laguerre polynomial of order <span 
+class="cmmi-12">n </span>and its derivative
+evaluated at <span 
+class="cmmi-12">x </span>are given by <div class="eqnarray">
+    <center class="math-display" >
+<img 
+src="fussy16x.png" alt="          (
+          {  1                           n =  0
+L  (x ) =     1 - x                       n =  1                 (5)
+ n        (  (2n--1-x)Ln-1(x)--(n--1)Ln-2(x)
+                         n               n &#x2265;  2
+L&#x2032;n (x ) =  (n&#x2215;x) [Ln (x) - Ln-1(x )]                               (6)
+" class="math-display" ></center>
+</div>These are written as recursive functions <span 
+class="pcrr7t-x-x-120">l(n,x) </span>and <span 
+class="pcrr7t-x-x-120">dl(n,x) </span>and it is shown that the
+propagated error in <span 
+class="cmmi-12">L</span><sub><span 
+class="cmmi-8">n</span></sub><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">) </span>is equal to <span 
+class="cmmi-12">L</span><sub><span 
+class="cmmi-8">n</span></sub><sup><span 
+class="cmsy-8">&#x2032;</span></sup><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x</span><span 
+class="cmr-12">)</span><span 
+class="cmmi-12">&#x03B4;x</span>.
+                                                                                       
+                                                                                       
+    <div class="verbatim" id="verbatim-19">
+&#x00A0;&#x00A0;&#x00A0;&#x003E;l(n,x){
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;if&#x00A0;(n&#x003C;=0)&#x00A0;return&#x00A0;1;
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;if&#x00A0;(n==1)&#x00A0;return&#x00A0;1-x;
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;return&#x00A0;((2&#x22C6;n-1-x)&#x22C6;l(n-1,x)-(n-1)&#x22C6;l(n-2,x))/n;
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;}
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x003E;dl(n,x){return&#x00A0;(n/x)&#x22C6;(l(n,x)-l(n-1,x));}
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x003E;l(4,x=3pm1)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;1.37500&#x00A0;+/-&#x00A0;&#x00A0;&#x00A0;&#x00A0;0.50000
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x003E;(dl(4,x)&#x22C6;x.rms).val
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;0.50000
+</div>
+<!--l. 712--><p class="nopar" >
+                                                                                       
+                                                                                       
+    <!--l. 715--><div class="crosslinks"><p class="noindent">[<a 
+href="ACKNOWLEDGEMENTS.html" >next</a>] [<a 
+href="ErrorpropagationAlgorithmforthemultivariatecase.html" >prev</a>] [<a 
+href="ErrorpropagationAlgorithmforthemultivariatecase.html#tailErrorpropagationAlgorithmforthemultivariatecase.html" >prev-tail</a>] [<a 
+href="Examples.html" >front</a>] [<a 
+href="fussy.html#Syntax.html" >up</a>] </p></div>
+<!--l. 715--><p class="indent" >    <a 
+ id="tailExamples.html"></a>   
+</body></html> 

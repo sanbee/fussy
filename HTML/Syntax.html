@@ -1,0 +1,443 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>Syntax</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<!-- html,2,sec-filename --> 
+<meta name="src" content="fussy.tex"> 
+<meta name="date" content="2015-10-02 11:00:00"> 
+<link rel="stylesheet" type="text/css" href="fussy.css"> 
+</head><body 
+>
+    <!--l. 811--><div class="crosslinks"><p class="noindent">[<a 
+href="Anexampleofamultivariateexpression.html" >prev</a>] [<a 
+href="Anexampleofamultivariateexpression.html#tailAnexampleofamultivariateexpression.html" >prev-tail</a>] [<a 
+href="Examples.html#tailSyntax.html">tail</a>] [<a 
+href="fussy.html# " >up</a>] </p></div>
+    <h3 class="sectionHead"><span class="titlemark">B    </span> <a 
+ id="x12-15000B"></a>Syntax</h3>
+<!--l. 814--><p class="noindent" >This appendix describes the <span 
+class="pcrr7t-x-x-120">fussy</span>&#x00A0;syntax. Statements are interactively executed
+as soon as they are completed. The virtual code for the sub-programs (function
+or procedure) is held in the memory and executed when the sub-programs are
+called.
+<!--l. 819--><p class="noindent" >
+    <h4 class="subsectionHead"><span class="titlemark">B.1    </span> <a 
+ id="x12-16000B.1"></a>Numbers</h4>
+<!--l. 821--><p class="noindent" >Numbers in <span 
+class="pcrr7t-x-x-120">fussy</span>&#x00A0;are represented as floating point numbers and can be specified with or
+without the decimal point, or in the exponent format. Optionally, an error can also be
+associated with the numbers via the <span 
+class="pcrr7t-x-x-120">pm </span>directive. E.g., <span 
+class="cmr-12">75</span><span 
+class="cmmi-12">.</span><span 
+class="cmr-12">3 </span><span 
+class="cmsy-10x-x-120">± </span><span 
+class="cmr-12">10</span><span 
+class="cmmi-12">.</span><span 
+class="cmr-12">1 </span>can be expressed as
+<span 
+class="pcrr7t-x-x-120">75.3pm10.1</span>. Numbers can also be tagged with units (see Section&#x00A0;<a 
+href="#x12-17000B.1.1">B.1.1<!--tex4ht:ref: UNITS --></a>) or a <span 
+class="pcrr7t-x-x-120">C</span>-styled
+printing format (see Section&#x00A0;<a 
+href="#x12-28000B.9">B.9<!--tex4ht:ref: FORMATTING --></a>).
+<!--l. 829--><p class="noindent" >
+    <h5 class="subsubsectionHead"><span class="titlemark">B.1.1    </span> <a 
+ id="x12-17000B.1.1"></a>Units</h5>
+<!--l. 832--><p class="noindent" >Numerical values can be specified along with their units. As of now, the only units supported
+are degree, arcmin, arcsec, hours, minute, and seconds. These can be specified by appending
+<span 
+class="pcrr7t-x-x-120">'d', ''', '"', 'h', 'm', 's' </span>respectively to the numeric values. Internally, all
+numeric values are always stored in the MKS system of units. The default units for a variable
+used to specify angles or time is radians. If the values are specified along with any of the
+above mentioned units, the values are still stored internally as radians. However while
+printing (see Section&#x00A0;<a 
+href="#x12-27000B.8">B.8<!--tex4ht:ref: PRINT --></a>), the values are formatted automatically and printed with the
+appropriate units.
+<!--l. 843--><p class="noindent" >
+                                                                                       
+                                                                                       
+    <h4 class="subsectionHead"><span class="titlemark">B.2    </span> <a 
+ id="x12-18000B.2"></a>Operators and built-in functions</h4>
+<!--l. 845--><p class="noindent" >The normal binary operators of type <span 
+class="pcrr7t-x-x-120">expr &#x003C;op&#x003E; expr</span>, where <span 
+class="pcrr7t-x-x-120">expr </span>is any
+expression/variable/constant and <span 
+class="pcrr7t-x-x-120">&#x003C;op&#x003E; </span>is one of <span 
+class="pcrr7t-x-x-120">'+', '-', '/', '&#x22C6;'</span>, &#8217;<img 
+src="fussy19x.png" alt="^  "  class="circ" >&#8217; and <span 
+class="pcrr7t-x-x-120">'&#x22C6;&#x22C6;'</span>
+binary operators perform the usual mathematical operations in addition to error
+propagation. The comparison operators &#8217;<span 
+class="pcrr7t-x-x-120">&#x003C;</span>&#8217;, &#8217;<span 
+class="pcrr7t-x-x-120">&#x003E;</span>&#8217;, &#8217;<span 
+class="pcrr7t-x-x-120">=</span>&#8217;, &#8217;<span 
+class="pcrr7t-x-x-120">!=</span>&#8217;, &#8217;<span 
+class="pcrr7t-x-x-120">&#x003C;=</span>&#8217;, &#8217;<span 
+class="pcrr7t-x-x-120">&#x003E;=</span>&#8217; and the logical operators
+&#8217;<span 
+class="pcrr7t-x-x-120">||</span>&#8217; and &#8217;<span 
+class="pcrr7t-x-x-120">&amp;&amp;</span>&#8217; have the usual meaning. Apart from the usual operation, the <span 
+class="pcrr7t-x-x-120">var=expr</span>
+assignment operator also does the error propagation in the expression on the RHS and
+assigns it as the error for the variable on the LHS. In addition to this, the assignment operator
+for partial variables (<span 
+class="pcrr7t-x-x-120">pvar:=expr</span>) is also defined. This does not propagate the errors on the
+RHS but instead transfers all the required information for error propagation to the variable
+on the LHS (see Section&#x00A0;<a 
+href="#x12-20000B.4">B.4<!--tex4ht:ref: APPEN:SUBEXPRESSIONS --></a>). The result of these assignment statements is the value of the
+variable on the LHS. Hence expressions like <span 
+class="pcrr7t-x-x-120">sin(x=0.1pm0.02) </span>are equivalent to
+<span 
+class="pcrr7t-x-x-120">'x=0.1pm0.02;sin(x);'</span>. The prefix and postfix operators <span 
+class="pcrr7t-x-x-120">&#x003C;op&#x003E;var </span>and <span 
+class="pcrr7t-x-x-120">var&#x003C;op&#x003E; </span>where
+<span 
+class="pcrr7t-x-x-120">&#x003C;op&#x003E; </span>is either <span 
+class="pcrr7t-x-x-120">'++' </span>or <span 
+class="pcrr7t-x-x-120">'--' </span>and <span 
+class="pcrr7t-x-x-120">var </span>is any user defined variable are also defined. These
+increment or decrement the value of the variables by one. The prefix and postfix
+operators operate on the variables before and after the variable is further used
+respectively.
+<!--l. 870--><p class="indent" >    In addition, two operators of type <span 
+class="pcrr7t-x-x-120">expr.&#x003C;op&#x003E; </span>where <span 
+class="pcrr7t-x-x-120">&#x003C;op&#x003E; </span>is either <span 
+class="pcrr7t-x-x-120">val </span>or <span 
+class="pcrr7t-x-x-120">rms </span>are also
+defined. These operators extract the value and the associated (propagated) error in <span 
+class="pcrr7t-x-x-120">expr</span>
+which can be any mathematical expression or a variable.
+<!--l. 896--><p class="noindent" >
+    <h4 class="subsectionHead"><span class="titlemark">B.3    </span> <a 
+ id="x12-19000B.3"></a>Expressions/Statements</h4>
+<!--l. 899--><p class="noindent" >Numbers and variables can be combined with the mathematical operators and logical
+operators to form an expression. Expressions can be used as arguments to built-in or
+user defined functions (see Section&#x00A0;<a 
+href="#x12-22000B.6">B.6<!--tex4ht:ref: APPEN:SYNTAX_FUNC --></a>). An expression followed by a NEWLINE
+prints its result on the output stream (see Section&#x00A0;<a 
+href="#x12-27000B.8">B.8<!--tex4ht:ref: PRINT --></a>) in the default format (see
+Section&#x00A0;<a 
+href="#x12-28000B.9">B.9<!--tex4ht:ref: FORMATTING --></a>).
+<!--l. 906--><p class="indent" >    For the purpose of error propagation, the print statement and the assignment operator
+(the &#8220;<span 
+class="pcrr7t-x-x-120">=</span>&#8221; operator but not the &#8220;<span 
+class="pcrr7t-x-x-120">:=</span>&#8221; operator; see Section&#x00A0;<a 
+href="#x12-20000B.4">B.4<!--tex4ht:ref: APPEN:SUBEXPRESSIONS --></a>) are treated as the terminal
+nodes of the parsing tree which invokes the final error propagation.
+<!--l. 912--><p class="indent" >    Assigning a value to a variable also creates the variable. The type of the value assigned to
+the variable determines its type (and overrides the value or the type of a previously declared
+variable). E.g.
+                                                                                       
+                                                                                       
+    <div class="verbatim" id="verbatim-20">
+&#x00A0;&#x00A0;&#x00A0;&#x003E;H_0=75pm10
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x003E;H_0
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;75.00000&#x00A0;+/-&#x00A0;&#x00A0;&#x00A0;10.00000
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x003E;H_0="The&#x00A0;Hubble&#x00A0;constant\n"
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x003E;H_0
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;The&#x00A0;Hubble&#x00A0;constant
+</div>
+<!--l. 922--><p class="nopar" > A semi-colon (<span 
+class="pcrr7t-x-x-120">';'</span>) is a delimiter to separate multiple expressions in a single line. Statements
+on separate lines need not be delimited by semi-colons (though it is not an error to do so).
+Compound statements are a group of simple statements, grouped using the curly-brace pair
+(<span 
+class="pcrr7t-x-x-120">'</span><span 
+class="cmsy-10x-x-120">{</span><span 
+class="pcrr7t-x-x-120">' </span>and <span 
+class="pcrr7t-x-x-120">'</span><span 
+class="cmsy-10x-x-120">}</span><span 
+class="pcrr7t-x-x-120">'</span>) (e.g. <span 
+class="cmsy-10x-x-120">{</span><span 
+class="pcrr7t-x-x-120">a=1.5; b=2;</span><span 
+class="cmsy-10x-x-120">}</span>). As may be obvious, compound statements can also be
+nested. The <span 
+class="pcrr7t-x-x-120">'/&#x22C6;' </span>and <span 
+class="pcrr7t-x-x-120">'&#x22C6;/' </span>pair can be used as comment delimiters. Comment delimiters
+however cannot be nested.
+<!--l. 933--><p class="noindent" >
+    <h4 class="subsectionHead"><span class="titlemark">B.4    </span> <a 
+ id="x12-20000B.4"></a>Sub-expressions</h4>
+<!--l. 936--><p class="noindent" >A special assignment operator &#8217;<span 
+class="pcrr7t-x-x-120">:=</span>&#8217; is used to assign sub-expressions to user defined
+variables. Sub-expression variables are different from normal variables in that their
+propagated error is computed on-the-fly when required, i.e. when they are printed or are
+assigned to a normal variable using the &#8217;<span 
+class="pcrr7t-x-x-120">=</span>&#8217; operator or at an operator node of a parsing tree
+when used in another expression. E.g.
+                                                                                       
+                                                                                       
+    <div class="verbatim" id="verbatim-21">
+&#x00A0;&#x00A0;&#x00A0;&#x003E;x=1pm0.1
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x003E;s:=sin(x);c:=cos(x);
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x003E;sin(x)/cos(x)&#x00A0;/&#x22C6;&#x00A0;Compute&#x00A0;tan(x)&#x00A0;as&#x00A0;sin(x)/cos(x)&#x00A0;&#x22C6;/
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;1.55741&#x00A0;+/-&#x00A0;&#x00A0;&#x00A0;&#x00A0;0.34255
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x003E;s/c&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;/&#x22C6;&#x00A0;Compute&#x00A0;tan(x)&#x00A0;using&#x00A0;two&#x00A0;PARTIAL_VAR&#x00A0;&#x22C6;/
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;1.55741&#x00A0;+/-&#x00A0;&#x00A0;&#x00A0;&#x00A0;0.34255
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x003E;tan(x)&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;/&#x22C6;&#x00A0;Direct&#x00A0;computation&#x00A0;of&#x00A0;tan(x)&#x00A0;&#x22C6;/
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;1.55741&#x00A0;+/-&#x00A0;&#x00A0;&#x00A0;&#x00A0;0.34255
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x003E;s2=s;
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x003E;s2/c&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;/&#x22C6;&#x00A0;Compute&#x00A0;tan(x)&#x00A0;with&#x00A0;a&#x00A0;normal&#x00A0;variable
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;and&#x00A0;one&#x00A0;PARTIAL_VAR.&#x00A0;&#x00A0;Error&#x00A0;propagates
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;differently&#x00A0;&#x22C6;/
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;1.55741&#x00A0;+/-&#x00A0;&#x00A0;&#x00A0;&#x00A0;0.26236
+</div>
+<!--l. 956--><p class="nopar" >
+    <h4 class="subsectionHead"><span class="titlemark">B.5    </span> <a 
+ id="x12-21000B.5"></a>Variables and function/procedure names</h4>
+<!--l. 959--><p class="noindent" >Variable/function/procedure names can be of any length and must match the regular
+expression <span 
+class="pcrr7t-x-x-120">[a-zA-Z</span><span 
+class="pcrr7t-x-x-120">_]+[a-zA-Z0-9</span><span 
+class="pcrr7t-x-x-120">_]&#x22C6;</span>. That is, the names must start with an
+alphabet or <span 
+class="pcrr7t-x-x-120">'</span><span 
+class="pcrr7t-x-x-120">_' </span>and can be followed by one or more alpha-numeric characters or
+<span 
+class="pcrr7t-x-x-120">'</span><span 
+class="pcrr7t-x-x-120">_'</span>.
+<!--l. 964--><p class="noindent" >
+    <h4 class="subsectionHead"><span class="titlemark">B.6    </span> <a 
+ id="x12-22000B.6"></a>Function/procedure</h4>
+<!--l. 967--><p class="noindent" >Sub-programs can be written as functions or procedures. The only difference between
+functions and procedures is that functions <span 
+class="pplri7t-x-x-120">must </span>return a value while procedures
+must <span 
+class="pplri7t-x-x-120">not </span>return a value. The type of a sub-program which returns a value using the
+<span 
+class="pcrr7t-x-x-120">return</span>&#x00A0;<span 
+class="pcrr7t-x-x-120">&#x003C;expression&#x003E; </span>statement becomes <span 
+class="pcrr7t-x-x-120">func</span>. If <span 
+class="pcrr7t-x-x-120">return </span>is not used, or is used without
+an <span 
+class="pcrr7t-x-x-120">expression</span>, the type becomes <span 
+class="pcrr7t-x-x-120">proc</span>. The type of the sub-program therefore
+need not be declared. It is an error to use a procedure in an expression or pass a
+procedure as an argument to another sub-program where a function should have been
+passed.
+<!--l. 978--><p class="indent" >    A function or procedure declaration begins with a variable name followed by an
+                                                                                       
+                                                                                       
+argument list. The argument list is enclosed by a round bracket pair (<span 
+class="pcrr7t-x-x-120">'(' </span>and <span 
+class="pcrr7t-x-x-120">')'</span>). A <span 
+class="pcrr7t-x-x-120">'()'</span>
+specifies an empty argument list. The function body is in enclosed between the <span 
+class="pcrr7t-x-x-120">'</span><span 
+class="cmsy-10x-x-120">{</span><span 
+class="pcrr7t-x-x-120">' </span>and <span 
+class="pcrr7t-x-x-120">'</span><span 
+class="cmsy-10x-x-120">}</span><span 
+class="pcrr7t-x-x-120">'</span>
+brackets. E.g.
+                                                                                       
+                                                                                       
+    <div class="verbatim" id="verbatim-22">
+&#x00A0;&#x00A0;&#x00A0;&#x003E;/&#x22C6;&#x00A0;An&#x00A0;example&#x00A0;of&#x00A0;a&#x00A0;funtion&#x00A0;declaration&#x00A0;&#x22C6;/
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x003E;f()&#x00A0;{&#x00A0;return&#x00A0;sin(PI/2);&#x00A0;}
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x003E;/&#x22C6;&#x00A0;An&#x00A0;example&#x00A0;of&#x00A0;a&#x00A0;procedure&#x00A0;declaration&#x00A0;&#x22C6;/
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x003E;p()&#x00A0;{print&#x00A0;"Value&#x00A0;of&#x00A0;f()&#x00A0;=&#x00A0;",f(),"\n";}
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x003E;f()
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;1.00000
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x003E;p()
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;Value&#x00A0;of&#x00A0;f()&#x00A0;=&#x00A0;&#x00A0;&#x00A0;&#x00A0;1.00000
+</div>
+<!--l. 992--><p class="nopar" > A sub-program can be passed as an argument to another sub-program. An argument
+corresponding to a sub-program can be specified using the <span 
+class="pcrr7t-x-x-120">func </span>(for a function) or <span 
+class="pcrr7t-x-x-120">proc </span>(for
+a procedure) directive. E.g.
+                                                                                       
+                                                                                       
+    <div class="verbatim" id="verbatim-23">
+&#x00A0;&#x00A0;&#x00A0;&#x003E;f(x)&#x00A0;{&#x00A0;return&#x00A0;sin(x);&#x00A0;}
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x003E;p(func&#x00A0;fa,x)&#x00A0;{print&#x00A0;"The&#x00A0;value&#x00A0;of&#x00A0;f(",x%5.2f,")&#x00A0;=",fa(x),"\n";}
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x003E;p(f,10)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;The&#x00A0;value&#x00A0;of&#x00A0;f(10.00)&#x00A0;=&#x00A0;&#x00A0;-0.54402
+</div>
+<!--l. 1002--><p class="nopar" > All symbols (variables, functions, procedures) used in the sub-program code must be either
+global variables declared <span 
+class="pplri7t-x-x-120">before </span>the sub-program declaration or must be one of the argument
+list. Temporary variables, the scope of which is within the sub-program only, can be declared
+using the <span 
+class="pcrr7t-x-x-120">auto </span>directive. E.g.
+                                                                                       
+                                                                                       
+    <div class="verbatim" id="verbatim-24">
+&#x00A0;&#x00A0;&#x00A0;&#x003E;f(x)&#x00A0;{&#x00A0;return&#x00A0;sin(x);&#x00A0;}
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x003E;p(func&#x00A0;fa,x)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;{
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;auto&#x00A0;t;
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;t=fa(x);
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;print&#x00A0;"The&#x00A0;value&#x00A0;of&#x00A0;f(",x%5.2f,")&#x00A0;=",t,"\n";
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;}
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x003E;p(f,10)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;The&#x00A0;value&#x00A0;of&#x00A0;f(10.00)&#x00A0;=&#x00A0;&#x00A0;-0.54402
+</div>
+<!--l. 1018--><p class="nopar" >
+<!--l. 1021--><p class="noindent" >
+    <h4 class="subsectionHead"><span class="titlemark">B.7    </span> <a 
+ id="x12-23000B.7"></a>Control statements</h4>
+<!--l. 1023--><p class="noindent" >The <span 
+class="pcrr7t-x-x-120">if-else</span>, <span 
+class="pcrr7t-x-x-120">while- </span>and <span 
+class="pcrr7t-x-x-120">for-</span>loops constitute the program control statements. These
+loops can be broken at any stage with the use of the <span 
+class="pcrr7t-x-x-120">break </span>statement. As of now, the
+conditions which control the logic is evaluated ignoring the error with the control variables.
+Ultimately the goal is to provide a language feature to specify a significance level and the
+conditional statements return true if the error on the evaluated value is within the
+significance level, else return false.
+<!--l. 1032--><p class="noindent" >
+    <h5 class="subsubsectionHead"><span class="titlemark">B.7.1    </span> <a 
+ id="x12-24000B.7.1"></a><span 
+class="pcrr7t-x-x-120">if-else</span></h5>
+<!--l. 1034--><p class="noindent" >The syntax for the <span 
+class="pcrr7t-x-x-120">if-else </span>statement is:
+                                                                                       
+                                                                                       
+    <div class="verbatim" id="verbatim-25">
+&#x00A0;&#x00A0;&#x00A0;&#x00A0;if&#x00A0;(condition)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;if-body-statment;
+&#x00A0;<br />
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;or
+&#x00A0;<br />
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;if&#x00A0;(condition)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;if-body-statment&#x00A0;else
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;else-body-statment;
+</div>
+<!--l. 1044--><p class="nopar" > The <span 
+class="pcrr7t-x-x-120">if-body-statement </span>and the <span 
+class="pcrr7t-x-x-120">else-body-statement </span>can be any valid compound
+or simple statement. In case of a simple statement, the terminating semi-colon is
+necessary.
+<!--l. 1049--><p class="noindent" >
+    <h5 class="subsubsectionHead"><span class="titlemark">B.7.2    </span> <a 
+ id="x12-25000B.7.2"></a><span 
+class="pcrr7t-x-x-120">while-loop</span></h5>
+<!--l. 1051--><p class="noindent" >The syntax for the <span 
+class="pcrr7t-x-x-120">while-loop </span>is:
+                                                                                       
+                                                                                       
+    <div class="verbatim" id="verbatim-26">
+&#x00A0;&#x00A0;&#x00A0;&#x00A0;while&#x00A0;(condition)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;body-statment
+</div>
+<!--l. 1055--><p class="nopar" > The <span 
+class="pcrr7t-x-x-120">body-statement </span>can be either a simple or a compound statement and in
+case it is a simple statement, the terminating semi-colon defines the end of the
+loop.
+<!--l. 1060--><p class="noindent" >
+    <h5 class="subsubsectionHead"><span class="titlemark">B.7.3    </span> <a 
+ id="x12-26000B.7.3"></a><span 
+class="pcrr7t-x-x-120">for-loop</span></h5>
+<!--l. 1062--><p class="noindent" >The syntax for the <span 
+class="pcrr7t-x-x-120">for-loop </span>is:
+                                                                                       
+                                                                                       
+    <div class="verbatim" id="verbatim-27">
+&#x00A0;&#x00A0;&#x00A0;&#x00A0;for&#x00A0;(init;condition;incr)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;body-statment
+</div>
+<!--l. 1066--><p class="nopar" > where <span 
+class="pcrr7t-x-x-120">init </span>is a comma (<span 
+class="pcrr7t-x-x-120">','</span>) separate list of simple statements for initializing the loop
+variables. E.g. <span 
+class="pcrr7t-x-x-120">init </span>can be <span 
+class="pcrr7t-x-x-120">i=0,j=0,k=0</span>. <span 
+class="pcrr7t-x-x-120">condition </span>is a simple, single statement while
+<span 
+class="pcrr7t-x-x-120">incr </span>is a list of comma separated statement(s). The <span 
+class="pcrr7t-x-x-120">body-statement </span>can be any valid
+simple or compound statement. <span 
+class="pcrr7t-x-x-120">init </span>statements are executed first followed by the
+<span 
+class="pcrr7t-x-x-120">condition </span>statement. If the result of the <span 
+class="pcrr7t-x-x-120">condition </span>statement is non-zero (logical true),
+the <span 
+class="pcrr7t-x-x-120">body-statements</span>, the <span 
+class="pcrr7t-x-x-120">incr </span>statement(s) and the <span 
+class="pcrr7t-x-x-120">condition </span>statements are executed
+in a sequence till the result of the <span 
+class="pcrr7t-x-x-120">condition </span>statement is zero (logical false). E.g. following
+is a valid <span 
+class="pcrr7t-x-x-120">for-loop </span>with 3 loop-variables, only one of which is checked in the
+condition:
+                                                                                       
+                                                                                       
+    <div class="verbatim" id="verbatim-28">
+&#x00A0;&#x00A0;&#x00A0;&#x00A0;for&#x00A0;(i=0,j=0,k=0;i&#x003C;10;i=i+1,j=j+1;k=k+1)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;print&#x00A0;"i=&#x00A0;",i,"&#x00A0;j=&#x00A0;",j,"&#x00A0;k=&#x00A0;",k,"\n";
+</div>
+<!--l. 1082--><p class="nopar" >
+<!--l. 1084--><p class="noindent" >
+    <h4 class="subsectionHead"><span class="titlemark">B.8    </span> <a 
+ id="x12-27000B.8"></a>Print statement</h4>
+<!--l. 1087--><p class="noindent" >The <span 
+class="pcrr7t-x-x-120">print </span>statement takes a comma separated list of objects to be printed. These objects
+can be quoted-strings, variables, constants, condition statements or user defined
+function names. The list can consist of any number of objects and is terminated by a
+semi-colon. The format in which the numeric values are printed is defined by the format
+modifier associated with the values (see Section&#x00A0;<a 
+href="#x12-28000B.9">B.9<!--tex4ht:ref: FORMATTING --></a>). All escaped-characters used in
+C-styled printing have the same effect as in the output of the C-styled <span 
+class="pcrr7t-x-x-120">printf</span>
+statement.
+<!--l. 1097--><p class="noindent" >
+    <h4 class="subsectionHead"><span class="titlemark">B.9    </span> <a 
+ id="x12-28000B.9"></a>Formatting</h4>
+<!--l. 1100--><p class="noindent" >Values can be formatted for printing in a variety of ways. The format in which a variable is
+printed is associated with the variable and consists of a <span 
+class="pcrr7t-x-x-120">printf </span>styled formatting string
+(with extensions for specifying the units of the numerical values as well). E.g., if <span 
+class="pcrr7t-x-x-120">x=75pm10</span>,
+by default <span 
+class="pcrr7t-x-x-120">x </span>will be printed using the <span 
+class="pcrr7t-x-x-120">'%10.5f' </span>format. The default print format can be
+modified using the <span 
+class="pcrr7t-x-x-120">'.' </span>operator on a variable. E.g., one can fix the default print format of <span 
+class="pcrr7t-x-x-120">x</span>
+to <span 
+class="pcrr7t-x-x-120">'%5.2f' </span>by <span 
+class="pcrr7t-x-x-120">x.=%5.2f</span>.
+<!--l. 1109--><p class="indent" >    The print format of a value can also be temporarily modified by specifying the format
+along with the variable/value. E.g. the value of <span 
+class="pcrr7t-x-x-120">x </span>can be printed in the exponent format as
+<span 
+class="pcrr7t-x-x-120">print x%E </span>or in the in hexadecimal format as <span 
+class="pcrr7t-x-x-120">print x%x</span>.
+<!--l. 1114--><p class="indent" >    An extra formatting, not available in <span 
+class="pcrr7t-x-x-120">printf </span>formatting, is that of printing the
+individual bit values using the <span 
+class="pcrr7t-x-x-120">%b </span>format. With this, the value is printed in binary (1 or 0)
+format. <span 
+class="pcrr7t-x-x-120">%B </span>does the same thing except that it prints a space after every 8 bits. The value is
+casted into a <span 
+class="pcrr7t-x-x-120">unsigned long </span>integer before printing.
+                                                                                       
+                                                                                       
+    <div class="verbatim" id="verbatim-29">
+&#x00A0;&#x00A0;&#x00A0;&#x003E;x=10;x%B
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;00000000&#x00A0;00000000&#x00A0;00000000&#x00A0;00001010
+</div>
+<!--l. 1123--><p class="nopar" > If the units of a value are specified, the print format is also appropriately modified. If a
+variable has units of time or angle, its print format is automatically set to <span 
+class="pcrr7t-x-x-120">%hms </span>or <span 
+class="pcrr7t-x-x-120">%dms </span>and
+are printed in the <span 
+class="pcrr7t-x-x-120">XXhXXmXX.XXs </span>and <span 
+class="pcrr7t-x-x-120">XXdXX'XX.XX" </span>styles respectively.
+                                                                                       
+                                                                                       
+    <!--l. 1132--><div class="crosslinks"><p class="noindent">[<a 
+href="Anexampleofamultivariateexpression.html" >prev</a>] [<a 
+href="Anexampleofamultivariateexpression.html#tailAnexampleofamultivariateexpression.html" >prev-tail</a>] [<a 
+href="Syntax.html" >front</a>] [<a 
+href="fussy.html# " >up</a>] </p></div>
+<!--l. 1132--><p class="indent" >    <a 
+ id="tailSyntax.html"></a>   
+</body></html> 

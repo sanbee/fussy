@@ -1,0 +1,237 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>Introduction</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<!-- html,2,sec-filename --> 
+<meta name="src" content="fussy.tex"> 
+<meta name="date" content="2015-10-02 11:00:00"> 
+<link rel="stylesheet" type="text/css" href="fussy.css"> 
+</head><body 
+>
+    <!--l. 115--><div class="crosslinks"><p class="noindent">[<a 
+href="APPENDIX.html" >next</a>] [<a 
+href="contentsname.html" >prev</a>] [<a 
+href="contentsname.html#tailcontentsname.html" >prev-tail</a>] [<a 
+href="#tailIntroduction.html">tail</a>] [<a 
+href="fussy.html#ErrorpropagationAlgorithmforthemultivariatecase.html" >up</a>] </p></div>
+    <h3 class="sectionHead"><span class="titlemark">1    </span> <a 
+ id="x5-20001"></a>Introduction</h3>
+<!--l. 117--><p class="noindent" >If <img 
+src="fussy0x.png" alt="&#x20D7;x"  class="vec" > is a vector of independent experimentally measured quantities with associated random
+measurement error <span 
+class="cmmi-12">&#x03B4;</span><img 
+src="fussy1x.png" alt="&#x20D7;x"  class="vec" >, the formal error on a function <span 
+class="cmmi-12">f</span><span 
+class="cmr-12">(</span><img 
+src="fussy2x.png" alt="&#x20D7;x"  class="vec" ><span 
+class="cmr-12">) </span>is given by
+    <table 
+class="equation"><tr><td><a 
+ id="x5-2001r1"></a>
+    <center class="math-display" >
+<img 
+src="fussy3x.png" alt="     &#x250C;  ---------------
+     &#x2502;&#x2502;  &#x2211;  (        )2
+&#x03B4;f = &#x2218;       -&#x2202;f-&#x03B4;xi
+         i   &#x2202;xi
+" class="math-display" ></center></td><td class="equation-label">(1)</td></tr></table>
+<!--l. 124--><p class="nopar" >
+Further, if <span 
+class="cmmi-12">f</span><span 
+class="cmr-12">(</span><img 
+src="fussy4x.png" alt="&#x20D7;x"  class="vec" ><span 
+class="cmr-12">) </span>is a functional, e.g. <span 
+class="cmmi-12">f</span><span 
+class="cmr-12">(</span><img 
+src="fussy5x.png" alt="&#x20D7;x"  class="vec" ><span 
+class="cmr-12">) = </span><span 
+class="cmmi-12">g</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">h</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">k</span><span 
+class="cmr-12">(</span><img 
+src="fussy6x.png" alt="&#x20D7;x"  class="vec" ><span 
+class="cmr-12">)))</span>, then the partial derivative of <span 
+class="cmmi-12">f </span>is given
+by the derivative chain rule:
+    <table 
+class="equation"><tr><td><a 
+ id="x5-2002r2"></a>
+    <center class="math-display" >
+<img 
+src="fussy7x.png" alt="&#x2202;f     &#x2202;f &#x2202;h &#x2202;k
+----=  ----------
+&#x2202;xi    &#x2202;h &#x2202;k &#x2202;xi
+" class="math-display" ></center></td><td class="equation-label">(2)</td></tr></table>
+                                                                                       
+                                                                                       
+<!--l. 132--><p class="nopar" >
+Therefore, for the computation of <span 
+class="cmmi-12">&#x03B4;f</span>, one requires:
+      <ol  class="enumerate1" >
+      <li 
+  class="enumerate" id="x5-2004x1">the partial derivative of the function with respect to each independent variable
+      (<span 
+class="cmmi-12">&#x2202;f&#x2215;&#x2202;x</span><sub><span 
+class="cmmi-8">i</span></sub>)
+      </li>
+      <li 
+  class="enumerate" id="x5-2006x2"><span 
+class="cmmi-12">&#x03B4;x</span><sub><span 
+class="cmmi-8">i</span></sub> - the measurement error
+      </li>
+      <li 
+  class="enumerate" id="x5-2008x3">chain rules of differential calculus for the mathematical operators (which will use
+      the <span 
+class="cmmi-12">x</span><sub><span 
+class="cmmi-8">i</span></sub>&#8217;s and <span 
+class="cmmi-12">&#x2202;f&#x2215;&#x2202;x</span><sub><span 
+class="cmmi-8">i</span></sub>&#8217;s).</li></ol>
+<!--l. 143--><p class="indent" >    In the following sections, the implementation of an algorithm for automatic computation
+of partial derivatives and propagation of random errors in an arbitrary mathematical
+expression is described. The algorithm is implemented as a scripting language called
+<span 
+class="pcrr7t-x-x-120">fussy</span>&#x00A0;and can be used as an interpreter by the user. The syntax is similar to that
+of the <span 
+class="pcrr7t-x-x-120">C </span>language making it easy to use in an interactive session or as a scripting
+environment. Each user defined variable in <span 
+class="pcrr7t-x-x-120">fussy</span>&#x00A0;is treated as an independent variable
+and expressions can be constructed using an arbitrary number of variables. It is
+error prone to express complicated expressions as single atomic statements and
+usually the final expression is built out of sub-expressions and temporary variables.
+For the purpose of random error propagation however, temporary variables are
+dependent on the independent variables (normal user defined variables) on the right
+hand side of an assignment operator. The algorithm described below does correct
+error propagation in the final expression composed of such temporary variables.
+A special language feature is used to distinguish between such temporary and
+normal variables as well as to associate measurement errors with numbers (see
+Appendix&#x00A0;<a 
+href="Syntax.html#x12-19000B.3">B.3<!--tex4ht:ref: APPEN:SYNTAX_EXPR --></a>).
+<!--l. 164--><p class="indent" >    Although it is possible to code Eq.&#x00A0;<a 
+href="#x5-2001r1">1<!--tex4ht:ref: FERR --></a> in other tools (<a 
+href="refnamemkbothMakeUppercaserefnameMakeUppercaserefname.html#XCalc">Gillespie</a>&#x00A0;<a 
+href="refnamemkbothMakeUppercaserefnameMakeUppercaserefname.html#XCalc">1992</a>;&#x00A0;<a 
+href="refnamemkbothMakeUppercaserefnameMakeUppercaserefname.html#XEDA">Harrison</a>&#x00A0;<a 
+href="refnamemkbothMakeUppercaserefnameMakeUppercaserefname.html#XEDA">1995</a>;&#x00A0;<a 
+href="refnamemkbothMakeUppercaserefnameMakeUppercaserefname.html#XBischof1997A-A">Bischof
+et&#x00A0;al.</a>&#x00A0;<a 
+href="refnamemkbothMakeUppercaserefnameMakeUppercaserefname.html#XBischof1997A-A">1997</a>), it requires sophisticated programing and learning often arcane, new programing
+tools. This is usually time consuming and enough of a bother to discourage its use for the
+purpose of error propagation in every-day scientific use. The work of <a 
+href="refnamemkbothMakeUppercaserefnameMakeUppercaserefname.html#XStoutemyer:1977">Stoutemyer</a>&#x00A0;(<a 
+href="refnamemkbothMakeUppercaserefnameMakeUppercaserefname.html#XStoutemyer:1977">1977</a>)
+using the <span 
+class="pcrr7t-x-x-120">REDUCE </span>algebraic manipulation language (<a 
+href="refnamemkbothMakeUppercaserefnameMakeUppercaserefname.html#XREDUCE2">Hearn</a>&#x00A0;<a 
+href="refnamemkbothMakeUppercaserefnameMakeUppercaserefname.html#XREDUCE2">1971</a>,&#x00A0;<a 
+href="refnamemkbothMakeUppercaserefnameMakeUppercaserefname.html#XREDUCE">1995</a>) was one of the first
+which used automatic symbolic differentiation for error analysis in <span 
+class="pplri7t-x-x-120">single atomic mathematical</span>
+<span 
+class="pplri7t-x-x-120">expressions</span>. <a 
+href="refnamemkbothMakeUppercaserefnameMakeUppercaserefname.html#XEDA">Harrison</a>&#x00A0;(<a 
+href="refnamemkbothMakeUppercaserefnameMakeUppercaserefname.html#XEDA">1995</a>) has used a similar approach and developed a tool for
+<span 
+class="pcrr7t-x-x-120">Mathematica</span><span class="footnote-mark"><a 
+href="fussy6.html#fn3x0"><sup class="textsuperscript">3</sup></a></span><a 
+ id="x5-2009f3"></a> .
+There are program development libraries (<a 
+href="refnamemkbothMakeUppercaserefnameMakeUppercaserefname.html#XScComp">Barton &amp; Nackman</a>&#x00A0;<a 
+href="refnamemkbothMakeUppercaserefnameMakeUppercaserefname.html#XScComp">1994</a>;&#x00A0;<a 
+href="refnamemkbothMakeUppercaserefnameMakeUppercaserefname.html#XGriewank:1996:AAP">Griewank
+et&#x00A0;al.</a>&#x00A0;<a 
+href="refnamemkbothMakeUppercaserefnameMakeUppercaserefname.html#XGriewank:1996:AAP">1996</a>;&#x00A0;<a 
+href="refnamemkbothMakeUppercaserefnameMakeUppercaserefname.html#XTsukanov2003Dsa">Tsukanov &amp; Hall</a>&#x00A0;<a 
+href="refnamemkbothMakeUppercaserefnameMakeUppercaserefname.html#XTsukanov2003Dsa">2003</a>) for automatic differentiation which could be used for
+                                                                                       
+                                                                                       
+similar purpose. However they too suffer from the same problem of requiring more effort
+from the user than is possible in everyday work. Besides, most of these existing tools
+will be hard to use for multi-variate expressions and functionals. They are even
+harder (if not impossible) to use directly for complicated expressions expressed as a
+combination of sub-expressions. Apart from the difficulty of use, the two tools
+which do use automatic differentiation for error propagation require access and
+familiarity with other packages (the <span 
+class="pcrr7t-x-x-120">REDUCE </span>package or the commercially sold package
+<span 
+class="pcrr7t-x-x-120">Mathematica</span>).
+<!--l. 188--><p class="indent" >    The <span 
+class="pcrr7t-x-x-120">fussy</span>&#x00A0;interpreter is implemented internally as a virtual machine (VM) with a stack
+of its own. The derivative chain rule (Eq.&#x00A0;<a 
+href="#x5-2002r2">2<!--tex4ht:ref: DFUNCTIONAL --></a>) is implemented using a separate VM which has a
+separate stack <span 
+class="pplri7t-x-x-120">per independent variable </span>to hold the intermediate partial derivatives. At the
+terminal nodes of a parsing tree (e.g. the &#8217;<span 
+class="pcrr7t-x-x-120">=</span>&#8217; operator) the values from these stacks are
+used to evaluate Eq.&#x00A0;<a 
+href="#x5-2001r1">1<!--tex4ht:ref: FERR --></a>. A user program written in <span 
+class="pcrr7t-x-x-120">fussy</span>&#x00A0;is compiled into the
+VM instruction-set, referred to as the op-codes, to manipulate the VM stack (<span 
+class="pcrr7t-x-x-120">VMS</span>),
+call built-in functions, perform basic mathematical operations or call user defined
+sub-program (functions or procedures). These op-codes are function calls which
+perform the operation they represent (mathematical operators, built-in function call or
+branching to a sub-program unit) as well as the steps required for automatic error
+propagation. Since user defined programs/expressions are translated into these op-codes,
+errors are correctly propagated in the mathematical expression in any arbitrary user
+program.
+<!--l. 206--><p class="indent" >    A simple <span 
+class="pcrr7t-x-x-120">C </span>binding to the interpreter is also provided. The user program can be supplied
+to the interpreter via an in-memory string using the function <span 
+class="pcrr7t-x-x-120">calc(char&#x22C6;InString,</span>
+<span 
+class="pcrr7t-x-x-120">edouble&amp;ans,FILE&#x22C6;InStream,FILE&#x22C6;OutStream)</span>. The contents of the <span 
+class="pcrr7t-x-x-120">InString</span>
+are parsed and converted to a VM instruction set. The result of the execution of
+this program is returned in <span 
+class="pcrr7t-x-x-120">ans</span>. The last two arguments are not used in this case.
+Alternatively, if <span 
+class="pcrr7t-x-x-120">InString </span>is set to <span 
+class="pcrr7t-x-x-120">NULL </span>and the last two arguments set to valid file
+pointers, the interpreter will take the input from <span 
+class="pcrr7t-x-x-120">InFile </span>and use <span 
+class="pcrr7t-x-x-120">OutFile </span>as the
+output stream. A similar <span 
+class="pcrr7t-x-x-120">C++ </span>interface of type <span 
+class="pcrr7t-x-x-120">calc(char &#x22C6;InString,ostream</span>
+<span 
+class="pcrr7t-x-x-120">&amp;ResultStream,FILE &#x22C6;InStream,FILE &#x22C6;OutStream) </span>writes the result of the
+program supplied in <span 
+class="pcrr7t-x-x-120">InString </span>or via the file pointer <span 
+class="pcrr7t-x-x-120">InStream </span>to the output stream
+<span 
+class="pcrr7t-x-x-120">ResultStream</span>. <span 
+class="pcrr7t-x-x-120">OutStream </span>in both interfaces is used as the output file for the error
+messages.
+<!--l. 223--><p class="indent" >    For a better understanding, in Section&#x00A0;<a 
+href="ErrorpropagationSinglevariablecase.html#x7-30002">2<!--tex4ht:ref: SEC:SINGLE_VAR --></a> I describe the algorithm for automatic random
+error propagation for the simpler case of a single variate expression. Section&#x00A0;<a 
+href="ErrorpropagationAlgorithmforthemultivariatecase.html#x8-50003">3<!--tex4ht:ref: SEC:MULTI_VAR --></a>
+describes the complete algorithm, along with the logic for the various operators
+in the form of pseudo code. The correctness of the algorithm is demonstrated in
+Section&#x00A0;<a 
+href="Examples.html#x9-110004">4<!--tex4ht:ref: SEC:EXAMPLES --></a> using numerical examples. On the lines of proof of correctness of the
+algorithm, it is also argued that the algorithm is general and will work for any
+arbitrary expression. In Appendix&#x00A0;<a 
+href="Anexampleofamultivariateexpression.html#x11-14000A">A<!--tex4ht:ref: APPEN:EX --></a>, a step-wise description of the algorithm for a
+general mathematical expression is given. Appendix&#x00A0;<a 
+href="Syntax.html#x12-15000B">B<!--tex4ht:ref: APPEN:SYNTAX --></a> describes the syntax of the
+<span 
+class="pcrr7t-x-x-120">fussy</span>&#x00A0;language.
+                                                                                       
+                                                                                       
+                                                                                       
+                                                                                       
+    <!--l. 236--><div class="crosslinks"><p class="noindent">[<a 
+href="APPENDIX.html" >next</a>] [<a 
+href="contentsname.html" >prev</a>] [<a 
+href="contentsname.html#tailcontentsname.html" >prev-tail</a>] [<a 
+href="Introduction.html" >front</a>] [<a 
+href="fussy.html#ErrorpropagationAlgorithmforthemultivariatecase.html" >up</a>] </p></div>
+<!--l. 236--><p class="indent" >    <a 
+ id="tailIntroduction.html"></a>  
+</body></html> 

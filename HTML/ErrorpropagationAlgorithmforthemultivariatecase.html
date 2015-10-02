@@ -1,0 +1,555 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  
+  "http://www.w3.org/TR/html4/loose.dtd">  
+<html > 
+<head><title>Error propagation: Algorithm for the multi-variate case</title> 
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"> 
+<meta name="generator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<meta name="originator" content="TeX4ht (http://www.tug.org/tex4ht/)"> 
+<!-- html,2,sec-filename --> 
+<meta name="src" content="fussy.tex"> 
+<meta name="date" content="2015-10-02 11:00:00"> 
+<link rel="stylesheet" type="text/css" href="fussy.css"> 
+</head><body 
+>
+    <!--l. 321--><div class="crosslinks"><p class="noindent">[<a 
+href="Syntax.html" >next</a>] [<a 
+href="ErrorpropagationSinglevariablecase.html" >prev</a>] [<a 
+href="ErrorpropagationSinglevariablecase.html#tailErrorpropagationSinglevariablecase.html" >prev-tail</a>] [<a 
+href="Introduction.html#tailErrorpropagationAlgorithmforthemultivariatecase.html">tail</a>] [<a 
+href="fussy.html#Anexampleofamultivariateexpression.html" >up</a>] </p></div>
+    <h3 class="sectionHead"><span class="titlemark">3    </span> <a 
+ id="x8-50003"></a>Error propagation: Algorithm for the multi-variate case</h3>
+<!--l. 324--><p class="noindent" >The algorithm for the multi-variate case is similar to the single-variate case described above,
+but slightly more complicated. Multi-variate expressions have the added complication that
+the terms in the summation of Eq.&#x00A0;<a 
+href="Introduction.html#x5-2001r1">1<!--tex4ht:ref: FERR --></a> have to be evaluated separately for <span 
+class="pplri7t-x-x-120">each independent</span>
+variable. This means that a <span 
+class="pcrr7t-x-x-120">DS</span>&#x00A0;and a table of measurement errors (<span 
+class="pcrr7t-x-x-120">ME</span>) <span 
+class="pplri7t-x-x-120">per independent</span>
+variable have to be maintained.
+<!--l. 332--><p class="indent" >    Symbols (variables and constants) in <span 
+class="pcrr7t-x-x-120">fussy</span>&#x00A0;are tagged with a number or a list of
+numbers (the IDs) and a type. Symbols representing normal variables are of the type <span 
+class="pcrr7t-x-x-120">VAR </span>and
+have a single unique ID, a random error and a partial derivative (of value 1) associated with
+them. Symbols representing sub-expressions are of the type <span 
+class="pcrr7t-x-x-120">PARTIAL</span><span 
+class="pcrr7t-x-x-120">_VAR </span>and have a list of
+IDs and a corresponding list of random errors and partial derivatives associated with
+them. List of unique IDs and the random errors of the independent variables in the
+expression on the right-hand side (RHS) of the assignment operator constitute
+the list of IDs and random errors for the <span 
+class="pcrr7t-x-x-120">PARTIAL</span><span 
+class="pcrr7t-x-x-120">_VAR </span>type symbols. When a
+symbol (of either type) is pushed on the <span 
+class="pcrr7t-x-x-120">VMS</span>, the entire list of associated IDs is
+copied to the ID list of the object on the stack. The corresponding random errors and
+partial derivatives are also copied in the appropriate locations in the <span 
+class="pcrr7t-x-x-120">ME </span>table and
+pushed on the appropriate <span 
+class="pcrr7t-x-x-120">DS</span>&#x00A0;respectively. For example, let the IDs of <span 
+class="cmmi-12">x</span><sub><span 
+class="cmr-8">1</span></sub> and <span 
+class="cmmi-12">x</span><sub><span 
+class="cmr-8">2</span></sub> be
+<span 
+class="cmr-12">1 </span>and <span 
+class="cmr-12">2 </span>respectively. The result of <span 
+class="cmmi-12">x</span><sub><span 
+class="cmr-8">1</span></sub> <span 
+class="cmsy-10x-x-120">* </span><span 
+class="cmmi-12">x</span><sub><span 
+class="cmr-8">2</span></sub> on the top of the <span 
+class="pcrr7t-x-x-120">VMS</span>&#x00A0;will have an ID
+list of <span 
+class="cmsy-10x-x-120">{</span><span 
+class="pcrr7t-x-x-120">1,2</span><span 
+class="cmsy-10x-x-120">} </span>retaining the information that the result is statistically dependent on
+the independent variates <span 
+class="cmmi-12">x</span><sub><span 
+class="cmr-8">1</span></sub> and <span 
+class="cmmi-12">x</span><sub><span 
+class="cmr-8">2</span></sub>. If this result is further used as part of another
+expression, this information will be used to propagate the chain rule for these variables
+correctly.
+<!--l. 355--><p class="indent" >    Since any expression is built using basic mathematical operators or built-in functions, for
+the purpose of proving the correctness of the error propagation algorithm for any arbitrary
+expression, it is sufficient to prove that the algorithm works for the fundamental
+mathematical operators and built-in functions. The algorithms for evaluating the partial
+derivatives involving mathematical operators and the final evaluation of the resulting error is
+described below as pseudo code (see Appendix&#x00A0;<a 
+href="Anexampleofamultivariateexpression.html#x11-14000A">A<!--tex4ht:ref: APPEN:EX --></a> for an example). The algorithms are
+described using the following pseudo functions:
+      <ul class="itemize1">
+      <li class="itemize"><span 
+class="pcrr7t-x-x-120">push(S)</span>: to push the symbol or value <span 
+class="pcrr7t-x-x-120">S </span>on the <span 
+class="pcrr7t-x-x-120">VMS</span>.
+                                                                                       
+                                                                                       
+      </li>
+      <li class="itemize"><span 
+class="pcrr7t-x-x-120">push(S,DS[i])</span>: to push the symbol or value <span 
+class="pcrr7t-x-x-120">S </span>on the <span 
+class="cmmi-12">i</span><sup><span 
+class="cmmi-8">th</span></sup> <span 
+class="pcrr7t-x-x-120">DS</span>.
+      </li>
+      <li class="itemize"><span 
+class="pcrr7t-x-x-120">pop()</span>: to pop a symbol from the <span 
+class="pcrr7t-x-x-120">VMS</span>.
+      </li>
+      <li class="itemize"><span 
+class="pcrr7t-x-x-120">Top(DS[i])</span>: represents the value on the top of the <span 
+class="cmmi-12">i</span><sup><span 
+class="cmmi-8">th</span></sup> <span 
+class="pcrr7t-x-x-120">DS</span>.</li></ul>
+<!--l. 372--><p class="noindent" >The <span 
+class="pcrr7t-x-x-120">DS</span>&#x00A0;is indexed by the symbol ID(s) (say, <span 
+class="pcrr7t-x-x-120">N</span>). When a symbol from one of the symbol tables is
+pushed on the <span 
+class="pcrr7t-x-x-120">VMS</span>, a value of <span 
+class="cmr-12">1 </span>is pushed on <span 
+class="pcrr7t-x-x-120">DS[N] </span>and the associated measurement error
+is copied into <span 
+class="pcrr7t-x-x-120">ME[N]</span>. <span 
+class="pcrr7t-x-x-120">L </span>and <span 
+class="pcrr7t-x-x-120">R </span>in the pseudo code represents the symbols on the
+left-hand-side (LHS) and right-hand side (RHS) of the operator respectively. Two
+functions <span 
+class="cmmi-12">f</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x,a</span><span 
+class="cmr-12">) </span>and <span 
+class="cmmi-12">g</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x,b</span><span 
+class="cmr-12">) </span>with one common variable (<span 
+class="cmmi-12">x</span>) and one non-common
+variable each (<span 
+class="cmmi-12">a </span>and <span 
+class="cmmi-12">b</span>) are used as the LHS and RHS operands in the explanation
+below.
+<!--l. 381--><p class="indent" >    All the operators described below are binary operators. They all pop two values from the
+top of the <span 
+class="pcrr7t-x-x-120">VMS</span>, compute the result by applying the corresponding operator, store the
+value in a temporary stack object, set its ID to the union of the IDs of the operands
+and push it on the <span 
+class="pcrr7t-x-x-120">VMS</span>. These operations are performed by the following pseudo
+function:
+                                                                                       
+                                                                                       
+    <div class="verbatim" id="verbatim-1">
+&#x00A0;&#x00A0;&#x00A0;ComputeResult(L,R,Expr)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;{
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;L&#x00A0;=&#x00A0;pop();&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;R&#x00A0;=&#x00A0;pop();
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;S&#x00A0;=&#x00A0;Expr(L,R);
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;S.IDList&#x00A0;=&#x00A0;union(L.IDList,R.IDList);
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;push(S);
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;}
+</div>
+<!--l. 395--><p class="nopar" > <span 
+class="pcrr7t-x-x-120">Expr </span>implements the arithmetic of the mathematical operation on <span 
+class="pcrr7t-x-x-120">L </span>and <span 
+class="pcrr7t-x-x-120">R</span>.
+<!--l. 410--><p class="indent" >    Partial derivatives with respect to all the IDs in the ID lists of the operands are at the top
+of the corresponding <span 
+class="pcrr7t-x-x-120">DS</span>s. For all the IDs common between the two operands, two
+values are poped from the corresponding <span 
+class="pcrr7t-x-x-120">DS</span>, say <span 
+class="pcrr7t-x-x-120">dxR </span>and <span 
+class="pcrr7t-x-x-120">dxL</span>. The common IDs
+represent the variables which are part of both the operands (here <span 
+class="cmmi-12">x</span>). Operations to
+compute the partial derivatives with respect to these common variables (equivalent of
+the  <span 
+class="cmmi-8">&#x2202;</span> _
+<span 
+class="cmmi-8">&#x2202;x</span> operator) are represented by the pseudo function <span 
+class="pcrr7t-x-x-120">dCommonVar </span>below. The
+function <span 
+class="pcrr7t-x-x-120">CommonExpr </span>implements the arithmetic for the derivative computation
+and is set to the appropriate function for the various operators. These values are
+computed for each ID in the set composed of the intersection of the ID lists of the
+two operands, and pushed on the corresponding <span 
+class="pcrr7t-x-x-120">DS</span>&#x00A0;(here, the ID of <span 
+class="cmmi-12">x</span>). Finally,
+all IDs common between the two operands are removed from the ID lists of each
+operand.
+                                                                                       
+                                                                                       
+    <div class="verbatim" id="verbatim-2">
+&#x00A0;&#x00A0;&#x00A0;dCommonVar(L,R,CommonExpr)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;{
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;IDList&#x00A0;=&#x00A0;intersection(L.ID,R.ID);
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;for&#x00A0;ID&#x00A0;in&#x00A0;IDList
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;{
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;dxR&#x00A0;=&#x00A0;pop(DS[ID]);
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;dxL&#x00A0;=&#x00A0;pop(DS[ID]);
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;push(CommonExpr(L,R,dxL,dxR),DS[ID]);
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;L.Remove(ID);&#x00A0;&#x00A0;R.Remove(ID);
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;}
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;}
+</div>
+<!--l. 437--><p class="nopar" > The list of IDs of the two operands now has IDs corresponding to the non-common variables
+only (<span 
+class="cmmi-12">a </span>and <span 
+class="cmmi-12">b </span>here). Operations for the partial derivatives of the operands with respect to
+these variables is represented by the pseudo function <span 
+class="pcrr7t-x-x-120">dNonCommonVar </span>below. <span 
+class="pcrr7t-x-x-120">LExpr </span>and
+<span 
+class="pcrr7t-x-x-120">RExpr </span>computes the value of these derivatives for the LHS and RHS of the operator
+(equivalent of computing <img 
+src="fussy10x.png" alt="&#x2202;f(x,a)-
+ &#x2202;a"  class="frac" align="middle"> and <img 
+src="fussy11x.png" alt="&#x2202;g(x,b)
+  &#x2202;b"  class="frac" align="middle">) using the values from the top of the appropriate
+<span 
+class="pcrr7t-x-x-120">DS</span>.
+                                                                                       
+                                                                                       
+    <div class="verbatim" id="verbatim-3">
+&#x00A0;&#x00A0;&#x00A0;dNonCommonVar(L,R,LExpr,&#x00A0;RExpr)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;{
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;for&#x00A0;ID&#x00A0;in&#x00A0;L.IDList
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;Top(DS[ID])&#x00A0;=&#x00A0;LExpr(L,R,Top(DS[ID]));
+&#x00A0;<br />
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;for&#x00A0;ID&#x00A0;in&#x00A0;R.IDList
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;Top(DS[ID])&#x00A0;=&#x00A0;RExpr(L,R,Top(DS[ID]));
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;}
+</div>
+<!--l. 456--><p class="nopar" >
+    <h4 class="subsectionHead"><span class="titlemark">3.1    </span> <a 
+ id="x8-60003.1"></a>The multiplication operator</h4>
+<!--l. 463--><p class="noindent" >The following code returns the result of the operator (<span 
+class="pcrr7t-x-x-120">L&#x22C6;R</span>) on the top of the <span 
+class="pcrr7t-x-x-120">VMS</span>&#x00A0;with an ID
+equal to <span 
+class="pcrr7t-x-x-120">L.ID </span><span 
+class="cmsy-10x-x-120">&#x222A; </span><span 
+class="pcrr7t-x-x-120">R.ID</span>.
+                                                                                       
+                                                                                       
+    <div class="verbatim" id="verbatim-4">
+&#x00A0;&#x00A0;&#x00A0;Expr(L,R)&#x00A0;{return&#x00A0;L&#x22C6;R};&#x00A0;&#x00A0;/&#x22C6;&#x00A0;Compute&#x00A0;the&#x00A0;value&#x00A0;for
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;ComputeResult(L,R,Expr);&#x00A0;&#x00A0;&#x00A0;&#x00A0;the&#x00A0;multipication&#x00A0;operator&#x00A0;&#x22C6;/
+</div>
+<!--l. 468--><p class="nopar" > Following code returns the value(s) of the partial derivative(s) (here <span 
+class="pcrr7t-x-x-120">dxR&#x22C6;L + dxL&#x22C6;R</span>) with
+respect to <span 
+class="pplri7t-x-x-120">all </span>the common variables in the two operands, on the top of the appropriate
+<span 
+class="pcrr7t-x-x-120">DS</span>s.
+                                                                                       
+                                                                                       
+    <div class="verbatim" id="verbatim-5">
+&#x00A0;&#x00A0;&#x00A0;Expr(L,R,dxL,dxR)&#x00A0;{return&#x00A0;dxR&#x22C6;L&#x00A0;+&#x00A0;dxL&#x22C6;R;}
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;dCommonVar(L,R,Expr);
+</div>
+<!--l. 475--><p class="nopar" > The following code returns the value of the partial derivatives with respect to the variables
+not common between the operands. These values are returned on the top of the
+<span 
+class="pcrr7t-x-x-120">DS</span>&#x00A0;corresponding to the remaining IDs of the two operands.
+                                                                                       
+                                                                                       
+    <div class="verbatim" id="verbatim-6">
+&#x00A0;&#x00A0;&#x00A0;LExpr(L,R,dx)&#x00A0;{return&#x00A0;dx&#x22C6;L};
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;RExpr(L,R,dx)&#x00A0;{return&#x00A0;dx&#x22C6;R};
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;dNoncommonVar(L,R,LExpr,RExpr)
+</div>
+<!--l. 484--><p class="nopar" >
+    <h4 class="subsectionHead"><span class="titlemark">3.2    </span> <a 
+ id="x8-70003.2"></a>The division operator</h4>
+<!--l. 490--><p class="noindent" >As before, the result of the division operator is computed as <span 
+class="pcrr7t-x-x-120">L/R </span>and returned on the
+<span 
+class="pcrr7t-x-x-120">VMS</span>&#x00A0;using the following code.
+                                                                                       
+                                                                                       
+    <div class="verbatim" id="verbatim-7">
+&#x00A0;&#x00A0;&#x00A0;Expr(L,R)&#x00A0;{return&#x00A0;L/R};&#x00A0;&#x00A0;/&#x22C6;&#x00A0;Compute&#x00A0;the&#x00A0;value&#x00A0;for
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;ComputeResult(L,R,Expr);&#x00A0;&#x00A0;&#x00A0;&#x00A0;the&#x00A0;division&#x00A0;operator&#x00A0;&#x22C6;/
+</div>
+<!--l. 495--><p class="nopar" > For all IDs common between <span 
+class="pcrr7t-x-x-120">L </span>and <span 
+class="pcrr7t-x-x-120">R</span>, the partial derivative is computes as <span 
+class="pcrr7t-x-x-120">(R&#x22C6;dxL -</span>
+<span 
+class="pcrr7t-x-x-120">L&#x22C6;dxR)/(R&#x22C6;R) </span>and returned on the appropriate <span 
+class="pcrr7t-x-x-120">DS</span>s using the following code.
+                                                                                       
+                                                                                       
+    <div class="verbatim" id="verbatim-8">
+&#x00A0;&#x00A0;&#x00A0;Expr(L,R,dxL,dxR)&#x00A0;{return&#x00A0;(R&#x22C6;dxL&#x00A0;-&#x00A0;L&#x22C6;dxR)/(R&#x22C6;R)};
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;dCommonVar(L,R,Expr);
+</div>
+<!--l. 502--><p class="nopar" > This is equivalent to computing
+    <table 
+class="equation"><tr><td><a 
+ id="x8-7001r3"></a>
+    <center class="math-display" >
+<img 
+src="fussy12x.png" alt="   [        ]           [                                ]
+-&#x2202;-  f(x,a-)  = ---1---- g(x, a)&#x2202;f(x,-a)-  f(x,a)&#x2202;g-(x,b)
+&#x2202;x   g(x,b)     g(x,a )2           &#x2202;x                &#x2202;x
+" class="math-display" ></center></td><td class="equation-label">(3)</td></tr></table>
+<!--l. 508--><p class="nopar" >
+Next, partial derivatives with respect to each of the non-common variables are computed
+(here with respect to <span 
+class="cmmi-12">a </span>as    <span 
+class="cmr-8">1</span> ___
+<span 
+class="cmmi-8">g</span><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">x,b</span><span 
+class="cmr-8">)</span> <span 
+class="cmmi-8">&#x2202;f</span><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">x,a</span><span 
+class="cmr-8">)</span> 
+   <span 
+class="cmmi-8">&#x2202;a</span>    and with respect to <span 
+class="cmmi-12">b </span>as <span 
+class="cmsy-10x-x-120">-</span> <span 
+class="cmmi-8">f</span><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">x,a</span><span 
+class="cmr-8">)</span>
+<span 
+class="cmmi-8">g</span><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">x,b</span><span 
+class="cmr-8">)</span><sup><span 
+class="cmr-6">2</span></sup> <span 
+class="cmmi-8">&#x2202;g</span><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">x,b</span><span 
+class="cmr-8">)</span> 
+   <span 
+class="cmmi-8">&#x2202;b</span>   ) and returned on
+the appropriate <span 
+class="pcrr7t-x-x-120">DS</span>s by the following code.
+                                                                                       
+                                                                                       
+    <div class="verbatim" id="verbatim-9">
+&#x00A0;&#x00A0;&#x00A0;LExpr(L,R,dx)&#x00A0;{return&#x00A0;dx/R};
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;RExpr(L,R,dx)&#x00A0;{return&#x00A0;-L&#x22C6;dx/(R&#x22C6;R)};
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;dNoncommonVar(L,R,LExpr,RExpr);
+</div>
+<!--l. 518--><p class="nopar" >
+    <h4 class="subsectionHead"><span class="titlemark">3.3    </span> <a 
+ id="x8-80003.3"></a>The addition operator</h4>
+<!--l. 524--><p class="noindent" >The first set of operations is same as that for other operators except that the value pushed on
+the <span 
+class="pcrr7t-x-x-120">VMS</span>&#x00A0;is <span 
+class="pcrr7t-x-x-120">L+R</span>.
+                                                                                       
+                                                                                       
+    <div class="verbatim" id="verbatim-10">
+&#x00A0;&#x00A0;&#x00A0;Expr(L,R)&#x00A0;{return&#x00A0;L+R};&#x00A0;&#x00A0;/&#x22C6;&#x00A0;Compute&#x00A0;the&#x00A0;value&#x00A0;for
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;ComputeResult(L,R,Expr);&#x00A0;&#x00A0;&#x00A0;&#x00A0;the&#x00A0;addition&#x00A0;operator&#x00A0;&#x22C6;/
+</div>
+<!--l. 529--><p class="nopar" > Since the partial derivatives of the expression with respect to the non-common variables is
+already on the appropriate <span 
+class="pcrr7t-x-x-120">DS</span>, no separate operation is required for these variables. The
+partial derivatives with respect to the common set of variables is computed as <span 
+class="cmmi-8">&#x2202;f</span><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">x,a</span><span 
+class="cmr-8">)</span> 
+   <span 
+class="cmmi-8">&#x2202;x</span>    and
+<span 
+class="cmmi-8">&#x2202;g</span><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">x,b</span><span 
+class="cmr-8">)</span>
+_____
+   <span 
+class="cmmi-8">&#x2202;x</span>  . The pseudo code for these operations is:
+                                                                                       
+                                                                                       
+    <div class="verbatim" id="verbatim-11">
+&#x00A0;&#x00A0;&#x00A0;Expr(L,R,dxL,dxR)&#x00A0;{return&#x00A0;(dxL&#x00A0;+&#x00A0;dxR)};
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;dCommonVar(L,R,Expr);
+</div>
+<!--l. 539--><p class="nopar" >
+    <h4 class="subsectionHead"><span class="titlemark">3.4    </span> <a 
+ id="x8-90003.4"></a>The subtraction operator</h4>
+<!--l. 545--><p class="noindent" >The pseudo code for the subtraction operation is functionally same as that for the addition
+operator.
+                                                                                       
+                                                                                       
+    <div class="verbatim" id="verbatim-12">
+&#x00A0;&#x00A0;&#x00A0;Expr(L,R)&#x00A0;{return&#x00A0;L-R};&#x00A0;&#x00A0;/&#x22C6;&#x00A0;Compute&#x00A0;the&#x00A0;value&#x00A0;for&#x00A0;the
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;ComputeResult(L,R,Expr);&#x00A0;&#x00A0;&#x00A0;&#x00A0;subtraction&#x00A0;operator&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x22C6;/
+&#x00A0;<br />
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;/&#x22C6;&#x00A0;Compute&#x00A0;the&#x00A0;derivative&#x00A0;w.r.t.&#x00A0;common&#x00A0;variables&#x00A0;&#x22C6;/
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;Expr(L,R,dxL,dxR)&#x00A0;{return&#x00A0;(dxL&#x00A0;-&#x00A0;dxR)};
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;dCommonVar(Expr,L,R);
+</div>
+<!--l. 554--><p class="nopar" > This is equivalent of computing <span 
+class="cmmi-8">&#x2202;f</span><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">x,a</span><span 
+class="cmr-8">)</span> 
+   <span 
+class="cmmi-8">&#x2202;x</span>    <span 
+class="cmsy-10x-x-120">-</span> <span 
+class="cmmi-8">&#x2202;g</span><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">x,b</span><span 
+class="cmr-8">)</span> 
+   <span 
+class="cmmi-8">&#x2202;x</span>   . In addition to the above operations, the
+partial derivatives of the RHS operand with respect to all the non-common variables needs to
+be negated (here <span 
+class="cmmi-12">&#x2202;g</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x,b</span><span 
+class="cmr-12">)</span><span 
+class="cmmi-12">&#x2215;&#x2202;b</span>).
+                                                                                       
+                                                                                       
+    <div class="verbatim" id="verbatim-13">
+&#x00A0;&#x00A0;&#x00A0;IDList&#x00A0;=&#x00A0;union(L.IDList,&#x00A0;R.IDList);
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;for&#x00A0;ID&#x00A0;in&#x00A0;IDList&#x00A0;/&#x22C6;&#x00A0;unique&#x00A0;IDs&#x00A0;in&#x00A0;L&#x00A0;and&#x00A0;R&#x00A0;&#x22C6;/
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;if&#x00A0;(ID&#x00A0;in&#x00A0;R.IDList)
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;{
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;dxR&#x00A0;=&#x00A0;pop(DS[ID]);
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;push(-dxR,&#x00A0;DS[ID]);
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;&#x00A0;}
+</div>
+<!--l. 568--><p class="nopar" >
+<!--l. 573--><p class="noindent" >
+    <h4 class="subsectionHead"><span class="titlemark">3.5    </span> <a 
+ id="x8-100003.5"></a>The power operator</h4>
+<!--l. 575--><p class="noindent" >Again, the result of the to-the-power operator (<span 
+class="cmmi-12">L</span><sup><span 
+class="cmmi-8">R</span></sup>), with an ID equal to <span 
+class="pcrr7t-x-x-120">L.ID </span><span 
+class="cmsy-10x-x-120">&#x222A; </span><span 
+class="pcrr7t-x-x-120">R.ID </span>is
+pushed on the <span 
+class="pcrr7t-x-x-120">VMS</span>&#x00A0;using the code:
+                                                                                       
+                                                                                       
+    <div class="verbatim" id="verbatim-14">
+&#x00A0;&#x00A0;&#x00A0;Expr(L,R)&#x00A0;{return&#x00A0;L^R};&#x00A0;&#x00A0;/&#x22C6;&#x00A0;Compute&#x00A0;the&#x00A0;value&#x00A0;for
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;ComputeResult(L,R,Expr);&#x00A0;&#x00A0;&#x00A0;&#x00A0;the&#x00A0;power&#x00A0;operator&#x00A0;&#x22C6;/
+</div>
+<!--l. 580--><p class="nopar" > The partial derivative of the expression with respect to the common variable (here <span 
+class="cmmi-12">x</span>) is
+computed as:
+    <table 
+class="equation"><tr><td><a 
+ id="x8-10001r4"></a>
+    <center class="math-display" >
+<img 
+src="fussy13x.png" alt="                              [                                     ]
+&#x2202;--(f(x,a)g(x,b)) = f(x,a)g(x,b) g-(x,-b)&#x2202;f-(x,a) + log(f(x,b))&#x2202;g-(x,b)
+&#x2202;x                             f (x, a)   &#x2202;x                    &#x2202;x
+" class="math-display" ></center></td><td class="equation-label">(4)</td></tr></table>
+<!--l. 588--><p class="nopar" >
+The pseudo code for this operation is:
+                                                                                       
+                                                                                       
+    <div class="verbatim" id="verbatim-15">
+&#x00A0;&#x00A0;&#x00A0;Expr(L,R,dxL,dxR)&#x00A0;{return&#x00A0;(L^R)&#x22C6;((R/L)&#x22C6;dxL&#x00A0;+&#x00A0;log(L)&#x22C6;dxR)};
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;dCommonVar(L,R,Expr);
+</div>
+<!--l. 593--><p class="nopar" > The partial derivatives with respect to the non-common set of IDs correspond to
+<span 
+class="cmmi-12">g</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x,b</span><span 
+class="cmr-12">)</span><span 
+class="cmmi-12">f</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x,a</span><span 
+class="cmr-12">)</span><sup><span 
+class="cmr-8">[</span><span 
+class="cmmi-8">g</span><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">x,b</span><span 
+class="cmr-8">)</span><span 
+class="cmsy-8">-</span><span 
+class="cmr-8">1]</span></sup><span 
+class="cmmi-8">&#x2202;f</span><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">x,a</span><span 
+class="cmr-8">)</span> 
+   <span 
+class="cmmi-8">&#x2202;a</span>    and <span 
+class="cmmi-12">f</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x,a</span><span 
+class="cmr-12">)</span><sup><span 
+class="cmmi-8">g</span><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">x,b</span><span 
+class="cmr-8">)</span></sup> <span 
+class="cmr-12">log</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">f</span><span 
+class="cmr-12">(</span><span 
+class="cmmi-12">x,b</span><span 
+class="cmr-12">))</span><span 
+class="cmmi-8">&#x2202;g</span><span 
+class="cmr-8">(</span><span 
+class="cmmi-8">x,b</span><span 
+class="cmr-8">)</span>
+   <span 
+class="cmmi-8">&#x2202;b</span>   . Partial derivatives of <span 
+class="cmmi-12">f </span>and <span 
+class="cmmi-12">g </span>with
+respect to <span 
+class="cmmi-12">a </span>and <span 
+class="cmmi-12">b </span>are computed using the functions <span 
+class="pcrr7t-x-x-120">LExpr </span>and <span 
+class="pcrr7t-x-x-120">RExpr</span>. The computed partial
+derivatives are pushed back on the appropriate <span 
+class="pcrr7t-x-x-120">DS</span>s. The pseudo code for this operation
+is:
+                                                                                       
+                                                                                       
+    <div class="verbatim" id="verbatim-16">
+&#x00A0;&#x00A0;&#x00A0;LExpr(L,R,dx)&#x00A0;{return&#x00A0;R&#x22C6;(L^(R-1))&#x22C6;dx};
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;RExpr(L,R,dx)&#x00A0;{return&#x00A0;(L^R)&#x22C6;log(L)&#x22C6;dx};
+&#x00A0;<br />&#x00A0;&#x00A0;&#x00A0;dNoncommonVar(L,R,LExpr,RExpr);
+</div>
+<!--l. 605--><p class="nopar" > At the terminal operators (e.g. the assignment operator &#8217;<span 
+class="pcrr7t-x-x-120">=</span>&#8217;), a single value (the result of the
+right hand side of the terminal operator) is poped from the <span 
+class="pcrr7t-x-x-120">VMS</span>. The propagated
+error is then computed using the values from the top of all <span 
+class="pcrr7t-x-x-120">DS</span>s corresponding to
+the IDs in the ID list of the poped value. The values from these <span 
+class="pcrr7t-x-x-120">DS</span>s are the partial
+derivatives of the expression with respect to the various independent variables
+used in the expression on the right hand side (<span 
+class="cmmi-12">&#x2202;f&#x2215;&#x2202;x</span><sub><span 
+class="cmmi-8">i</span></sub> in Eq.&#x00A0;<a 
+href="Introduction.html#x5-2001r1">1<!--tex4ht:ref: FERR --></a>). The corresponding
+measurement errors (<span 
+class="cmmi-12">&#x03B4;x</span><sub><span 
+class="cmmi-8">i</span></sub> in Eq.&#x00A0;<a 
+href="Introduction.html#x5-2001r1">1<!--tex4ht:ref: FERR --></a>) are in the appropriated locations in the <span 
+class="pcrr7t-x-x-120">ME </span>table.
+Using these values, Eq.&#x00A0;<a 
+href="Introduction.html#x5-2001r1">1<!--tex4ht:ref: FERR --></a> is evaluated. This is the final propagated error in the
+expression.
+                                                                                       
+                                                                                       
+    <!--l. 619--><div class="crosslinks"><p class="noindent">[<a 
+href="Syntax.html" >next</a>] [<a 
+href="ErrorpropagationSinglevariablecase.html" >prev</a>] [<a 
+href="ErrorpropagationSinglevariablecase.html#tailErrorpropagationSinglevariablecase.html" >prev-tail</a>] [<a 
+href="ErrorpropagationAlgorithmforthemultivariatecase.html" >front</a>] [<a 
+href="fussy.html#Anexampleofamultivariateexpression.html" >up</a>] </p></div>
+<!--l. 619--><p class="indent" >    <a 
+ id="tailErrorpropagationAlgorithmforthemultivariatecase.html"></a>   
+</body></html> 
