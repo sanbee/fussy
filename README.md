@@ -8,4 +8,4 @@ The scripting [syntax](https://github.com/sanbee/fussy/blob/wiki/FussySyntax.md#
 **Please also refer to its usage in your publication by quoting the following:**
 
   * **Project location: https://github.com/sanbee/fussy**
-  * **Web-paper describing the algorithm: http://www.aoc.nrao.edu/~sbhatnag/Softwares/fussy/fussy/fussy.html**
+  * **Web-paper describing the algorithm: http://sanbee.github.io/fussy/HTML/fussy.html**
