@@ -3,11 +3,11 @@
 This page describes the fussy syntax. Statements are interactively executed as soon as they are completed. The virtual code for the sub-programs (function or procedure) is held in the memory and executed when the sub-programs are called.
 
 ## Numbers ##
-Numbers in fussy are represented as floating point numbers and can be specified with or without the decimal point, or in the exponent format. Optionally, an error can also be associated with the numbers via the pm directive. E.g., 75.3+/-10.1 can be expressed as `75.3pm10.1`. Numbers can also be tagged with units (see Section on [Units](#Units)) or a C-styled printing format (see Section on [Formatting](#formatting)).
+Numbers in fussy are represented as floating point numbers and can be specified with or without the decimal point, or in the exponent format. Optionally, an error can also be associated with the numbers via the pm directive. E.g., 75.3+/-10.1 can be expressed as `75.3pm10.1`. Numbers can also be tagged with units (see Section on [Units](#units)) or a C-styled printing format (see Section on [Formatting](#formatting)).
 
 ## Units ##
 
-Numerical values can be specified along with their units. As of now, the only units supported are degree, arcmin, arcsec, hours, minute, and seconds. These can be specified by appending 'd', ''', '"', 'h', 'm', 's' respectively to the numeric values. Internally, all numeric values are always stored in the MKS system of units. The default units for a variable used to specify angles or time is radians. If the values are specified along with any of the above mentioned units, the values are still stored internally as radians. However while printing (see Section on [FussySyntax#Print\_Statement](FussySyntax#Print_Statement.md)), the values are formatted automatically and printed with the appropriate units.
+Numerical values can be specified along with their units. As of now, the only units supported are degree, arcmin, arcsec, hours, minute, and seconds. These can be specified by appending 'd', ''', '"', 'h', 'm', 's' respectively to the numeric values. Internally, all numeric values are always stored in the MKS system of units. The default units for a variable used to specify angles or time is radians. If the values are specified along with any of the above mentioned units, the values are still stored internally as radians. However while printing (see Section on [Print\_Statement](#print_statement)), the values are formatted automatically and printed with the appropriate units.
 
 ## Operators and built-in functions ##
 
@@ -18,7 +18,7 @@ In addition, two operators of type `expr.<op>` where `<op>` is either val or rms
 
 ## Expressions/Statements ##
 
-Numbers and variables can be combined with the mathematical operators and logical operators to form an expression. Expressions can be used as arguments to built-in or user defined functions (see Section [FussySyntax#Function/procedure](FussySyntax#Function/procedure.md)). An expression followed by a NEWLINE prints its result on the output stream (see Section [FussySyntax#Print\_Statement](FussySyntax#Print_Statement.md)) in the default format (see Section [FussySyntax#Formatting](FussySyntax#Formatting.md)).
+Numbers and variables can be combined with the mathematical operators and logical operators to form an expression. Expressions can be used as arguments to built-in or user defined functions (see Section [Function/procedure](#functionprocedure)). An expression followed by a NEWLINE prints its result on the output stream (see Section [FussySyntax#Print\_Statement](FussySyntax#Print_Statement.md)) in the default format (see Section [Formatting](#formatting)).
 
 For the purpose of error propagation, the print statement and the assignment operator (the "='' operator but not the ":='' operator; see Section on [FussySyntax#Sub-expressions](FussySyntax#Sub-expressions.md)) are treated as the terminal nodes of the parsing tree which invokes the final error propagation.
 
@@ -152,7 +152,7 @@ where init is a comma (',') separate list of simple statements for initializing 
 
 ## Print statement ##
 
-The print statement takes a comma separated list of objects to be printed. These objects can be quoted-strings, variables, constants, condition statements or user defined function names. The list can consist of any number of objects and is terminated by a semi-colon. The format in which the numeric values are printed is defined by the format modifier associated with the values (see Section [FussySyntax#Formatting](FussySyntax#Formatting.md)). All escaped-characters used in C-styled printing have the same effect as in the output of the C-styled printf statement.
+The print statement takes a comma separated list of objects to be printed. These objects can be quoted-strings, variables, constants, condition statements or user defined function names. The list can consist of any number of objects and is terminated by a semi-colon. The format in which the numeric values are printed is defined by the format modifier associated with the values (see Section [Formatting](#formatting)). All escaped-characters used in C-styled printing have the same effect as in the output of the C-styled printf statement.
 
 
 ## Formatting ##
