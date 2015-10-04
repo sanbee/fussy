@@ -3,7 +3,7 @@
 This page describes the fussy syntax. Statements are interactively executed as soon as they are completed. The virtual code for the sub-programs (function or procedure) is held in the memory and executed when the sub-programs are called.
 
 ## Numbers ##
-Numbers in fussy are represented as floating point numbers and can be specified with or without the decimal point, or in the exponent format. Optionally, an error can also be associated with the numbers via the pm directive. E.g., 75.3+/-10.1 can be expressed as `75.3pm10.1`. Numbers can also be tagged with units (see Section on [FussySyntax#Units](FussySyntax#Units.md)) or a C-styled printing format (see Section on [FussySyntax#Formatting](FussySyntax#Formatting.md)).
+Numbers in fussy are represented as floating point numbers and can be specified with or without the decimal point, or in the exponent format. Optionally, an error can also be associated with the numbers via the pm directive. E.g., 75.3+/-10.1 can be expressed as `75.3pm10.1`. Numbers can also be tagged with units (see Section on [Units](FussySyntax#units)) or a C-styled printing format (see Section on [FussySyntax#Formatting](FussySyntax#Formatting.md)).
 
 ## Units ##
 
