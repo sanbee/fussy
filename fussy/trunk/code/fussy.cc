@@ -1,6 +1,6 @@
 // $Id: fussy.cc,v 1.3 2006/03/10 21:38:37 sbhatnag Exp $
 /******************************************************************
- * Copyright (c) 2000-2008, 2009 S.Bhatnagar
+ * Copyright (c) 2000-2016, 2017 S.Bhatnagar
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -40,7 +40,8 @@
 
 #include <iostream>
 #include <fstream>
-#include <string>
+//#include <string>
+#include <cstring>
 #include <stdio.h>
 #include <calc.h>
 #include <emath.h>
@@ -88,7 +89,7 @@ void handler(int sig)
 //
 //---------------------------------------------------------------------
 //
-char *basename(const char *name)
+const char *basename(const char *name)
 {
   const char *t=&name[strlen(name)-1];
   while ((*t != '/') && (t > name)) t--;

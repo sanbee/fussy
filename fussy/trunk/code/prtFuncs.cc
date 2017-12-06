@@ -51,7 +51,7 @@
 #include <calc.h>
 #include <y.tab.h>
 #include <list>
-#include <string>
+#include <cstring>
 extern VMac Prog;
 extern list<Calc_Symbol> SymbTab;
 extern list<Calc_Symbol> ConstTab;

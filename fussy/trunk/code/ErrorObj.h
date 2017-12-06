@@ -1,6 +1,6 @@
 /* $Id: ErrorObj.h,v 1.2 2006/01/17 18:57:09 sbhatnag Exp $ */
 /******************************************************************
- * Copyright (c) 2000-2007, 2008 S.Bhatnagar
+ * Copyright (c) 2000-2016, 2017 S.Bhatnagar
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -32,7 +32,7 @@
 #if !defined(ERROROBJ_H)
 #define      ERROROBJ_H
 
-#include <string>
+#include <cstring>
 #include <iostream>
 #include "namespace.h"
 

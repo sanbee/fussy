@@ -1,7 +1,7 @@
 #-*-makefile-*-
 # $Id: makefile,v 1.3 2006/03/10 21:38:37 sbhatnag Exp $
 
-# * Copyright (c) 2000-2006, 2007 S.Bhatnagar
+# * Copyright (c) 2000-2016, 2017 S.Bhatnagar
 # *
 # * This program is free software; you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by

@@ -1,6 +1,6 @@
 /* $Id: tables.cc,v 1.5 2006/08/07 23:03:52 sbhatnag Exp $ */
 /******************************************************************
- * Copyright (c) 2000-2007, 2008 S.Bhatnagar
+ * Copyright (c) 2000-2016, 2017 S.Bhatnagar
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
