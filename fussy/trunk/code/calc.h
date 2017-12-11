@@ -65,7 +65,7 @@ void          InitKeyWordTab();
 void          InitFussy();
 void          setDefaultType(int);
 int           ywarn(char *s, char *t);
-void          showCopyright(char *Msg=NULL);
+void          showCopyright(const char *Msg=NULL);
 void          showWarranty();
 void          showHelp();
 void          prtVM();

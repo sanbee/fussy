@@ -43,7 +43,7 @@ Calc_Symbol   *calcgetSymb(const char *);
 Calc_Symbol   *calcgetConst(Calc_Symbol&);
 Calc_Symbol   *IsIDinTab(IDType,int);
 Calc_Symbol   *LocalSymbGet(const char *Name);
-Calc_Symbol   *install(char *Name, int type, double v, double e=0);
+Calc_Symbol   *install(const char *Name, int type, double v, double e=0);
 Calc_Symbol   *installConst(Calc_Symbol&d, int NewID=-1);
 Calc_Symbol   *makeTmpSymb(int makeNewID=0,IDType Type=RETVAR_TYPE);
 void           calcput(string &);

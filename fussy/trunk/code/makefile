@@ -27,15 +27,16 @@
 #
 #----------------------------------------------------------------
 #
-LEX           = flex
-#YACC          = bison -v -y -p calc_
-YACC          = bison -y -p calc_
 CCHOME        = /usr/local/compilers/9/gcc_3.2.3
 CCHOME        = /usr
+
+LEX           = $(CCHOME)/bin/flex
+#YACC          = bison -v -y -p calc_
+YACC          = $(CCHOME)/bin/bison -y -p calc_
 CCINCL        = $(CCHOME)/include
 CCPATH        = $(CCHOME)/bin/
 CC            = $(CCPATH)g++ $(CFLAGS) $(INCL)
-CFLAGS        = -g -Wall
+CFLAGS        = -g -Wall 
 # -DVERBOSE
 # -DYYDEBUG
 # -DLDBGMODE
@@ -47,7 +48,7 @@ PUB           = $(GLIB)
 ROOT          = .
 SLA           = $(ROOT)/sla/libkum.a
 READLINEINCL  = . 
-INCL          = -I. -I$(READLINEINCL) -I$(ROOT)/emath -I/usr/freeware/include/g++
+INCL          = -I. -I$(READLINEINCL) -I$(ROOT)/emath #-I/usr/freeware/include/g++
 
 GENLIBS       = $(READLINE) $(SLA) \
 	        -lreadline -lhistory -ltermcap -lfl -lm

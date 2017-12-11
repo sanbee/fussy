@@ -36,7 +36,7 @@ int ywarn(char *s, char *t)
 int yymsg(char *s, char *t)
 {
   int i,N=0;
-  char *str = "###Error:";
+  const char *str = "###Error:";
 
   N += strlen(str)+strlen(s)+1;
   i=strlen(yytext);

@@ -706,7 +706,7 @@ void MkSpaceOnLocalSymbTab(int N)
 //  double v           The value of the new symbol.
 //  double e           The error associated with the new symbol.
 //
-Calc_Symbol *install(char *Name, int type, double v, double e)
+Calc_Symbol *install(const char *Name, int type, double v, double e)
 {
   Calc_Symbol *s=new Calc_Symbol;
   s->type = type;

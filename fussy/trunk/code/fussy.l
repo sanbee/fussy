@@ -56,7 +56,7 @@
 #else
 #define ECHON
 #define ECHO
-#define ECHOS
+#define ECHOS(s) {}
 #endif
   
 char                        *Calc_line=NULL;

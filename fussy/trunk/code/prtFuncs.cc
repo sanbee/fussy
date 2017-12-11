@@ -303,7 +303,7 @@ void prtCSymbTab()
 //-----------------------------------------------------------------
 // Show copyright info.
 //
-void showCopyright(char *Msg)
+void showCopyright(const char *Msg)
 {
   cerr << "   fussy 2.0" << endl
        << 
