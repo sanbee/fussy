@@ -136,6 +136,11 @@ void fussy_inp(char *buf, int *result, int max_size)
       *result=N+1;
     }
   GlobalFlag |= FLAG_MORE_INP;
+  if (Calc_line != NULL)
+    {
+      free(Calc_line); Count=0;
+      Calc_line=NULL;
+    }
 }
 
 /* Used by LEX.
