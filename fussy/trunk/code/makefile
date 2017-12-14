@@ -36,7 +36,7 @@ YACC          = $(CCHOME)/bin/bison -y -p calc_
 CCINCL        = $(CCHOME)/include
 CCPATH        = $(CCHOME)/bin/
 CC            = $(CCPATH)g++ $(CFLAGS) $(INCL)
-CFLAGS        = -g -Wall 
+CFLAGS        = -g -Wall -DVERBOSE
 # -DVERBOSE
 # -DYYDEBUG
 # -DLDBGMODE

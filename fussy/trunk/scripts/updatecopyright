@@ -9,14 +9,20 @@ years=`echo "2000-"$pyear, $year`
 files=`ls`
 for f in $files
 do
- if ( test -d $f );
- then
-   echo "Not updating directory"$f;
- else
- echo "Updating copyright info. for "$f
- cmd=`echo "sed -e\"s/200[0-9]-200[0-9], 200[0-9]/$years/\" $f > $f.new"`
- eval $cmd
- mv $f $f.old
- mv $f.new $f
- fi
+    if ( test -d $f );
+    then
+	echo "Not updating directory "$f;
+    else
+	tt=`grep $year $f`;
+	if [[ $tt = *[!\ ]* ]]
+	then
+	    tt=$tt;
+	else
+	    echo "Updating copyright info. for "$f
+	    cmd=`echo "sed -e\"s/20[0-1][0-9]-20[0-1][0-9], 20[0-1][0-9]/$years/\" $f > $f.new"`
+	    eval $cmd
+	    mv $f $f.old
+	    mv $f.new $f
+	fi
+    fi
 done
