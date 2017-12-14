@@ -228,18 +228,19 @@ void prtDS()
 }
 void prtTypes(Calc_Symbol *s)
 {
-  ERROUT << "A  P  R  C" << endl;
+  ERROUT << "A  P  R  C  N" << endl;
   ERROUT << ISSET(s->type,AUTOVAR_TYPE) << "  "
 	 << ISSET(s->type,PARTIALVAR_TYPE) << "  "
 	 << ISSET(s->type,RETVAR_TYPE) << "  "
 	 << ISSET(s->type,CONSTANT_TYPE) << "  "
+	 << ISSET(s->type,NUMBER_TYPE) << "  "
 	 << endl;
 }
 inline void prtTypes(StackType &d){prtTypes(d.symb);}
 //
 // Print the number of objects on the DS and the VMS for diagnostics
 //
-void prtStacks(char *From=NULL)
+void prtStacks(const char *From=NULL)
 {
   int N;
   N=DS.size();

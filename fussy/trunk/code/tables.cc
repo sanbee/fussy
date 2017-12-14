@@ -364,6 +364,12 @@ void cleanupSymbTab(SymbTabType& Tab, int OP,TypeType Type=UNDEF_TYPE)
       switch(OP)
 	{
 	case OP_ON_REF:
+	  // If we are going to remove an ID without checking the Type
+	  // information, make sure that the ID slated to be removed
+	  // is not referenced by another symbol on the Symbol Table
+	  // (the call IsIDInTab(ID) looks at SymbTable).
+	  if (IsIDinTab(CI->ID)) break;
+
 	  if (((int)CI->type == NUMBER_TYPE) && (!((int)CI->name[0])))
 	    {
 	      unsigned int ID;
