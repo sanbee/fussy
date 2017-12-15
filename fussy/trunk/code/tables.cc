@@ -156,7 +156,6 @@ Calc_Symbol *IsIDinGivenTab(IDType ID, SymbTabType& tab,const char *name)
 //              look in TmpSymbTab as well.
 //   int Which  If non-zero, also search in TmpSymbTab.
 //
-#define VERBOSE 1
 Calc_Symbol *IsIDinTab(IDType ID,int Which=0)
 {
   SymbTabType::const_iterator CI,Start,Stop;
