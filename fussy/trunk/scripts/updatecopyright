@@ -6,12 +6,15 @@
 year=`date "+%G"`
 let pyear=$year-1
 years=`echo "2000-"$pyear, $year`
-files=`ls`
+files=`ls *.cc *.h *.c *.y *.l warranty copyright* typeMake vmMake -I y.tab.*`
 for f in $files
 do
     if ( test -d $f );
     then
 	echo "Not updating directory "$f;
+    elif [[ $f = y.tab.* ]]
+    then
+	echo  "Not updating file "$f;
     else
 	tt=`grep $year $f`;
 	if [[ $tt = *[!\ ]* ]]
