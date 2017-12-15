@@ -461,6 +461,7 @@ EHEX    ({HEXD}({SPACE}?{ERROP}{SPACE}?{HEXD})?)
 {MM}                     {ECHO;                        return MM;}
 auto                     {ECHO;                        return AUTO;}
 print                    {ECHO;yylval.Inst=print;      return PRINT;}
+printn                   {ECHO;yylval.Inst=printn;     return PRINTN;}
 if                       {ECHO;yylval.Inst=ifcode;     return IF;}
 else                     {ECHO;                        return ELSE;}
 while                    {ECHO;yylval.Inst=whilecode;  return WHILE;}
