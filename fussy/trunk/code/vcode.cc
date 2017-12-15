@@ -2485,8 +2485,17 @@ int passgn()
     {
       tdx=TOP(DS[*i]);POP(DS[*i]);
       dx2=MeasurementError[*i];
-      d1.ID.insert(d1.ID.end(),*i);
-      d1.symb->IDL.insert(d1.symb->IDL.end(),*i);
+      // if (ISSET(d2.symb->type, NUMBER_TYPE))
+      // 	{
+      // 	  int newID=GetNewID();
+      // 	  d1.ID.insert(d1.ID.end(),newID);
+      // 	  d1.symb->IDL.insert(d1.symb->IDL.end(),newID);
+      // 	}
+      // else
+	{
+	  d1.ID.insert(d1.ID.end(),*i);
+	  d1.symb->IDL.insert(d1.symb->IDL.end(),*i);
+	}
       d1.symb->DSList.resize(k+1);d1.symb->DSList[k]=tdx;
       d1.symb->dx.resize(k+1);d1.symb->dx[k]=dx2;
       k++;

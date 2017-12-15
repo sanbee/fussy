@@ -61,7 +61,7 @@ TYPEMAKE      = sh ./typeMake
 #
 #----------------------------------------------------------------
 #
-fussy: updatecopyright fussy.o libcalc.a $(SLA)
+fussy: updatecopyright fussy.o libcalc.a $(SLA) *.cc *.c *.h
 	$(CC) fussy.o libcalc.a $(INCS) $(GENLIBS) -o fussy
 
 $(SLA): 
