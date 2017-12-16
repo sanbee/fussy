@@ -155,7 +155,7 @@ where init is a comma (',') separate list of simple statements for initializing 
 The print statement takes a comma separated list of objects to be printed. These objects can be quoted-strings, variables, constants, condition statements or user defined function names. The list can consist of any number of objects and is terminated by a semi-colon. The format in which the numeric values are printed is defined by the format modifier associated with the values (see Section [Formatting](#formatting)). All escaped-characters used in C-styled printing have the same effect as in the output of the C-styled printf statement.
 
 
-### printn statement ###
+### `printn` statement ###
 
 The printn statement is same as the print statement, execpt that this will print a NEWLINE at the end of the list of objects to be printed.
 
