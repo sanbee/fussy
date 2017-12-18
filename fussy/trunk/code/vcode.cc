@@ -228,12 +228,13 @@ void prtDS()
 }
 void prtTypes(Calc_Symbol *s)
 {
-  ERROUT << "A  P  R  C  N" << endl;
+  ERROUT << "A  P  R  C  N  F" << endl;
   ERROUT << ISSET(s->type,AUTOVAR_TYPE) << "  "
 	 << ISSET(s->type,PARTIALVAR_TYPE) << "  "
 	 << ISSET(s->type,RETVAR_TYPE) << "  "
 	 << ISSET(s->type,CONSTANT_TYPE) << "  "
 	 << ISSET(s->type,NUMBER_TYPE) << "  "
+	 << ISSET(s->type,FMT_TYPE) << "  "
 	 << endl;
 }
 inline void prtTypes(StackType &d){prtTypes(d.symb);}
@@ -2017,19 +2018,9 @@ int setgfmt()
   DEFAULT_RETURN;
 }
 //
-// VM instruction: The VM print instruction.
+//-----------------------------------------------------------------
 //
-// print works by collecting the arglist from the stack into a
-// temporary array and then printing the array elements in the
-// reverse order.  This has to be done since the arglist exists
-// in the reverse order on the stack.   Top of the stack will have
-// the number of items on the stack to be poped for print.
-//
-// This should be improved to operate from the stack WITHOUT copying
-// the stack elements into a temp. array.  In case of large argument
-// list, this will be inefficient.
-//
-int print()
+int printEngine(const int doNewLine)
 {
   vector<StackType> d;
   int n;
@@ -2094,7 +2085,34 @@ int print()
 	  LetGoID(d[i],RETVAR_TYPE,1,0);
 	}
     }
+  if (doNewLine) OUTPUT << endl;
+
   return 1;
+}
+//
+// VM instruction: The VM print instruction.
+//
+// print works by collecting the arglist from the stack into a
+// temporary array and then printing the array elements in the
+// reverse order.  This has to be done since the arglist exists
+// in the reverse order on the stack.   Top of the stack will have
+// the number of items on the stack to be poped for print.
+//
+// This should be improved to operate from the stack WITHOUT copying
+// the stack elements into a temp. array.  In case of large argument
+// list, this will be inefficient.
+//
+int print()
+{
+  return printEngine(0);
+}
+//
+// VM instruction: The VM printn instruction.
+//
+//-----------------------------------------------------------------
+int printn()
+{
+  return printEngine(1);
 }
 //
 //-----------------------------------------------------------------
@@ -2757,6 +2775,7 @@ int printcode()
 
 #ifdef VERBOSE
   ERROUT << "ID List (printcode): " <<endl;
+  prtTypes(d);
 #endif
   //
   // Print a QSTRING
@@ -3112,6 +3131,8 @@ int ret()
 
 #ifdef VERBOSE
 	  ERROUT << "RET: TmpSymb " << r.symb << endl;
+	  ERROUT << "Types from ret():";
+	  prtTypes(d);
 #endif
 
 	  r.symb->type = d.symb->type;

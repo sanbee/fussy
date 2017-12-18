@@ -96,7 +96,7 @@ extern "C" {
 ********************************************************************/
 int boot(), add(), sub(), vdiv(), mul(), assgn(),passgn();
 int vpush(),rvpush(),cpush(),fcpush(),pop();
-int bltin1(),bltin2(),print(),uminus(),power(),mod();
+int bltin1(),bltin2(),print(),printn(), uminus(),power(),mod();
 int ifcode(),whilecode(),forcode(),printcode();
 int eq(), gt(), lt(), le(), ge(), door(), doand(), donot(), ne();
 int setfmt(), call(), ret(), break_code();

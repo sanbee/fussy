@@ -35,6 +35,13 @@
 #include <defns.h>
 
 #define RESET_STACK(s) ((s).resize(0))
+
+#define CHECK_SYMBTAB                 0x80000000
+#define CHECK_CONSTTAB               0x40000000
+#define CHECK_LOCALSYMBTAB      0x20000000
+#define CHECK_ALLNONTMP            0x10000000
+#define CHECK_TMPSYMBTAB          0x08000000
+#define CHECK_ALLTAB                    0x04000000
 /*
   Following is not defined with -ansi -pedantic options of gcc!
 */
@@ -42,6 +49,7 @@
 Calc_Symbol   *calcgetSymb(const char *);
 Calc_Symbol   *calcgetConst(Calc_Symbol&);
 Calc_Symbol   *IsIDinTab(IDType,int);
+Calc_Symbol    *IsIDinGivenTab(IDType ID, SymbTabType& tab,const char *name);
 Calc_Symbol   *LocalSymbGet(const char *Name);
 Calc_Symbol   *install(const char *Name, int type, double v, double e=0);
 Calc_Symbol   *installConst(Calc_Symbol&d, int NewID=-1);

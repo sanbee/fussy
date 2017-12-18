@@ -127,7 +127,7 @@
 
 %token <symb> NUMBER CONSTANT VAR SYS_VAR PARTIAL_VAR BUILTIN BUILTIN2 UNDEF QSTRING FMT GETVAL GETRMS FUNC PROC FSUC PSUC FUNCDECL PROCDECL PP MM
 %type  <symb> symbtab_obj defn subprog qstr argnames
-%token <Inst> PRINT IF WHILE FOR ELSE BREAK RETURN WARRANTY PRTSY PRTID CPRTSY CPRTLSY PRTVM CSS PRTSS HELP
+%token <Inst> PRINT PRINTN IF WHILE FOR ELSE BREAK RETURN WARRANTY PRTSY PRTID CPRTSY CPRTLSY PRTVM CSS PRTSS HELP
 %token <NArg> LE GE PS EQ GT LT POW FINISH CSP AUTO ENDOFINPUT TOD MJD FMJD LST GETDAY GETMONTH GETYEAR SETLONG SETLAT SETGFMT
 %type  <NArg> end stmtlist sentence stmt cstmt arglist prtlist farglist subprog_arg
 %type  <NArg> cond opt_expr auto
@@ -400,6 +400,12 @@ stmt: asgn                 {emit(pop);       $$=Prog.size();}
 | expr                     {emit(printcode); $$=Prog.size();}
 | qstr                     {emit(printcode); }
 | PRINT  prtlist           {
+                            Calc_Symbol *s=install("",NUMBER_TYPE,$2,0);
+                            emit2(fcpush,(Instruction)s);//No. of args on stack
+                            emit($1); 
+                            $$=Prog.size();// Print OP code
+                           }
+| PRINTN  prtlist           {
                             Calc_Symbol *s=install("",NUMBER_TYPE,$2,0);
                             emit2(fcpush,(Instruction)s);//No. of args on stack
                             emit($1); 

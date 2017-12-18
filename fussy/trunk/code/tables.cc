@@ -122,6 +122,32 @@ Calc_Symbol *CheckIDList(SymbTabType::const_iterator CI, IDType ID)
 //
 //-------------------------------------------------------------------
 //
+Calc_Symbol *IsIDinGivenTab(IDType ID, SymbTabType& tab,const char *name)
+{
+  SymbTabType::const_iterator CI,Start,Stop;
+  Start=tab.begin(); Stop=tab.end();
+
+#ifdef VERBOSE
+  ERROUT << name << " CheckList: " << endl;
+#endif
+
+  for(CI=Start;CI!=Stop;CI++)
+    //	if ((ISSET((*CI).type,VAR_TYPE|PARTIALVAR_TYPE|SYS_VAR_TYPE)))
+    {
+      if (CheckIDList(CI,ID))
+	{
+#ifdef VERBOSE
+	  ERROUT << " Found!" << endl;
+#endif
+	  return (Calc_Symbol *)&(*CI);
+	}
+      //	    if ((*CI->IDL.begin() == ID)) return (Calc_Symbol *)&(*CI);
+    }
+  return NULL;
+}
+//
+//-------------------------------------------------------------------
+//
 // Return a symbol with ID from SymbTab, ConstTab or LocalSymbTab.
 // Else return NULL.
 //
@@ -140,88 +166,19 @@ Calc_Symbol *IsIDinTab(IDType ID,int Which=0)
 
   if (Which==0)
     {
-      Start=SymbTab.begin(); Stop=SymbTab.end();
+      Calc_Symbol *symb=IsIDinGivenTab(ID,SymbTab,"SymbTab");
+      if (symb != NULL)   return symb;
 
-#ifdef VERBOSE
-      ERROUT << "SymbTab CheckList: " << endl;
-#endif      
-
-      for(CI=Start;CI!=Stop;CI++)
-	//	if ((ISSET((*CI).type,VAR_TYPE|PARTIALVAR_TYPE|SYS_VAR_TYPE)))
-	  {
-	    if (CheckIDList(CI,ID)) 
-	      {
-#ifdef VERBOSE
-		ERROUT << " Found!" << endl;
-#endif
-		return (Calc_Symbol *)&(*CI);
-	      }
-	  //	    if ((*CI->IDL.begin() == ID)) return (Calc_Symbol *)&(*CI);
-	  }
-    
-      Start=ConstTab.begin(); Stop=ConstTab.end();
-
-#ifdef VERBOSE
-      ERROUT << "ConstTab CheckList: " << endl;
-#endif      
-
-      for(CI=Start;CI!=Stop;CI++)
-	{
-	  if ((CI->ID == ID)) 
-	    {
-#ifdef VERBOSE
-	      ERROUT << " Found!" << endl;
-#endif
-	      return (Calc_Symbol *)&(*CI);
-	    }
-	}
+      symb=IsIDinGivenTab(ID,ConstTab,"ConstTab");
+      if (symb != NULL)   return symb;
       
-      Start=LocalSymbTab.begin(); Stop=LocalSymbTab.end();
-
-#ifdef VERBOSE
-      ERROUT << "LocalSymbTab CheckList: " << endl;
-#endif      
-
-      for(CI=Start;CI!=Stop;CI++)
-	{
-	  if ((CI->ID == ID)) 
-	    {
-#ifdef VERBOSE
-	      ERROUT << " Found!" << endl;
-#endif
-	      return (Calc_Symbol *)&(*CI);
-	    }
-	}
+      symb=IsIDinGivenTab(ID,LocalSymbTab,"LocalSymbTab");
+      if (symb != NULL)   return symb;
     }
   else
     {
-      Start=TmpSymbTab.begin(); Stop=TmpSymbTab.end();
-
-#ifdef VERBOSE
-      ERROUT << "TmpSymbTab CheckList: " << endl;
-#endif      
-
-      for(CI=Start;CI!=Stop;CI++)
-	{
-#ifdef VERBOSE
-	  ERROUT << *CI->IDL.begin() << " ";
-#endif
-	  if (CheckIDList(CI,ID)) 
-	    {
-#ifdef VERBOSE
-	      ERROUT << " Found!" << endl;
-#endif
-	      return (Calc_Symbol *)&(*CI);
-	    }
-	  /*
-	  for(IDList::iterator tCI=(*CI).IDL.begin();
-	      tCI!=(*CI).IDL.end();tCI++)
-	    {
-	      if (*tCI == ID) return (Calc_Symbol *)&(*CI);
-	    }
-	  //	  if ((*CI->IDL.begin() == ID)) return (Calc_Symbol *)&(*CI);
-	  */
-	}
+      Calc_Symbol *symb=IsIDinGivenTab(ID,TmpSymbTab,"TmpSymbTab");
+      if (symb != NULL)   return symb;
     }
 #ifdef VERBOSE
   ERROUT << "Not in table";
@@ -229,6 +186,7 @@ Calc_Symbol *IsIDinTab(IDType ID,int Which=0)
 #endif
   return NULL;
 }
+#undef VERBOSE
 //
 //-------------------------------------------------------------------
 //
@@ -366,11 +324,11 @@ void cleanupSymbTab(SymbTabType& Tab, int OP,TypeType Type=UNDEF_TYPE)
 	case OP_ON_REF:
 	  // If we are going to remove an ID without checking the Type
 	  // information, make sure that the ID slated to be removed
-	  // is not referenced by another symbol on the Symbol Table
-	  // (the call IsIDInTab(ID) looks at SymbTable).
-	  if (IsIDinTab(CI->ID)) break;
+	  // is not referenced by another symbol on the Symbol Table.
+	  if ((CI->ID > 0) && IsIDinGivenTab(CI->ID,SymbTab,"SymbTab"))  break;
 
-	  if (((int)CI->type == NUMBER_TYPE) && (!((int)CI->name[0])))
+	  if (ISSET(CI->type,NUMBER_TYPE) && (!((int)CI->name[0])))
+	  //	  if (((int)CI->type == NUMBER_TYPE) && (!((int)CI->name[0])))
 	    {
 	      unsigned int ID;
 	      ID=((Calc_Symbol *)&(*CI))->ID;

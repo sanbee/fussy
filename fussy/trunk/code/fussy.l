@@ -136,11 +136,11 @@ void fussy_inp(char *buf, int *result, int max_size)
       *result=N+1;
     }
   GlobalFlag |= FLAG_MORE_INP;
-  if (Calc_line != NULL)
-    {
-      free(Calc_line); Count=0;
-      Calc_line=NULL;
-    }
+  // if (Calc_line != NULL)
+  //   {
+  //     free(Calc_line); Count=0;
+  //     Calc_line=NULL;
+  //   }
 }
 
 /* Used by LEX.
@@ -461,6 +461,7 @@ EHEX    ({HEXD}({SPACE}?{ERROP}{SPACE}?{HEXD})?)
 {MM}                     {ECHO;                        return MM;}
 auto                     {ECHO;                        return AUTO;}
 print                    {ECHO;yylval.Inst=print;      return PRINT;}
+printn                   {ECHO;yylval.Inst=printn;     return PRINTN;}
 if                       {ECHO;yylval.Inst=ifcode;     return IF;}
 else                     {ECHO;                        return ELSE;}
 while                    {ECHO;yylval.Inst=whilecode;  return WHILE;}
