@@ -462,6 +462,7 @@ end:       /* empty */     {emit(STOP);$$=Prog.size();}
 arglist_components: expr   {}
 | asgn                     {} // sin(a=1) ==> a=1;sin(a)
 | pasgn                    {} // sin(a:=1) ==> a:=1;sin(a)
+| qstr                     {}
 | FUNC                     {mpush($1);}
 | PROC                     {mpush($1);}
 ;
@@ -469,7 +470,7 @@ arglist_components: expr   {}
 //-------------------------------------------------------------------
 //
 prtlist_components: arglist_components {}
-| qstr                                 {}
+//| qstr                                 {}
 ;
 //
 //-------------------------------------------------------------------
