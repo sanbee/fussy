@@ -129,7 +129,7 @@ int main(int argc, char *argv[])
   int n;
   bool beQuiet=false;
 #ifdef YYDEBUG
-  calc_debug=1;
+  calc_debug=0;
 #endif
   //
   // A command line argument of "-d", set the ERROUT (where all
