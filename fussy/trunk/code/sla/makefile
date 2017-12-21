@@ -1,7 +1,7 @@
 #-*-makefile-*-
 #include $(GSRCROOT)/Setup/Setup.$(GOSDIR)
 #include $(GSRCROOT)/Setup/Setup.$(GOSDIR).personal
-F77=g77
+FC=gfortran
 FFLAGS=-O3
 #
 OBJS = djm2e.o     \
