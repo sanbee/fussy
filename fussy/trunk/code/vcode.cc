@@ -588,6 +588,7 @@ NUMTYPE Run(VMac& P)
       while((P[pc] != STOP))
 	{
 	  if (GlobalFlag & FLAG_CTRL_C) ReportErr("Interrupted!","###Runtime",0);
+	  //i=(*(*P[pc++]))(); // Execute the current instruction and increment the PC
 	  (*(*P[pc++]))(); // Execute the current instruction and increment the PC
 	}
     }
