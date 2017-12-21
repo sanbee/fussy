@@ -77,7 +77,7 @@ template<class T> void PrtBits(ostream& ostr, T v,int Format)
 //                  '%B' same as %b except will insert a blank after 
 //                       8 bits
 //
-template <class T> ostream& FmtFunc(ostream& ostr, T const &Val, char const *Sep=NULL)
+template <class T> ostream& FmtFunc(ostream& ostr, T const &Val, char const *Sep)
 {
   double t,s;
   int d,m;
