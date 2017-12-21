@@ -574,12 +574,11 @@ int boot()
 NUMTYPE Run(VMac& P)
 {
   Result=0;
-  int i=0;
 
   if (pc==ProgBase) 
     {
 #ifdef VERBOSE
-      ERROUT <<"###Starting the VM " << i <<endl;
+      ERROUT <<"###Starting the VM " << endl;
 #endif
       GetNewID(0); // Only resize the DS and ME
     }
@@ -589,7 +588,7 @@ NUMTYPE Run(VMac& P)
       while((P[pc] != STOP))
 	{
 	  if (GlobalFlag & FLAG_CTRL_C) ReportErr("Interrupted!","###Runtime",0);
-	  i=(*(*P[pc++]))(); // Execute the currect instruction and increment the PC
+	  (*(*P[pc++]))(); // Execute the current instruction and increment the PC
 	}
     }
   catch(ReturnException& E)
