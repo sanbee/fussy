@@ -122,7 +122,7 @@
   Calc_Symbol *symb;
   //NUMTYPE ConstVal;
   Instruction Inst;
-  int NArg;
+  long int NArg;
 }
 
 %token <symb> NUMBER CONSTANT VAR SYS_VAR PARTIAL_VAR BUILTIN BUILTIN2 UNDEF QSTRING FMT GETVAL GETRMS FUNC PROC FSUC PSUC FUNCDECL PROCDECL PP MM
@@ -335,7 +335,7 @@ defn: subprog              {$<symb>1=MakeSymb(Token,FSUC_TYPE);}
       ')' 
       opt_terminator    
       ob cstmt cb          {
-                            int NAutos;
+                            long int NAutos;
 
 			    $<symb>1->type=0; SETBIT($<symb>1->type,FUNC_TYPE);
 
@@ -462,6 +462,7 @@ end:       /* empty */     {emit(STOP);$$=Prog.size();}
 arglist_components: expr   {}
 | asgn                     {} // sin(a=1) ==> a=1;sin(a)
 | pasgn                    {} // sin(a:=1) ==> a:=1;sin(a)
+| qstr                     {}
 | FUNC                     {mpush($1);}
 | PROC                     {mpush($1);}
 ;
@@ -469,7 +470,7 @@ arglist_components: expr   {}
 //-------------------------------------------------------------------
 //
 prtlist_components: arglist_components {}
-| qstr                                 {}
+//| qstr                                 {}
 ;
 //
 //-------------------------------------------------------------------

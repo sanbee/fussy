@@ -228,13 +228,14 @@ void prtDS()
 }
 void prtTypes(Calc_Symbol *s)
 {
-  ERROUT << "A  P  R  C  N  F" << endl;
+  ERROUT << "A  P  R  C  N  F  Q" << endl;
   ERROUT << ISSET(s->type,AUTOVAR_TYPE) << "  "
 	 << ISSET(s->type,PARTIALVAR_TYPE) << "  "
 	 << ISSET(s->type,RETVAR_TYPE) << "  "
 	 << ISSET(s->type,CONSTANT_TYPE) << "  "
 	 << ISSET(s->type,NUMBER_TYPE) << "  "
 	 << ISSET(s->type,FMT_TYPE) << "  "
+	 << ISSET(s->type,QSTRING_TYPE) << "  "
 	 << endl;
 }
 inline void prtTypes(StackType &d){prtTypes(d.symb);}
@@ -573,12 +574,11 @@ int boot()
 NUMTYPE Run(VMac& P)
 {
   Result=0;
-  int i=0;
 
   if (pc==ProgBase) 
     {
 #ifdef VERBOSE
-      ERROUT <<"###Starting the VM " << i <<endl;
+      ERROUT <<"###Starting the VM " << endl;
 #endif
       GetNewID(0); // Only resize the DS and ME
     }
@@ -588,7 +588,8 @@ NUMTYPE Run(VMac& P)
       while((P[pc] != STOP))
 	{
 	  if (GlobalFlag & FLAG_CTRL_C) ReportErr("Interrupted!","###Runtime",0);
-	  i=(*(*P[pc++]))(); // Execute the currect instruction and increment the PC
+	  //i=(*(*P[pc++]))(); // Execute the current instruction and increment the PC
+	  (*(*P[pc++]))(); // Execute the current instruction and increment the PC
 	}
     }
   catch(ReturnException& E)
@@ -2310,7 +2311,6 @@ int assgn()
 {
   StackType d1,d2;
   BASIC_NUM tdx=0;
-  int Type;
 
   DBG("assgn");
 
@@ -2340,7 +2340,6 @@ int assgn()
   d1.val.setval(d1.symb->value.val(),sqrt(tdx));
   d1.symb->fmt   = d2.fmt;
   d1.symb->units = d2.units;
-  Type=d1.symb->type;
   
   //
   // Since the RHS will be over-written, if the RHS was of

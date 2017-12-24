@@ -32,7 +32,7 @@ CCHOME        = /usr
 
 LEX           = $(CCHOME)/bin/flex
 #YACC          = bison -v -y -p calc_
-YACC          = $(CCHOME)/bin/bison -y -p calc_
+YACC          = $(CCHOME)/bin/bison -t -y -p calc_
 CCINCL        = $(CCHOME)/include
 CCPATH        = $(CCHOME)/bin/
 CC            = $(CCPATH)g++ $(CFLAGS) $(INCL)

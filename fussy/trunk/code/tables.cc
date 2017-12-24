@@ -330,9 +330,9 @@ void cleanupSymbTab(SymbTabType& Tab, int OP,TypeType Type=UNDEF_TYPE)
 	  if (ISSET(CI->type,NUMBER_TYPE) && (!((int)CI->name[0])))
 	  //	  if (((int)CI->type == NUMBER_TYPE) && (!((int)CI->name[0])))
 	    {
+#ifdef VERBOSE
 	      unsigned int ID;
 	      ID=((Calc_Symbol *)&(*CI))->ID;
-#ifdef VERBOSE
 	      ERROUT << "Cleanup:REF " << (int)ID<<endl;
 #endif
 	      IDR.ReleaseID(((Calc_Symbol *)&(*CI))->ID);
@@ -343,9 +343,9 @@ void cleanupSymbTab(SymbTabType& Tab, int OP,TypeType Type=UNDEF_TYPE)
 	case OP_ON_TYPE: 
 	  if (ISSET(CI->type,Type))
 	    {
+#ifdef VERBOSE
 	      unsigned int ID;
 	      ID=((Calc_Symbol *)&(*CI))->ID;
-#ifdef VERBOSE
 	      ERROUT << "Cleanup:TYPE " << (int)ID<<endl;
 #endif
 	      IDR.ReleaseID(((Calc_Symbol *)&(*CI))->ID);
@@ -505,7 +505,7 @@ void LocalSymbInstall(const char *Name,int N,int Type=VAR_TYPE)
 void EmptyLocalSymbTab(int NArgs, int NAutos)
 {
   LocalSymbTabType::const_iterator CI;
-  int L,C,i,m;
+  int C,i,m;
   IDType tID;
 
 #ifdef VERBOSE
@@ -514,9 +514,10 @@ void EmptyLocalSymbTab(int NArgs, int NAutos)
   C = (NAutos>0?NAutos:0) + (NArgs>0?NArgs:0);
   m=LocalSymbTab.size()-C;
 
-  L=LocalSymbTab.size()-1;
 
 #ifdef VERBOSE
+  int L;
+  L=LocalSymbTab.size()-1;
   ERROUT << "LST IDs: " ;
   for (CI=LocalSymbTab.begin();CI!=LocalSymbTab.end();CI++)
     ERROUT << (*CI).ID << " (" << (ISSET((*CI).type,PARTIALVAR_TYPE)==1?'P':'V') << ") ";

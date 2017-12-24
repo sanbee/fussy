@@ -151,7 +151,7 @@ typedef struct Calc_Symbol {
   vector<BASIC_NUM>   DSList, dx;
 
   NUMTYPE             value;
-  int                 units;
+  long int                 units;
   string              fmt;
   union {
     NUMTYPE           (*func1)(NUMTYPE);

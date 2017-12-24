@@ -58,7 +58,7 @@
 #define ECHO
 #define ECHOS(s) {}
 #endif
-  
+
 char                        *Calc_line=NULL;
 int                          Calc_index=0, GlobalFlag=0;
 static string                qstr;
@@ -324,6 +324,7 @@ EDANG   ({DANG}({SPACE}?{ERROP}{SPACE}?{DANG})?)
 EHANG   ({HANG}({SPACE}?{ERROP}{SPACE}?{HANG})?)
 EHEX    ({HEXD}({SPACE}?{ERROP}{SPACE}?{HEXD})?)
 %x qstring comment
+%option nounput
 %%
 [ \t]                    {INCR_INDEX;}
 {QUIT}                   {ECHO;return FINISH;}
