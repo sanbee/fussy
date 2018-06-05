@@ -1,6 +1,6 @@
 #!/bin/bash 
 
-UnitTests="test.general test.func test.builtins test.subtree.builtins test.pow test.factorial test.laguerre test.constants"
+UnitTests="test.general test.func test.builtins test.subtree.builtins test.pow test.factorial test.laguerre test.constants test.procassgn"
 
 tmp=`ls test.*`;
 UnitTests=`for f in $tmp; do echo $f | grep -v out;done;`
