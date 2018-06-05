@@ -1,7 +1,7 @@
 /* -*- C -*- */
 /* $Id: fussy.y,v 1.4 2006/08/05 20:07:41 sbhatnag Exp $ */
 /******************************************************************
- * Copyright (c) 2000-2016, 2017 S.Bhatnagar
+ * Copyright (c) 2000-2017, 2018 S.Bhatnagar
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -137,13 +137,13 @@
 %left         OR 
 %left         LE GE EQ GT LT NE PE
 %left         '@'
-%token         POSTFIX_PP POSTFIX_MM
+%token        POSTFIX_PP POSTFIX_MM
 %left         '+' '-'
 %left         '*' '/' '%'
 %right        GETVAL GETRMS
-%left         MINUS NOT
 %right        '^' POW 
-%token         PREFIX_PP PREFIX_MM
+%left         MINUS NOT
+%token        PREFIX_PP PREFIX_MM
 /*------------------------------------------------------------------*/
 %%
 //

@@ -1,7 +1,7 @@
 /* $Id: func.cc,v 1.2 2006/01/17 18:57:09 sbhatnag Exp $ */
 /******************************************************************
 
- * Copyright (c) 2000-2016, 2017 S.Bhatnagar
+ * Copyright (c) 2000-2017, 2018 S.Bhatnagar
  *
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
