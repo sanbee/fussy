@@ -354,14 +354,16 @@ defn: subprog              {$<symb>1=MakeSymb(Token,FSUC_TYPE);}
 			    // instruction.
 			    // 
 
-			    if (ISSET($<symb>1->type,FUNC_TYPE))
-			      {
-				Calc_Symbol s;
-				MakeANumber(s,0,0);
-				emit2(cpush,(Instruction)installConst(s,0));
-				//				emit(ret);
-			      }
-			    emit(ret);
+			    if (!ISSET($<symb>1->type,FUNC_TYPE))
+			      emit(ret);
+			    /* if (ISSET($<symb>1->type,FUNC_TYPE)) */
+			    /*   { */
+			    /* 	Calc_Symbol s; */
+			    /* 	MakeANumber(s,0,0); */
+			    /* 	emit2(cpush,(Instruction)installConst(s,0)); */
+			    /* 	//				emit(ret); */
+			    /*   } */
+			    /* emit(ret); */
 			    //			    else 
 			    //			      emit(procret);
 			      
@@ -568,6 +570,11 @@ varname: VAR                 {mpush($1);}
 asgn:  varname '=' expr      {emit(assgn);}
      | varname '=' qstr      {MakePersistant($3);emit(assgn);}
      | varname '=' asgn      {emit(assgn);} //a=b=c=1
+     | varname '=' PROC      {
+                               yyerror("Syntax error");
+                               string msg="PROC used in an assigment ('=') statement";
+			       ReportErr(msg.c_str(),"###Error",ErrorObj::Fatal);
+                             }
 ;
 //
 //-------------------------------------------------------------------
@@ -575,6 +582,11 @@ asgn:  varname '=' expr      {emit(assgn);}
 pasgn:  varname PS expr      {emit(passgn);}
         | varname PS qstr    {MakePersistant($3);emit(passgn);}
         | varname PS pasgn   {emit(passgn);} //a=b=c=1
+        | varname PS PROC    {
+                               yyerror("Syntax error");
+                               string msg="PROC used in an partial-assigment (':=') statement";
+			       ReportErr(msg.c_str(),"###Error",ErrorObj::Fatal);
+                             }
 ;
 
 //
