@@ -101,9 +101,11 @@ template<class T> inline Err<T> exp(Err<T> v0)
 //
 template<class T> inline Err<T> log(Err<T> v0)
 {
+  if (v0.val()<0)
+    ReportErr("Value out of range in log","###MathError",0);
+
   T x,dx;
   Err<T> tmp;
-  if (v0.val()>0)
     {
       x  = (T)log((double)v0.val());
       //      dx = v0.rms()/v0.val();
@@ -111,8 +113,6 @@ template<class T> inline Err<T> log(Err<T> v0)
       dx = 1.0/v0.val();
       tmp.setval(x,dx);
     }
-  else 
-    ReportErr("Value out of range in log","###MathError",0);
 
   return tmp;
 }
@@ -168,10 +168,11 @@ template<class T> inline Err<T> tan(Err<T> v0)
 //
 template<class T> inline Err<T> asin(Err<T> v0)
 {
+  if (fabs(v0.val()) > 1.0)
+    ReportErr("Value out of range in asin","###MathError",0);
   T x,dx;
   Err<T> tmp;
 
-  if (fabs(v0.val()) > 1.0) ReportErr("Value out of range in asin","###MathError",0);
   x  = (T)asin((double)v0.val());
   dx = 1.0-v0.val()*v0.val();
   
@@ -187,10 +188,11 @@ template<class T> inline Err<T> asin(Err<T> v0)
 //
 template<class T> inline Err<T> acos(Err<T> v0)
 {
+  if (fabs(v0.val()) > 1.0)
+    ReportErr("Value out of range in acos","###MathError",0);
   T x,dx;
   Err<T> tmp;
 
-  if (fabs(v0.val()) > 1.0) ReportErr("Value out of range in acos","###MathError",0);
   x  = (T)acos((double)v0.val());
   dx = 1-v0.val()*v0.val();
   // dx=(dx>0.0)?v0.rms()/sqrt(dx):0.0;
@@ -298,10 +300,10 @@ template<class T> inline Err<T> asinh(Err<T> v0)
 //
 template<class T> inline Err<T> acosh(Err<T> v0)
 {
-  T x,dx;
-  Err<T> tmp;
   if (fabs(v0.val()) < 1.0)
     ReportErr("Value out of range in acosh","###MathError",0);
+  T x,dx;
+  Err<T> tmp;
   x  = (T)acosh((double)v0.val());
   dx = (v0.val()*v0.val()-1.0);
   //  if (dx>0.0) dx = v0.rms()/sqrt(dx);
@@ -316,10 +318,10 @@ template<class T> inline Err<T> acosh(Err<T> v0)
 //
 template<class T> inline Err<T> atanh(Err<T> v0)
 {
-  T x,dx;
-  Err<T> tmp;
   if (fabs(v0.val()) > 1.0)
     ReportErr("Value out of range in atanh","###MathError",0);
+  T x,dx;
+  Err<T> tmp;
   x  = (T)atanh((double)v0.val());
   dx = (1.0-v0.val()*v0.val());
   //  if (dx) dx = v0.rms()/dx;
@@ -335,6 +337,8 @@ template<class T> inline Err<T> atanh(Err<T> v0)
 //
 template<class T> inline Err<T> sqrt(Err<T> v0)
 {
+  if (v0.val() < 0)
+    ReportErr("Value out of range in sqrt","###MathError",0);
   T x;
   Err<T> tmp;
   x  = (T)sqrt((double)v0.val());
