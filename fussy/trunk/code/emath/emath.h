@@ -37,6 +37,9 @@ void          ReportErr(const char *Msg, const char *ErrType, const int& ErrLeve
 //
 template<class T> inline Err<T> pow(const Err<T>& v0, const Err<T>& v1)
 {
+  // if ((v0.val() < 0.0) && (v1.val() < 1.0))
+  //   ReportErr("Value out of range in pow","###MathError",0);
+
   T x,dx;
   Err<T> tmp;
   x  = (T)pow((double)v0.val(),(double)v1.val());
@@ -70,6 +73,9 @@ template<class T> inline Err<T> pow(const Err<T>& v0, const double& v1)
 //
 template<class T> inline Err<T> pow(const double& v0,const Err<T>& v1)
 {
+  // if ((v0 < 0.0) && (v1.val < 1.0))
+  //   ReportErr("Value out of range in pow","###MathError",0);
+
   T x,dx;
   Err<T> tmp;
   x  = (T)pow((double)v0,v1);
