@@ -571,7 +571,7 @@ asgn:  varname '=' expr      {emit(assgn);}
      | varname '=' qstr      {MakePersistant($3);emit(assgn);}
      | varname '=' asgn      {emit(assgn);} //a=b=c=1
      | varname '=' PROC      {
-                               yyerror("Syntax error");
+                               yyerror( (char *)"Syntax error");
                                string msg="PROC used in an assigment ('=') statement";
 			       ReportErr(msg.c_str(),"###Error",ErrorObj::Fatal);
                              }
@@ -583,7 +583,7 @@ pasgn:  varname PS expr      {emit(passgn);}
         | varname PS qstr    {MakePersistant($3);emit(passgn);}
         | varname PS pasgn   {emit(passgn);} //a=b=c=1
         | varname PS PROC    {
-                               yyerror("Syntax error");
+                               yyerror((char *)"Syntax error");
                                string msg="PROC used in an partial-assigment (':=') statement";
 			       ReportErr(msg.c_str(),"###Error",ErrorObj::Fatal);
                              }

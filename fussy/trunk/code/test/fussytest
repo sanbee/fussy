@@ -65,6 +65,9 @@ if [ -e $FUSSY ]; then
     PrintStatus "$r" $n "$c";
   done
 
+  echo 'Testing '$FUSSY' for the following error-condition unit tests:';
+  echo -e '\t'$ErrorUnitTests;
+  echo;
   # Run error-condition unit tests
   for f in $ErrorUnitTests
   do
