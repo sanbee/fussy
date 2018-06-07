@@ -1,9 +1,15 @@
 #!/bin/bash 
 
-UnitTests="test.general test.func test.builtins test.subtree.builtins test.pow test.factorial test.laguerre test.constants test.procassgn"
+UnitTests="test.general test.func test.builtins test.subtree.builtins test.pow test.factorial test.laguerre test.constants"
+ErrorUnitTests="test.procassgn"
 
+# Make a list of functional unit tests (file name convention: "test."+NAME)
 tmp=`ls test.*`;
 UnitTests=`for f in $tmp; do echo $f | grep -v out;done;`
+
+# Make a list of error condition unit tests (file name convention: "error.test."+NAME)
+tmp=`ls error.*`;
+ErrorUnitTests=`for f in $tmp; do echo $f | grep -v out;done;`
 if [ $# -ge 1 ];
 then
     FUSSY=$1;
@@ -45,6 +51,8 @@ if [ -e $FUSSY ]; then
   echo -e '\t'$UnitTests;
   echo;
   PGM=`basename "$FUSSY"`
+
+  # Run functional unit tests
   for f in $UnitTests
   do
     c="("$FUSSY" "$f" quit 2> /dev/null ) | diff - "$f.out;
@@ -56,6 +64,23 @@ if [ -e $FUSSY ]; then
     r=`eval $c`;
     PrintStatus "$r" $n "$c";
   done
+
+  echo 'Testing '$FUSSY' for the following error-condition unit tests:';
+  echo -e '\t'$ErrorUnitTests;
+  echo;
+  # Run error-condition unit tests
+  for f in $ErrorUnitTests
+  do
+    c="("$FUSSY" "$f" quit )2>&1 | diff - "$f.out;
+    cmd="($PGM "$f" quit )2>&1 | diff - "$f.out;
+    msg="Unit test "$cmd;
+    wc=`echo $msg|wc -c`;
+    let n=85-wc;
+    echo -n $msg'...';
+    r=`eval $c`;
+    PrintStatus "$r" $n "$c";
+  done
+
 else
   echo $FUSSY" not found!";
   exit 0;

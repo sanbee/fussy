@@ -407,6 +407,8 @@ void showHelp()
        << INDENT << "The result of an expression, if not assigned to another" << endl
        << INDENT << "variable or used in another expression/control statement," << endl
        << INDENT << "is automatically printed on the STDOUT." << endl
+       << "\t " << "printn <expr>[,<expr>,...]" << endl
+       << INDENT << "Same as print with a newline appended automaticall at the end." << endl
        << "\t " << "Strings:" << endl
        << INDENT << "Strings are defined as a sequence of characters enclosed in" << endl
        << INDENT << "double quotes.  Special characters are included as in" << endl
