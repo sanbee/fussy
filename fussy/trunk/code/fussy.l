@@ -326,6 +326,7 @@ EHANG   ({HANG}({SPACE}?{ERROP}{SPACE}?{HANG})?)
 EHEX    ({HEXD}({SPACE}?{ERROP}{SPACE}?{HEXD})?)
 %x qstring comment
 %option nounput
+%option noyywrap
 %%
 [ \t]                    {INCR_INDEX;}
 {QUIT}                   {ECHO;return FINISH;}
