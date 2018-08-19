@@ -6,3 +6,10 @@
 *.ps
 *.toc
 *.o
+*~
+*.a
+src/fussy
+src/lex.yy.c
+src/y.tab.c
+src/y.tab.h
+doc/LaTeX/fussy.blg
