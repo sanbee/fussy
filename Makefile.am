@@ -16,6 +16,6 @@ libcalc_a_CFLAGS = $(AM_CFLAGS) -Isrc -Isrc/emath
 
 fussy_CXXFLAGS = $(AM_CXXFLAGS) -Isrc -Isrc/emath
 fussy_CFLAGS = $(AM_CFLAGS) -Isrc -Isrc/emath
-fussy_SOURCES = src/fussy.cc
+fussy_SOURCES = src/fussy.cc src/vcode.cc
 
 fussy_LDADD = libkum.a libcalc.a
