@@ -53,7 +53,7 @@
 ******************************************************************/
 
 #include <tables.h>
-#include <y.tab.h>
+#include <fussyparse.hh>
 #include <emath.h>
 #include <calc.h>
 #include <IDResource.h>

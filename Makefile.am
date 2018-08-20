@@ -11,8 +11,6 @@ libcalc_a_SOURCES = src/fussyparse.yy src/calcinit.cc src/tables.cc src/vcode.cc
 				    src/prtFuncs.cc src/ErrorObj.cc src/func.cc src/BitField.cc \
 					src/IDResource.cc src/ExitMsg.cc
 
-
-
 src/lex.yy.c: src/fussylex.l
 	$(LEX) $<
 

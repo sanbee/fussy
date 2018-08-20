@@ -45,7 +45,7 @@
 #include <stdio.h>
 #include <calc.h>
 #include <emath.h>
-#include <y.tab.h>
+#include <fussyparse.hh>
 #include <ErrorObj.h>
 #include <signal.h>
 #include <errno.h>

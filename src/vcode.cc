@@ -130,7 +130,7 @@
 #include <stdio.h>
 #include <calc.h>
 #include <tables.h>
-#include <y.tab.h>
+#include <fussyparse.hh>
 #include <AngFmt.h>
 #include <ErrorObj.h>
 #include <string>

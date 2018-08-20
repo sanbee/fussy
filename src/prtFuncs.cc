@@ -49,7 +49,7 @@
 // $Id$
 #include <IDResource.h>
 #include <calc.h>
-#include <y.tab.h>
+#include <fussyparse.hh>
 #include <list>
 #include <cstring>
 extern VMac Prog;
