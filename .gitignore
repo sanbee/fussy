@@ -20,3 +20,6 @@ stamp-h1
 config.h
 config.status
 .dirstamp
+fussy
+src/fussyparse.cc
+src/fussyparse.hh

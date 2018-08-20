@@ -11,14 +11,16 @@ libcalc_a_SOURCES = src/fussyparse.yy src/calcinit.cc src/tables.cc src/vcode.cc
 				    src/prtFuncs.cc src/ErrorObj.cc src/func.cc src/BitField.cc \
 					src/IDResource.cc src/ExitMsg.cc
 
+src/fussyparse.yy: src/lex.yy.c
+
 src/lex.yy.c: src/fussylex.l
 	$(LEX) $<
 
 src/vm.a:
 	(cd src; sh ./vmMake $(CXX) -g -Wall -I. -Iemath  > vm.a)
 
-src/type.a: src/y.tab.h
-	(cd src; sh ./typeMake ./y.tab.h > type.a)
+src/type.a: src/fussyparse.hh
+	(cd src; sh ./typeMake ./fussyparse.hh > type.a)
 
 src/prtFuncs.cc: src/vm.a src/type.a
 
