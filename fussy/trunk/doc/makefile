@@ -6,14 +6,14 @@ DVIPS=dvips
 SOURCEDIR=LaTeX
 
 all: 
-	cd $(SOURCEDIR); gmake
-	cd HTML; gmake
+	cd $(SOURCEDIR); make
+	cd HTML; make
 
 fussy.ps:
-	cd $(SOURCEDIR); gmake
+	cd $(SOURCEDIR); make
 
 fussy.html: 
-	cd HTML; gmake
+	cd HTML; make
 
 clean:
-	cd HTML;gmake clean;
+	cd HTML;make clean;

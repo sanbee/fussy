@@ -1,13 +1,13 @@
 all:
-	cd code;gmake;
-	cd doc;gmake;
+	cd code;make;
+	cd doc;make;
 
 fussy: 
-	cd code;gmake;
+	cd code;make;
 
 docs:
-	cd doc;gmake;
+	cd doc;make;
 
 clean:
-	cd code;gmake clean;
-	cd doc;gmake clean;
+	cd code;make clean;
+	cd doc;make clean;

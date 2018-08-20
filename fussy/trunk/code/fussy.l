@@ -250,11 +250,12 @@ void split3(char *deg, int n, const char *tok, double *d)
 void HandleExtendedNum(const char *Units, const double &ToRadians)
 {/* (Extended ) Numbers in the hms format */
   double a[3]={0,0,0},b[3]={0,0,0};
-  int i,j;
+  int i, j;
+
   ECHO;
   NumFromENum(yytext,i,j); 
   split3(&yytext[i],j-1,Units,a);
-  if (j < yyleng) 
+  if ((unsigned int)j < yyleng) 
     split3(&yytext[j],yyleng-j,Units,b);
   
   {
@@ -423,7 +424,7 @@ EHEX    ({HEXD}({SPACE}?{ERROP}{SPACE}?{HEXD})?)
 
                            NumFromENum(yytext,v_ndx,e_ndx);
                            sscanf(&yytext[v_ndx],"%lf",&v);
-                           if (e_ndx < yyleng) 
+                           if ((unsigned int)e_ndx < yyleng) 
                              sscanf(&yytext[e_ndx],"%lf",&e);
 
                            {
