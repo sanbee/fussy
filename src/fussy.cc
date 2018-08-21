@@ -120,7 +120,6 @@ void LoadFile(const char *Name)
 //
 //---------------------------------------------------------------------
 //
-#include <values.h>
 ErrorObj MsgStream; // The global error message output stream
 
 int main(int argc, char *argv[])

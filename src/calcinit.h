@@ -29,7 +29,6 @@
 #if !defined(CALCINIT_H)
 /* $Id: calcinit.h,v 1.2 2006/01/17 18:57:09 sbhatnag Exp $ */
 #define CALCINIT_H
-#include <values.h>
 #include <math.h>
 #include <calc.h>
 #include <string>

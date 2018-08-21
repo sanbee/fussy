@@ -72,12 +72,6 @@ extern short int             InCStmt;
 extern ErrorObj              MsgStream;// The global error message stream
 extern Calc_Symbol*          GlobalDefaultFmt;
 extern int                   InFuncDefn;
-extern "C"{
-/*
-  char *readline (char *);
-*/
-  void add_history(char *);
-}
 
 #define INCR_INDEX           {Calc_index += yyleng;}
 // Used by FLEX.  But using yy_scan_string instead of this now in FLEX 
@@ -102,7 +96,7 @@ void stripwhite (char *string)
 //
 //---------------------------------------------------------------------
 //
-void fussy_inp(char *buf, int *result, int max_size)
+void fussy_inp(char *buf, yy_size_t *result, int max_size)
 {                                   
   int N;
   static size_t Count=0;

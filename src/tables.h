@@ -28,7 +28,6 @@
 
 #if !defined(TABLES_H)
 #define TABLES_H
-#include <values.h>
 #include <math.h>
 #include <string>
 #include <list>
