@@ -25,7 +25,7 @@ AM_CONDITIONAL([HAVE_PDFLATEX], test -n "$PDFLATEX")
 
 # Checks for libraries.
 AC_CHECK_LIB([history], [main])
-AC_CHECK_LIB([m], [floor pow rint sqrt])
+AC_CHECK_LIB([m], [floor])
 AC_CHECK_LIB([readline], [main])
 AC_CHECK_LIB([termcap], [main])
 

@@ -1,5 +1,7 @@
 bin_PROGRAMS = fussy
 
+AM_CXXFLAGS = -Wno-dangling-else -Wno-parentheses-equality -Wno-constant-logical-operand -Wno-c++11-compat-deprecated-writable-strings
+
 noinst_LIBRARIES = libkum.a libcalc.a
 libkum_a_SOURCES = src/sla/djm2e.f src/sla/ep2da.f src/sla/frye.f \
 				   src/sla/slacaldj.f src/sla/slacldj.f src/sla/sladcc2s.f \

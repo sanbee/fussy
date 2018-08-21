@@ -33,7 +33,7 @@ int ywarn(char *s, char *t)
   return 1;
 }
 /*----------------------------------------------------------------------*/
-int yymsg(char *s, char *t)
+int yymsg(const char *s, char *t)
 {
   int i,N=0;
   const char *str = "###Error:";
@@ -64,7 +64,7 @@ int yymsg(char *s, char *t)
   return 1;
 }
 /*----------------------------------------------------------------------*/
-int yyerror(char *s)
+int yyerror(const char *s)
 {
   yymsg(s, (char *) 0);
   return 0;
