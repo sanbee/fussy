@@ -148,41 +148,52 @@ int main(int argc, char *argv[])
       n=1;
       if (argc>=2)
 	for(int i=1;i<argc;i++)
-	  if (!strcmp(argv[i],"-q"))
-	    {
-	      beQuiet=true;
-	      n++;
-	    }
-	  else if (!strcmp(argv[i],"-d"))
-	    {
-	      if (ERROUT) ERROUT.close();
-	      ERROUT.open("/dev/tty");
-	      if (!ERROUT) cerr << "Could not open error device!" << endl;
-	      n++;
-	    }
-	  else if (!strcmp(argv[i],"-t"))
-	    {
-	      int T=Tolerance;
-	      i++;
-	      sscanf(argv[i],"%d",&T);
-	      Tolerance=T;
-	      n+=2;
-	    }
-	  else if ((!strcmp(argv[i],"-h")) || (!strcmp(argv[i],"--help")))
-	    {
-	      MsgStream << "Usage: " << argv[0] 
-			<< " [-h|--help] [-q] [-d] [-t N] [prog1,prog2,...]" 
-			<< endl
-			<< " \"-h or --help\": Gives this help" << endl
-			<< " \"-q\":   Do not print the copyright information" << endl
-			<< " \"-d\":   Sets the debugging mode (meant for developers)" << endl
-			<< " \"-t N\": N is the number of Ctrl-C trials after which the interpreter" << endl
-			<< "         gives up preaching good behavior and quits" << endl
-			<< " Use the interpreter \"help\" command to get more help about the language syntax" 
-			<< endl;
-	      n++;
-	      exit(0);
-	    }
+	  {
+	    if (!strcmp(argv[i],"-q"))
+	      {
+		beQuiet=true;
+		n++;
+	      }
+	    else
+	      {
+		if (!strcmp(argv[i],"-d"))
+		  {
+		    if (ERROUT) ERROUT.close();
+		    ERROUT.open("/dev/tty");
+		    if (!ERROUT) cerr << "Could not open error device!" << endl;
+		    n++;
+		  }
+		else
+		  {
+		    if (!strcmp(argv[i],"-t"))
+		      {
+			int T=Tolerance;
+			i++;
+			sscanf(argv[i],"%d",&T);
+			Tolerance=T;
+			n+=2;
+		      }
+		    else
+		      {
+			if ((!strcmp(argv[i],"-h")) || (!strcmp(argv[i],"--help")))
+			  {
+			    MsgStream << "Usage: " << argv[0] 
+				      << " [-h|--help] [-q] [-d] [-t N] [prog1,prog2,...]" 
+				      << endl
+				      << " \"-h or --help\": Gives this help" << endl
+				      << " \"-q\":   Do not print the copyright information" << endl
+				      << " \"-d\":   Sets the debugging mode (meant for developers)" << endl
+				      << " \"-t N\": N is the number of Ctrl-C trials after which the interpreter" << endl
+				      << "         gives up preaching good behavior and quits" << endl
+				      << " Use the interpreter \"help\" command to get more help about the language syntax" 
+				      << endl;
+			    n++;
+			    exit(0);
+			  }
+		      }
+		  }
+	      }
+	  }
       //
       // Initialize internal tables etc.
       //
@@ -195,9 +206,9 @@ int main(int argc, char *argv[])
 	  try
 	    {
 	      LoadFile(Name.c_str());
-
-// 	      MsgStream << "###Informational: Loaded file \"" << Name
-// 			<< "\"..." << endl;
+	      
+	      // 	      MsgStream << "###Informational: Loaded file \"" << Name
+	      // 			<< "\"..." << endl;
 	    }
 	  catch(ErrorObj&x) 
 	    {
@@ -224,7 +235,7 @@ int main(int argc, char *argv[])
   // infinite loop which is terminated by the execution of the "quit"
   // instruction which throws the ExitException.
   //
-
+  
   while(1)
     try
       {
@@ -240,6 +251,6 @@ int main(int argc, char *argv[])
     catch (ReturnException& x) {}
     catch (ExitException& x)   {ErrorObj tt; tt << "Goodbye!" << endl;exit(0);}
     catch (...) {MsgStream << "Caught an unknown exception" << endl;}
-
+  
 }
 

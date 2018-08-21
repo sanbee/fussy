@@ -122,7 +122,7 @@ void prtVM()
 #include "./vm.a"
       else if ((unsigned long)Prog[i] < Prog.size()) 
 	{
-	  if ((PrevInst == rvpush)) cerr << " LSYM <TBD>" << endl;
+	  if (PrevInst == rvpush) cerr << " LSYM <TBD>" << endl;
 	  else if ((PrevInst==ifcode) || (PrevInst==forcode))
 	    {
 	      cerr <<      " JMP " << (long)Prog[i] << endl;i++;
