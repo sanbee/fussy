@@ -34,3 +34,11 @@ fussy_CFLAGS = $(AM_CFLAGS) -Isrc -Isrc/emath
 fussy_SOURCES = src/fussy.cc src/vcode.cc
 
 fussy_LDADD = libkum.a libcalc.a
+
+doc_DATA = doc/LaTeX/fussy.tex
+if HAVE_PDFLATEX
+doc_DATA += doc/LaTeX/fussy.pdf
+doc/LaTeX/fussy.pdf: doc/LaTeX/fussy.tex
+	cd doc/LaTeX
+	$(PDFLATEX) fussy.tex
+endif

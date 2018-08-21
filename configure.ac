@@ -16,6 +16,13 @@ AC_PROG_F77
 AC_PROG_RANLIB
 AM_PROG_AR
 
+# LaTeX for documentation
+AC_CHECK_PROG(PDFLATEX, pdflatex, pdflatex)
+if test -z "$PDFLATEX"; then
+  AC_MSG_WARN([Unable to create PDF version of the user manual.])
+fi
+AM_CONDITIONAL([HAVE_PDFLATEX], test -n "$PDFLATEX")
+
 # Checks for libraries.
 AC_CHECK_LIB([history], [main])
 AC_CHECK_LIB([m], [floor pow rint sqrt])
