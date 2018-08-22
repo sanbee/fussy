@@ -203,7 +203,7 @@ ostream& PrintF(ostream& os, const char *fmt)
 	      Bool more = TRUE;
 	      int width = 0;
 	      int precision = 6;
-	      std::ios::fmtflags flags = 0;
+	      ios::fmtflags flags = (ios::fmtflags)0;
 	      char fill = ' ';
 	      Bool alternate = FALSE;
 	      while (more)

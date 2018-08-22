@@ -44,6 +44,7 @@
 #include <signal.h>
 #include <defns.h>
 #include <readline/readline.h>
+#include <readline/history.h>
 #include <IDResource.h>
 #include <ErrorObj.h>
 
@@ -96,7 +97,7 @@ void stripwhite (char *string)
 //
 //---------------------------------------------------------------------
 //
-void fussy_inp(char *buf, yy_size_t *result, int max_size)
+void fussy_inp(char *buf, int *result, int max_size)
 {                                   
   int N;
   static size_t Count=0;

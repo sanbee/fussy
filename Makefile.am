@@ -41,6 +41,5 @@ doc_DATA = doc/LaTeX/fussy.tex
 if HAVE_PDFLATEX
 doc_DATA += doc/LaTeX/fussy.pdf
 doc/LaTeX/fussy.pdf: doc/LaTeX/fussy.tex
-	cd doc/LaTeX
-	$(PDFLATEX) fussy.tex
+	cd doc/LaTeX && $(PDFLATEX) fussy && $(PDFLATEX) fussy && $(PDFLATEX) fussy
 endif
