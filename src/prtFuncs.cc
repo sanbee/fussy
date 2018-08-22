@@ -122,7 +122,7 @@ void prtVM()
 #include "./vm.a"
       else if ((unsigned long)Prog[i] < Prog.size()) 
 	{
-	  if ((PrevInst == rvpush)) cerr << " LSYM <TBD>" << endl;
+	  if (PrevInst == rvpush) cerr << " LSYM <TBD>" << endl;
 	  else if ((PrevInst==ifcode) || (PrevInst==forcode))
 	    {
 	      cerr <<      " JMP " << (long)Prog[i] << endl;i++;
@@ -408,7 +408,7 @@ void showHelp()
        << INDENT << "variable or used in another expression/control statement," << endl
        << INDENT << "is automatically printed on the STDOUT." << endl
        << "\t " << "printn <expr>[,<expr>,...]" << endl
-       << INDENT << "Same as print with a newline appended automaticall at the end." << endl
+       << INDENT << "Same as print, with a newline appended automatically at the end." << endl
        << "\t " << "Strings:" << endl
        << INDENT << "Strings are defined as a sequence of characters enclosed in" << endl
        << INDENT << "double quotes.  Special characters are included as in" << endl

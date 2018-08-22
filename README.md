@@ -1,7 +1,7 @@
 # fussy
 The _fussy_ program implements a scripting language with an algorithm
 for automatic error propagation of random measurement errors in an
-arbitrary mathematical expression.  The program can be used a simple
+arbitrary mathematical expression.  The program can be used as a simple
 interactive calculator with error propagation.  Mathematical
 expressions can be implemented as a collection of sub-expressions, as
 sub-program units (functions or procedures) or as single atomic

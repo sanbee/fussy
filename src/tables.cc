@@ -203,7 +203,7 @@ Calc_Symbol *calcgetSymb(const char *Name)
   SymbTabType::const_iterator CI;
   Calc_Symbol *s=NULL;
 
-  if ((InFuncDefn && ~(PROCRET)) && (s=LocalSymbGet(Name))) 
+  if (((InFuncDefn != 0) && ~(PROCRET)) && (s=LocalSymbGet(Name))) 
     return s;
   else
     for(CI=SymbTab.begin();CI!=SymbTab.end();CI++)
