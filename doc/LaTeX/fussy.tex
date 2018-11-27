@@ -125,7 +125,7 @@ Further, if $f(\vec x)$ is a functional, e.g. $f(\vec x)=g(h(k(\vec
 x)))$, then the partial derivative of $f$ is given by the derivative
 chain rule:
 \begin{equation}
-{\partial f \over \partial x_i} = {\partial f \over \partial h} 
+{\partial f \over \partial x_i} = {\partial g \over \partial h} 
 {\partial h \over \partial k} {\partial k \over \partial x_i}
 \label{DFUNCTIONAL}
 \end{equation}
@@ -289,7 +289,7 @@ $\cos(x)$.  When the execution reaches node {\bf 2}, the \VMS\ has the
 values $\sin(x)$ ({\tt L}) and $\cos(x)$ ({\tt R}) and the \DS\ has
 $\cos(x)$ ({\tt dL}) and $-\sin(x)$ ({\tt dR}).  Since '$*$' is a
 binary operator, when node {\bf 2} is reduced, two values each from
-the \VMS\ and the \DS\ are poped.  The multiplication operator then
+the \VMS\ and the \DS\ are popped.  The multiplication operator then
 pushes {\tt L*R}=$\sin(x)*\cos(x)$ on the \VMS\ while {\tt L*dR +
 R*dL}=$\cos^2(x)-\sin^2(x)$ is pushed on the \DS\ (note that this uses
 values from the \DS\ as well as from the VMS).  Both the stacks now
