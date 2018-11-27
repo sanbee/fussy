@@ -34,7 +34,7 @@
 #include <stdio.h>
 #include <calc.h>
 #include <emath.h>
-#include <y.tab.h>
+#include <fussyparse.hh>
 #include <calcinit.h>
 #include <math.h>
 //#include <AngFmt.h>

@@ -1,0 +1,34 @@
+
+
+FUSSY
+
+
+The _fussy_ program implements a scripting language with an algorithm
+for automatic error propagation of random measurement errors in an
+arbitrary mathematical expression. The program can be used a simple
+interactive calculator with error propagation. Mathematical expressions
+can be implemented as a collection of sub-expressions, as sub-program
+units (functions or procedures) or as single atomic expressions.
+Sub-expressions can be assigned to temporary variables which can then be
+used to write the final expression. The interpreter is internally
+implemented as a virtual machine for efficient runtime performance and
+can be used as an interpreter in a client code as well. A simple C
+binding to the interpreter is also provided.
+
+The scripting syntax of _fussy_ is similar to that of C programming
+language. It is easy, particularly for those familiar with programming
+in C, to use _fussy_ with minimal learning. In its simplest form,
+_fussy_ interpretor can be used interactively as a simple calculator
+with the added feature of automatic error prograpation (see syntax for
+simple expressions, sub-expressions, and functions/procedure).
+
+IF YOU FIND THE SOFTWARE USEFUL, WE LOOK FORWARD TO HEARING FROM YOU
+WITH YOUR COMMENTS/SUGGESTIONS.
+
+PLEASE ALSO REFER TO ITS USAGE IN YOUR PUBLICATION BY QUOTING THE
+FOLLOWING:
+
+-   PROJECT LOCATION: HTTPS://GITHUB.COM/SANBEE/FUSSY
+-   WEB-PAPER DESCRIBING THE ALGORITHM:
+    HTTP://SANBEE.GITHUB.IO/FUSSY/HTML/FUSSY.HTML
+

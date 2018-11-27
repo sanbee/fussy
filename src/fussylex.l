@@ -44,6 +44,7 @@
 #include <signal.h>
 #include <defns.h>
 #include <readline/readline.h>
+#include <readline/history.h>
 #include <IDResource.h>
 #include <ErrorObj.h>
 
@@ -72,12 +73,6 @@ extern short int             InCStmt;
 extern ErrorObj              MsgStream;// The global error message stream
 extern Calc_Symbol*          GlobalDefaultFmt;
 extern int                   InFuncDefn;
-extern "C"{
-/*
-  char *readline (char *);
-*/
-  void add_history(char *);
-}
 
 #define INCR_INDEX           {Calc_index += yyleng;}
 // Used by FLEX.  But using yy_scan_string instead of this now in FLEX 
@@ -326,6 +321,7 @@ EHANG   ({HANG}({SPACE}?{ERROP}{SPACE}?{HANG})?)
 EHEX    ({HEXD}({SPACE}?{ERROP}{SPACE}?{HEXD})?)
 %x qstring comment
 %option nounput
+%option noyywrap
 %%
 [ \t]                    {INCR_INDEX;}
 {QUIT}                   {ECHO;return FINISH;}

@@ -55,7 +55,7 @@ NUMTYPE       Efloor(NUMTYPE);
 NUMTYPE       Eceil(NUMTYPE);
 NUMTYPE       b2j(NUMTYPE, NUMTYPE);
 NUMTYPE       j2b(NUMTYPE, NUMTYPE);
-int           calc_error(char *);
+int           calc_error(const char *);
 int           ywarn(char *s, char *t);
 
 Instruction   emit(Instruction);
