@@ -2,19 +2,21 @@
 
 UnitTests="test.general test.func test.builtins test.subtree.builtins test.pow test.factorial test.laguerre test.constants"
 ErrorUnitTests="test.procassgn"
+StdErrFilter="grep -v Informational"
+TestDir=`dirname $0`
 
 # Make a list of functional unit tests (file name convention: "test."+NAME)
-tmp=`ls test.*`;
+tmp=`ls $TestDir/test.*`;
 UnitTests=`for f in $tmp; do echo $f | grep -v out;done;`
 
-# Make a list of error condition unit tests (file name convention: "error.test."+NAME)
-tmp=`ls error.*`;
+# Make a list of error-condition unit tests (file name convention: "error.test."+NAME)
+tmp=`ls $TestDir/error.*`;
 ErrorUnitTests=`for f in $tmp; do echo $f | grep -v out;done;`
 if [ $# -ge 1 ];
 then
     FUSSY=$1;
 else
-    FUSSY=../fussy;
+    FUSSY=fussy;
 fi
 
 PrintStatus()
@@ -55,8 +57,8 @@ if [ -e $FUSSY ]; then
   # Run functional unit tests
   for f in $UnitTests
   do
-    c="("$FUSSY" "$f" quit 2> /dev/null ) | diff - "$f.out;
-    cmd="($PGM "$f" quit 2> /dev/null ) | diff - "$f.out;
+    c="("$FUSSY" "$f" $TestDir/quit 2> /dev/null ) | diff - "$f.out;
+    cmd="($PGM "$f" $TestDir/quit 2> /dev/null ) | diff - "$f.out;
     msg="Unit test "$cmd;
     wc=`echo $msg|wc -c`;
     let n=85-wc;
@@ -71,8 +73,8 @@ if [ -e $FUSSY ]; then
   # Run error-condition unit tests
   for f in $ErrorUnitTests
   do
-    c="("$FUSSY" "$f" quit )2>&1 | diff - "$f.out;
-    cmd="($PGM "$f" quit )2>&1 | diff - "$f.out;
+    c="("$FUSSY" "$f" $TestDir/quit )2>&1 | $StdErrFilter | diff - "$f.out;
+    cmd="($PGM "$f" $TestDir/quit )2>&1 | $StdErrFilter | diff - "$f.out;
     msg="Unit test "$cmd;
     wc=`echo $msg|wc -c`;
     let n=85-wc;

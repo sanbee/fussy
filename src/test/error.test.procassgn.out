@@ -3,7 +3,5 @@
    This is free software with ABSOLUTELY NO WARRANTY.
    For details type `warranty'.
 
-###Informational: Loading file "error.test.procassgn"...
 ###Error: Syntax error near token 'f' in "y=f(10.0);"
 ###Error: PROC used in an assigment ('=') statement
-###Informational: Loading file "quit"...
