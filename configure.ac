@@ -2,7 +2,7 @@
 # Process this file with autoconf to produce a configure script.
 
 AC_PREREQ([2.69])
-AC_INIT(fussy, 1.0, sbhatnag@nrao.edu)
+AC_INIT(fussy, 2.0, sbhatnag@nrao.edu)
 AM_INIT_AUTOMAKE([-Wall subdir-objects])
 AC_CONFIG_SRCDIR([src/func.h])
 AC_CONFIG_HEADERS([config.h])
