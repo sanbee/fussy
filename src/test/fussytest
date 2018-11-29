@@ -1,24 +1,8 @@
 #!/bin/bash 
 
-UnitTests="test.general test.func test.builtins test.subtree.builtins test.pow test.factorial test.laguerre test.constants"
-ErrorUnitTests="test.procassgn"
-StdErrFilter="grep -v Informational"
-TestDir=`dirname $0`
-
-# Make a list of functional unit tests (file name convention: "test."+NAME)
-tmp=`ls $TestDir/test.*`;
-UnitTests=`for f in $tmp; do echo $f | grep -v out;done;`
-
-# Make a list of error-condition unit tests (file name convention: "error.test."+NAME)
-tmp=`ls $TestDir/error.*`;
-ErrorUnitTests=`for f in $tmp; do echo $f | grep -v out;done;`
-if [ $# -ge 1 ];
-then
-    FUSSY=$1;
-else
-    FUSSY=fussy;
-fi
-
+#
+#--------------------------------------------------------------
+#
 PrintStatus()
 {
   let i=$2;
@@ -48,42 +32,70 @@ PrintStatus()
 #
 #--------------------------------------------------------------
 #
-if [ -e $FUSSY ]; then 
-  echo 'Testing '$FUSSY' for the following unit tests:';
-  echo -e '\t'$UnitTests;
-  echo;
-  PGM=`basename "$FUSSY"`
+# $1: The binary program to test
+# $2: List of unit test names
+# $3: Test type (e.g. "unit", "error-condition")
+# $4: The filter
+run()
+{
+    Prog=$1;
+    TestList=$2;
+    TestType=$3;
+    Filter=$4;
+    if [ -e $Prog ]; then 
+	echo 'Testing '$Prog' for the following '$TestType' tests:';
+	echo -e '\t'$TestList;
+	echo;
+	ProgBasename=`basename "$Prog"`
 
-  # Run functional unit tests
-  for f in $UnitTests
-  do
-    c="("$FUSSY" "$f" $TestDir/quit 2> /dev/null ) | diff - "$f.out;
-    cmd="($PGM "$f" $TestDir/quit 2> /dev/null ) | diff - "$f.out;
-    msg="Unit test "$cmd;
-    wc=`echo $msg|wc -c`;
-    let n=85-wc;
-    echo -n $msg'...';
-    r=`eval $c`;
-    PrintStatus "$r" $n "$c";
-  done
-
-  echo 'Testing '$FUSSY' for the following error-condition unit tests:';
-  echo -e '\t'$ErrorUnitTests;
-  echo;
-  # Run error-condition unit tests
-  for f in $ErrorUnitTests
-  do
-    c="("$FUSSY" "$f" $TestDir/quit )2>&1 | $StdErrFilter | diff - "$f.out;
-    cmd="($PGM "$f" $TestDir/quit )2>&1 | $StdErrFilter | diff - "$f.out;
-    msg="Unit test "$cmd;
-    wc=`echo $msg|wc -c`;
-    let n=85-wc;
-    echo -n $msg'...';
-    r=`eval $c`;
-    PrintStatus "$r" $n "$c";
-  done
-
+	# Run functional unit tests
+	for f in $TestList
+	do
+	    c="("$Prog" "$f" $TestDir/quit )$Filter | diff - "$f.out;
+	    cmd="($ProgBasename "$f" $TestDir/quit )$Filter  | diff - "$f.out;
+	    msg="$TestType test: "$cmd;
+	    wc=`echo $msg|wc -c`;
+	    let n=85-wc;
+	    echo -n $msg'...';
+	    r=`eval $c`;
+	    PrintStatus "$r" $n "$c";
+	done
+    else
+	echo $0": $Prog not found!";
+	exit 0;
+    fi
+}
+#
+#--------------------------------------------------------------
+#
+TestDir=`dirname $0`
+if [ $# -ge 1 ];
+then
+    FUSSY=$1;
 else
-  echo $FUSSY" not found!";
-  exit 0;
+    FUSSY=fussy;
 fi
+
+#
+#--------------------------------------------------------------
+#
+# Make a list of functional unit tests (file name convention: "test."+NAME)
+tmp=`ls $TestDir/test.*`;
+UnitTests=`for f in $tmp; do echo $f | grep -v out;done;`
+Filter="2> /dev/null";
+
+run "$FUSSY" "$UnitTests" "Unit" "$Filter"
+
+#
+#--------------------------------------------------------------
+#
+# Make a list of error-condition unit tests (file name convention: "error.test."+NAME)
+tmp=`ls $TestDir/error.*`;
+ErrorUnitTests=`for f in $tmp; do echo $f | grep -v out;done;`
+Filter="2>&1 | grep -v Informational "
+
+run "$FUSSY" "$ErrorUnitTests" "Error-condition" "$Filter"
+#
+#--------------------------------------------------------------
+#
+
