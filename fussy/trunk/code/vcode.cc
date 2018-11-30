@@ -315,9 +315,10 @@ void ClearDS(StackType &d)
 //
 void ClearIDL(IDList &d) 
 {
-  IDList::iterator iterend=d.end();
-  //  for(IDList::iterator i=d.begin();i!=d.end();i++) d.erase(*i);
-  for(IDList::iterator i=d.begin();i!=iterend;++i) d.erase(*i);
+  d.clear();
+  // IDList::iterator iterend=d.end();
+  // //  for(IDList::iterator i=d.begin();i!=d.end();i++) d.erase(*i);
+  // for(IDList::iterator i=d.begin();i!=iterend;++i) d.erase(*i);
 }
 //
 //-------------------------------------------------------------------

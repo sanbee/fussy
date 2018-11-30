@@ -4,6 +4,4 @@ y:=x;
 showsym;
 y:=10pm1;
 showsym
-/*
 f(){auto x,y;x=10pm1;y:=x;x+y;}
-*/
