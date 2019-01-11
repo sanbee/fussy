@@ -42,6 +42,16 @@ if HAVE_PDFLATEX
 doc_DATA += doc/LaTeX/fussy.pdf
 doc/LaTeX/fussy.pdf: doc/LaTeX/fussy.tex
 	cd doc/LaTeX && $(PDFLATEX) fussy && $(PDFLATEX) fussy && $(PDFLATEX) fussy
+
+if HAVE_HTLATEX
+doc_DATA += doc/fussy.html
+doc/fussy.html: doc/LaTeX/fussy.tex
+	mkdir doc/fussy.html ; cd doc/LaTeX ; mkdir tmp ; cd tmp ; cp -r ../* . ; \
+	htlatex fussy.tex "xhtml, mathml" "" -d../../../doc/fussy.html/ ; cd ../ ; \rm -rf tmp
 endif
+all-clean: maintainer-clean
+	\rm -rf doc/LaTeX/fussy.{pdf,aux,toc,out,log} doc/fussy.html
+endif
+
 
 TESTS = src/test/fussytest

@@ -66,7 +66,7 @@ error.  For complicated expressions, computation of all the partial
 derivatives is often cumbersome and hence error prone.
 
 The \Fussy\footnote{The name reflects the original intention of
-  designing a language for fuzzy arithemetic.  It is also a pun on
+  designing a language for fuzzy arithmetic.  It is also a pun on
   those who (wrongly) consider error propagation as too much fuss!}
 scripting language, described here, implements an algorithm for
 automatic propagation of random measurement errors in an arbitrary
@@ -88,7 +88,7 @@ therefore easy to use with minimal learning and can be used in every
 day scientific work.  Most other related work found in the literature
 is in the form of libraries for automatic differentiation.  Only two
 tools appear to have used it for automatic error propagation.  Use of
-these libraries and tools require sophisticated programing and are
+these libraries and tools require sophisticated programming and are
 targeted more for programmers than for regular every day scientific
 use.  Also, such libraries and tools are difficult to use for correct
 error propagation in expressions composed of sub-expressions.
@@ -117,7 +117,7 @@ If $\vec x$ is a vector of independent experimentally measured
 quantities with associated random measurement error $\delta \vec
 x$, the formal error on a function $f(\vec x)$ is given by
 \begin{equation}
-  \delta f = \sqrt{\sum_i {\left( {\partial f \over {\partial x_i}} 
+  \delta f = \sqrt{\left| \vec{\nabla f} \cdot \vec{\delta x}\right|^2} = \sqrt{\sum_i {\left( {\partial f \over {\partial x_i}} 
         \delta x_i \right)}^2}
 \label{FERR}
 \end{equation}
@@ -129,7 +129,7 @@ chain rule:
 {\partial h \over \partial k} {\partial k \over \partial x_i}
 \label{DFUNCTIONAL}
 \end{equation}
-Therefore, for the computation of $\delta f$, one requires:
+Therefore to compute $\delta f$ one requires:
 \begin{enumerate}
 \item the partial derivative of the function with respect to each
 independent variable ($\partial f / \partial x_i$)
@@ -145,14 +145,14 @@ errors in an arbitrary mathematical expression is described.  The
 algorithm is implemented as a scripting language called \Fussy\ and
 can be used as an interpreter by the user.  The syntax is similar to
 that of the {\tt C} language making it easy to use in an interactive
-session or as a scripting environment.  Each user defined variable in
+session or as a scripting environment.  Each user-defined variable in
 \Fussy\ is treated as an independent variable and expressions can be
 constructed using an arbitrary number of variables.  It is error prone
 to express complicated expressions as single atomic statements and
 usually the final expression is built out of sub-expressions and
 temporary variables.  For the purpose of random error propagation
 however, temporary variables are dependent on the independent
-variables (normal user defined variables) on the right hand side of an
+variables (normal user-defined variables) on the right hand side of an
 assignment operator.  The algorithm described below does correct error
 propagation in the final expression composed of such temporary
 variables.  A special language feature is used to distinguish between
@@ -161,8 +161,8 @@ measurement errors with numbers (see
 Appendix~\ref{APPEN:SYNTAX_EXPR}).
 
 Although it is possible to code Eq.~\ref{FERR} in other tools
-\citep{Calc,EDA,Bischof1997A-A}, it requires sophisticated programing
-and learning often arcane, new programing tools.  This is usually time
+\citep{Calc,EDA,Bischof1997A-A}, it requires sophisticated programming
+and learning often arcane, new programming tools.  This is usually time
 consuming and enough of a bother to discourage its use for the purpose
 of error propagation in every-day scientific use.  The work of
 \citet{Stoutemyer:1977} using the {\tt REDUCE} algebraic manipulation
@@ -193,11 +193,11 @@ the '{\tt =}' operator) the values from these stacks are used to
 evaluate Eq.~\ref{FERR}.  A user program written in \Fussy\ is
 compiled into the VM instruction-set, referred to as the op-codes, to
 manipulate the VM stack (\VMS), call built-in functions, perform basic
-mathematical operations or call user defined sub-program (functions or
+mathematical operations or call user-defined sub-program (functions or
 procedures).  These op-codes are function calls which perform the
 operation they represent (mathematical operators, built-in function
 call or branching to a sub-program unit) as well as the steps required
-for automatic error propagation.  Since user defined
+for automatic error propagation.  Since user-defined
 programs/expressions are translated into these op-codes, errors are
 correctly propagated in the mathematical expression in any arbitrary
 user program.
@@ -258,12 +258,12 @@ $f(x)=\sin(x)*\cos(x)$, when the execution reaches the node for the
 $\cos(x)$.  The \DS\ also has two values, namely the two derivatives
 $\partial \sin(x) / \partial x = \cos(x)$ and $\partial \cos(x) /
 \partial x = -\sin(x)$.  The value of $f$ is pushed on the \VMS,
-and its derivate ($\partial \sin(x) / \partial x * \cos(x) + \sin(x) *
+and its derivative ($\partial \sin(x) / \partial x * \cos(x) + \sin(x) *
 \partial \cos(x) / \partial x$), computed using both the stacks, pushed
 on the \DS.  The '{\tt =}' operator rule finally takes the value from
 the \DS, and compute the right hand side of Eq.~\ref{FERR}.
 
-An arbitrary expression composed of user defined variables or built-in
+An arbitrary expression composed of user-defined variables or built-in
 functions, will itself be represented as a sub-tree.  Hence, applying
 the above algorithm recursively, case (3) above (a sub-expression)
 will also be correctly handled.
@@ -303,7 +303,7 @@ derivative of $\cos(x)$ (namely, $-\sin(x)$) and multiplies it by the
 top of the \DS\ (which is $1$).  When call for $\sin$ is made, its
 argument ($\cos(x)$) and the derivative of the argument are on the
 \DS\ and \VMS\ respectively. A value from the \VMS\ and \DS\ each (say
-{\tt L}=$\cos(x)$ and {\tt dL} =$-\sin(x)$) respectively) are poped.
+{\tt L}=$\cos(x)$ and {\tt dL} =$-\sin(x)$) respectively) are pop'ed.
 $\sin(L)=\sin(\cos(x))$ and {\tt dL}$*\sin(L)=-\sin(x)*\sin(\cos(x))$
 are pushed on the \VMS\ and \DS\ respectively.  This is the equivalent
 of Eq.~\ref{DFUNCTIONAL} for branch {\bf 3}.  At this stage, the two
@@ -408,7 +408,7 @@ function:
 
 Partial derivatives with respect to all the IDs in the ID lists of the
 operands are at the top of the corresponding \DS s.  For all the IDs
-common between the two operands, two values are poped from the
+common between the two operands, two values are pop'ed from the
 corresponding \DS, say {\tt dxR} and {\tt dxL}.  The common IDs
 represent the variables which are part of both the operands (here
 $x$).  Operations to compute the partial derivatives with respect to
@@ -604,9 +604,9 @@ appropriate \DS s.  The pseudo code for this operation is:
 \end{verbatim}
 At the terminal operators (e.g. the assignment operator '{\tt =}'), a
 single value (the result of the right hand side of the terminal
-operator) is poped from the \VMS.  The propagated error is then
+operator) is pop'ed from the \VMS.  The propagated error is then
 computed using the values from the top of all {\tt DS}s corresponding
-to the IDs in the ID list of the poped value.  The values from these
+to the IDs in the ID list of the pop'ed value.  The values from these
 \DS s are the partial derivatives of the expression with respect
 to the various independent variables used in the expression on the
 right hand side ($\partial f / \partial x_i$ in Eq.~\ref{FERR}).  The
@@ -742,7 +742,7 @@ with the variable respectively.
   the \VMS.  A value {\tt L*R} with an ID equal to {\tt
   L.ID}$~\cup~${\tt R.ID} is pushed on the \VMS\ and a list of common
   IDs is made as {\tt IDList = L.IDList}$~\cap~${\tt R.IDList} (here,
-  an empty list).  Next, for all IDs in {\tt L}, a value is poped from
+  an empty list).  Next, for all IDs in {\tt L}, a value is pop'ed from
   {\tt DS[L.ID]} (say, {\tt dx}), and {\tt dx*R} is pushed back on
   {\tt DS[L.ID]}.  Similar operation is done for all IDs in {\tt R}.
   
@@ -761,10 +761,10 @@ with the variable respectively.
   {\tt L+R} with an {\tt IDList= L.ID}$~\cup~${\tt R.ID} is pushed
   back on the \VMS.  This {\tt IDList} will be {\tt \{0,1\}}.  For IDs
   common between {\tt L} and {\tt R} (here $\{0\}$), two values are
-  poped from the \DS, and their addition pushed back on the \DS.  The
+  pop'ed from the \DS, and their addition pushed back on the \DS.  The
   common ID is then removed from the ID list of both operands.  For
   the remaining IDs in {\tt L} ({\tt R} has no IDs left), values are
-  poped from the corresponding {\tt DS}, added together and pushed
+  pop'ed from the corresponding {\tt DS}, added together and pushed
   back on the appropriate {\tt DS}.
   
   Hence, at the end of the operator {\tt '+'}, {\tt DS[0]} will have
@@ -782,15 +782,15 @@ with the variable respectively.
   R.ID} ($\{0,1\}\cup\{0\}$) is pushed on the \VMS.  A list of common
   IDs between {\tt L} and {\tt R} is made using {\tt IDList =
   L.IDList}$~\cap~${\tt R.IDList}.  For all IDs in {\tt IDList}, two
-  values are poped from the corresponding {\tt DS} (say, {\tt dxR}
+  values are pop'ed from the corresponding {\tt DS} (say, {\tt dxR}
   ({\tt =x$_1$}) and {\tt dxL} (=1)) and {\tt (R*dxL -
   L*dxR)/(R*R)} pushed back on the same {\tt DS}.  The corresponding
   IDs are then removed from {\tt L} and {\tt R}.
   
-  Next, for all the remaining IDs in {\tt L}, a value is poped (say
+  Next, for all the remaining IDs in {\tt L}, a value is pop'ed (say
   {\tt dx}) from {\tt DS[L.ID]} and {\tt dx/R} is pushed back on the
   same {\tt DS}.  Similarly, for all IDs in {\tt R}, a value from {\tt
-  DS[R.ID]} is poped into {\tt dx} and {\tt -L*dx/(R*R)} is pushed
+  DS[R.ID]} is pop'ed into {\tt dx} and {\tt -L*dx/(R*R)} is pushed
   back on the same {\tt DS}.
   
   At the end of this stage, {\tt DS[0]} has the value {\tt 1+1/x$_2$}
@@ -861,7 +861,7 @@ statements is the value of the variable on the LHS.  Hence expressions
 like {\tt sin(x=0.1pm0.02)} are equivalent to {\tt
 'x=0.1pm0.02;sin(x);'}.  The prefix and postfix operators {\tt
 <op>var} and {\tt var<op>} where {\tt <op>} is either {\tt '++'} or
-{\tt '--'} and {\tt var} is any user defined variable are also
+{\tt '--'} and {\tt var} is any user-defined variable are also
 defined.  These increment or decrement the value of the variables by
 one.  The prefix and postfix operators operate on the variables before
 and after the variable is further used respectively.
@@ -897,7 +897,7 @@ which can be any mathematical expression or a variable.
 
 Numbers and variables can be combined with the mathematical operators
 and logical operators to form an expression.  Expressions can be used
-as arguments to built-in or user defined functions (see
+as arguments to built-in or user-defined functions (see
 Section~\ref{APPEN:SYNTAX_FUNC}).  An expression followed by a NEWLINE
 prints its result on the output stream (see Section~\ref{PRINT}) in
 the default format (see Section~\ref{FORMATTING}).
@@ -933,7 +933,7 @@ delimiters.  Comment delimiters however cannot be nested.
 \label{APPEN:SUBEXPRESSIONS}
 
 A special assignment operator '{\tt :=}' is used to assign
-sub-expressions to user defined variables.  Sub-expression variables
+sub-expressions to user-defined variables.  Sub-expression variables
 are different from normal variables in that their propagated error is
 computed on-the-fly when required, i.e.  when they are printed or are
 assigned to a normal variable using the '{\tt =}' operator or at an
@@ -1085,7 +1085,7 @@ one of which is checked in the condition:
 
 The {\tt print} statement takes a comma separated list of objects to
 be printed.  These objects can be quoted-strings, variables,
-constants, condition statements or user defined function names.  The
+constants, condition statements or user-defined function names.  The
 list can consist of any number of objects and is terminated by a
 semi-colon.  The format in which the numeric values are printed is
 defined by the format modifier associated with the values (see
@@ -1114,7 +1114,7 @@ An extra formatting, not available in {\tt printf} formatting, is that
 of printing the individual bit values using the {\tt \%b} format.
 With this, the value is printed in binary (1 or 0) format.  {\tt
 \%B} does the same thing except that it prints a space after every 8 bits.
-The value is casted into a {\tt unsigned long} integer before
+The value is caste into a {\tt unsigned long} integer before
 printing.
 \begin{verbatim}
    >x=10;x%B
@@ -1128,7 +1128,7 @@ XXdXX{\texttt{'}}XX.XX{\texttt{"}}} styles respectively.
 
 
 %\begin{acks}
-\section*{ACKNOWLEDGEMENTS}
+\section*{ACKNOWLEDGMENTS}
 I thank D.~Oberoi and R.K.~Singh for many useful discussions.  This
 work was started and largely done while I was working at the National
 Center for Radio Astrophysics (NCRA), Pune of the Tata Institute of

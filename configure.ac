@@ -23,6 +23,13 @@ if test -z "$PDFLATEX"; then
 fi
 AM_CONDITIONAL([HAVE_PDFLATEX], test -n "$PDFLATEX")
 
+# htlatex for documentation
+AC_CHECK_PROG(HTLATEX, htlatex, htlatex)
+if test -z "$HTLATEX"; then
+  AC_MSG_WARN([Unable to create HTML version of the user manual.])
+fi
+AM_CONDITIONAL([HAVE_HTLATEX], test -n "$HTLATEX")
+
 # Checks for libraries.
 AC_CHECK_LIB([history], [main])
 AC_CHECK_LIB([m], [floor])

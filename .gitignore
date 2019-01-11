@@ -3,6 +3,7 @@
 *.aux
 *.out
 *.log
+*.trs
 *.ps
 *.toc
 *.o
