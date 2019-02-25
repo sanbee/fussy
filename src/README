@@ -1,9 +1,9 @@
 Compiling:
 ---------
 
-This software has been tested to compile on Linux operating system
+This software has been tested to compile on GNU/Linux operating system
 with GCC 3.2.3.  The software utilizes a few routines from the Star
-Link Astronomy library.  The software can be compiled on Linux with the
+Link Astronomy library.  The software can be compiled on GNU/Linux with the
 command
 
 	gmake check
