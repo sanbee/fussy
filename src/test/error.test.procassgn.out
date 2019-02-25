@@ -1,0 +1,7 @@
+   fussy 2.0
+   Copyright (c) 2000-2017, 2018 S.Bhatnagar (sbhatnag (AT) nrao (DOT) edu)
+   This is free software with ABSOLUTELY NO WARRANTY.
+   For details type `warranty'.
+
+###Error: Syntax error near token 'f' in "y=f(10.0);"
+###Error: PROC used in an assigment ('=') statement
