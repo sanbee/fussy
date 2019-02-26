@@ -24,4 +24,4 @@ fussy.bbl: fussy.aux fussy.bib
 	$(LATEX) fussy.tex
 
 clean: 
-	\rm -rf *.dvi *.aux *.log *.bbl *.blg *~ fussy
+	\rm -rf *.dvi *.pdf *.out *.aux *.log *.blg *.toc *.ps *~ fussy
