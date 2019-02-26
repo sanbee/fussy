@@ -113,6 +113,10 @@ void fussy_inp(char *buf, yy_size_t *result, int max_size)
   if (Calc_line==NULL) 
     {
       Calc_line=(char *) readline((char *)Calc_prompt.c_str());
+      // If readline retuns NULL (e.g., when the input is Ctrl-D), send a newline
+      // character to the output stream.
+      if (Calc_line == NULL) fprintf(rl_outstream,"\n");
+
       if (Calc_line && strlen(Calc_line) && rl_instream==stdin)
         {
           stripwhite(Calc_line);
