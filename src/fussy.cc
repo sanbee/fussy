@@ -57,6 +57,7 @@
 
 extern int   calc_debug;
 extern FILE  *rl_instream;
+extern int FUSSY_IGNOREEOF;
 
 ofstream     ERROUT;  // The global stream where debugging messages
 		      // are written
@@ -126,6 +127,15 @@ ErrorObj MsgStream; // The global error message output stream
 int main(int argc, char *argv[])
 {
   string Name(getenv("HOME"));
+  char *tt=getenv("FUSSY_IGNOREEOF");
+  if (tt) 
+    {
+      stringstream ss(tt);
+      ss >> FUSSY_IGNOREEOF; 
+      cerr << FUSSY_IGNOREEOF << endl;
+      FUSSY_IGNOREEOF=(FUSSY_IGNOREEOF <= 0?1e6:FUSSY_IGNOREEOF+1);
+    }
+  else FUSSY_IGNOREEOF=1;
   int n;
   bool beQuiet=false;
 #ifdef YYDEBUG
