@@ -64,7 +64,7 @@ char                        *Calc_line=NULL;
 int                          Calc_index=0, GlobalFlag=0;
 static string                qstr;
 string                       Calc_prompt=">";
-int                          FUSSY_IGNOREEOF=100;
+int                          FUSSY_IGNOREEOF=1e6;
 
 extern IDResource            IDR;
 extern string                Token;

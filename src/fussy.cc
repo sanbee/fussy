@@ -130,9 +130,11 @@ int main(int argc, char *argv[])
   if (tt) 
     {
       stringstream ss(tt);
-      ss >> FUSSY_IGNOREEOF; FUSSY_IGNOREEOF=(FUSSY_IGNOREEOF <= 0?1:FUSSY_IGNOREEOF+1);
+      ss >> FUSSY_IGNOREEOF; 
+      cerr << FUSSY_IGNOREEOF << endl;
+      FUSSY_IGNOREEOF=(FUSSY_IGNOREEOF <= 0?1e6:FUSSY_IGNOREEOF+1);
     }
-  else FUSSY_IGNOREEOF=101;
+  else FUSSY_IGNOREEOF=1;
   int n;
   bool beQuiet=false;
 #ifdef YYDEBUG
