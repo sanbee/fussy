@@ -64,6 +64,7 @@ char                        *Calc_line=NULL;
 int                          Calc_index=0, GlobalFlag=0;
 static string                qstr;
 string                       Calc_prompt=">";
+int                          FUSSY_IGNOREEOF=100;
 
 extern IDResource            IDR;
 extern string                Token;
@@ -113,10 +114,18 @@ void fussy_inp(char *buf, yy_size_t *result, int max_size)
   if (Calc_line==NULL) 
     {
       Calc_line=(char *) readline((char *)Calc_prompt.c_str());
-      // If readline retuns NULL (e.g., when the input is Ctrl-D), send a newline
-      // character to the output stream.
-      if (Calc_line == NULL) fprintf(rl_outstream,"\n");
-
+      // If readline retuns NULL (e.g., when the input is Ctrl-D), print a message and
+      // exit when FUSSY_IGNOREEOF<=0.
+      if (Calc_line == NULL) 
+	if (FUSSY_IGNOREEOF > 0)
+	  {
+	    FUSSY_IGNOREEOF--;
+	    fprintf(rl_outstream,"Use \'quit\' to exit.  Will ignore next %d EOF(s).\n",FUSSY_IGNOREEOF);
+	  }
+	else
+	  {
+	    ExitException e;throw(e);
+	  }
       if (Calc_line && strlen(Calc_line) && rl_instream==stdin)
         {
           stripwhite(Calc_line);
