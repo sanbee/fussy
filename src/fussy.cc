@@ -52,6 +52,7 @@
 #include <sys/types.h>
 #include <unistd.h>
 #include "namespace.h"
+#include "config.h"
 #include <sstream>
 
 extern int   calc_debug;
@@ -163,45 +164,52 @@ int main(int argc, char *argv[])
 		beQuiet=true;
 		n++;
 	      }
-	    else
-	      {
-		if (!strcmp(argv[i],"-d"))
-		  {
-		    if (ERROUT) ERROUT.close();
-		    ERROUT.open("/dev/tty");
-		    if (!ERROUT) cerr << "Could not open error device!" << endl;
-		    n++;
-		  }
-		else
-		  {
-		    if (!strcmp(argv[i],"-t"))
-		      {
-			int T=Tolerance;
-			i++;
-			sscanf(argv[i],"%d",&T);
-			Tolerance=T;
-			n+=2;
-		      }
-		    else
-		      {
-			if ((!strcmp(argv[i],"-h")) || (!strcmp(argv[i],"--help")))
-			  {
-			    MsgStream << "Usage: " << argv[0] 
-				      << " [-h|--help] [-q] [-d] [-t N] [prog1,prog2,...]" 
-				      << endl
-				      << " \"-h or --help\": Gives this help" << endl
-				      << " \"-q\":   Do not print the copyright information" << endl
-				      << " \"-d\":   Sets the debugging mode (meant for developers)" << endl
-				      << " \"-t N\": N is the number of Ctrl-C trials after which the interpreter" << endl
-				      << "         gives up preaching good behavior and quits" << endl
-				      << " Use the interpreter \"help\" command to get more help about the language syntax" 
-				      << endl;
-			    n++;
-			    exit(0);
-			  }
-		      }
-		  }
-	      }
+	    else if (!strcmp(argv[i],"-d"))
+              {
+                if (ERROUT) ERROUT.close();
+                ERROUT.open("/dev/tty");
+                if (!ERROUT) cerr << "Could not open error device!" << endl;
+                n++;
+              }
+            else if (!strcmp(argv[i],"-t"))
+              {
+                int T=Tolerance;
+                i++;
+                sscanf(argv[i],"%d",&T);
+                Tolerance=T;
+                n+=2;
+              }
+            else if ((!strcmp(argv[i],"-h")) || (!strcmp(argv[i],"--help")))
+              {
+                MsgStream << "Usage: " << argv[0] 
+                          << " [-h|--help] [-q] [-d] [-t N] [prog1,prog2,...]" 
+                          << endl
+                          << " \"-h or --help\": Gives this help" << endl
+                          << " \"-q\":   Do not print the copyright information" << endl
+                          << " \"-d\":   Sets the debugging mode (meant for developers)" << endl
+                          << " \"-t N\": N is the number of Ctrl-C trials after which the interpreter" << endl
+                          << "         gives up preaching good behavior and quits" << endl
+                          << " Use the interpreter \"help\" command to get more help about the language syntax" 
+                          << endl;
+                n++;
+                exit(0);
+              }
+            else if ((!strcmp(argv[i], "-v")) || (!strcmp(argv[i], "--version"))) {
+              MsgStream << PACKAGE_NAME << ", version " << VERSION << endl;
+              MsgStream << "Copyright (c) 2000-2019 S.Bhatnagar" << endl;
+              MsgStream << "This program is free software; you can redistribute it and/or modify" << endl;
+              MsgStream << "it under the terms of the GNU General Public License as published by" << endl;
+              MsgStream << "the Free Software Foundation; either version 2 of the License, or" << endl;
+              MsgStream << "(at your option) any later version." << endl << endl;
+              MsgStream << "This program is distributed in the hope that it will be useful," << endl;
+              MsgStream << "but WITHOUT ANY WARRANTY; without even the implied warranty of" << endl;
+              MsgStream << "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the" << endl;
+              MsgStream << "GNU General Public License for more details." << endl << endl;
+              MsgStream << "You should have received a copy of the GNU General Public License" << endl;
+              MsgStream << "along with this program; if not, write to the Free Software" << endl;
+              MsgStream << "Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA" << endl;
+              exit(0);
+            }
 	  }
       //
       // Initialize internal tables etc.
