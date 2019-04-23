@@ -132,7 +132,6 @@ int main(int argc, char *argv[])
     {
       stringstream ss(tt);
       ss >> FUSSY_IGNOREEOF; 
-      cerr << FUSSY_IGNOREEOF << endl;
       FUSSY_IGNOREEOF=(FUSSY_IGNOREEOF <= 0?1e6:FUSSY_IGNOREEOF+1);
     }
   else FUSSY_IGNOREEOF=1;
