@@ -78,7 +78,7 @@ extern int                   InFuncDefn;
 #define INCR_INDEX           {Calc_index += yyleng;}
 // Used by FLEX.  But using yy_scan_string instead of this now in FLEX 
 
-#define YY_INPUT(buf,result,max_size) fussy_inp(buf,&result,max_size)
+#define YY_INPUT(buf,result,max_size) fussy_inp(buf,(int*)&result,max_size)
 //
 //---------------------------------------------------------------------
 //
@@ -98,7 +98,7 @@ void stripwhite (char *string)
 //
 //---------------------------------------------------------------------
 //
-void fussy_inp(char *buf, yy_size_t *result, int max_size)
+void fussy_inp(char *buf, int *result, int max_size)
 {                                   
   int N;
   static size_t Count=0;
