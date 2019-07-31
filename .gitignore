@@ -1,11 +1,12 @@
 
-*.dvi
-*.aux
-*.out
-*.log
-*.trs
-*.ps
-*.toc
+doc/LaTeX/*.dvi
+doc/LaTeX/*.aux
+doc/LaTeX/*.out
+doc/LaTeX/*.log
+doc/LaTeX/*.trs
+doc/LaTeX/*.ps
+doc/LaTeX/*.toc
+doc/LaTeX/fussy.blg
 *.o
 *~
 *.a
@@ -13,7 +14,6 @@ src/fussy
 src/lex.yy.c
 src/y.tab.c
 src/y.tab.h
-doc/LaTeX/fussy.blg
 .deps
 autom4te.cache
 Makefile
