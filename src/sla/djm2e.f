@@ -1,17 +1,3 @@
-
-	subroutine djm2e(djm,epoch)
-C-----------------------------------------------------------------
-C   This subroutine converts modified julian day number to 
-C   epoch
-C
-C   input:
-C	  djm(modified julian day number)  double precision
-C
-C   output:
-C	  epoch                            double precision
-C
-C   called:
-C	   sladjcl,frye
 C
 C Copyright 2019 Sanjay Bhatnagar.
 C 
@@ -29,6 +15,20 @@ C GNU General Public License for more details.
 C 
 C You should have received a copy of the GNU General Public License
 C along with Fussy.  If not, see <https://www.gnu.org/licenses/>.
+
+	subroutine djm2e(djm,epoch)
+C-----------------------------------------------------------------
+C   This subroutine converts modified julian day number to 
+C   epoch
+C
+C   input:
+C	  djm(modified julian day number)  double precision
+C
+C   output:
+C	  epoch                            double precision
+C
+C   called:
+C	   sladjcl,frye
 C-----------------------------------------------------------------
 
 	double precision djm,epoch,fd,day

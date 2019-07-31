@@ -1,17 +1,3 @@
-	
-
-	subroutine frye(iy,imon,day,epoch)
-
-C-----------------------------------------------------------------------------
-C  This subroutine gives the date in the fractional form of the year
-C
-C input:
-C	iy (year)             integer
-C	im (month)	      integer
-C	day(day)	      double precision
-C
-C output:
-C       epoch                  double precision
 C
 C Copyright 2019 Sanjay Bhatnagar.
 C 
@@ -29,6 +15,20 @@ C GNU General Public License for more details.
 C 
 C You should have received a copy of the GNU General Public License
 C along with Fussy.  If not, see <https://www.gnu.org/licenses/>.
+	
+
+	subroutine frye(iy,imon,day,epoch)
+
+C-----------------------------------------------------------------------------
+C  This subroutine gives the date in the fractional form of the year
+C
+C input:
+C	iy (year)             integer
+C	im (month)	      integer
+C	day(day)	      double precision
+C
+C output:
+C       epoch                  double precision
 C-----------------------------------------------------------------------------
 
 

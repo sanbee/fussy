@@ -1,4 +1,20 @@
-
+C
+C Copyright 2019 Sanjay Bhatnagar.
+C 
+C This file is a part of Fussy.
+C 
+C Fussy is free software: you can redistribute it and/or modify
+C it under the terms of the GNU General Public License as published by
+C the Free Software Foundation, either version 3 of the License, or
+C (at your option) any later version.
+C
+C Fussy is distributed in the hope that it will be useful,
+C but WITHOUT ANY WARRANTY; without even the implied warranty of
+C MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+C GNU General Public License for more details.
+C 
+C You should have received a copy of the GNU General Public License
+C along with Fussy.  If not, see <https://www.gnu.org/licenses/>.
 
 C++
       DOUBLE PRECISION FUNCTION SLADRANRM (ANGLE)
@@ -19,23 +35,6 @@ C
 C  Adapted from original code by P.T.Wallace, with permission
 C
 C  P.T.Wallace   Starlink   December 1984
-C
-C Copyright 2019 Sanjay Bhatnagar.
-C 
-C This file is a part of Fussy.
-C 
-C Fussy is free software: you can redistribute it and/or modify
-C it under the terms of the GNU General Public License as published by
-C the Free Software Foundation, either version 3 of the License, or
-C (at your option) any later version.
-C
-C Fussy is distributed in the hope that it will be useful,
-C but WITHOUT ANY WARRANTY; without even the implied warranty of
-C MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-C GNU General Public License for more details.
-C 
-C You should have received a copy of the GNU General Public License
-C along with Fussy.  If not, see <https://www.gnu.org/licenses/>.
 C-----------------------------------------------------------------------
 
 
