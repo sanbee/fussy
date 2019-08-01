@@ -1,6 +1,6 @@
 #!/bin/bash 
 # *****************************************************************
-# * Copyright (c) 2000-2017, 2018 S.Bhatnagar
+# * Copyright (c) 2000-2018, 2019 S.Bhatnagar
 # *
 # * This program is free software; you can redistribute it and/or modify
 # * it under the terms of the GNU General Public License as published by
@@ -76,7 +76,7 @@ run()
 	# Run functional unit tests
 	for f in $TestList
 	do
-	    c="("$Prog" "-q" "$f" $TestDir/quit )$Filter | diff - "$f.out;
+	    c="("$Prog" "-q" "$f" $TestDir/quit )$Filter | grep -v "^\/\*" | diff - "$f.out| grep -v '^\/\*' ;
 	    cmd="($ProgBasename -q "$f" $TestDir/quit )$Filter  | diff - "$f.out;
 	    msg="$TestType test: "$cmd;
 	    wc=`echo $msg|wc -c`;
@@ -104,17 +104,17 @@ fi
 # Make a list of functional unit tests (file name convention: "test."+NAME)
 tmp=`ls $TestDir/test.*`;
 UnitTests=`for f in $tmp; do echo $f | grep -v out;done;`
-Filter="2> /dev/null";
+Filter="2> /dev/null | grep -v '^\/\*' ";
 
 run "$FUSSY" "$UnitTests" "Unit" "$Filter"
-
+echo
 #
 #--------------------------------------------------------------
 #
 # Make a list of error-condition unit tests (file name convention: "error.test."+NAME)
 tmp=`ls $TestDir/error.*`;
 ErrorUnitTests=`for f in $tmp; do echo $f | grep -v out;done;`
-Filter="2>&1 | grep -v Informational "
+Filter="2>&1 | grep -v Informational"
 
 run "$FUSSY" "$ErrorUnitTests" "Error-condition" "$Filter"
 #
