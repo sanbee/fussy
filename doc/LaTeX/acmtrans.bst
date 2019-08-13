@@ -1,5 +1,22 @@
 % "ACM Transactions" BibTeX style, acmtrans.bst 
 %  for BibTeX version 0.99c, LaTeX version 3.141
+% ******************************************************************
+% #   This file is part of fussy.
+% #
+% #   fussy is a free software: you can redistribute it and/or modify
+% #   it under the terms of the GNU General Public License as published by
+% #   the Free Software Foundation, either version 3 of the License, or
+% #   (at your option) any later version.
+% #
+% #   Foobar is distributed in the hope that it will be useful,
+% #   but WITHOUT ANY WARRANTY; without even the implied warranty of
+% #   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% #   GNU General Public License for more details.
+% #
+% #   You should have received a copy of the GNU General Public License
+% #   along with fussy.  If not, see <https://www.gnu.org/licenses/>.
+%  *
+% ******************************************************************
 %  Revised 28-MARCH-1996
 %  Revised 30-JUNE-1995
 %  Revised 15-JAN-1996 

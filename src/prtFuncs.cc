@@ -2,19 +2,21 @@
 /******************************************************************
  * Copyright (c) 2000-2018, 2019 S.Bhatnagar
  *
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 2 of the License, or
- * (at your option) any later version.
+ *  This file is part of fussy.
  *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- * GNU General Public License for more details.
+ *  fussy is a free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
  *
- * You should have received a copy of the GNU General Public License
- * along with this program; if not, write to the Free Software
- * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ *  fussy is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with fussy.  If not, see <https://www.gnu.org/licenses/>.
+ *
  *
 
   History:
@@ -318,19 +320,11 @@ void showCopyright(const char *Msg)
 //
 void showWarranty()
 {
+#include "./warranty.txt"  // This loads warrantyStr.txt string.
+
   showCopyright("");
  
-  cerr << "   This program is free software; you can redistribute it and/or modify" << endl
-       << "   it under the terms of the GNU General Public License as published by" << endl
-       << "   the Free Software Foundation; either version 2 of the License, or" << endl
-       << "   (at your option) any later version." << endl << endl
-       << "   This program is distributed in the hope that it will be useful," << endl
-       << "   but WITHOUT ANY WARRANTY; without even the implied warranty of" << endl
-       << "   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the" << endl
-       << "   GNU General Public License for more details." << endl << endl
-       << "   You should have received a copy of the GNU General Public License" << endl
-       << "   along with this program. If not, write to the Free Software" << endl
-       << "   Foundation, 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA." << endl;
+  cerr << warrantyStr << endl;
 }
 //
 //-----------------------------------------------------------------
