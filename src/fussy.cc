@@ -196,18 +196,9 @@ int main(int argc, char *argv[])
               }
             else if ((!strcmp(argv[i], "-v")) || (!strcmp(argv[i], "--version"))) {
               MsgStream << PACKAGE_NAME << ", version " << VERSION << endl;
-              MsgStream << "Copyright (c) 2000-2019 S.Bhatnagar" << endl;
-              MsgStream << "This program is free software; you can redistribute it and/or modify" << endl;
-              MsgStream << "it under the terms of the GNU General Public License as published by" << endl;
-              MsgStream << "the Free Software Foundation; either version 2 of the License, or" << endl;
-              MsgStream << "(at your option) any later version." << endl << endl;
-              MsgStream << "This program is distributed in the hope that it will be useful," << endl;
-              MsgStream << "but WITHOUT ANY WARRANTY; without even the implied warranty of" << endl;
-              MsgStream << "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the" << endl;
-              MsgStream << "GNU General Public License for more details." << endl << endl;
-              MsgStream << "You should have received a copy of the GNU General Public License" << endl;
-              MsgStream << "along with this program; if not, write to the Free Software" << endl;
-              MsgStream << "Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA" << endl;
+#include "./warranty.txt"
+	      // warranty.txt instantiates the copyright and warranty notices as a std::string object. 
+	      MsgStream << warrantyStr << endl;
               exit(0);
             }
 	  }
