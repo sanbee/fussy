@@ -1,4 +1,4 @@
-C Copyright 2019 Sanjay Bhatnagar.
+C Copyright 2019 S. Bhatnagar.
 C 
 C This file is a part of Fussy.
 C 
