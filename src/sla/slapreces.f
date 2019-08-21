@@ -1,4 +1,5 @@
 C
+C Copyright 1986 P. T. Wallace.
 C Copyright 2019 S. Bhatnagar.
 C 
 C This file is a part of Fussy.
