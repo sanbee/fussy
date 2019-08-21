@@ -17,6 +17,7 @@
 # *  along with fussy.  If not, see <https://www.gnu.org/licenses/>.
 # *
 
+cat "./copyright"
 grep "define" $1 | grep -v YY | awk '
       {
         n=1;	

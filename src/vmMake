@@ -17,6 +17,7 @@
 # *  along with fussy.  If not, see <https://www.gnu.org/licenses/>.
 # *
 
+cat "./copyright"
 $1 -E -DVMDBGHELP calc.h | \
 sed -e "s/()/ /g" | \
 sed -e"s/,//g" | \
