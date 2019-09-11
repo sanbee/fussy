@@ -244,20 +244,23 @@ int main(int argc, char *argv[])
   // instruction which throws the ExitException.
   //
   
-  while(1)
+  bool phinish=false;
+  
+  while(!phinish)
     try
       {
 	Persistance=0;
 	signal(SIGINT,handler);
 	signal(SIGSEGV,handler);
 	boot();
-	calc(NULL,cout,NULL, NULL);
-	//calc(NULL,&ans,NULL,NULL);
+	//calc(NULL,cout,NULL,NULL);
+	NUMTYPE ans;
+	calc(NULL,&ans,NULL,NULL);
       }
     catch (ErrorObj& e)        {e << e.what() << endl;}
     catch (BreakException& x)  {}
     catch (ReturnException& x) {}
-    catch (ExitException& x)   {ErrorObj tt; tt << "Goodbye!" << endl;exit(0);}
+    catch (ExitException& x)   {ErrorObj tt; tt << "Goodbye!" << endl;phinish=true;}
     catch (...) {MsgStream << "Caught an unknown exception" << endl;}
   
 }

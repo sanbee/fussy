@@ -371,7 +371,7 @@ EHEX    ({HEXD}({SPACE}?{ERROP}{SPACE}?{HEXD})?)
                            // participate in error propagation, they
                            // don't need a unique ID of their own).
                            //
-                           if (yylval.symb->otype.qstr==&qstr)
+                           if (yylval.symb->otype.qstr!=&qstr)
                              {
                                //       IDR.ReleaseID(yylval.symb->ID);
                                //       yylval.symb->ID=0;

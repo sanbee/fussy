@@ -137,13 +137,6 @@ typedef Instruction       VMacType ;
 typedef vector<VMacType>  VMac;
 #define STOP              (VMacType)(-1)
 
-typedef union VMacObjType
-{
-  /*  NUMTYPE Const; */
-  OPCode Inst;
-} VMacObjType;
-
-
 typedef struct Calc_Symbol {
   TypeType            type;
 

@@ -675,6 +675,7 @@ void MkSpaceOnLocalSymbTab(int N)
 Calc_Symbol *install(const char *Name, int type, double v, double e)
 {
   Calc_Symbol *s=new Calc_Symbol;
+  //Calc_Symbol *s=(Calc_Symbol *)calloc(1,sizeof(Calc_Symbol));
   s->type = type;
   SETVAL(s->value,v,e);
 

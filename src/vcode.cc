@@ -615,6 +615,7 @@ Instruction emit(Instruction ins)
 //
 int quit()
 {
+  Prog.resize(0);
   ExitException e;throw(e);
   DEFAULT_RETURN;
 }
@@ -2070,7 +2071,7 @@ int printEngine(const int doNewLine)
 
       if (d[i].symb && (ISSET(d[i].symb->type,QSTRING_TYPE)))
 	{
-	  OUTPUT << d[i].symb->otype.qstr->c_str();
+	  OUTPUT << d[i].symb->otype.qstr;//->c_str();
 	  if (d[i].symb->name.size()==0) uninstall(d[i].symb);
 	}
       /*
@@ -2309,9 +2310,16 @@ int setfmt()
 int assgn()
 {
   StackType d1,d2;
+  Calc_Symbol symb1,symb2;
+  string s1,s2;
   BASIC_NUM tdx=0;
 
   DBG("assgn");
+
+  symb1.otype.qstr=NULL;//&s1;
+  symb2.otype.qstr=NULL;//&s2;
+  d1.symb=&symb1;
+  d2.symb=&symb2;
 
 #ifdef VERBOSE
   ERROUT << "assgn" << endl;
@@ -2441,10 +2449,10 @@ int assgn()
 	  //	  SETBIT(d1.type, QSTRING_TYPE);
 	  d1.type = d1.symb->type = QSTRING_TYPE;
 	  
-	  //	  if (d2.symb->otype.qstr) delete d2.symb->otype.qstr;
-	  if (!d1.symb->otype.qstr) 
-	    d1.symb->otype.qstr=new string;
-	  *(d1.symb->otype.qstr) = *(d2.symb->otype.qstr);
+	  if (d1.symb->otype.qstr) {delete d1.symb->otype.qstr;d1.symb->otype.qstr=NULL;}
+	  // if (d1.symb->otype.qstr==NULL) 
+	  //   d1.symb->otype.qstr=new string;
+	  // *(d1.symb->otype.qstr) = *(d2.symb->otype.qstr);
 	}
     }
   //

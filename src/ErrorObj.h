@@ -36,13 +36,14 @@
 #include <cstring>
 #include <iostream>
 #include "namespace.h"
+#include <stdlib.h>
 
 class ErrorObj{
  public:
   enum {Informational=100,Recoverable,Severe,Fatal};
-  ErrorObj(){Msg = Id = Message = NULL;};
+  ErrorObj(){Msg = Id = Message = Src = NULL;};
   ErrorObj(const char *m,const char *i,int l=0);
-  ~ErrorObj(){};
+  ~ErrorObj(){cleanup();}
   //  delete() {cleanup();};
   void cleanup()
     {
