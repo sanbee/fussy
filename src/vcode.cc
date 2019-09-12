@@ -2450,8 +2450,8 @@ int assgn()
 	  //	  SETBIT(d1.type, QSTRING_TYPE);
 	  d1.type = d1.symb->type = QSTRING_TYPE;
 	  
-	  //if (d1.symb->otype.qstr) {delete d1.symb->otype.qstr;d1.symb->otype.qstr=NULL;}
-	  //	  if (d1.symb->otype.qstr==NULL) d1.symb->otype.qstr=new string;
+	  // if (d1.symb->otype.qstr) {delete d1.symb->otype.qstr;d1.symb->otype.qstr=NULL;}
+	  // if (d1.symb->otype.qstr==NULL) d1.symb->otype.qstr=new string;
 
 	  // The code in the two commented lines above moved to the
 	  // two methods below in Calc_Symbol (in defns.h) -- for
@@ -2469,6 +2469,11 @@ int assgn()
   // the top of the stack is cleared.
   //
   PUSH(stck,d1);
+  // //TOP(stck).symb->cleanupQStr();
+  // TOP(stck).symb->otype.qstr=NULL;
+  // TOP(stck).symb->makeQStr();
+  // TOP(stck).symb->otype.qstr = d1.symb->otype.qstr;
+
   PUSH(DS[*(d1.ID.begin())],1.0);
 
 #ifdef VERBOSE
@@ -2481,7 +2486,7 @@ int assgn()
 
   // Cleanup the pointer-types in the LHS symbol (d1) before it goes out of scope.
   // Delete qstr if it exists.  This is the only pointer-type elements in StackType.
-  d1.symb->cleanupQStr(); 
+  //d1.symb->cleanupQStr(); 
 
   DEFAULT_RETURN;
 }
@@ -2625,7 +2630,7 @@ int passgn()
   LetGoID(d2,RETVAR_TYPE,1,0);
   // Cleanup the pointer-types in the LHS symbol (d1) before it goes out of scope.
   // Delete qstr if it exists.  This is the only pointer-type elements in StackType.
-  d1.symb->cleanupQStr(); 
+  // d1.symb->cleanupQStr(); 
   
   DEFAULT_RETURN;
 }
