@@ -2072,7 +2072,7 @@ int printEngine(const int doNewLine)
 
       if (d[i].symb && (ISSET(d[i].symb->type,QSTRING_TYPE)))
 	{
-	  OUTPUT << d[i].symb->otype.qstr;//->c_str();
+	  OUTPUT << *(d[i].symb->otype.qstr);//->c_str();
 	  if (d[i].symb->name.size()==0) uninstall(d[i].symb);
 	}
       /*
@@ -2450,10 +2450,16 @@ int assgn()
 	  //	  SETBIT(d1.type, QSTRING_TYPE);
 	  d1.type = d1.symb->type = QSTRING_TYPE;
 	  
-	  if (d1.symb->otype.qstr) {delete d1.symb->otype.qstr;d1.symb->otype.qstr=NULL;}
-	  // if (d1.symb->otype.qstr==NULL) 
-	  //   d1.symb->otype.qstr=new string;
-	  // *(d1.symb->otype.qstr) = *(d2.symb->otype.qstr);
+	  //if (d1.symb->otype.qstr) {delete d1.symb->otype.qstr;d1.symb->otype.qstr=NULL;}
+	  //	  if (d1.symb->otype.qstr==NULL) d1.symb->otype.qstr=new string;
+
+	  // The code in the two commented lines above moved to the
+	  // two methods below in Calc_Symbol (in defns.h) -- for
+	  // clarity and consistency between the new and delete
+	  // opertors.
+	  d1.symb->cleanupQStr(); // Delete qstr if it exists
+	  d1.symb->makeQStr();    // Allocat qstr
+	  *(d1.symb->otype.qstr) = *(d2.symb->otype.qstr);
 	}
     }
   //
@@ -2472,6 +2478,10 @@ int assgn()
   // Finally, clear the ID list of the LHS as well.
   //
   LetGoID(d2,RETVAR_TYPE,1,0);
+
+  // Cleanup the pointer-types in the LHS symbol (d1) before it goes out of scope.
+  // Delete qstr if it exists.  This is the only pointer-type elements in StackType.
+  d1.symb->cleanupQStr(); 
 
   DEFAULT_RETURN;
 }

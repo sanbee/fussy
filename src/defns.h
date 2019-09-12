@@ -154,6 +154,10 @@ typedef struct Calc_Symbol {
     string            *qstr;
   } otype;
   string              name;
+  
+  void cleanupQStr() {if (otype.qstr) delete otype.qstr;/*otype.qstr=NULL;*/};
+  void makeQStr() {if (otype.qstr==NULL) otype.qstr=new string;};
+
 } Calc_Symbol;
 
 struct StackType;
@@ -165,6 +169,8 @@ typedef struct StackType {
   Calc_Symbol         *symb;
   int                 units;
   string              fmt;
+  
+  void cleanupSymb() {symb->cleanupQStr();}
 } StackType;
 
 typedef struct FrameType {
