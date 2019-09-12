@@ -47,7 +47,7 @@
 #include <calc.h>
 #include <emath.h>
 #include <fussyparse.hh>
-#include <ErrorObj.h>
+#include <ErrorObjStr.h>
 #include <signal.h>
 #include <errno.h>
 #include <sys/types.h>
@@ -82,7 +82,7 @@ void handler(int sig)
       else if (sig==SIGSEGV) 
 	{
 	  boot();
-	  ReportErr("Detected a segementaion fault.","###Error",0);
+	  ReportErr(string("Detected a segementaion fault."),string("###Error"),0);
 	}
     }
   catch(ExitException& e) {exit(0);}
@@ -118,7 +118,7 @@ void LoadFile(const char *Name)
       fclose(rc);rc=NULL;
     }
   else	
-    ReportErr(strerror(errno),"###Informational",ErrorObj::Informational);
+    ReportErr(string(strerror(errno)),string("###Informational"),ErrorObj::Informational);
 }
 //
 //---------------------------------------------------------------------
@@ -257,11 +257,10 @@ int main(int argc, char *argv[])
 	NUMTYPE ans;
 	calc(NULL,&ans,NULL,NULL);
       }
-    catch (ErrorObj& e)        {e << e.what() << endl;}
+    catch (ErrorObj& e)        { e << e.what() << endl;}
     catch (BreakException& x)  {}
     catch (ReturnException& x) {}
     catch (ExitException& x)   {ErrorObj tt; tt << "Goodbye!" << endl;phinish=true;}
     catch (...) {MsgStream << "Caught an unknown exception" << endl;}
-  
 }
 

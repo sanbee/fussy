@@ -47,7 +47,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <IDResource.h>
-#include <ErrorObj.h>
+#include <ErrorObjStr.h>
 
 #undef  ECHO
 #define LINELEN    256

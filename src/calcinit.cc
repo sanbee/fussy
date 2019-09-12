@@ -39,7 +39,7 @@
 #include <calcinit.h>
 #include <math.h>
 //#include <AngFmt.h>
-#include <ErrorObj.h>
+#include <ErrorObjStr.h>
 #include "defns.h"
 #include <IDResource.h>
 
@@ -242,7 +242,7 @@ void CollectGarbage()
 //                       used to make decisions where the execption 
 //                       is caught.
 //                      
-void ReportErr(const char *Msg, const char *ErrType, const int& ErrLevel)
+void ReportErr(const string& Msg, const string& ErrType, const int& ErrLevel)
 {
   CollectGarbage();
   //
@@ -251,7 +251,7 @@ void ReportErr(const char *Msg, const char *ErrType, const int& ErrLevel)
   // consqeuences of this.
   //
   sp=InCStmt=InFuncDefn=0;
-  if (Msg) throw(ErrorObj(Msg,ErrType,ErrLevel));
+  if (Msg.length() > 0) throw(ErrorObj(Msg,ErrType,ErrLevel));
 }
 //
 //-------------------------------------------------------------------

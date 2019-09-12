@@ -14,6 +14,9 @@
 
 @SET_MAKE@
 
+# /******************************************************************
+#  * Copyright (c) 2000-2018, 2019 S.Bhatnagar
+#  *
 #   This file is part of fussy.
 #
 #   fussy is a free software: you can redistribute it and/or modify
@@ -126,8 +129,8 @@ am_libcalc_a_OBJECTS = src/libcalc_a-fussyparse.$(OBJEXT) \
 	src/libcalc_a-calcinit.$(OBJEXT) \
 	src/libcalc_a-tables.$(OBJEXT) src/libcalc_a-vcode.$(OBJEXT) \
 	src/libcalc_a-prtFuncs.$(OBJEXT) \
-	src/libcalc_a-ErrorObj.$(OBJEXT) src/libcalc_a-func.$(OBJEXT) \
-	src/libcalc_a-BitField.$(OBJEXT) \
+	src/libcalc_a-ErrorObjStr.$(OBJEXT) \
+	src/libcalc_a-func.$(OBJEXT) src/libcalc_a-BitField.$(OBJEXT) \
 	src/libcalc_a-IDResource.$(OBJEXT) \
 	src/libcalc_a-ExitMsg.$(OBJEXT)
 libcalc_a_OBJECTS = $(am_libcalc_a_OBJECTS)
@@ -577,7 +580,7 @@ libkum_a_SOURCES = src/sla/djm2e.f src/sla/ep2da.f src/sla/frye.f \
 				   src/sla/slapreces.f src/sla/slaprec.f
 
 libcalc_a_SOURCES = src/fussyparse.yy src/calcinit.cc src/tables.cc src/vcode.cc \
-				    src/prtFuncs.cc src/ErrorObj.cc src/func.cc src/BitField.cc \
+				    src/prtFuncs.cc src/ErrorObjStr.cc src/func.cc src/BitField.cc \
 					src/IDResource.cc src/ExitMsg.cc
 
 AM_YFLAGS = -d -t -y -p calc_
@@ -665,7 +668,7 @@ src/libcalc_a-vcode.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/libcalc_a-prtFuncs.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
-src/libcalc_a-ErrorObj.$(OBJEXT): src/$(am__dirstamp) \
+src/libcalc_a-ErrorObjStr.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
 src/libcalc_a-func.$(OBJEXT): src/$(am__dirstamp) \
 	src/$(DEPDIR)/$(am__dirstamp)
@@ -781,7 +784,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/fussy-fussy.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/fussy-vcode.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libcalc_a-BitField.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libcalc_a-ErrorObj.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libcalc_a-ErrorObjStr.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libcalc_a-ExitMsg.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libcalc_a-IDResource.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@src/$(DEPDIR)/libcalc_a-calcinit.Po@am__quote@
@@ -877,19 +880,19 @@ src/libcalc_a-prtFuncs.obj: src/prtFuncs.cc
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcalc_a_CXXFLAGS) $(CXXFLAGS) -c -o src/libcalc_a-prtFuncs.obj `if test -f 'src/prtFuncs.cc'; then $(CYGPATH_W) 'src/prtFuncs.cc'; else $(CYGPATH_W) '$(srcdir)/src/prtFuncs.cc'; fi`
 
-src/libcalc_a-ErrorObj.o: src/ErrorObj.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcalc_a_CXXFLAGS) $(CXXFLAGS) -MT src/libcalc_a-ErrorObj.o -MD -MP -MF src/$(DEPDIR)/libcalc_a-ErrorObj.Tpo -c -o src/libcalc_a-ErrorObj.o `test -f 'src/ErrorObj.cc' || echo '$(srcdir)/'`src/ErrorObj.cc
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libcalc_a-ErrorObj.Tpo src/$(DEPDIR)/libcalc_a-ErrorObj.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/ErrorObj.cc' object='src/libcalc_a-ErrorObj.o' libtool=no @AMDEPBACKSLASH@
+src/libcalc_a-ErrorObjStr.o: src/ErrorObjStr.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcalc_a_CXXFLAGS) $(CXXFLAGS) -MT src/libcalc_a-ErrorObjStr.o -MD -MP -MF src/$(DEPDIR)/libcalc_a-ErrorObjStr.Tpo -c -o src/libcalc_a-ErrorObjStr.o `test -f 'src/ErrorObjStr.cc' || echo '$(srcdir)/'`src/ErrorObjStr.cc
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libcalc_a-ErrorObjStr.Tpo src/$(DEPDIR)/libcalc_a-ErrorObjStr.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/ErrorObjStr.cc' object='src/libcalc_a-ErrorObjStr.o' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcalc_a_CXXFLAGS) $(CXXFLAGS) -c -o src/libcalc_a-ErrorObj.o `test -f 'src/ErrorObj.cc' || echo '$(srcdir)/'`src/ErrorObj.cc
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcalc_a_CXXFLAGS) $(CXXFLAGS) -c -o src/libcalc_a-ErrorObjStr.o `test -f 'src/ErrorObjStr.cc' || echo '$(srcdir)/'`src/ErrorObjStr.cc
 
-src/libcalc_a-ErrorObj.obj: src/ErrorObj.cc
-@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcalc_a_CXXFLAGS) $(CXXFLAGS) -MT src/libcalc_a-ErrorObj.obj -MD -MP -MF src/$(DEPDIR)/libcalc_a-ErrorObj.Tpo -c -o src/libcalc_a-ErrorObj.obj `if test -f 'src/ErrorObj.cc'; then $(CYGPATH_W) 'src/ErrorObj.cc'; else $(CYGPATH_W) '$(srcdir)/src/ErrorObj.cc'; fi`
-@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libcalc_a-ErrorObj.Tpo src/$(DEPDIR)/libcalc_a-ErrorObj.Po
-@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/ErrorObj.cc' object='src/libcalc_a-ErrorObj.obj' libtool=no @AMDEPBACKSLASH@
+src/libcalc_a-ErrorObjStr.obj: src/ErrorObjStr.cc
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcalc_a_CXXFLAGS) $(CXXFLAGS) -MT src/libcalc_a-ErrorObjStr.obj -MD -MP -MF src/$(DEPDIR)/libcalc_a-ErrorObjStr.Tpo -c -o src/libcalc_a-ErrorObjStr.obj `if test -f 'src/ErrorObjStr.cc'; then $(CYGPATH_W) 'src/ErrorObjStr.cc'; else $(CYGPATH_W) '$(srcdir)/src/ErrorObjStr.cc'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) src/$(DEPDIR)/libcalc_a-ErrorObjStr.Tpo src/$(DEPDIR)/libcalc_a-ErrorObjStr.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='src/ErrorObjStr.cc' object='src/libcalc_a-ErrorObjStr.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcalc_a_CXXFLAGS) $(CXXFLAGS) -c -o src/libcalc_a-ErrorObj.obj `if test -f 'src/ErrorObj.cc'; then $(CYGPATH_W) 'src/ErrorObj.cc'; else $(CYGPATH_W) '$(srcdir)/src/ErrorObj.cc'; fi`
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcalc_a_CXXFLAGS) $(CXXFLAGS) -c -o src/libcalc_a-ErrorObjStr.obj `if test -f 'src/ErrorObjStr.cc'; then $(CYGPATH_W) 'src/ErrorObjStr.cc'; else $(CYGPATH_W) '$(srcdir)/src/ErrorObjStr.cc'; fi`
 
 src/libcalc_a-func.o: src/func.cc
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(libcalc_a_CXXFLAGS) $(CXXFLAGS) -MT src/libcalc_a-func.o -MD -MP -MF src/$(DEPDIR)/libcalc_a-func.Tpo -c -o src/libcalc_a-func.o `test -f 'src/func.cc' || echo '$(srcdir)/'`src/func.cc

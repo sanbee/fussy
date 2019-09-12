@@ -45,7 +45,7 @@
 #include <iostream>
 #include <fstream>
 #include <sstream>
-#include <ErrorObj.h>
+#include <ErrorObjStr.h>
 #include "calc_lex_bison.h"
 #include <func.h>
 #include <list>
@@ -153,7 +153,7 @@
 //
 sentence:  terminator       {emit(STOP);return 0;}  // End of VM
 | stmtlist terminator       {emit(STOP);/*prtVM();cout << pc << endl;*/return 0;}
-| error                     {ReportErr(NULL,NULL,0);return SYNTAX_ERROR;}
+| error                     {ReportErr(string(),string(),0);return SYNTAX_ERROR;}
 | ENDOFINPUT                {return END_OF_INPUT;}
 ;
 //
@@ -383,9 +383,9 @@ defn: subprog              {$<symb>1=MakeSymb(Token,FSUC_TYPE);}
 //-------------------------------------------------------------------
 //
 auto: AUTO                 {if (!(InFuncDefn & ~(PROCRET))) 
-                             ReportErr("\"auto\" decleration is allowed only "
-				       "inside function/procedure defn",
-				       "###Error",0);
+                            ReportErr(string("\"auto\" decleration is allowed only "
+                                             "inside function/procedure defn"),
+                                      string("###Error"),0);
                            }
 
  farglist                  {$$=$3;}
@@ -556,7 +556,7 @@ varname: VAR                 {mpush($1);}
 			        {
 				  string msg="Undefined variable "
 				    + Token + " inside function definition";
-				  ReportErr(msg.c_str(), "###Error",0);
+				  ReportErr(msg, string("###Error"),0);
 			        }
                               $<symb>1=MakeSymb(Token); /* Also put it in the SymbTab */
                               emit2(vpush,(Instruction)$1);
@@ -564,7 +564,7 @@ varname: VAR                 {mpush($1);}
 | qstr                       {}
 | UNDEF error                {string msg="Undefined variable \"" + 
 			        Token + "\" used in rval";
-                              ReportErr(msg.c_str(),"###Error",0);
+                              ReportErr(msg,string("###Error"),0);
                              }
 ;
 //
@@ -577,7 +577,7 @@ asgn:  varname '=' expr      {emit(assgn);}
 				 yyerror((char *)"Syntax error");
 				 
 				 string msg="PROC used in an assigment ('=') statement";
-				 ReportErr(msg.c_str(),"###Error",ErrorObj::Fatal);
+				 ReportErr(msg,string("###Error"),ErrorObj::Fatal);
                              }
 ;
 //
@@ -590,7 +590,7 @@ pasgn:  varname PS expr      {emit(passgn);}
                                yyerror((char *)"Syntax error");
 
                                string msg="PROC used in an partial-assigment (':=') statement";
-			       ReportErr(msg.c_str(),"###Error",ErrorObj::Fatal);
+			       ReportErr(msg,string("###Error"),ErrorObj::Fatal);
                              }
 ;
 
@@ -622,7 +622,7 @@ expr:  symbtab_obj           {}
                                if ($3 != 1) 
                                 {
 			          string msg=$1->name+" needs exactly 1 argument";
-			          ReportErr(msg.c_str(),"###Error",ErrorObj::Recoverable);
+			          ReportErr(msg,string("###Error"),ErrorObj::Recoverable);
 			        }
                                emit2(bltin1, (Instruction)$1->otype.func1); 
                              }
@@ -630,11 +630,11 @@ expr:  symbtab_obj           {}
                                if ($3 != 2) 
                                 {
                                   string msg=$1->name+" needs exactly 2 argument";
-			          ReportErr(msg.c_str(),"###Error",ErrorObj::Recoverable);
+			          ReportErr(msg,string("###Error"),ErrorObj::Recoverable);
 			        }
 			       emit2(bltin2, (Instruction)$1->otype.func2);
                              }
-| expr '@' FMT               {ReportErr("Unit conversion not yet implemented","###Error",0);}
+| expr '@' FMT               {ReportErr(string("Unit conversion not yet implemented"),string("###Error"),0);}
 | expr '+' expr              {emit(add);}
 | expr '-' expr              {emit(sub);}
 | expr '*' expr              {emit(mul);}

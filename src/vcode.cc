@@ -133,7 +133,7 @@
 #include <tables.h>
 #include <fussyparse.hh>
 #include <AngFmt.h>
-#include <ErrorObj.h>
+#include <ErrorObjStr.h>
 #include <string>
 #include <defns.h>
 #include <sys/time.h>
@@ -196,9 +196,10 @@ Calc_Symbol*            GlobalDefaultFmt;
 template <class X> X& TOP(vector<X>& v) 
 {
   if (!v.size()) 
-    ReportErr("Illegal operation on stack or symbol table!\n            "
-	      "If you did not pass a proc as an argument where a func was\n            " 
-	      "expected, this is an internal error!","###Runtime",0);
+    ReportErr(string("Illegal operation on stack or symbol table!\n            "
+		     "If you did not pass a proc as an argument where a func was\n            " 
+		     "expected, this is an internal error!"),
+	      string("###Runtime"),0);
   return v.back();
 }
 //
@@ -586,7 +587,7 @@ NUMTYPE Run(VMac& P)
     {
       while((P[pc] != STOP))
 	{
-	  if (GlobalFlag & FLAG_CTRL_C) ReportErr("Interrupted!","###Runtime",0);
+	  if (GlobalFlag & FLAG_CTRL_C) ReportErr(string("Interrupted!"),string("###Runtime"),0);
 	  //i=(*(*P[pc++]))(); // Execute the current instruction and increment the PC
 	  (*(*P[pc++]))(); // Execute the current instruction and increment the PC
 	}
@@ -1241,7 +1242,7 @@ int add()
 	  //	  PUSH(DS[*i],dx);
 	}
       else
-	ReportErr("Internal error in operator+","###Error",0);
+	ReportErr(string("Internal error in operator+"),string("###Error"),0);
     }
 
 
@@ -1296,7 +1297,7 @@ int sub()
 	  TOP(DS[*i]) += dx;
 	}
       else
-	ReportErr("Internal error in operator-","###Error",0);
+	ReportErr(string("Internal error in operator-"),string("###Error"),0);
     }
   //
   // Construct a set of unique IDs among the two operands
@@ -1506,7 +1507,7 @@ int vdiv()
   d2 = TOP(stck);    POP(stck);
   d1 = TOP(stck);    POP(stck);
   if (d2.val.val()==0) 
-    ReportErr("Division by zero","###Runtime error",0);
+    ReportErr(string("Division by zero"),string("###Runtime error"),0);
   //NEW
   //
   // Construct a set of IDs common to both the operands
@@ -1658,7 +1659,7 @@ int power()
       PUSH(stck,d1);
     }
   else
-    ReportErr("Partial derivative undefined for 0^x!","###Informational",0);
+    ReportErr(string("Partial derivative undefined for 0^x!"),string("###Informational"),0);
 
   DEFAULT_RETURN;
 }
@@ -1697,7 +1698,7 @@ int getday()
   INIT_SYMB(d1,NULL,"%f",U_DAY);
   
   if (gettimeofday(&tv,NULL)==-1)
-    ReportErr("Could not get time of the day","###Error",0);
+    ReportErr(string("Could not get time of the day"),string("###Error"),0);
   time(&t);  tm = localtime(&t);
   d1.val = tm->tm_mday;
 
@@ -1728,7 +1729,7 @@ int getmonth()
   INIT_SYMB(d1,NULL,"%f",U_MONTH);
   
   if (gettimeofday(&tv,NULL)==-1)
-    ReportErr("Could not get time of the day","###Error",0);
+    ReportErr(string("Could not get time of the day"),string("###Error"),0);
   time(&t);  tm = localtime(&t);
   d1.val = tm->tm_mon+1;
   
@@ -1759,7 +1760,7 @@ int getyear()
   INIT_SYMB(d1,NULL,"%f",U_YEAR);
   
   if (gettimeofday(&tv,NULL)==-1)
-    ReportErr("Could not get time of the day","###Error",0);
+    ReportErr(string("Could not get time of the day"),string("###Error"),0);
   time(&t);  tm = localtime(&t);
   d1.val = tm->tm_year+1900;
   
@@ -1792,7 +1793,7 @@ int timeofday()
   
   //  if (gettimeofday(&tv,&tz)==-1)
   if (gettimeofday(&tv,NULL)==-1)
-    ReportErr("Could not get time of the day","###Error",0);
+    ReportErr(string("Could not get time of the day"),string("###Error"),0);
   time(&t);  tm = localtime(&t);
   
   d1.val.setval((((tm->tm_sec+tv.tv_usec*1E-6)/60.0+tm->tm_min)/60.0 +
@@ -1827,7 +1828,7 @@ int mjd()
   INIT_SYMB(d1,NULL,"%f",U_DAY);
   
   if (gettimeofday(&tv,NULL)==-1)
-    ReportErr("Could not get time of the day","###Error",0);
+    ReportErr(string("Could not get time of the day"),string("###Error"),0);
   
   time(&t);  tm = localtime(&t);
   
@@ -1865,7 +1866,7 @@ int fmjd()
   INIT_SYMB(d1,NULL,"%f",U_DAY);
   
   if (gettimeofday(&tv,NULL)==-1)
-    ReportErr("Could not get time of the day","###Error",0);
+    ReportErr(string("Could not get time of the day"),string("###Error"),0);
   
   time(&t);  tm = localtime(&t);
   
@@ -1908,7 +1909,7 @@ int lst()
   INIT_SYMB(d1,NULL,"%hms",U_RADIAN);
   
   if (gettimeofday(&tv,&tz)==-1)
-    ReportErr("Could not get time of the day","###Error",0);
+    ReportErr(string("Could not get time of the day"),string("###Error"),0);
   
   time(&t);  tm=gmtime(&t);
   
@@ -2889,8 +2890,8 @@ int call()
       
       pc=d.symb->otype.FuncStartPC;
       if (pc > (int)Prog.size() || pc < 0)
-	ReportErr("Program conuter gets invalid value for a function call",
-		  "###Runtime",0);
+	ReportErr(string("Program conuter gets invalid value for a function call"),
+		  string("###Runtime"),0);
       //
       // Next 2 locations of the VM program have the no. of autos and
       // arguments declared in the sub-prog. code respectively.
@@ -2899,7 +2900,7 @@ int call()
       NAutos = (long)Prog[pc++];
       
       if (N > NArgs)
-	ReportErr("Too many arguments in function call!","###Runtime",0);
+	ReportErr(string("Too many arguments in function call!"),string("###Runtime"),0);
       //
       // Push the current call frame on the Frame Stack and make space
       // on the Local Symbol Table to hold the formal arguments to the

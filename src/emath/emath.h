@@ -32,7 +32,7 @@
 #include <iostream>
 #include <math.h>
 #include <Err.h>
-void          ReportErr(const char *Msg, const char *ErrType, const int& ErrLevel);
+void          ReportErr(const string& Msg, const string& ErrType, const int& ErrLevel);
 //
 //-------------------Math functions for extended numbers-------------------------
 //
@@ -109,7 +109,7 @@ template<class T> inline Err<T> exp(Err<T> v0)
 template<class T> inline Err<T> log(Err<T> v0)
 {
   if (v0.val()<0)
-    ReportErr("Value out of range in log","###MathError",0);
+    ReportErr(string("Value out of range in log"),string("###MathError"),0);
 
   T x,dx;
   Err<T> tmp;
@@ -176,7 +176,7 @@ template<class T> inline Err<T> tan(Err<T> v0)
 template<class T> inline Err<T> asin(Err<T> v0)
 {
   if (fabs(v0.val()) > 1.0)
-    ReportErr("Value out of range in asin","###MathError",0);
+    ReportErr(string("Value out of range in asin"),string("###MathError"),0);
   T x,dx;
   Err<T> tmp;
 
@@ -196,7 +196,7 @@ template<class T> inline Err<T> asin(Err<T> v0)
 template<class T> inline Err<T> acos(Err<T> v0)
 {
   if (fabs(v0.val()) > 1.0)
-    ReportErr("Value out of range in acos","###MathError",0);
+    ReportErr(string("Value out of range in acos"),string("###MathError"),0);
   T x,dx;
   Err<T> tmp;
 
@@ -283,7 +283,7 @@ template<class T> inline Err<T> tanh(Err<T> v0)
   //  if (dx) dx = v0.rms()/dx;
   // NEW
   if (dx) dx = 1.0/(dx*dx);
-  else ReportErr("Division by zero in d(tanh)/dx","###MathError",0);
+  else ReportErr(string("Division by zero in d(tanh)/dx"),string("###MathError"),0);
   tmp.setval(x,dx);
   return tmp;
 }
@@ -308,7 +308,7 @@ template<class T> inline Err<T> asinh(Err<T> v0)
 template<class T> inline Err<T> acosh(Err<T> v0)
 {
   if (fabs(v0.val()) < 1.0)
-    ReportErr("Value out of range in acosh","###MathError",0);
+    ReportErr(string("Value out of range in acosh"),string("###MathError"),0);
   T x,dx;
   Err<T> tmp;
   x  = (T)acosh((double)v0.val());
@@ -326,7 +326,7 @@ template<class T> inline Err<T> acosh(Err<T> v0)
 template<class T> inline Err<T> atanh(Err<T> v0)
 {
   if (fabs(v0.val()) > 1.0)
-    ReportErr("Value out of range in atanh","###MathError",0);
+    ReportErr(string("Value out of range in atanh"),string("###MathError"),0);
   T x,dx;
   Err<T> tmp;
   x  = (T)atanh((double)v0.val());
@@ -345,7 +345,7 @@ template<class T> inline Err<T> atanh(Err<T> v0)
 template<class T> inline Err<T> sqrt(Err<T> v0)
 {
   if (v0.val() < 0)
-    ReportErr("Value out of range in sqrt","###MathError",0);
+    ReportErr(string("Value out of range in sqrt"),string("###MathError"),0);
   T x;
   Err<T> tmp;
   x  = (T)sqrt((double)v0.val());

@@ -77,7 +77,7 @@ void          prtLocSymbTab();
 void          prtCSymbTab();
 int           prtIDList();
 int           mpush(Calc_Symbol *);
-void          ReportErr(const char *Msg, const char *ErrType, const int& ErrLevel);
+void          ReportErr(const string& Msg, const string& ErrType, const int& ErrLevel);
 void          CollectGarbage();
 void          MakePersistant(Calc_Symbol*);
 void          MakeANumber(Calc_Symbol&S,float V,float E,char *Fmt=NULL);
