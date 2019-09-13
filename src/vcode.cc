@@ -582,7 +582,7 @@ NUMTYPE Run(VMac& P)
 #endif
       GetNewID(0); // Only resize the DS and ME
     }
-
+  //  prtVM();
   try
     {
       while((P[pc] != STOP))
@@ -617,6 +617,7 @@ Instruction emit(Instruction ins)
 int quit()
 {
   Prog.resize(0);
+  CollectGarbage();
   ExitException e;throw(e);
   DEFAULT_RETURN;
 }
@@ -651,7 +652,9 @@ int fcpush()
   t=((Calc_Symbol *)*Prog[pc]);
   d.val   = t->value;
   d.units = t->units;
-  d.fmt   = t->fmt;
+  d.type  = t->type;
+
+  if (ISSET(t->type,FMT_TYPE)) d.fmt   = t->fmt;
   pc++;
 
   d.symb=NULL;

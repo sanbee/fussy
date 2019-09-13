@@ -253,9 +253,9 @@ int main(int argc, char *argv[])
 	signal(SIGINT,handler);
 	signal(SIGSEGV,handler);
 	boot();
-	//calc(NULL,cout,NULL,NULL);
-	NUMTYPE ans;
-	calc(NULL,&ans,NULL,NULL);
+	calc(NULL,cout,NULL,NULL);
+	// NUMTYPE ans;
+	// calc(NULL,&ans,NULL,NULL);
       }
     catch (ErrorObj& e)        { e << e.what() << endl;}
     catch (BreakException& x)  {}
