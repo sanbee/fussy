@@ -371,13 +371,17 @@ EHEX    ({HEXD}({SPACE}?{ERROP}{SPACE}?{HEXD})?)
                            // participate in error propagation, they
                            // don't need a unique ID of their own).
                            //
-                           if (yylval.symb->otype.qstr!=&qstr)
+                           if (yylval.symb->otype.qstr==&qstr)
                              {
-                               //       IDR.ReleaseID(yylval.symb->ID);
-                               //       yylval.symb->ID=0;
+			       // If the qstring in the symb that got
+			       // installed on ConstTab is still
+			       // pointing to the local qstr, allocate
+			       // a new one on the ConstTab.
 
-                               yylval.symb->otype.qstr=new string;
-                               *(yylval.symb->otype.qstr)=qstr;
+			       // IDR.ReleaseID(yylval.symb->ID);
+			       // yylval.symb->ID=0;
+
+                               yylval.symb->makeQStr(qstr);
                              }
 
                            return QSTRING;

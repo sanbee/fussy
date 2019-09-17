@@ -746,6 +746,11 @@ Calc_Symbol *installConst(Calc_Symbol&d,int NewID)
       //
       if (NewID > -1) t->ID = NewID;
       else            t->ID=GetNewID();
+      // if (ISSET(d.type,QSTRING_TYPE) && (d.otype.qstr!=NULL))
+      // 	{
+      // 	  t->otype.qstr=new string;
+      // 	  *(t->otype.qstr)=*(d.otype.qstr);
+      // 	}
 
       //      t->ID=GetNewID();
     }

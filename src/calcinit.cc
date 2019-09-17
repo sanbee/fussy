@@ -262,8 +262,14 @@ void ReportErr(const string& Msg, const string& ErrType, const int& ErrLevel)
 //
 void MakePersistant(Calc_Symbol* C)
 {
-  if (ISSET(C->type,NUMBER_TYPE) || ISSET(C->type,QSTRING_TYPE))
-    (C->name[0])=(int)1;
+  // Get the pointer to the symbol on the ConstTab and set it's name
+  // to (int)1.  Names of symbols on ConstTab have no use and
+  // therefore used for other purposes (e.g. for marking them as
+  // permanent in this case).
+  Calc_Symbol *t;
+  if ((t=calcgetConst(*C))!=NULL) 
+    if (ISSET(t->type,NUMBER_TYPE) || ISSET(t->type,QSTRING_TYPE))
+      (t->name[0])=(int)1;
 }
 //
 //-------------------------------------------------------------------

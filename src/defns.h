@@ -156,7 +156,7 @@ typedef struct Calc_Symbol {
   string              name;
   
   void cleanupQStr() {if (otype.qstr) delete otype.qstr;/*otype.qstr=NULL;*/};
-  void makeQStr() {if (otype.qstr==NULL) otype.qstr=new string;};
+  void makeQStr(const string& s) {if (otype.qstr==NULL) otype.qstr=new string(s);};
 
 } Calc_Symbol;
 

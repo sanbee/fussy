@@ -172,8 +172,8 @@ extern IDResource       IDR;                    // The central ID resource
 DSType                  DS;             // The derivative stack (DS)
 VMac                    Prog;           // The VM program
 Stack                   stck;           // The VM stack (VMS)
-long int            sp=0;           // Stack pointer register
-long int            pc=0;           // Program counter register
+long unsigned int            sp=0;           // Stack pointer register
+long unsigned int            pc=0;           // Program counter register
 
 vector<BASIC_NUM>       MeasurementError;       // The ME table
 
@@ -2331,6 +2331,12 @@ int assgn()
   
   d2=TOP(stck);    POP(stck);
   d1=TOP(stck);    POP(stck);
+  // if (d1.symb->otype.qstr) 
+  //   {
+  //     cerr << "Q1: " << *(d1.symb->otype.qstr) << endl; 
+  //     delete  (d1.symb->otype.qstr);
+  //   }
+  //  if (d2.symb->otype.qstr) cerr << "Q2: " << *(d2.symb->otype.qstr) << endl;
 
   tdx = PropagateError(d2);
   ClearDS(d1);
@@ -2461,8 +2467,8 @@ int assgn()
 	  // clarity and consistency between the new and delete
 	  // operators.
 	  d1.symb->cleanupQStr(); // Delete qstr if it exists
-	  d1.symb->makeQStr();    // Allocate qstr
-	  *(d1.symb->otype.qstr) = *(d2.symb->otype.qstr);
+	  d1.symb->makeQStr(*(d2.symb->otype.qstr));    // Allocate qstr
+	  // *(d1.symb->otype.qstr) = *(d2.symb->otype.qstr);
 	}
     }
   //
@@ -2620,8 +2626,8 @@ int passgn()
 	  // if (d2.symb->otype.qstr) delete d2.symb->otype.qstr;
 	  // if (!d1.symb->otype.qstr)  d1.symb->otype.qstr=new string;
 	  d1.symb->cleanupQStr();
-	  d1.symb->makeQStr();
-	  *(d1.symb->otype.qstr) = *(d2.symb->otype.qstr);
+	  d1.symb->makeQStr(*(d2.symb->otype.qstr));
+	  //*(d1.symb->otype.qstr) = *(d2.symb->otype.qstr);
 	}
     }
   //
