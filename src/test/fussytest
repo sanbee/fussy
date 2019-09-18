@@ -77,8 +77,8 @@ run()
 	# Run functional unit tests
 	for f in $TestList
 	do
-	    c="("$Prog" "-q" "$f" $TestDir/quit )$Filter | grep -v "^\/\*" | diff - "$f.out| grep -v '^\/\*' ;
-	    cmd="($ProgBasename -q "$f" $TestDir/quit )$Filter  | diff - "$f.out;
+	    c="("$Prog" "-q" "$f" $TestDir/quit )$Filter | diff - "$f.out" | grep -v '^> \/\*' | grep '^[<|>]'";
+	    cmd="($ProgBasename -q "$f" $TestDir/quit )$Filter  | diff - "$f.out" | grep -v '^> \/\*' | grep '^[<|>]'";
 	    msg="$TestType test: "$cmd;
 	    wc=`echo $msg|wc -c`;
 	    let n=85-wc;
@@ -105,7 +105,7 @@ fi
 # Make a list of functional unit tests (file name convention: "test."+NAME)
 tmp=`ls $TestDir/test.*`;
 UnitTests=`for f in $tmp; do echo $f | grep -v out;done;`
-Filter="2> /dev/null | grep -v '^\/\*' ";
+Filter="2> /dev/null";
 
 run "$FUSSY" "$UnitTests" "Unit" "$Filter"
 echo
