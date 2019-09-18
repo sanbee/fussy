@@ -29,6 +29,7 @@
 #
 #--------------------------------------------------------------
 #
+let NFailed=0;
 PrintStatus()
 {
   let i=$2;
@@ -51,6 +52,7 @@ PrintStatus()
 
   if [ $STATUS = "[FAILED]" ];
   then
+    let NFailed=NFailed+1;
     echo "###Output of the above test = ";
     eval $3;
   fi;
@@ -88,8 +90,13 @@ run()
 	done
     else
 	echo $0": $Prog not found!";
-	exit 0;
+	exit 1;
     fi
+  exit $NFailed;
+#  if [ $NFailed -gt 0 ];
+#  then
+#     exit 1;
+#  fi 
 }
 #
 #--------------------------------------------------------------
