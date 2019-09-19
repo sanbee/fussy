@@ -47,7 +47,7 @@
 #include <calc.h>
 #include <emath.h>
 #include <fussyparse.hh>
-#include <ErrorObj.h>
+#include <ErrorObjStr.h>
 #include <signal.h>
 #include <errno.h>
 #include <sys/types.h>

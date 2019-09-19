@@ -172,8 +172,8 @@ extern IDResource       IDR;                    // The central ID resource
 DSType                  DS;             // The derivative stack (DS)
 VMac                    Prog;           // The VM program
 Stack                   stck;           // The VM stack (VMS)
-long int            sp=0;           // Stack pointer register
-long int            pc=0;           // Program counter register
+unsigned long int       sp=0;           // Stack pointer register
+unsigned long int       pc=0;           // Program counter register
 
 vector<BASIC_NUM>       MeasurementError;       // The ME table
 
