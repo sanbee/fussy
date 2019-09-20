@@ -266,8 +266,10 @@ Calc_Symbol *calcgetConst(Calc_Symbol& v)
       for (CI=ConstTab.begin(); CI!=ConstTab.end(); CI++) 
 	{
 	  s=&(*CI);
-	  if (ISSET(s->type,QSTRING_TYPE) && s->otype.qstr && 
-	      *(s->otype.qstr) == *(v.otype.qstr))
+	  // if (ISSET(s->type,QSTRING_TYPE) && s->otype.qstr && 
+	  //     *(s->otype.qstr) == *(v.otype.qstr))
+	  if (ISSET(s->type,QSTRING_TYPE) && 
+	      (s->qstr) == (v.qstr))
 	    break;
 	}
     }
@@ -295,7 +297,7 @@ void calcput(string &name)
 
   t.type = 0;
   t.value=0;
-  t.otype.qstr=NULL;
+  //  t.otype.qstr=NULL;
   t.name=name;
 
   calcput(t);
@@ -539,7 +541,7 @@ void EmptyLocalSymbTab(int NArgs, int NAutos)
 	      DS[tID].resize(0);
 	    }
 	}
-      if ((*CI).otype.qstr) delete (*CI).otype.qstr;
+      //if ((*CI).otype.qstr) delete (*CI).otype.qstr;
 #ifdef VERBOSE
       else
 	ERROUT << "###EmptyLocalSymb: not releasing because PARTIALVAR " << (*CI).ID << endl;
@@ -679,7 +681,7 @@ Calc_Symbol *install(const char *Name, int type, double v, double e)
   SETVAL(s->value,v,e);
 
   s->fmt=DEFAULT_FMT;
-  s->otype.qstr=NULL;
+  //s->otype.qstr=NULL;
   return s;
 }
 //

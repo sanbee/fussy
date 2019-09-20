@@ -405,6 +405,7 @@ stmt: asgn                 {emit(pop);       $$=Prog.size();}
 | qstr                     {emit(printcode); }
 | PRINT  prtlist           {
                             Calc_Symbol *s=install("",NUMBER_TYPE,$2,0);
+
                             emit2(fcpush,(Instruction)s);//No. of args on stack
                             emit($1); 
                             $$=Prog.size();// Print OP code

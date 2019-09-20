@@ -277,7 +277,7 @@ void HandleExtendedNum(const char *Units, const double &ToRadians)
            (err=((b[0]+(b[1]+b[2]/60.0)/60.0)*ToRadians)));
 
     d.fmt=DEFAULT_FMT;
-    d.otype.qstr=NULL;
+    //    d.otype.qstr=NULL;
     yylval.symb=installConst(d,(err!=0?-1:0));
   }
 }
@@ -359,7 +359,8 @@ EHEX    ({HEXD}({SPACE}?{ERROP}{SPACE}?{HEXD})?)
                            d.type=0; SETBIT(d.type,QSTRING_TYPE);
 
                            d.fmt=DEFAULT_STRING_FMT;
-                           d.otype.qstr=&qstr;
+                           //d.otype.qstr=&qstr;
+                           d.qstr=qstr;
                              
                            yylval.symb=installConst(d,0);
                            //
@@ -371,14 +372,14 @@ EHEX    ({HEXD}({SPACE}?{ERROP}{SPACE}?{HEXD})?)
                            // participate in error propagation, they
                            // don't need a unique ID of their own).
                            //
-                           if (yylval.symb->otype.qstr==&qstr)
-                             {
-                               //       IDR.ReleaseID(yylval.symb->ID);
-                               //       yylval.symb->ID=0;
+                           // if (yylval.symb->otype.qstr==&qstr)
+                           //   {
+                           //     //       IDR.ReleaseID(yylval.symb->ID);
+                           //     //       yylval.symb->ID=0;
 
-                               yylval.symb->otype.qstr=new string;
-                               *(yylval.symb->otype.qstr)=qstr;
-                             }
+                           //     yylval.symb->otype.qstr=new string;
+                           //     *(yylval.symb->otype.qstr)=qstr;
+                           //   }
 
                            return QSTRING;
                          }
@@ -444,7 +445,7 @@ EHEX    ({HEXD}({SPACE}?{ERROP}{SPACE}?{HEXD})?)
                              SETVAL(d.value,v,e);
 
                              d.fmt=DEFAULT_FMT;
-                             d.otype.qstr=NULL;
+                             //d.otype.qstr=NULL;
                              //
                              // Create a new ID only if the associated error 
                              // is non-zero.
@@ -529,7 +530,7 @@ setfmt                   {ECHO;                        return SETGFMT;}
                               SETVAL(d.value,v,e);
 
                               d.fmt=DEFAULT_FMT;
-                              d.otype.qstr=NULL;
+                              //d.otype.qstr=NULL;
                               yylval.symb=installConst(d,(e!=0?-1:0));
                             }
                             INCR_INDEX;

@@ -2008,13 +2008,16 @@ int setlat()
 //
 int setgfmt()
 {
-  GlobalDefaultFmt->fmt = *(TOP(stck).symb->otype.qstr);
+  //  GlobalDefaultFmt->fmt = *(TOP(stck).symb->otype.qstr);
+  GlobalDefaultFmt->fmt = (TOP(stck).symb->qstr);
   //
   // Setting the return value to a message which then gets printed by
   // printcode().
   //
-  *(TOP(stck).symb->otype.qstr)=string("###Informational: Default Format = ")
-    +string(*(TOP(stck).symb->otype.qstr))+string("\n");;
+  // *(TOP(stck).symb->otype.qstr)=string("###Informational: Default Format = ")
+  //   +string(*(TOP(stck).symb->otype.qstr))+string("\n");;
+  (TOP(stck).symb->qstr)=string("###Informational: Default Format = ")
+    +string((TOP(stck).symb->qstr))+string("\n");;
   DEFAULT_RETURN;
 }
 //
@@ -2070,7 +2073,8 @@ int printEngine(const int doNewLine)
 
       if (d[i].symb && (ISSET(d[i].symb->type,QSTRING_TYPE)))
 	{
-	  OUTPUT << d[i].symb->otype.qstr->c_str();
+	  //OUTPUT << d[i].symb->otype.qstr->c_str();
+	  OUTPUT << d[i].symb->qstr;
 	  if (d[i].symb->name.size()==0) uninstall(d[i].symb);
 	}
       /*
@@ -2442,9 +2446,10 @@ int assgn()
 	  d1.type = d1.symb->type = QSTRING_TYPE;
 	  
 	  //	  if (d2.symb->otype.qstr) delete d2.symb->otype.qstr;
-	  if (!d1.symb->otype.qstr) 
-	    d1.symb->otype.qstr=new string;
-	  *(d1.symb->otype.qstr) = *(d2.symb->otype.qstr);
+	  // if (!d1.symb->otype.qstr) 
+	  //   d1.symb->otype.qstr=new string;
+	  // *(d1.symb->otype.qstr) = *(d2.symb->otype.qstr);
+	  (d1.symb->qstr) = (d2.symb->qstr);
 	}
     }
   //
@@ -2591,9 +2596,10 @@ int passgn()
 	  SETBIT(d1.symb->type,QSTRING_TYPE);
 	  
 	  //	  if (d2.symb->otype.qstr) delete d2.symb->otype.qstr;
-	  if (!d1.symb->otype.qstr) 
-	    d1.symb->otype.qstr=new string;
-	  *(d1.symb->otype.qstr) = *(d2.symb->otype.qstr);
+	  // if (!d1.symb->otype.qstr) 
+	  //   d1.symb->otype.qstr=new string;
+	  // *(d1.symb->otype.qstr) = *(d2.symb->otype.qstr);
+	  (d1.symb->qstr) = (d2.symb->qstr);
 	}
     }
   //
@@ -2780,8 +2786,8 @@ int printcode()
   //
   if (d.symb && ISSET(d.symb->type,QSTRING_TYPE)) 
     {
-      OUTPUT << format(d.fmt.c_str()) << d.symb->otype.qstr->c_str();
-      //	fprintf(OUTSTREAM,d.fmt.c_str(),d.symb->otype.qstr->c_str());
+      //      OUTPUT << format(d.fmt.c_str()) << d.symb->otype.qstr->c_str();
+      OUTPUT << format(d.fmt.c_str()) << d.symb->qstr;
       return 1;
     }
   else if (d.symb && ISSET(d.symb->type,FMT_TYPE))
@@ -3005,7 +3011,7 @@ int call()
 	  (*CI).type=0;
 	  SETBIT((*CI).type,AUTOVAR_TYPE);
 
-	  (*CI).otype.qstr=NULL;
+	  //(*CI).otype.qstr=NULL;
 	  //	  (*CI).value.setval(0,0);
 	  //	  MeasurementError[(*CI).ID-1] = 0.0;
 	  CI--;

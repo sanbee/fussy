@@ -158,8 +158,8 @@ typedef struct Calc_Symbol {
     NUMTYPE           (*func1)(NUMTYPE);
     NUMTYPE           (*func2)(NUMTYPE,NUMTYPE);
     int               FuncStartPC;
-    string            *qstr;
   } otype;
+  string              qstr;
   string              name;
 } Calc_Symbol;
 

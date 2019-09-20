@@ -139,7 +139,8 @@ void prtVM()
 	  else cerr << " CONST " << (long)Prog[i] << endl;
 	}
       //      else if (ISSET(s->type,BUILTIN_TYPE))  {cerr << " bultin_fn" << endl;}
-      else if (ISSET(s->type,QSTRING_TYPE))  {prtString(s->otype.qstr->c_str());cerr << endl;}
+      //      else if (ISSET(s->type,QSTRING_TYPE))  {prtString(s->otype.qstr->c_str());cerr << endl;}
+      else if (ISSET(s->type,QSTRING_TYPE))  {prtString(s->qstr.c_str());cerr << endl;}
       else if (ISSET(s->type,FMT_TYPE))      {prtString(s->fmt.c_str());cerr << endl;}
       else if (ISSET(s->type,AUTOVAR_TYPE))  {cerr << s->name << endl;}
       else if (ISSET(s->type,PROC_TYPE) || ISSET(s->type,FUNC_TYPE)) 
@@ -218,7 +219,7 @@ template<class T> void prtSymb(T& CI)
 	      else cerr  << CI->ID;
 	      cerr << "\t Value= ";
 	      if (ISSET(CI->type,QSTRING_TYPE))
-		prtString(CI->otype.qstr->c_str());
+		prtString(CI->qstr.c_str());
 	      else if (ISSET(CI->type,FMT_TYPE))
 		cerr << CI->fmt << " ";
 	      else
@@ -284,7 +285,8 @@ void prtCSymbTab()
       else if (ISSET(CI->type,FMT_TYPE))     cerr  << CI->fmt << " ID = " << CI->ID << " ";
       else if (ISSET(CI->type,QSTRING_TYPE)) 
 	{
-	  prtString(CI->otype.qstr->c_str());
+	  //prtString(CI->otype.qstr->c_str());
+	  prtString(CI->qstr.c_str());
 	  cerr << " ID = " << CI->ID << " ";
 	}
       cerr << "  Type=";
