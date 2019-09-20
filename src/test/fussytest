@@ -92,7 +92,6 @@ run()
 	echo $0": $Prog not found!";
 	exit 1;
     fi
-  exit $NFailed;
 #  if [ $NFailed -gt 0 ];
 #  then
 #     exit 1;
@@ -128,4 +127,5 @@ run "$FUSSY" "$ErrorUnitTests" "Error-condition" "$Filter"
 #
 #--------------------------------------------------------------
 #
+exit $NFailed;
 
