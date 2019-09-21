@@ -77,7 +77,7 @@
   //
   //------------------------------------------------------------------------------
   //
-  Calc_Symbol *MakeSymb(string& Name,int Type=VAR_TYPE, const char *Fmt=DEFAULT_FMT.c_str())
+  Calc_Symbol *MakeSymb(string& /*Name*/,int Type=VAR_TYPE, const char *Fmt=DEFAULT_FMT.c_str())
     {
       Calc_Symbol *t;
       unsigned int ID;

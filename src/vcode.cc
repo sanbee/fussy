@@ -172,8 +172,8 @@ extern IDResource       IDR;                    // The central ID resource
 DSType                  DS;             // The derivative stack (DS)
 VMac                    Prog;           // The VM program
 Stack                   stck;           // The VM stack (VMS)
-unsigned long int       sp=0;           // Stack pointer register
-unsigned long int       pc=0;           // Program counter register
+long int       sp=0;           // Stack pointer register
+long int       pc=0;           // Program counter register
 
 vector<BASIC_NUM>       MeasurementError;       // The ME table
 
@@ -347,7 +347,7 @@ void ClearIDL(IDList &d)
 //                       If == 1, uninstall if it is in TmpSymbTab but not
 //                       persistant (i.e. not in SymbTab or ConstTab)
 //
-void LetGoID(StackType &d, unsigned int TYPE, int ReleaseID=1, 
+void LetGoID(StackType &d, unsigned int /*TYPE*/, int ReleaseID=1, 
 	     int Check=1, int UnInstall=1)
 {
   Calc_Symbol *PersistantVar=NULL, *TmpVar=NULL;

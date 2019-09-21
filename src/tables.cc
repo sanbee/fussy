@@ -123,7 +123,7 @@ Calc_Symbol *CheckIDList(SymbTabType::const_iterator CI, IDType ID)
 //
 //-------------------------------------------------------------------
 //
-Calc_Symbol *IsIDinGivenTab(IDType ID, SymbTabType& tab,const char *name)
+Calc_Symbol *IsIDinGivenTab(IDType ID, SymbTabType& tab,const char */*name*/)
 {
   SymbTabType::const_iterator CI,Start,Stop;
   Start=tab.begin(); Stop=tab.end();
@@ -437,7 +437,7 @@ void uninstall(IDType i, TmpSymbTabType& tab)
 //    int N                NOT USED
 //    int Type             The type of the new symbol.
 //
-void LocalSymbInstall(const char *Name,int N,int Type=VAR_TYPE)
+void LocalSymbInstall(const char *Name,int /*N*/,int Type=VAR_TYPE)
 {
   LocalSymbTabType::const_iterator CI;
   int Found=0;
@@ -674,7 +674,7 @@ void MkSpaceOnLocalSymbTab(int N)
 //  double v           The value of the new symbol.
 //  double e           The error associated with the new symbol.
 //
-Calc_Symbol *install(const char *Name, int type, double v, double e)
+Calc_Symbol *install(const char */*Name*/, int type, double v, double e)
 {
   Calc_Symbol *s=new Calc_Symbol;
   s->type = type;

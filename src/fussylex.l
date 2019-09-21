@@ -117,16 +117,18 @@ void fussy_inp(char *buf, int *result, int max_size)
       Calc_line=(char *) readline((char *)Calc_prompt.c_str());
       // If readline retuns NULL (e.g., when the input is Ctrl-D), print a message and
       // exit when FUSSY_IGNOREEOF<=0.
-      if (Calc_line == NULL) 
-	if (FUSSY_IGNOREEOF > 0)
-	  {
-	    FUSSY_IGNOREEOF--;
-	    fprintf(rl_outstream,"Use \'quit\' to exit.  Will ignore next %d EOF(s).\n",FUSSY_IGNOREEOF);
-	  }
-	else
-	  {
-	    ExitException e;throw(e);
-	  }
+      if (Calc_line == NULL)
+	{
+	  if (FUSSY_IGNOREEOF > 0)
+	    {
+	      FUSSY_IGNOREEOF--;
+	      fprintf(rl_outstream,"Use \'quit\' to exit.  Will ignore next %d EOF(s).\n",FUSSY_IGNOREEOF);
+	    }
+	  else
+	    {
+	      ExitException e;throw(e);
+	    }
+	}
       if (Calc_line && strlen(Calc_line) && rl_instream==stdin)
         {
           stripwhite(Calc_line);
@@ -264,7 +266,8 @@ void HandleExtendedNum(const char *Units, const double &ToRadians)
   ECHO;
   NumFromENum(yytext,i,j); 
   split3(&yytext[i],j-1,Units,a);
-  if ((unsigned int)j < yyleng) 
+  //  if ((unsigned int)j < yyleng) 
+  if (j < yyleng) 
     split3(&yytext[j],yyleng-j,Units,b);
   
   {
@@ -435,7 +438,7 @@ EHEX    ({HEXD}({SPACE}?{ERROP}{SPACE}?{HEXD})?)
 
                            NumFromENum(yytext,v_ndx,e_ndx);
                            sscanf(&yytext[v_ndx],"%lf",&v);
-                           if ((unsigned int)e_ndx < yyleng) 
+                           if (e_ndx < yyleng) 
                              sscanf(&yytext[e_ndx],"%lf",&e);
 
                            {
