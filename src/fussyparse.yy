@@ -411,7 +411,6 @@ stmt: asgn                 {emit(pop);       $$=Prog.size();}
 			    emit2(fcpush,(Instruction)installConst(s,0));//No. of args on stack 
                             emit($1); 
                             $$=Prog.size();// Print OP code
-			    prtVM();
                            }
 | PRINTN  prtlist          {
                             /* Calc_Symbol *s=install("",NUMBER_TYPE,$2,0); */
