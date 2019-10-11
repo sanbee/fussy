@@ -287,7 +287,7 @@ void MakeANumber(Calc_Symbol &S, float V, float E, char *Fmt)
   SETVAL(S.value,V,E);
   if (Fmt) S.fmt=Fmt;
   else S.fmt=DEFAULT_FMT;
-  S.otype.qstr=NULL;
+  S.qstr="";
 }
 //
 //-------------------------------------------------------------------

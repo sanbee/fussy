@@ -63,21 +63,22 @@ extern IDResource       IDR;                    // The central ID resource
 //-----------------------------------------------------------------
 // Print a string value.
 //
-void prtString(const char *Str)
+void prtString(const string &Str)
 {
-  int N;
-  N=strlen(Str);
-  cerr << " \"";
-  for(int j=0;j<N;j++)
-    {
-      switch(Str[j])
-	{
-	case '\n': cerr <<"\\n"; break;
-	case '\t': cerr <<"\\t"; break;
-	default: cerr << Str[j];
-	}
-    }
-  cerr<< "\"";
+  cerr << " \"" << Str << "\"";
+  // int N;
+  // N=strlen(Str);
+  // cerr << " \"";
+  // for(int j=0;j<N;j++)
+  //   {
+  //     switch(Str[j])
+  // 	{
+  // 	case '\n': cerr <<"\\n"; break;
+  // 	case '\t': cerr <<"\\t"; break;
+  // 	default: cerr << Str[j];
+  // 	}
+  //   }
+  // cerr<< "\"";
 }
 int getBuiltinFnName(ostream &os, int PC, void *Ptr)
 {
@@ -139,8 +140,8 @@ void prtVM()
 	  else cerr << " CONST " << (long)Prog[i] << endl;
 	}
       //      else if (ISSET(s->type,BUILTIN_TYPE))  {cerr << " bultin_fn" << endl;}
-      else if (ISSET(s->type,QSTRING_TYPE))  {prtString(s->otype.qstr->c_str());cerr << endl;}
-      else if (ISSET(s->type,FMT_TYPE))      {prtString(s->fmt.c_str());cerr << endl;}
+      else if (ISSET(s->type,QSTRING_TYPE))  {prtString(s->qstr);cerr << endl;}
+      else if (ISSET(s->type,FMT_TYPE))      {prtString(s->fmt);cerr << endl;}
       else if (ISSET(s->type,AUTOVAR_TYPE))  {cerr << s->name << endl;}
       else if (ISSET(s->type,PROC_TYPE) || ISSET(s->type,FUNC_TYPE)) 
 	cerr << " " << s->name << endl;
@@ -218,7 +219,7 @@ template<class T> void prtSymb(T& CI)
 	      else cerr  << CI->ID;
 	      cerr << "\t Value= ";
 	      if (ISSET(CI->type,QSTRING_TYPE))
-		prtString(CI->otype.qstr->c_str());
+		prtString(CI->qstr);
 	      else if (ISSET(CI->type,FMT_TYPE))
 		cerr << CI->fmt << " ";
 	      else
@@ -284,7 +285,7 @@ void prtCSymbTab()
       else if (ISSET(CI->type,FMT_TYPE))     cerr  << CI->fmt << " ID = " << CI->ID << " ";
       else if (ISSET(CI->type,QSTRING_TYPE)) 
 	{
-	  prtString(CI->otype.qstr->c_str());
+	  prtString(CI->qstr);
 	  cerr << " ID = " << CI->ID << " ";
 	}
       cerr << "  Type=";

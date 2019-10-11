@@ -2013,13 +2013,13 @@ int setlat()
 //
 int setgfmt()
 {
-  GlobalDefaultFmt->fmt = *(TOP(stck).symb->otype.qstr);
+  GlobalDefaultFmt->fmt = (TOP(stck).symb->qstr);
   //
   // Setting the return value to a message which then gets printed by
   // printcode().
   //
-  *(TOP(stck).symb->otype.qstr)=string("###Informational: Default Format = ")
-    +string(*(TOP(stck).symb->otype.qstr))+string("\n");;
+  (TOP(stck).symb->qstr)=string("###Informational: Default Format = ")
+    +TOP(stck).symb->qstr+"\n";;
   DEFAULT_RETURN;
 }
 //
@@ -2075,7 +2075,7 @@ int printEngine(const int doNewLine)
 
       if (d[i].symb && (ISSET(d[i].symb->type,QSTRING_TYPE)))
 	{
-	  OUTPUT << *(d[i].symb->otype.qstr);//->c_str();
+	  OUTPUT << (d[i].symb->qstr);//->c_str();
 	  if (d[i].symb->name.size()==0) uninstall(d[i].symb);
 	}
       /*
@@ -2320,8 +2320,8 @@ int assgn()
 
   DBG("assgn");
 
-  symb1.otype.qstr=NULL;//&s1;
-  symb2.otype.qstr=NULL;//&s2;
+  symb1.qstr="";//&s1;
+  symb2.qstr="";//&s2;
   d1.symb=&symb1;
   d2.symb=&symb2;
 
@@ -2466,9 +2466,9 @@ int assgn()
 	  // two methods below in Calc_Symbol (in defns.h) -- for
 	  // clarity and consistency between the new and delete
 	  // operators.
-	  d1.symb->cleanupQStr(); // Delete qstr if it exists
-	  d1.symb->makeQStr(*(d2.symb->otype.qstr));    // Allocate qstr
-	  // *(d1.symb->otype.qstr) = *(d2.symb->otype.qstr);
+	  // d1.symb->cleanupQStr(); // Delete qstr if it exists
+	  // d1.symb->makeQStr(*(d2.symb->otype.qstr));    // Allocate qstr
+	  (d1.symb->qstr) = (d2.symb->qstr);
 	}
     }
   //
@@ -2625,9 +2625,9 @@ int passgn()
 	  
 	  // if (d2.symb->otype.qstr) delete d2.symb->otype.qstr;
 	  // if (!d1.symb->otype.qstr)  d1.symb->otype.qstr=new string;
-	  d1.symb->cleanupQStr();
-	  d1.symb->makeQStr(*(d2.symb->otype.qstr));
-	  //*(d1.symb->otype.qstr) = *(d2.symb->otype.qstr);
+	  // d1.symb->cleanupQStr();
+	  // d1.symb->makeQStr(*(d2.symb->otype.qstr));
+	  (d1.symb->qstr) = (d2.symb->qstr);
 	}
     }
   //
@@ -2817,7 +2817,7 @@ int printcode()
   //
   if (d.symb && ISSET(d.symb->type,QSTRING_TYPE)) 
     {
-      OUTPUT << format(d.fmt.c_str()) << d.symb->otype.qstr->c_str();
+      OUTPUT << format(d.fmt.c_str()) << d.symb->qstr;
       //	fprintf(OUTSTREAM,d.fmt.c_str(),d.symb->otype.qstr->c_str());
       return 1;
     }
@@ -3042,7 +3042,7 @@ int call()
 	  (*CI).type=0;
 	  SETBIT((*CI).type,AUTOVAR_TYPE);
 
-	  (*CI).otype.qstr=NULL;
+	  (*CI).qstr="";
 	  //	  (*CI).value.setval(0,0);
 	  //	  MeasurementError[(*CI).ID-1] = 0.0;
 	  CI--;

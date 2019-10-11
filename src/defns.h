@@ -151,12 +151,12 @@ typedef struct Calc_Symbol {
     NUMTYPE           (*func1)(NUMTYPE);
     NUMTYPE           (*func2)(NUMTYPE,NUMTYPE);
     int               FuncStartPC;
-    string            *qstr;
   } otype;
+  string              qstr;
   string              name;
   
-  void cleanupQStr() {if (otype.qstr) delete otype.qstr;/*otype.qstr=NULL;*/};
-  void makeQStr(const string& s) {if (otype.qstr==NULL) otype.qstr=new string(s);};
+  // void cleanupQStr() {if (otype.qstr) delete otype.qstr;/*otype.qstr=NULL;*/};
+  // void makeQStr(const string& s) {if (otype.qstr==NULL) otype.qstr=new string(s);};
 
 } Calc_Symbol;
 
@@ -170,7 +170,7 @@ typedef struct StackType {
   int                 units;
   string              fmt;
   
-  void cleanupSymb() {symb->cleanupQStr();}
+  // void cleanupSymb() {symb->cleanupQStr();}
 } StackType;
 
 typedef struct FrameType {
