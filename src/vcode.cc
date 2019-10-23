@@ -650,6 +650,9 @@ int fcpush()
   t=((Calc_Symbol *)*Prog[pc]);
   d.val   = t->value;
   d.units = t->units;
+  d.type  = t->type;
+
+  if (ISSET(t->type,FMT_TYPE)) d.fmt   = t->fmt;
   d.fmt   = t->fmt;
   pc++;
 

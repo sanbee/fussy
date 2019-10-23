@@ -161,6 +161,9 @@ typedef struct Calc_Symbol {
   } otype;
   string              qstr;
   string              name;
+
+  Calc_Symbol(): type(0), ID(),IDL(),DSList(),dx(),fmt(),qstr(),name() {};
+
 } Calc_Symbol;
 
 struct StackType;
@@ -172,6 +175,8 @@ typedef struct StackType {
   Calc_Symbol         *symb;
   int                 units;
   string              fmt;
+
+  StackType(): type(0), ID(),symb(NULL),fmt() {};
 } StackType;
 
 typedef struct FrameType {
