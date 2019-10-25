@@ -198,7 +198,6 @@ void prtVM()
 
     }
 }
-//template<class T> void prtSymb(SymbTabType::iterator& CI)
 template<class T> void prtSymb(T& CI)
 {
       unsigned int type;
@@ -236,6 +235,7 @@ template<class T> void prtSymb(T& CI)
 	    }
 	}
 }
+//template void prtSymb(Calc_Symbol*&);
 //void  prtSymb<SymbTableType::iterator>;
 //
 //-----------------------------------------------------------------

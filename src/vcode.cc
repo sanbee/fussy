@@ -2997,8 +2997,21 @@ int call()
 	  if (d.symb) 
 	    {
 	      (*CI).otype.FuncStartPC=d.symb->otype.FuncStartPC;
-	      //	      SETBIT((*CI).type,d.symb->type);
+
+	      if (ISSET(d.symb->type,QSTRING_TYPE)) SETBIT((*CI).type,QSTRING_TYPE);
+	      if (ISSET(d.symb->type,NUMBER_TYPE))  SETBIT((*CI).type,NUMBER_TYPE);
+
+	      (*CI).qstr=d.symb->qstr;
+	      (*CI).fmt=d.symb->fmt;
+	      (*CI).name=d.symb->name;
+	      (*CI).units=d.symb->units;
+
+	      // SETBIT((*CI).type,d.symb->type);
 	    }
+      // {
+      // 	Calc_Symbol *tt=&*CI;
+      // 	cerr << "call: "; prtSymb<Calc_Symbol *>(tt); cerr << endl;
+      // }
 	  CI--;
 	}
       //
@@ -3112,6 +3125,7 @@ int ret()
       // (the ReturnExecption takes the execution exactly there).
       //
       d = TOP(stck);      POP(stck);
+
       
 #ifdef VERBOSE
       prtTypes(d);
@@ -3183,7 +3197,11 @@ int ret()
 
 	  if (d.symb) 
 	    {
-	      r.symb->type = 0;
+	      r.symb->type = d.symb->type;
+	      r.symb->fmt = d.symb->fmt;
+	      r.symb->qstr = d.symb->qstr;
+	      r.symb->name = d.symb->name;
+
 	      SETBIT(r.symb->type,RETVAR_TYPE|PARTIALVAR_TYPE);
 	      r.symb->units = d.symb->units;
 	    }
@@ -3250,11 +3268,13 @@ int ret()
 #endif
 
       if (ISSET(d.symb->type,AUTOVAR_TYPE)) SETBIT(r.symb->type,AUTOVAR_TYPE);
+      if (ISSET(d.symb->type,NUMBER_TYPE)) SETBIT(r.symb->type,NUMBER_TYPE);
       if (ISSET(d.symb->type,RETVAR_TYPE))        LetGoID(d,RETVAR_TYPE,0,0);
       else if (!ISSET(d.symb->type,AUTOVAR_TYPE)) LetGoID(d,RETVAR_TYPE);
 #ifdef VERBOSE
       ERROUT << "Onto stack types: " << endl; prtTypes(r);
 #endif
+      //      cerr << "ret: "; prtSymb<Calc_Symbol *>(r.symb); cerr << endl;
       PUSH(stck,r);
     }
   //

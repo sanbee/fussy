@@ -41,7 +41,7 @@
 BitField::BitField(int N)
 {
   CurPos = 0;
-  BYTELEN=8*sizeof(char);
+  BYTELEN=sizeof(char);
   if (Size*BYTELEN < (unsigned int)N)  resize(N);
 }
 //
