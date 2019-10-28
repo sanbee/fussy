@@ -43,6 +43,7 @@
 #include <BitField.h>
 #include <string>
 #include <set>
+#include <units.h>
 #include "namespace.h"
 //
 // Type of symbols, used internally to find
@@ -152,7 +153,7 @@ typedef struct Calc_Symbol {
   vector<BASIC_NUM>   DSList, dx;
 
   NUMTYPE             value;
-  long int                 units;
+  long int            units;
   string              fmt;
   union {
     NUMTYPE           (*func1)(NUMTYPE);
@@ -162,7 +163,7 @@ typedef struct Calc_Symbol {
   string              qstr;
   string              name;
 
-  Calc_Symbol(): type(0), ID(),IDL(),DSList(),dx(),fmt(),qstr(),name() {};
+  Calc_Symbol(): type(0), ID(),IDL(),DSList(),dx(),value(0),units(U_UNDEFINED),fmt(),otype(), qstr(),name() {};
 
 } Calc_Symbol;
 
@@ -176,7 +177,7 @@ typedef struct StackType {
   int                 units;
   string              fmt;
 
-  StackType(): type(0), ID(),symb(NULL),fmt() {};
+  StackType(): type(0), ID(),val(), symb(NULL),fmt() {};
 } StackType;
 
 typedef struct FrameType {

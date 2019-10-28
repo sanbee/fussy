@@ -584,6 +584,7 @@ NUMTYPE Run(VMac& P)
 
   try
     {
+      //      prtVM();
       while((P[pc] != STOP))
 	{
 	  if (GlobalFlag & FLAG_CTRL_C) ReportErr("Interrupted!","###Runtime",0);
@@ -2788,6 +2789,8 @@ int printcode()
   //
   // Print a QSTRING
   //
+  // cerr << d.symb << endl;
+  // cerr << "printcode: "; prtSymb<Calc_Symbol *>(d.symb); cerr << endl;
   if (d.symb && ISSET(d.symb->type,QSTRING_TYPE)) 
     {
       //      OUTPUT << format(d.fmt.c_str()) << d.symb->otype.qstr->c_str();
@@ -2993,7 +2996,7 @@ int call()
 	  //
 	  DS.resize(IDR.HighestID()+1);
 	  N=*d.ID.begin();
-
+	  //	  cerr << "call: "; prtSymb<Calc_Symbol *>(d.symb); cerr << endl;
 	  if (d.symb) 
 	    {
 	      (*CI).otype.FuncStartPC=d.symb->otype.FuncStartPC;
@@ -3003,11 +3006,13 @@ int call()
 
 	      (*CI).qstr=d.symb->qstr;
 	      (*CI).fmt=d.symb->fmt;
-	      (*CI).name=d.symb->name;
+	      //	      (*CI).name=d.symb->name;
 	      (*CI).units=d.symb->units;
 
 	      // SETBIT((*CI).type,d.symb->type);
 	    }
+	  // Calc_Symbol *t=&*CI;
+	  // cerr << "call: "; prtSymb<Calc_Symbol *>(t); cerr << endl;
       // {
       // 	Calc_Symbol *tt=&*CI;
       // 	cerr << "call: "; prtSymb<Calc_Symbol *>(tt); cerr << endl;
@@ -3126,7 +3131,7 @@ int ret()
       //
       d = TOP(stck);      POP(stck);
 
-      
+      //      cerr << "call: d: "; prtSymb(d.symb); cerr << endl;
 #ifdef VERBOSE
       prtTypes(d);
       ERROUT << "Ret in: " << *(d.ID.begin()) <<  " " << stck.size() << endl;
@@ -3200,7 +3205,7 @@ int ret()
 	      r.symb->type = d.symb->type;
 	      r.symb->fmt = d.symb->fmt;
 	      r.symb->qstr = d.symb->qstr;
-	      r.symb->name = d.symb->name;
+	      //	      r.symb->name = d.symb->name;
 
 	      SETBIT(r.symb->type,RETVAR_TYPE|PARTIALVAR_TYPE);
 	      r.symb->units = d.symb->units;
@@ -3269,14 +3274,16 @@ int ret()
 
       if (ISSET(d.symb->type,AUTOVAR_TYPE)) SETBIT(r.symb->type,AUTOVAR_TYPE);
       if (ISSET(d.symb->type,NUMBER_TYPE)) SETBIT(r.symb->type,NUMBER_TYPE);
+
       if (ISSET(d.symb->type,RETVAR_TYPE))        LetGoID(d,RETVAR_TYPE,0,0);
       else if (!ISSET(d.symb->type,AUTOVAR_TYPE)) LetGoID(d,RETVAR_TYPE);
 #ifdef VERBOSE
       ERROUT << "Onto stack types: " << endl; prtTypes(r);
 #endif
-      //      cerr << "ret: "; prtSymb<Calc_Symbol *>(r.symb); cerr << endl;
       PUSH(stck,r);
     }
+  // cerr << r.symb << endl;
+  // cerr << "ret: "; prtSymb<Calc_Symbol *>(r.symb); cerr << endl;
   //
   // Throw a ReturnException.  This is only caught in call() where the
   // local symbol table is cleaned, the FrameStack is poped and the

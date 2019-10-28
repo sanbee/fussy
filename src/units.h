@@ -42,6 +42,7 @@ enum {U_H=1,
       U_YEAR,
       U_RADIAN,
       U_BITS,
-      U_BITSX
+      U_BITSX,
+      U_UNDEFINED
 };
 #endif

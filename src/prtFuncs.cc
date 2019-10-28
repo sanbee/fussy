@@ -235,7 +235,7 @@ template<class T> void prtSymb(T& CI)
 	    }
 	}
 }
-//template void prtSymb(Calc_Symbol*&);
+template void prtSymb(Calc_Symbol*&);
 //void  prtSymb<SymbTableType::iterator>;
 //
 //-----------------------------------------------------------------
