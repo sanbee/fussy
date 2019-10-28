@@ -126,6 +126,7 @@ void fussy_inp(char *buf, int *result, int max_size)
 	    }
 	  else
 	    {
+	      exit(0);
 	      ExitException e;throw(e);
 	    }
 	}
