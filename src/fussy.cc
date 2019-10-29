@@ -65,6 +65,7 @@ ofstream     ERROUT;  // The global stream where debugging messages
 void         ExitMsg(ostream& o, string file="exit.dat");
 unsigned int ProgBase=0;
 ostream OUTPUT(cout.rdbuf());
+bool VMState_Quit=false;
 //
 // The following are used by ExitMsg()
 //
@@ -244,7 +245,7 @@ int main(int argc, char *argv[])
   // instruction which throws the ExitException.
   //
   
-  while(1)
+  while(!VMState_Quit)
     try
       {
 	Persistance=0;

@@ -75,7 +75,7 @@ extern short int             InCStmt;
 extern ErrorObj              MsgStream;// The global error message stream
 extern Calc_Symbol*          GlobalDefaultFmt;
 extern int                   InFuncDefn;
-
+extern bool                  VMState_Quit;
 #define INCR_INDEX           {Calc_index += yyleng;}
 // Used by FLEX.  But using yy_scan_string instead of this now in FLEX 
 
@@ -126,8 +126,9 @@ void fussy_inp(char *buf, int *result, int max_size)
 	    }
 	  else
 	    {
-	      exit(0);
-	      ExitException e;throw(e);
+	      VMState_Quit=true;
+	      // exit(0);
+	      // ExitException e;throw(e);
 	    }
 	}
       if (Calc_line && strlen(Calc_line) && rl_instream==stdin)

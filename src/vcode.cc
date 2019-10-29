@@ -183,6 +183,12 @@ NUMTYPE                 Result;                 // The final result of a VM prog
                                                 // Also used in fussy.l
 Calc_Symbol*            GlobalDefaultFmt;
 //
+// Global (to this file) state variables for managing the state of the VM
+//
+bool                    VMState_ReturnCode=false;
+bool                    VMState_BreakCode=false;
+extern bool             VMState_Quit;
+//
 // Some macros for better code readability
 //
 #define PUSH(s,Item)                   (s. push_back(Item))
@@ -573,6 +579,7 @@ int boot()
 NUMTYPE Run(VMac& P)
 {
   Result=0;
+  VMState_ReturnCode=false;
 
   if (pc==ProgBase) 
     {
@@ -582,20 +589,21 @@ NUMTYPE Run(VMac& P)
       GetNewID(0); // Only resize the DS and ME
     }
 
-  try
+  //  try
     {
       //      prtVM();
       while((P[pc] != STOP))
 	{
 	  if (GlobalFlag & FLAG_CTRL_C) ReportErr("Interrupted!","###Runtime",0);
+	  if (VMState_ReturnCode==true)  break;
 	  //i=(*(*P[pc++]))(); // Execute the current instruction and increment the PC
 	  (*(*P[pc++]))(); // Execute the current instruction and increment the PC
 	}
     }
-  catch(ReturnException& E)
-    {
-      throw(E);
-    }
+    // catch(ReturnException& E)
+    //  {
+    //    throw(E);
+    //  }
 
   return Result;
 }
@@ -616,8 +624,9 @@ Instruction emit(Instruction ins)
 //
 int quit()
 {
-  exit(0);
-  ExitException e;throw(e);
+  VMState_Quit=true;
+  //  exit(0);
+  //  ExitException e;throw(e);
   DEFAULT_RETURN;
 }
 //
@@ -795,6 +804,7 @@ int vpush()
 #endif
 
   //  d.ID.push_back(d.symb->ID);
+  //  cerr << "vp: ";prtBits(d.symb->type);
   PUSH(stck,d);
 
 #ifdef VERBOSE
@@ -2672,7 +2682,7 @@ int whilecode()
   ClearDS(d);                        // POP the DS for result 
                                      // of the condition code
   
-  try
+  // try
     {
       while (d.val.val())
 	{
@@ -2681,6 +2691,7 @@ int whilecode()
 #endif
 	  pc=(long)Prog[bodyPC+1];     // Body code - it's part of the PROG
 	  Run(Prog);
+	  if (VMState_BreakCode) break;
 	  //d=TOP(stck);   	  POP(stck);
 	  //	  IDR.ReleaseID((unsigned int)*(d.ID.begin()));
 	  //	  ClearDS(d);                 // POP the DS for result 
@@ -2693,15 +2704,15 @@ int whilecode()
 	  ClearDS(d);                 // POP the DS for result 
                                       // of the condition code
 	  LetGoID(d,RETVAR_TYPE);
-
 	}
       //      pc=(int)Prog[bodyPC+2]; // End-of-while
     }
-  catch (BreakException& x)
-    {
-    }      
-  pc=(long)Prog[bodyPC+2];             // End-of-while
-  DEFAULT_RETURN;
+  // catch (BreakException& x)
+  //   {
+  //   }      
+    VMState_BreakCode=false;
+    pc=(long)Prog[bodyPC+2];             // End-of-while
+    DEFAULT_RETURN;
 }
 //
 //-----------------------------------------------------------------
@@ -2734,7 +2745,7 @@ int forcode()
   ClearDS(d);
   LetGoID(d,RETVAR_TYPE);
   
-  try
+  //  try
     {
       while(d.val.val())
 	{
@@ -2745,6 +2756,7 @@ int forcode()
 
 	  pc=(long)Prog[bodyPC+2]; // Body code
 	  Run(Prog);
+	  if (VMState_BreakCode) break;
 
 	  pc=(long)Prog[bodyPC+3]; // Predicate code
 	  Run(Prog);
@@ -2762,12 +2774,13 @@ int forcode()
 	  LetGoID(d,RETVAR_TYPE);
 	}
     }
-  catch (BreakException& x)
-    {
-      //pc=(long)Prog[bodyPC+4];   // End-of-while
-    }
-  pc=(long)Prog[bodyPC+4];         // End-of-while
-  DEFAULT_RETURN;
+  // catch (BreakException& x)
+  //   {
+  //     //pc=(long)Prog[bodyPC+4];   // End-of-while
+  //   }
+    VMState_BreakCode=false;
+    pc=(long)Prog[bodyPC+4];         // End-of-while
+    DEFAULT_RETURN;
 }
 //
 //-----------------------------------------------------------------
@@ -2780,7 +2793,10 @@ int printcode()
 
   DBG("printcode");
   
-  d  = TOP(stck);  POP(stck);
+  d  = TOP(stck);
+  //  prtBits(d.symb->type);
+  //  prtBits(TOP(stck).symb->type);
+  POP(stck);
 
 #ifdef VERBOSE
   ERROUT << "ID List (printcode): " <<endl;
@@ -2791,6 +2807,10 @@ int printcode()
   //
   // cerr << d.symb << endl;
   // cerr << "printcode: "; prtSymb<Calc_Symbol *>(d.symb); cerr << endl;
+
+  unsigned long int v=0;
+  SETBIT(v,VAR_TYPE);
+  //  prtBits(v);
   if (d.symb && ISSET(d.symb->type,QSTRING_TYPE)) 
     {
       //      OUTPUT << format(d.fmt.c_str()) << d.symb->otype.qstr->c_str();
@@ -2836,8 +2856,9 @@ int printcode()
 int break_code()
 {
   DBG("break_code");
-  BreakException E;
-  throw(E);
+  VMState_BreakCode=true;
+  // BreakException E;
+  // throw(E);
 }
 //
 //-----------------------------------------------------------------
@@ -2859,7 +2880,7 @@ int call()
   ERROUT << "call()" << endl;
 #endif
 
-  try
+  //  try
     {
 
 #ifdef VERBOSE
@@ -2950,6 +2971,8 @@ int call()
 	{
 	  int N=0;
 	  d=TOP(stck);POP(stck);
+
+	  //cerr << "call: "; prtBits(d.symb->type); 
 	  
 	  (*CI).value = d.val;
 	  (*CI).units = d.units;
@@ -3047,8 +3070,10 @@ int call()
       // 
       Run(Prog);
     }
-  catch (ReturnException x)
+  //    catch (ReturnException x)
+  if (VMState_ReturnCode==true)
     {
+      VMState_ReturnCode=false;
       //
       // Execution will reach here when the sub-program returns (via
       // the return() instruction).
@@ -3155,7 +3180,7 @@ int ret()
 #endif
 
 	  r.symb = makeTmpSymb(0);
-
+	  r.symb->type=0;
 #ifdef VERBOSE
 	  ERROUT << "RET: TmpSymb " << r.symb << endl;
 	  ERROUT << "Types from ret():";
@@ -3294,9 +3319,9 @@ int ret()
   prtStacks("Ret out");
 #endif
 
-  ReturnException E;
-  throw(E);
-
+  // ReturnException E;
+  // throw(E);
+  VMState_ReturnCode=true;
   DEFAULT_RETURN;
 }
 //template <class X> inline X& TOP(vector<X>& v) {if (!v.size()) ReportErr("Illegal operation on stack or symbol table!\n            If you did not pass a proc instead of a func as an argument,\n            this is an internal error!","###Runtime",0);return v.back();}
