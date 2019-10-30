@@ -474,7 +474,7 @@ int PrintENum(StackType& v, ostream& ostr)
 {
   int RET=0;
   if (v.fmt.length() <= 0) RET=-1;
-  else if (v.fmt=="hms")
+  else if (v.fmt=="%hms")
     {
       //
       // Print in the hour, min., sec. format (time)
@@ -486,7 +486,7 @@ int PrintENum(StackType& v, ostream& ostr)
       else               ostr << Fmt(t,&v.fmt.c_str()[1]);
       RET=1;
     }
-  else if (v.fmt == "dms")
+  else if (v.fmt == "%dms")
     {
       //
       // Print in the degree, min., sec. format (angle)
