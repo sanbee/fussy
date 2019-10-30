@@ -209,7 +209,10 @@ template<class T> void prtSymb(T& CI)
 	      else if (ISSET(CI->type,FMT_TYPE))
 		cerr << CI->fmt << " ";
 	      else
-		cerr << CI->value << "  ";
+		{
+		  cerr << CI->value << "  ";
+		  cerr << "\t Fmt= " << CI->fmt << "  ";
+		}
 	    }
 	  cerr << "\t Type=";
 	  switch (type)

@@ -79,7 +79,12 @@ void handler(int sig)
 {
   try
     {
-      if (sig==SIGINT)       {boot();ExitMsg(cerr);}
+      if (sig==SIGINT)
+	{
+	  boot();
+	  if (VMState_Quit) exit(0);
+	  else ExitMsg(cerr);
+	}
       else if (sig==SIGSEGV) 
 	{
 	  boot();
@@ -260,6 +265,6 @@ int main(int argc, char *argv[])
     catch (ReturnException& x) {}
     catch (ExitException& x)   {ErrorObj tt; tt << "Goodbye!" << endl;exit(0);}
     catch (...) {MsgStream << "Caught an unknown exception" << endl;}
-  
+  if (VMState_Quit)  {ErrorObj tt; tt << "Goodbye!" << endl;exit(0);}
 }
 
