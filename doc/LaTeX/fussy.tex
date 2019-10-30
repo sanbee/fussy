@@ -19,7 +19,9 @@
 % ******************************************************************
 %\documentclass[]{acmtrans2m}
 %\documentclass[acmtoms,acmnow]{acmtrans2m}
-\documentclass[12pt]{article}
+\documentclass[11pt]{article}
+\renewcommand{\familydefault}{\sfdefault}
+\usepackage{fancyhdr}     % Use Utopia font - used for printing the thesis
 %\usepackage{utopia}     % Use Utopia font
 \usepackage{ifpdf}
 \usepackage{amsmath}
@@ -29,8 +31,20 @@
 \usepackage{natbib}
 \usepackage{marvosym}
 \usepackage{xcolor}
+\usepackage{txfonts}
+\usepackage{enumitem}
 \usepackage[breaklinks,colorlinks]{hyperref}
 
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=gray,
+    filecolor=black,
+    linkcolor=blue,
+    urlcolor=red
+}
+
+\raggedbottom
 %\acmYear{03}
 %\acmMonth{11}
 
@@ -55,14 +69,17 @@
 \newcommand{\VMS}{{\tt VMS}}
 \newcommand{\PDFVersion}  {\htmladdnormallinkfoot{PDF version}{http://www.aoc.nrao.edu/~sbhatnag/Softwares/fussy/fussy.pdf}}
            
-\pagestyle{myheadings}
-%\markright{S. Bhatnagar}
-%\pagestyle{headings}
-\markboth{S. Bhatnagar}{Automatic random error propagation: S. Bhatnagar}
+\pagestyle{fancyplain}
+\rhead[]{Tool for automatic random error propagation}      % Note the different brackets!
+\lhead[]{{\tt fussy}}
+% \pagestyle{myheadings}
+% %\markright{S. Bhatnagar}
+% %\pagestyle{headings}
+% \markboth{S. Bhatnagar}{Automatic random error propagation: S. Bhatnagar}
 
 
 \begin{document}
-\title{The {\tt fussy} language: Implementation of an automatic
+\title{The {\Fussy} language: Implementation of an automatic
 error propagation algorithm}
 \author{S. Bhatnagar \\National Radio Astronomy Observatory}
 \date{Nov. 2003}
@@ -76,6 +93,7 @@ error propagation algorithm}
 \fi
 
 \begin{abstract} 
+\pagestyle{empty}
 Formal propagation of random errors in a mathematical expression
 follow a precise prescription based on calculus.  This requires the
 computation of the variation of the function with respect to each of
@@ -256,8 +274,13 @@ of the \Fussy\ language.
 
 For the case where $f$ is a function of a single measurable $x$, the
 right hand side of Eq.~\ref{FERR} can be evaluated as follows.  Each
-leaf of the parsing tree will either be (1) a constant, (2) a
-variable, or (3) another sub-tree representing a sub-expression.  The
+leaf of the parsing tree will be either 
+\begin{enumerate}[itemsep=1pt,parsep=2pt]
+\item a constant 
+\item a variable
+\item  another sub-tree representing a sub-expression.  \label{ASUBEXPR}
+\end{enumerate}
+The
 derivatives can be computed by the repeated application of the
 derivative chain rule.  Starting from the bottom of the tree, a value
 of $1$ is pushed on the Derivative Stack (\DS) (equivalent of putting
@@ -284,7 +307,7 @@ the \DS, and compute the right hand side of Eq.~\ref{FERR}.
 
 An arbitrary expression composed of user-defined variables or built-in
 functions, will itself be represented as a sub-tree.  Hence, applying
-the above algorithm recursively, case (3) above (a sub-expression)
+the above algorithm recursively, case~\ref{ASUBEXPR} above (a sub-expression)
 will also be correctly handled.
 
 \subsection{Example}
