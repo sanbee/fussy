@@ -64,7 +64,25 @@ extern IDResource       IDR;                    // The central ID resource
 //-----------------------------------------------------------------
 // Print a string value.
 //
-void prtString(const string& Str) { cerr << " \""<< Str << "\"";  }
+// This prints the string on cerr, replacing escaped characters with
+// readable escape notation strings.  The primary use of this function
+// is in prtVM().
+void prtString(const string& Str)
+{
+  int N;
+  N=Str.size();
+  cerr << " \"";
+  for(int j=0;j<N;j++)
+    {
+      switch(Str[j])
+	{
+	case '\n': cerr <<"\\n"; break;
+	case '\t': cerr <<"\\t"; break;
+	default: cerr << Str[j];
+	}
+    }
+  cerr<< "\"";
+}
 
 int getBuiltinFnName(ostream &os, int PC, void *Ptr)
 {
