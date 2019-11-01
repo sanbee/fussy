@@ -47,7 +47,7 @@
    propagated error in the expression for the propagated error in the
    original expression.
 */
-msg="Error on the above expression should be = ";
+msg="Error in the above expression should be = ";
 
 test()
 {

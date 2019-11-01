@@ -54,7 +54,7 @@ int funcInit(int NArgs)
 //
 //-------------------------------------------------------------------
 //
-int funcstart(int NArgs)
+int funcstart(int /*NArgs*/)
 {
   emit(STOP);emit(STOP); // 2 locations for No. of arguments and No. of
                          // local variables used

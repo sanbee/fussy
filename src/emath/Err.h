@@ -39,7 +39,7 @@ private:
   T x,dx;
 public:
   //template <class X> Err<T>(){x=dx=0;};
-  //Err<T>(T v=0,T e=0) {x=v;dx=e;}
+  Err<T>(T v=0,T e=0) {x=v;dx=e;}
 
   template <class X> Err<T>& operator=(const Err<X>& l) 
     {x=l.val();dx=l.rms();return *this;};

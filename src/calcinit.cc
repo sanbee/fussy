@@ -39,7 +39,7 @@
 #include <calcinit.h>
 #include <math.h>
 //#include <AngFmt.h>
-#include <ErrorObj.h>
+#include <ErrorObjStr.h>
 #include "defns.h"
 #include <IDResource.h>
 
@@ -251,7 +251,7 @@ void ReportErr(const char *Msg, const char *ErrType, const int& ErrLevel)
   // consqeuences of this.
   //
   sp=InCStmt=InFuncDefn=0;
-  if (Msg) throw(ErrorObj(Msg,ErrType,ErrLevel));
+  if (Msg) throw(ErrorObj(string(Msg),string(ErrType),ErrLevel));
 }
 //
 //-------------------------------------------------------------------
@@ -289,7 +289,7 @@ void MakeANumber(Calc_Symbol &S, float V, float E, char *Fmt)
   SETVAL(S.value,V,E);
   if (Fmt) S.fmt=Fmt;
   else S.fmt=DEFAULT_FMT;
-  S.otype.qstr=NULL;
+  //S.otype.qstr=NULL;
 }
 //
 //-------------------------------------------------------------------

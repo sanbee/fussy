@@ -28,7 +28,7 @@ libkum_a_SOURCES = src/sla/djm2e.f src/sla/ep2da.f src/sla/frye.f \
 				   src/sla/slapreces.f src/sla/slaprec.f
 
 libcalc_a_SOURCES = src/fussyparse.yy src/calcinit.cc src/tables.cc src/vcode.cc \
-				    src/prtFuncs.cc src/ErrorObj.cc src/func.cc src/BitField.cc \
+				    src/prtFuncs.cc src/ErrorObjStr.cc src/func.cc src/BitField.cc \
 					src/IDResource.cc src/ExitMsg.cc
 
 src/fussyparse.yy: src/lex.yy.c

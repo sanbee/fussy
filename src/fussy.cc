@@ -47,7 +47,7 @@
 #include <calc.h>
 #include <emath.h>
 #include <fussyparse.hh>
-#include <ErrorObj.h>
+#include <ErrorObjStr.h>
 #include <signal.h>
 #include <errno.h>
 #include <sys/types.h>
@@ -65,6 +65,7 @@ ofstream     ERROUT;  // The global stream where debugging messages
 void         ExitMsg(ostream& o, string file="exit.dat");
 unsigned int ProgBase=0;
 ostream OUTPUT(cout.rdbuf());
+bool VMState_Quit=false;
 //
 // The following are used by ExitMsg()
 //
@@ -78,7 +79,12 @@ void handler(int sig)
 {
   try
     {
-      if (sig==SIGINT)       {boot();ExitMsg(cerr);}
+      if (sig==SIGINT)
+	{
+	  boot();
+	  if (VMState_Quit) exit(0);
+	  else ExitMsg(cerr);
+	}
       else if (sig==SIGSEGV) 
 	{
 	  boot();
@@ -244,7 +250,7 @@ int main(int argc, char *argv[])
   // instruction which throws the ExitException.
   //
   
-  while(1)
+  while(!VMState_Quit)
     try
       {
 	Persistance=0;
@@ -259,6 +265,6 @@ int main(int argc, char *argv[])
     catch (ReturnException& x) {}
     catch (ExitException& x)   {ErrorObj tt; tt << "Goodbye!" << endl;exit(0);}
     catch (...) {MsgStream << "Caught an unknown exception" << endl;}
-  
+  if (VMState_Quit)  {ErrorObj tt; tt << "Goodbye!" << endl;exit(0);}
 }
 

@@ -43,7 +43,7 @@
 class BitField{
 public:
   BitField() {Size=0;Bits=0;CurPos=0;DefBitVal=0;BYTELEN=8*sizeof(char);}
-  BitField(BitField& b) {};
+  BitField(BitField& /*b*/) {};
   BitField(short int Def) 
   {Size=0;Bits=0;CurPos=0;DefBitVal=Def;BYTELEN=8*sizeof(char);}
   BitField(int NBits);

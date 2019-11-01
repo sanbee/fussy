@@ -77,7 +77,7 @@
   //
   //------------------------------------------------------------------------------
   //
-  Calc_Symbol *MakeSymb(string& Name,int Type=VAR_TYPE, const char *Fmt=DEFAULT_FMT.c_str())
+  Calc_Symbol *MakeSymb(string& /*Name*/,int Type=VAR_TYPE, const char *Fmt=DEFAULT_FMT.c_str())
     {
       Calc_Symbol *t;
       unsigned int ID;
@@ -404,14 +404,20 @@ stmt: asgn                 {emit(pop);       $$=Prog.size();}
 | expr                     {emit(printcode); $$=Prog.size();}
 | qstr                     {emit(printcode); }
 | PRINT  prtlist           {
-                            Calc_Symbol *s=install("",NUMBER_TYPE,$2,0);
-                            emit2(fcpush,(Instruction)s);//No. of args on stack
+                            /* Calc_Symbol *s=install("",NUMBER_TYPE,$2,0); */
+                            /* emit2(fcpush,(Instruction)s);//No. of args on stack */
+                            Calc_Symbol s;
+			    MakeANumber(s,$2,0);
+			    emit2(fcpush,(Instruction)installConst(s,0));//No. of args on stack 
                             emit($1); 
                             $$=Prog.size();// Print OP code
                            }
-| PRINTN  prtlist           {
-                            Calc_Symbol *s=install("",NUMBER_TYPE,$2,0);
-                            emit2(fcpush,(Instruction)s);//No. of args on stack
+| PRINTN  prtlist          {
+                            /* Calc_Symbol *s=install("",NUMBER_TYPE,$2,0); */
+                            /* emit2(fcpush,(Instruction)s);//No. of args on stack */
+                            Calc_Symbol s;
+			    MakeANumber(s,$2,0);
+			    emit2(fcpush,(Instruction)installConst(s,0));//No. of args on stack 
                             emit($1); 
                             $$=Prog.size();// Print OP code
                            }
