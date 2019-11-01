@@ -34,6 +34,7 @@
 #include <defns.h>
 #include "namespace.h"
 extern string Calc_prompt;
+extern bool VMState_Quit;
 
 void ExitMsg(ostream& user,string MsgData)
 {
@@ -82,8 +83,10 @@ void ExitMsg(ostream& user,string MsgData)
     {
       user << endl << "Oh well...since you insist.  "
 	"  But be nice next time!  Say \"bye\" to exit" << endl;
-      ExitException e;
-      throw(e);
+      VMState_Quit=true;
+      Persistance = Tolerance+1;
+      // ExitException e;
+      // throw(e);
     }
   Persistance++;
 }

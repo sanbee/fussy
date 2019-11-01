@@ -43,6 +43,7 @@
 #include <BitField.h>
 #include <string>
 #include <set>
+#include <units.h>
 #include "namespace.h"
 //
 // Type of symbols, used internally to find
@@ -105,22 +106,44 @@
 // Various types of symbol (used internally in the VM code
 // execution).
 //
-#define AUTOVAR_TYPE      0x80000000
-#define PARTIALVAR_TYPE   0x40000000
-#define RETVAR_TYPE       0x20000000
-#define QSTRING_TYPE      0x10000000
-#define VAR_TYPE          0x08000000
-#define CONSTANT_TYPE     0x04000000
-#define SYS_VAR_TYPE      0x02000000
-#define BUILTIN_TYPE      0x01000000
-#define BUILTIN2_TYPE     0x00800000
-#define FMT_TYPE          0x00400000
-#define NUMBER_TYPE       0x00200000
-#define PROC_TYPE         0x00100000
-#define FUNC_TYPE         0x00080000
-#define UNDEF_TYPE        0x00040000
-#define FSUC_TYPE         0x00020000
-#define PSUC_TYPE         0x00010000
+// The varaibles that use these codes are of type unsigned long int (64 bits).
+//
+// #define AUTOVAR_TYPE      0b0000000000000000000000000000000000000000000000001000000000000000
+// #define PARTIALVAR_TYPE   0b0000000000000000000000000000000000000000000000000100000000000000
+// #define RETVAR_TYPE       0b0000000000000000000000000000000000000000000000000010000000000000
+// #define QSTRING_TYPE      0b0000000000000000000000000000000000000000000000000001000000000000
+
+// #define VAR_TYPE          0b0000000000000000000000000000000000000000000000000000100000000000
+// #define CONSTANT_TYPE     0b0000000000000000000000000000000000000000000000000000010000000000
+// #define SYS_VAR_TYPE      0b0000000000000000000000000000000000000000000000000000001000000000
+// #define BUILTIN_TYPE      0b0000000000000000000000000000000000000000000000000000000100000000
+
+// #define BUILTIN2_TYPE     0b0000000000000000000000000000000000000000000000000000000010000000
+// #define FMT_TYPE          0b0000000000000000000000000000000000000000000000000000000001000000
+// #define NUMBER_TYPE       0b0000000000000000000000000000000000000000000000000000000000100000
+// #define PROC_TYPE         0b0000000000000000000000000000000000000000000000000000000000010000
+
+// #define FUNC_TYPE         0b0000000000000000000000000000000000000000000000000000000000001000
+// #define UNDEF_TYPE        0b0000000000000000000000000000000000000000000000000000000000000100
+// #define FSUC_TYPE         0b0000000000000000000000000000000000000000000000000000000000000010
+// #define PSUC_TYPE         0b0000000000000000000000000000000000000000000000000000000000000001
+
+#define AUTOVAR_TYPE      0x0000000008000000
+#define PARTIALVAR_TYPE   0x0000000004000000
+#define RETVAR_TYPE       0x0000000002000000
+#define QSTRING_TYPE      0x0000000001000000
+#define VAR_TYPE          0x0000000000080000
+#define CONSTANT_TYPE     0x0000000000040000
+#define SYS_VAR_TYPE      0x0000000000020000
+#define BUILTIN_TYPE      0x0000000000010000
+#define BUILTIN2_TYPE     0x0000000000000800
+#define FMT_TYPE          0x0000000000000400
+#define NUMBER_TYPE       0x0000000000000200
+#define PROC_TYPE         0x0000000000000100
+#define FUNC_TYPE         0x0000000000000008
+#define UNDEF_TYPE        0x0000000000000004
+#define FSUC_TYPE         0x0000000000000002
+#define PSUC_TYPE         0x0000000000000001
 
 #define SETBIT(V,MASK)    ((V) |= (MASK))  // Bitwise OR with the mask
 #define RESETBIT(V,MASK)  ((V) &= ~(MASK)) // Bitwise AND with the complement of the mask
@@ -145,7 +168,7 @@ typedef struct Calc_Symbol {
   vector<BASIC_NUM>   DSList, dx;
 
   NUMTYPE             value;
-  long int                 units;
+  long int            units;
   string              fmt;
   union {
     NUMTYPE           (*func1)(NUMTYPE);
@@ -154,9 +177,8 @@ typedef struct Calc_Symbol {
   } otype;
   string              qstr;
   string              name;
-  
-  // void cleanupQStr() {if (otype.qstr) delete otype.qstr;/*otype.qstr=NULL;*/};
-  // void makeQStr(const string& s) {if (otype.qstr==NULL) otype.qstr=new string(s);};
+
+  Calc_Symbol(): type(0), ID(),IDL(),DSList(),dx(),value(0),units(U_UNDEFINED),fmt(),otype(), qstr(),name() {};
 
 } Calc_Symbol;
 
@@ -169,8 +191,8 @@ typedef struct StackType {
   Calc_Symbol         *symb;
   int                 units;
   string              fmt;
-  
-  // void cleanupSymb() {symb->cleanupQStr();}
+
+  StackType(): type(0), ID(),val(), symb(NULL),fmt() {};
 } StackType;
 
 typedef struct FrameType {

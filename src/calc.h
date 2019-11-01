@@ -75,6 +75,7 @@ void          prtSymbTab();
 template<class T> void prtSymb(T&);
 void          prtLocSymbTab();
 void          prtCSymbTab();
+void          prtBits(const unsigned long&);
 int           prtIDList();
 int           mpush(Calc_Symbol *);
 void          ReportErr(const string& Msg, const string& ErrType, const int& ErrLevel);

@@ -123,7 +123,7 @@ Calc_Symbol *CheckIDList(SymbTabType::const_iterator CI, IDType ID)
 //
 //-------------------------------------------------------------------
 //
-Calc_Symbol *IsIDinGivenTab(IDType ID, SymbTabType& tab,const char *name)
+Calc_Symbol *IsIDinGivenTab(IDType ID, SymbTabType& tab,const char */*name*/)
 {
   SymbTabType::const_iterator CI,Start,Stop;
   Start=tab.begin(); Stop=tab.end();
@@ -266,8 +266,10 @@ Calc_Symbol *calcgetConst(Calc_Symbol& v)
       for (CI=ConstTab.begin(); CI!=ConstTab.end(); CI++) 
 	{
 	  s=&(*CI);
+	  // if (ISSET(s->type,QSTRING_TYPE) && s->otype.qstr && 
+	  //     *(s->otype.qstr) == *(v.otype.qstr))
 	  if (ISSET(s->type,QSTRING_TYPE) && 
-	      s->qstr == v.qstr)
+	      (s->qstr) == (v.qstr))
 	    break;
 	}
     }
@@ -295,7 +297,7 @@ void calcput(string &name)
 
   t.type = 0;
   t.value=0;
-  t.qstr="";
+  //  t.otype.qstr=NULL;
   t.name=name;
 
   calcput(t);
@@ -435,7 +437,7 @@ void uninstall(IDType i, TmpSymbTabType& tab)
 //    int N                NOT USED
 //    int Type             The type of the new symbol.
 //
-void LocalSymbInstall(const char *Name,int N,int Type=VAR_TYPE)
+void LocalSymbInstall(const char *Name,int /*N*/,int Type=VAR_TYPE)
 {
   LocalSymbTabType::const_iterator CI;
   int Found=0;
@@ -539,6 +541,7 @@ void EmptyLocalSymbTab(int NArgs, int NAutos)
 	      DS[tID].resize(0);
 	    }
 	}
+      //if ((*CI).otype.qstr) delete (*CI).otype.qstr;
 #ifdef VERBOSE
       else
 	ERROUT << "###EmptyLocalSymb: not releasing because PARTIALVAR " << (*CI).ID << endl;
@@ -671,7 +674,7 @@ void MkSpaceOnLocalSymbTab(int N)
 //  double v           The value of the new symbol.
 //  double e           The error associated with the new symbol.
 //
-Calc_Symbol *install(const char *Name, int type, double v, double e)
+Calc_Symbol *install(const char */*Name*/, int type, double v, double e)
 {
   Calc_Symbol *s=new Calc_Symbol;
   //Calc_Symbol *s=(Calc_Symbol *)calloc(1,sizeof(Calc_Symbol));
@@ -679,7 +682,7 @@ Calc_Symbol *install(const char *Name, int type, double v, double e)
   SETVAL(s->value,v,e);
 
   s->fmt=DEFAULT_FMT;
-  s->qstr="";
+  //s->otype.qstr=NULL;
   return s;
 }
 //

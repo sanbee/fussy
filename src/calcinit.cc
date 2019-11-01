@@ -251,7 +251,7 @@ void ReportErr(const string& Msg, const string& ErrType, const int& ErrLevel)
   // consqeuences of this.
   //
   sp=InCStmt=InFuncDefn=0;
-  if (Msg.length() > 0) throw(ErrorObj(Msg,ErrType,ErrLevel));
+  if (Msg!="") throw(ErrorObj(string(Msg),string(ErrType),ErrLevel));
 }
 //
 //-------------------------------------------------------------------
@@ -262,14 +262,16 @@ void ReportErr(const string& Msg, const string& ErrType, const int& ErrLevel)
 //
 void MakePersistant(Calc_Symbol* C)
 {
-  // Get the pointer to the symbol on the ConstTab and set it's name
-  // to (int)1.  Names of symbols on ConstTab have no use and
-  // therefore used for other purposes (e.g. for marking them as
-  // permanent in this case).
-  Calc_Symbol *t;
-  if ((t=calcgetConst(*C))!=NULL) 
-    if (ISSET(t->type,NUMBER_TYPE) || ISSET(t->type,QSTRING_TYPE))
-      (t->name[0])=(int)1;
+ // Get the pointer to the symbol on the ConstTab and set it's name
+ // to (int)1.  Names of symbols on ConstTab have no use and
+ // therefore used for other purposes (e.g. for marking them as
+ // permanent in this case).
+  if (ISSET(C->type,NUMBER_TYPE) || ISSET(C->type,QSTRING_TYPE))
+    {
+      Calc_Symbol *t;
+      if ((t=calcgetConst(*C))!=NULL) 
+        (t->name[0])=(int)1;
+    }
 }
 //
 //-------------------------------------------------------------------
@@ -287,7 +289,7 @@ void MakeANumber(Calc_Symbol &S, float V, float E, char *Fmt)
   SETVAL(S.value,V,E);
   if (Fmt) S.fmt=Fmt;
   else S.fmt=DEFAULT_FMT;
-  S.qstr="";
+  //S.otype.qstr=NULL;
 }
 //
 //-------------------------------------------------------------------

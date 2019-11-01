@@ -29,7 +29,7 @@
 #include "calc_lex_bison.h"
 #include <stdio.h>
 /*----------------------------------------------------------------------*/
-int ywarn(char *s, char *t)
+int ywarn(char */*s*/, char */*t*/)
 {
   return 1;
 }

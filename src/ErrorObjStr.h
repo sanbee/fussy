@@ -1,4 +1,4 @@
-/* $Id$
+/* $Id$ */
 /******************************************************************
  * Copyright (c) 2000-2018, 2019 S.Bhatnagar
  *
@@ -35,7 +35,7 @@ using namespace std;
 class ErrorObj{
  public:
   enum {Informational=100,Recoverable,Severe,Fatal};
-  ErrorObj():Message(), Src(), Msg(), Id(){};
+  ErrorObj():Message(), Src(), Msg(), Id(),Level(Informational){};
   ErrorObj(const string &m,const string& i,int l=0);
   ~ErrorObj(){};
   //  delete() {cleanup();};
@@ -51,7 +51,7 @@ class ErrorObj{
   friend ostream &operator<<(ostream& o,const ErrorObj&);
 
  private:
-  string Id,Msg,Src,Message;
+  string Message,Src,Msg,Id;
   int Level;
 };
 

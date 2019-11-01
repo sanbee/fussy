@@ -27,7 +27,7 @@
 
 ******************************************************************/
 line="------------------------------------------------------\n";
-msg="Error on the above expression should be = ";
+msg="Error in the above expression should be = ";
 
 test()
 {

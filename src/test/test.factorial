@@ -41,6 +41,8 @@ df(x)
   if (x==1) {return x;} else {return 1/x+df(--x);};
 }
 
+err(x) { return f(x)*df(x); }
+
 test()
 {
   auto x,i;

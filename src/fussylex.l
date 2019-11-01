@@ -75,7 +75,7 @@ extern short int             InCStmt;
 extern ErrorObj              MsgStream;// The global error message stream
 extern Calc_Symbol*          GlobalDefaultFmt;
 extern int                   InFuncDefn;
-
+extern bool                  VMState_Quit;
 #define INCR_INDEX           {Calc_index += yyleng;}
 // Used by FLEX.  But using yy_scan_string instead of this now in FLEX 
 
@@ -117,16 +117,20 @@ void fussy_inp(char *buf, int *result, int max_size)
       Calc_line=(char *) readline((char *)Calc_prompt.c_str());
       // If readline retuns NULL (e.g., when the input is Ctrl-D), print a message and
       // exit when FUSSY_IGNOREEOF<=0.
-      if (Calc_line == NULL) 
-	if (FUSSY_IGNOREEOF > 0)
-	  {
-	    FUSSY_IGNOREEOF--;
-	    fprintf(rl_outstream,"Use \'quit\' to exit.  Will ignore next %d EOF(s).\n",FUSSY_IGNOREEOF);
-	  }
-	else
-	  {
-	    ExitException e;throw(e);
-	  }
+      if (Calc_line == NULL)
+	{
+	  if (FUSSY_IGNOREEOF > 0)
+	    {
+	      FUSSY_IGNOREEOF--;
+	      fprintf(rl_outstream,"Use \'quit\' to exit.  Will ignore next %d EOF(s).\n",FUSSY_IGNOREEOF);
+	    }
+	  else
+	    {
+	      VMState_Quit=true;
+	      // exit(0);
+	      // ExitException e;throw(e);
+	    }
+	}
       if (Calc_line && strlen(Calc_line) && rl_instream==stdin)
         {
           stripwhite(Calc_line);
@@ -264,7 +268,8 @@ void HandleExtendedNum(const char *Units, const double &ToRadians)
   ECHO;
   NumFromENum(yytext,i,j); 
   split3(&yytext[i],j-1,Units,a);
-  if ((unsigned int)j < yyleng) 
+  //  if ((unsigned int)j < yyleng) 
+  if (j < yyleng) 
     split3(&yytext[j],yyleng-j,Units,b);
   
   {
@@ -277,7 +282,7 @@ void HandleExtendedNum(const char *Units, const double &ToRadians)
            (err=((b[0]+(b[1]+b[2]/60.0)/60.0)*ToRadians)));
 
     d.fmt=DEFAULT_FMT;
-    d.qstr="";
+    //    d.otype.qstr=NULL;
     yylval.symb=installConst(d,(err!=0?-1:0));
   }
 }
@@ -359,6 +364,7 @@ EHEX    ({HEXD}({SPACE}?{ERROP}{SPACE}?{HEXD})?)
                            d.type=0; SETBIT(d.type,QSTRING_TYPE);
 
                            d.fmt=DEFAULT_STRING_FMT;
+                           //d.otype.qstr=&qstr;
                            d.qstr=qstr;
                              
                            yylval.symb=installConst(d,0);
@@ -371,18 +377,14 @@ EHEX    ({HEXD}({SPACE}?{ERROP}{SPACE}?{HEXD})?)
                            // participate in error propagation, they
                            // don't need a unique ID of their own).
                            //
-                           if (yylval.symb->qstr==qstr)
-                             {
-			       // If the qstring in the symb that got
-			       // installed on ConstTab is still
-			       // pointing to the local qstr, allocate
-			       // a new one on the ConstTab.
+                           // if (yylval.symb->otype.qstr==&qstr)
+                           //   {
+                           //     //       IDR.ReleaseID(yylval.symb->ID);
+                           //     //       yylval.symb->ID=0;
 
-			       // IDR.ReleaseID(yylval.symb->ID);
-			       // yylval.symb->ID=0;
-
-                               yylval.symb->qstr=qstr;
-                             }
+                           //     yylval.symb->otype.qstr=new string;
+                           //     *(yylval.symb->otype.qstr)=qstr;
+                           //   }
 
                            return QSTRING;
                          }
@@ -438,7 +440,7 @@ EHEX    ({HEXD}({SPACE}?{ERROP}{SPACE}?{HEXD})?)
 
                            NumFromENum(yytext,v_ndx,e_ndx);
                            sscanf(&yytext[v_ndx],"%lf",&v);
-                           if ((unsigned int)e_ndx < yyleng) 
+                           if (e_ndx < yyleng) 
                              sscanf(&yytext[e_ndx],"%lf",&e);
 
                            {
@@ -448,7 +450,7 @@ EHEX    ({HEXD}({SPACE}?{ERROP}{SPACE}?{HEXD})?)
                              SETVAL(d.value,v,e);
 
                              d.fmt=DEFAULT_FMT;
-                             d.qstr="";
+                             //d.otype.qstr=NULL;
                              //
                              // Create a new ID only if the associated error 
                              // is non-zero.
@@ -533,7 +535,7 @@ setfmt                   {ECHO;                        return SETGFMT;}
                               SETVAL(d.value,v,e);
 
                               d.fmt=DEFAULT_FMT;
-                              d.qstr="";
+                              //d.otype.qstr=NULL;
                               yylval.symb=installConst(d,(e!=0?-1:0));
                             }
                             INCR_INDEX;

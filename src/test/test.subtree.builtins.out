@@ -115,7 +115,7 @@ sin(x1)^2+cos(x2)^2=	   1.00000 +/-    0.12859
 s^2+c2^2=	   1.00000 +/-    0.12859
 ------------------------------------------------------
 sin(x)^cos(x) =    1.04036 +/-    0.05762
-Error on the above expression should be =    0.05762 +/-    0.05712
+Error in the above expression should be =    0.05762 +/-    0.05712
 x^y =    8.00000 +/-    2.92017
-Error on the above expression should be =    2.92017 +/-    1.14554
+Error in the above expression should be =    2.92017 +/-    1.14554
 ------------------------------------------------------

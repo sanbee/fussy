@@ -65,6 +65,7 @@ ofstream     ERROUT;  // The global stream where debugging messages
 void         ExitMsg(ostream& o, string file="exit.dat");
 unsigned int ProgBase=0;
 ostream OUTPUT(cout.rdbuf());
+bool VMState_Quit=false;
 //
 // The following are used by ExitMsg()
 //
@@ -78,7 +79,12 @@ void handler(int sig)
 {
   try
     {
-      if (sig==SIGINT)       {boot();ExitMsg(cerr);}
+      if (sig==SIGINT)
+	{
+	  boot();
+	  if (VMState_Quit) exit(0);
+	  else ExitMsg(cerr);
+	}
       else if (sig==SIGSEGV) 
 	{
 	  boot();
@@ -118,7 +124,7 @@ void LoadFile(const char *Name)
       fclose(rc);rc=NULL;
     }
   else	
-    ReportErr(string(strerror(errno)),string("###Informational"),ErrorObj::Informational);
+    ReportErr(strerror(errno),string("###Informational"),ErrorObj::Informational);
 }
 //
 //---------------------------------------------------------------------
@@ -244,9 +250,7 @@ int main(int argc, char *argv[])
   // instruction which throws the ExitException.
   //
   
-  bool phinish=false;
-  
-  while(!phinish)
+  while(!VMState_Quit)
     try
       {
 	Persistance=0;
@@ -254,13 +258,13 @@ int main(int argc, char *argv[])
 	signal(SIGSEGV,handler);
 	boot();
 	calc(NULL,cout,NULL,NULL);
-	// NUMTYPE ans;
 	// calc(NULL,&ans,NULL,NULL);
       }
-    catch (ErrorObj& e)        { e << e.what() << endl;}
+    catch (ErrorObj& e)        {e << e.what() << endl;}
     catch (BreakException& x)  {}
     catch (ReturnException& x) {}
-    catch (ExitException& x)   {ErrorObj tt; tt << "Goodbye!" << endl;phinish=true;}
+    catch (ExitException& x)   {ErrorObj tt; tt << "Goodbye!" << endl;exit(0);}
     catch (...) {MsgStream << "Caught an unknown exception" << endl;}
+  if (VMState_Quit)  {ErrorObj tt; tt << "Goodbye!" << endl;exit(0);}
 }
 

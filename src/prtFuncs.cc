@@ -54,6 +54,7 @@
 #include <fussyparse.hh>
 #include <list>
 #include <cstring>
+#include <bitset>
 extern VMac Prog;
 extern list<Calc_Symbol> SymbTab;
 extern list<Calc_Symbol> ConstTab;
@@ -63,23 +64,26 @@ extern IDResource       IDR;                    // The central ID resource
 //-----------------------------------------------------------------
 // Print a string value.
 //
-void prtString(const string &Str)
+// This prints the string on cerr, replacing escaped characters with
+// readable escape notation strings.  The primary use of this function
+// is in prtVM().
+void prtString(const string& Str)
 {
-  cerr << " \"" << Str << "\"";
-  // int N;
-  // N=strlen(Str);
-  // cerr << " \"";
-  // for(int j=0;j<N;j++)
-  //   {
-  //     switch(Str[j])
-  // 	{
-  // 	case '\n': cerr <<"\\n"; break;
-  // 	case '\t': cerr <<"\\t"; break;
-  // 	default: cerr << Str[j];
-  // 	}
-  //   }
-  // cerr<< "\"";
+  int N;
+  N=Str.size();
+  cerr << " \"";
+  for(int j=0;j<N;j++)
+    {
+      switch(Str[j])
+	{
+	case '\n': cerr <<"\\n"; break;
+	case '\t': cerr <<"\\t"; break;
+	default: cerr << Str[j];
+	}
+    }
+  cerr<< "\"";
 }
+
 int getBuiltinFnName(ostream &os, int PC, void *Ptr)
 {
   for(SymbTabType::iterator i=SymbTab.begin();i!=SymbTab.end();i++)
@@ -140,6 +144,7 @@ void prtVM()
 	  else cerr << " CONST " << (long)Prog[i] << endl;
 	}
       //      else if (ISSET(s->type,BUILTIN_TYPE))  {cerr << " bultin_fn" << endl;}
+      //      else if (ISSET(s->type,QSTRING_TYPE))  {prtString(s->otype.qstr);cerr << endl;}
       else if (ISSET(s->type,QSTRING_TYPE))  {prtString(s->qstr);cerr << endl;}
       else if (ISSET(s->type,FMT_TYPE))      {prtString(s->fmt);cerr << endl;}
       else if (ISSET(s->type,AUTOVAR_TYPE))  {cerr << s->name << endl;}
@@ -198,7 +203,6 @@ void prtVM()
 
     }
 }
-//template<class T> void prtSymb(SymbTabType::iterator& CI)
 template<class T> void prtSymb(T& CI)
 {
       unsigned int type;
@@ -223,7 +227,10 @@ template<class T> void prtSymb(T& CI)
 	      else if (ISSET(CI->type,FMT_TYPE))
 		cerr << CI->fmt << " ";
 	      else
-		cerr << CI->value << "  ";
+		{
+		  cerr << CI->value << "  ";
+		  cerr << "\t Fmt= " << CI->fmt << "  ";
+		}
 	    }
 	  cerr << "\t Type=";
 	  switch (type)
@@ -236,6 +243,7 @@ template<class T> void prtSymb(T& CI)
 	    }
 	}
 }
+//template void prtSymb(Calc_Symbol*&);
 //void  prtSymb<SymbTableType::iterator>;
 //
 //-----------------------------------------------------------------
@@ -285,6 +293,7 @@ void prtCSymbTab()
       else if (ISSET(CI->type,FMT_TYPE))     cerr  << CI->fmt << " ID = " << CI->ID << " ";
       else if (ISSET(CI->type,QSTRING_TYPE)) 
 	{
+	  //prtString(CI->otype.qstr);
 	  prtString(CI->qstr);
 	  cerr << " ID = " << CI->ID << " ";
 	}
@@ -440,4 +449,9 @@ void showHelp()
   cerr << "\tshowcsym: "<< "Prints the symbol table of constants." << endl;
   cerr << "\tshowid: " << "Prints the list of allocated IDs." << endl;
   cerr << "\twarranty: "<< "Prints the warranty information." << endl;
+}
+void prtBits(const unsigned long int& val)
+{
+  std::bitset<sizeof(val)*8> x(val);
+  cerr << x << endl;
 }

@@ -29,6 +29,7 @@
 #
 #--------------------------------------------------------------
 #
+let NFailed=0;
 PrintStatus()
 {
   let i=$2;
@@ -51,6 +52,7 @@ PrintStatus()
 
   if [ $STATUS = "[FAILED]" ];
   then
+    let NFailed=NFailed+1;
     echo "###Output of the above test = ";
     eval $3;
   fi;
@@ -77,8 +79,8 @@ run()
 	# Run functional unit tests
 	for f in $TestList
 	do
-	    c="("$Prog" "-q" "$f" $TestDir/quit )$Filter | grep -v "^\/\*" | diff - "$f.out| grep -v '^\/\*' ;
-	    cmd="($ProgBasename -q "$f" $TestDir/quit )$Filter  | diff - "$f.out;
+	    c="("$Prog" "-q" "$f" $TestDir/quit )$Filter | diff - "$f.out" | grep -v '^> \/\*' | grep '^[<|>]'";
+	    cmd="($ProgBasename -q "$f" $TestDir/quit )$Filter  | diff - "$f.out" | grep -v '^> \/\*' | grep '^[<|>]'";
 	    msg="$TestType test: "$cmd;
 	    wc=`echo $msg|wc -c`;
 	    let n=85-wc;
@@ -88,14 +90,18 @@ run()
 	done
     else
 	echo $0": $Prog not found!";
-	exit 0;
+	exit 1;
     fi
+#  if [ $NFailed -gt 0 ];
+#  then
+#     exit 1;
+#  fi 
 }
 #
 #--------------------------------------------------------------
 #
 TestDir=`dirname $0`
-FUSSY=fussy
+FUSSY=./fussy
 if [ "$#" -gt 0 ]; then
     FUSSY=$1;
 fi
@@ -105,7 +111,7 @@ fi
 # Make a list of functional unit tests (file name convention: "test."+NAME)
 tmp=`ls $TestDir/test.*`;
 UnitTests=`for f in $tmp; do echo $f | grep -v out;done;`
-Filter="2> /dev/null | grep -v '^\/\*' ";
+Filter="2> /dev/null";
 
 run "$FUSSY" "$UnitTests" "Unit" "$Filter"
 echo
@@ -121,4 +127,5 @@ run "$FUSSY" "$ErrorUnitTests" "Error-condition" "$Filter"
 #
 #--------------------------------------------------------------
 #
+exit $NFailed;
 

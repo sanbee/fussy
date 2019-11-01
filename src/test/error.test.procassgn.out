@@ -17,6 +17,6 @@
 /*  along with fussy.  If not, see <https://www.gnu.org/licenses/>.         */
 /*                                                                          */
 /****************************************************************************/
-
 ###Error: Syntax error near token 'f' in "y=f(10.0);"
 ###Error: PROC used in an assigment ('=') statement
+Goodbye!
