@@ -2038,10 +2038,9 @@ int setgfmt()
 //
 //-----------------------------------------------------------------
 //
-int printEngine(const int doNewLine)
+int printEngine(const int n, const bool doNewLine, const bool emitTab=false)
 {
   vector<StackType> d;
-  int n;
 
   DBG("print");
 
@@ -2053,9 +2052,9 @@ int printEngine(const int doNewLine)
   // The top of the VM stack has the number of arguments to the print
   // command.
   //
-  d.resize(1);
-  d[0]=TOP(stck);    POP(stck);
-  n=(int)d[0].val.val();
+  // d.resize(1);
+  // d[0]=TOP(stck);    POP(stck);
+  // n=(int)d[0].val.val();
   d.resize(n);
   //
   // The arguments to the print statement are sitting on the stack in
@@ -2088,18 +2087,17 @@ int printEngine(const int doNewLine)
 
       if (d[i].symb && (ISSET(d[i].symb->type,QSTRING_TYPE)))
 	{
-	  //OUTPUT << d[i].symb->otype.qstr->c_str();
-	  OUTPUT << d[i].symb->qstr;
+	  OUTPUT << format(d[i].fmt.c_str()) << d[i].symb->qstr;
+	  //	  OUTPUT << d[i].symb->qstr;
 	  if (d[i].symb->name.size()==0) uninstall(d[i].symb);
 	}
-      /*
       else if (d[i].symb && (ISSET(d[i].symb->type,FMT_TYPE)))
 	{
 	  OUTPUT << d[i].symb->fmt;
 	}
-      */
       else //!(d[i].symb->type==QSTRING))
 	{
+	  if (emitTab) OUTPUT << "\t";
 	  PrintENum(d[i],OUTPUT);
 	  LetGoID(d[i],RETVAR_TYPE,1,0);
 	}
@@ -2123,7 +2121,14 @@ int printEngine(const int doNewLine)
 //
 int print()
 {
-  return printEngine(0);
+  //
+  // The top of the VM stack has the number of arguments to the print
+  // command.
+  //
+  StackType d;
+  d=TOP(stck);    POP(stck);
+  int n=(int)d.val.val();
+  return printEngine(n,false);
 }
 //
 // VM instruction: The VM printn instruction.
@@ -2131,7 +2136,10 @@ int print()
 //-----------------------------------------------------------------
 int printn()
 {
-  return printEngine(1);
+  StackType d;
+  d=TOP(stck);    POP(stck);
+  int n=(int)d.val.val();
+  return printEngine(n,true);
 }
 //
 //-----------------------------------------------------------------
@@ -2789,65 +2797,12 @@ int forcode()
 //
 int printcode()
 {
-  StackType d;
-
   DBG("printcode");
-  
-  d  = TOP(stck);
-  //  prtBits(d.symb->type);
-  //  prtBits(TOP(stck).symb->type);
-  POP(stck);
-
-#ifdef VERBOSE
-  ERROUT << "ID List (printcode): " <<endl;
-  prtTypes(d);
-#endif
-  //
-  // Print a QSTRING
-  //
-  // cerr << d.symb << endl;
-  // cerr << "printcode: "; prtSymb<Calc_Symbol *>(d.symb); cerr << endl;
-
-  unsigned long int v=0;
-  SETBIT(v,VAR_TYPE);
-  //  prtBits(v);
-  if (d.symb && ISSET(d.symb->type,QSTRING_TYPE)) 
-    {
-      //      OUTPUT << format(d.fmt.c_str()) << d.symb->otype.qstr->c_str();
-      OUTPUT << format(d.fmt.c_str()) << d.symb->qstr;
-      return 1;
-    }
-  else if (d.symb && ISSET(d.symb->type,FMT_TYPE))
-    {
-      OUTPUT << d.fmt.c_str() << endl;
-      return 1;
-    }
-  
-  //
-  // Print a number...  Fill-in the result in the global variable
-  // Result (which is returned to the caller of top level API to the
-  // parser as the final result).
-  //
-  Result=d.val;
-  Result.setval(d.val.val(),sqrt(PropagateError(d)));
-  d.val=Result;
-  OUTPUT << "\t";
-  PrintENum(d,OUTPUT);
-  //  fprintf(OUTSTREAM,"\n");
-  OUTPUT << endl;
-
-#ifdef VERBOSE
-  ERROUT << "printcode: Types:" << endl;prtTypes(d);
-  for (IDList::iterator i=d.ID.begin();i!=d.ID.end();i++)
-    ERROUT << "IDs: " << *i << " ";ERROUT << endl;
-#endif
-  //
-  // Release everything in the TmpSymbTab irrespective of whether it
-  // is in a permanent symb. table or not.
-  //
-  LetGoID(d,RETVAR_TYPE,1,0);
-
-  DEFAULT_RETURN;
+  // Use printEngine for printing the object on the top of the VM
+  // stack.  There is only one object on the VM stack (1st. arg).
+  // Print it with a newline (2nd. arg) and emit a TAB before printing
+  // the value (3rd. arg).
+  return printEngine(1,true,true);
 }
 //
 //-----------------------------------------------------------------
