@@ -2038,7 +2038,7 @@ int setgfmt()
 //
 //-----------------------------------------------------------------
 //
-int printEngine(const int n, const bool doNewLine, const bool emitTab=false)
+int printEngine(const int n, const bool emitNewline, const bool emitTab=false)
 {
   vector<StackType> d;
 
@@ -2049,14 +2049,6 @@ int printEngine(const int n, const bool doNewLine, const bool emitTab=false)
 #endif
 
   //
-  // The top of the VM stack has the number of arguments to the print
-  // command.
-  //
-  // d.resize(1);
-  // d[0]=TOP(stck);    POP(stck);
-  // n=(int)d[0].val.val();
-  d.resize(n);
-  //
   // The arguments to the print statement are sitting on the stack in
   // the reverse order!  So pop them all into an array of StackType
   // first.
@@ -2065,9 +2057,15 @@ int printEngine(const int n, const bool doNewLine, const bool emitTab=false)
   // final error from the partial derivatives on the appropriate DS
   // stacks and the MeasurementError table.
   //
+  d.resize(n);
   for (int i=0;i<n;i++)
     {
       d[i]=TOP(stck);   POP(stck);
+      // Error propagation needs to be done here (when the VM stack is
+      // POP'ed) since the associated derivatives are pushed on DSes
+      // also in the same order.  PropagateError() pops the DSes.
+      // Calling it in the loop below (which consumes the d vector in
+      // the reverse order) will pop DS values in the wrong order.
       d[i].val.setval(d[i].val.val(),sqrt(PropagateError(d[i])));
     }
   //
@@ -2102,7 +2100,7 @@ int printEngine(const int n, const bool doNewLine, const bool emitTab=false)
 	  LetGoID(d[i],RETVAR_TYPE,1,0);
 	}
     }
-  if (doNewLine) OUTPUT << endl;
+  if (emitNewline) OUTPUT << endl;
 
   return 1;
 }
