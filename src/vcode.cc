@@ -589,9 +589,24 @@ NUMTYPE Run(VMac& P)
       GetNewID(0); // Only resize the DS and ME
     }
 
+  //
+  // Empty the symbol table holding temporary symbols.  These symbols
+  // are constructed for temporary use internal to the working of the
+  // VM.  At the end of each Run() cycle, all temp. symbols must
+  // either be transferred to the VM SymbTab or be on the VM stack.
+  // If either of these states is not reached (and the VM code needs a
+  // symbol on TmpSymbTab at the beginning of a Run() cycle) it's an
+  // error in the VM code itself. It is therefore correct to empty the
+  // TmpSymbTab at the beginning of each Run() cycle, without which
+  // there is a VM-code mem. leak.  Such a leak won't be reported by
+  // the memory leak detection tools, like valgrind, which are tools
+  // for the *real* machine code (not the VM code).
+  //
+  TmpSymbTab.resize(0);
+
   //  try
     {
-      //      prtVM();
+      //prtVM();
       while((P[pc] != STOP))
 	{
 	  if (GlobalFlag & FLAG_CTRL_C) ReportErr("Interrupted!","###Runtime",0);
@@ -2038,10 +2053,9 @@ int setgfmt()
 //
 //-----------------------------------------------------------------
 //
-int printEngine(const int doNewLine)
+int printEngine(const int n, const bool emitNewline, const bool emitTab=false)
 {
   vector<StackType> d;
-  int n;
 
   DBG("print");
 
@@ -2049,14 +2063,6 @@ int printEngine(const int doNewLine)
   ERROUT << "print:" << endl;
 #endif
 
-  //
-  // The top of the VM stack has the number of arguments to the print
-  // command.
-  //
-  d.resize(1);
-  d[0]=TOP(stck);    POP(stck);
-  n=(int)d[0].val.val();
-  d.resize(n);
   //
   // The arguments to the print statement are sitting on the stack in
   // the reverse order!  So pop them all into an array of StackType
@@ -2066,9 +2072,15 @@ int printEngine(const int doNewLine)
   // final error from the partial derivatives on the appropriate DS
   // stacks and the MeasurementError table.
   //
+  d.resize(n);
   for (int i=0;i<n;i++)
     {
       d[i]=TOP(stck);   POP(stck);
+      // Error propagation needs to be done here (when the VM stack is
+      // POP'ed) since the associated derivatives are pushed on DSes
+      // also in the same order.  PropagateError() pops the DSes.
+      // Calling it in the loop below (which consumes the d vector in
+      // the reverse order) will pop DS values in the wrong order.
       d[i].val.setval(d[i].val.val(),sqrt(PropagateError(d[i])));
     }
   //
@@ -2088,23 +2100,22 @@ int printEngine(const int doNewLine)
 
       if (d[i].symb && (ISSET(d[i].symb->type,QSTRING_TYPE)))
 	{
-	  //OUTPUT << d[i].symb->otype.qstr->c_str();
-	  OUTPUT << d[i].symb->qstr;
+	  OUTPUT << format(d[i].fmt.c_str()) << d[i].symb->qstr;
+	  //	  OUTPUT << d[i].symb->qstr;
 	  if (d[i].symb->name.size()==0) uninstall(d[i].symb);
 	}
-      /*
       else if (d[i].symb && (ISSET(d[i].symb->type,FMT_TYPE)))
 	{
 	  OUTPUT << d[i].symb->fmt;
 	}
-      */
       else //!(d[i].symb->type==QSTRING))
 	{
+	  if (emitTab) OUTPUT << "\t";
 	  PrintENum(d[i],OUTPUT);
 	  LetGoID(d[i],RETVAR_TYPE,1,0);
 	}
     }
-  if (doNewLine) OUTPUT << endl;
+  if (emitNewline) OUTPUT << endl;
 
   return 1;
 }
@@ -2123,7 +2134,14 @@ int printEngine(const int doNewLine)
 //
 int print()
 {
-  return printEngine(0);
+  //
+  // The top of the VM stack has the number of arguments to the print
+  // command.
+  //
+  StackType d;
+  d=TOP(stck);    POP(stck);
+  int n=(int)d.val.val();
+  return printEngine(n,false);
 }
 //
 // VM instruction: The VM printn instruction.
@@ -2131,7 +2149,10 @@ int print()
 //-----------------------------------------------------------------
 int printn()
 {
-  return printEngine(1);
+  StackType d;
+  d=TOP(stck);    POP(stck);
+  int n=(int)d.val.val();
+  return printEngine(n,true);
 }
 //
 //-----------------------------------------------------------------
@@ -2789,65 +2810,12 @@ int forcode()
 //
 int printcode()
 {
-  StackType d;
-
   DBG("printcode");
-  
-  d  = TOP(stck);
-  //  prtBits(d.symb->type);
-  //  prtBits(TOP(stck).symb->type);
-  POP(stck);
-
-#ifdef VERBOSE
-  ERROUT << "ID List (printcode): " <<endl;
-  prtTypes(d);
-#endif
-  //
-  // Print a QSTRING
-  //
-  // cerr << d.symb << endl;
-  // cerr << "printcode: "; prtSymb<Calc_Symbol *>(d.symb); cerr << endl;
-
-  unsigned long int v=0;
-  SETBIT(v,VAR_TYPE);
-  //  prtBits(v);
-  if (d.symb && ISSET(d.symb->type,QSTRING_TYPE)) 
-    {
-      //      OUTPUT << format(d.fmt.c_str()) << d.symb->otype.qstr->c_str();
-      OUTPUT << format(d.fmt.c_str()) << d.symb->qstr;
-      return 1;
-    }
-  else if (d.symb && ISSET(d.symb->type,FMT_TYPE))
-    {
-      OUTPUT << d.fmt.c_str() << endl;
-      return 1;
-    }
-  
-  //
-  // Print a number...  Fill-in the result in the global variable
-  // Result (which is returned to the caller of top level API to the
-  // parser as the final result).
-  //
-  Result=d.val;
-  Result.setval(d.val.val(),sqrt(PropagateError(d)));
-  d.val=Result;
-  OUTPUT << "\t";
-  PrintENum(d,OUTPUT);
-  //  fprintf(OUTSTREAM,"\n");
-  OUTPUT << endl;
-
-#ifdef VERBOSE
-  ERROUT << "printcode: Types:" << endl;prtTypes(d);
-  for (IDList::iterator i=d.ID.begin();i!=d.ID.end();i++)
-    ERROUT << "IDs: " << *i << " ";ERROUT << endl;
-#endif
-  //
-  // Release everything in the TmpSymbTab irrespective of whether it
-  // is in a permanent symb. table or not.
-  //
-  LetGoID(d,RETVAR_TYPE,1,0);
-
-  DEFAULT_RETURN;
+  // Use printEngine for printing the object on the top of the VM
+  // stack.  There is only one object on the VM stack (1st. arg).
+  // Print it with a newline (2nd. arg) and emit a TAB before printing
+  // the value (3rd. arg).
+  return printEngine(1,true,true);
 }
 //
 //-----------------------------------------------------------------
@@ -3135,7 +3103,6 @@ int ret()
   //
   DBG("ret");
   StackType d,r;
-  IDType NewID;
   SETVAL(r.val,0,0);
 
 #ifdef VERBOSE
@@ -3180,7 +3147,6 @@ int ret()
 #endif
 
 	  r.symb = makeTmpSymb(0);
-	  r.symb->type=0;
 #ifdef VERBOSE
 	  ERROUT << "RET: TmpSymb " << r.symb << endl;
 	  ERROUT << "Types from ret():";
@@ -3188,21 +3154,19 @@ int ret()
 #endif
 
 	  r.symb->type = d.symb->type;
-	  r.type = d.type;
+	  r.symb->fmt = d.symb->fmt;
+	  r.symb->qstr = d.symb->qstr;
+	  r.symb->units = d.symb->units;
+	  r.symb->name = d.symb->name;
 	  r.fmt = d.fmt;
 	  r.units = d.units;
-	}
 
-
-      if ((d.symb!=NULL))
-	{
 	  N=d.ID.size();
 	  r.symb->DSList.resize(N);
 	  r.symb->dx.resize(N);
-	  N=0;
 
+	  N=0;
 	  IDList::iterator iterend=d.ID.end();
-	  //	  for(IDList::iterator i=d.ID.begin();i!=d.ID.end();i++) 
 	  for(IDList::iterator i=d.ID.begin();i!=iterend;++i) 
 	    {
 	      r.ID.insert(r.ID.end(),*i);
@@ -3225,16 +3189,8 @@ int ret()
 	      N++;
 	    }
 
-	  if (d.symb) 
-	    {
-	      r.symb->type = d.symb->type;
-	      r.symb->fmt = d.symb->fmt;
-	      r.symb->qstr = d.symb->qstr;
-	      //	      r.symb->name = d.symb->name;
 
-	      SETBIT(r.symb->type,RETVAR_TYPE|PARTIALVAR_TYPE);
-	      r.symb->units = d.symb->units;
-	    }
+	  SETBIT(r.symb->type,RETVAR_TYPE|PARTIALVAR_TYPE);
 	  r.type = 0;
 	  SETBIT(r.type,RETVAR_TYPE|PARTIALVAR_TYPE);
 
@@ -3242,6 +3198,8 @@ int ret()
 	}
       else
 	{
+	  IDType NewID;
+
 	  ClearIDL(r.ID);
 	  r.ID.insert(r.ID.begin(),(NewID=GetNewID()));
 
@@ -3256,17 +3214,17 @@ int ret()
 	  // 
 	  r.val.setval(d.val.val(),sqrt(PropagateError(d)));
 
-	  if (d.symb)
-	    {
-	      r.symb->DSList.resize(1);
-	      r.symb->dx.resize(1);
-	      ClearIDL(r.symb->IDL);
-	      r.symb->IDL.insert(r.symb->IDL.begin(),NewID);
-	      SETBIT(r.symb->type, RETVAR_TYPE);
-	      SETBIT(r.symb->type, PARTIALVAR_TYPE);
-	      r.symb->dx[0]=MeasurementError[NewID]=r.val.rms();
-	      r.symb->DSList[0]=1.0;//sqrt(tdx);
-	    }
+	  // if (d.symb)
+	  //   {
+	  //     r.symb->DSList.resize(1);
+	  //     r.symb->dx.resize(1);
+	  //     ClearIDL(r.symb->IDL);
+	  //     r.symb->IDL.insert(r.symb->IDL.begin(),NewID);
+	  //     SETBIT(r.symb->type, RETVAR_TYPE);
+	  //     SETBIT(r.symb->type, PARTIALVAR_TYPE);
+	  //     r.symb->dx[0]=MeasurementError[NewID]=r.val.rms();
+	  //     r.symb->DSList[0]=1.0;//sqrt(tdx);
+	  //   }
 
 	}
       //
@@ -3275,23 +3233,20 @@ int ret()
       //
 
       int k=0;
-      //      if(1)
-	for (IDList::iterator ii=r.symb->IDL.begin();ii!=r.symb->IDL.end();++ii)
-	  {
+      for (IDList::iterator ii=r.symb->IDL.begin();ii!=r.symb->IDL.end();++ii)
+	{
 
 #ifdef VERBOSE
-	    ERROUT << "Onto DS stack: " << *ii << " " 
-		   << r.symb->DSList[k] << " " 
-		   << r.symb->dx[k] << " " 
-		   << endl;
+	  ERROUT << "Onto DS stack: " << *ii << " " 
+		 << r.symb->DSList[k] << " " 
+		 << r.symb->dx[k] << " " 
+		 << endl;
 #endif
-
-	    MeasurementError[*ii]=r.symb->dx[k];//d.val.rms();
-	    PUSH(DS[*ii],r.symb->DSList[k]);
-	    k++;
-	  }
-	//      else
-	//	PUSH(DS[NewID],1.0);
+	  
+	  MeasurementError[*ii]=r.symb->dx[k];//d.val.rms();
+	  PUSH(DS[*ii],r.symb->DSList[k]);
+	  k++;
+	}
 
 #ifdef VERBOSE
       prtTypes(d);
