@@ -589,9 +589,24 @@ NUMTYPE Run(VMac& P)
       GetNewID(0); // Only resize the DS and ME
     }
 
+  //
+  // Empty the symbol table holding temporary symbols.  These symbols
+  // are constructed for temporary use internal to the working of the
+  // VM.  At the end of each Run() cycle, all temp. symbols must
+  // either be transferred to the VM SymbTab or be on the VM stack.
+  // If either of these states is not reached (and the VM code needs a
+  // symbol on TmpSymbTab at the beginning of a Run() cycle) it's an
+  // error in the VM code itself. It is therefore correct to empty the
+  // TmpSymbTab at the beginning of each Run() cycle, without which
+  // there is a VM-code mem. leak.  Such a leak won't be reported by
+  // the memory leak detection tools, like valgrind, which are tools
+  // for the *real* machine code (not the VM code).
+  //
+  TmpSymbTab.resize(0);
+
   //  try
     {
-      //      prtVM();
+      //prtVM();
       while((P[pc] != STOP))
 	{
 	  if (GlobalFlag & FLAG_CTRL_C) ReportErr("Interrupted!","###Runtime",0);
@@ -3088,7 +3103,6 @@ int ret()
   //
   DBG("ret");
   StackType d,r;
-  IDType NewID;
   SETVAL(r.val,0,0);
 
 #ifdef VERBOSE
@@ -3133,7 +3147,6 @@ int ret()
 #endif
 
 	  r.symb = makeTmpSymb(0);
-	  r.symb->type=0;
 #ifdef VERBOSE
 	  ERROUT << "RET: TmpSymb " << r.symb << endl;
 	  ERROUT << "Types from ret():";
@@ -3141,21 +3154,19 @@ int ret()
 #endif
 
 	  r.symb->type = d.symb->type;
-	  r.type = d.type;
+	  r.symb->fmt = d.symb->fmt;
+	  r.symb->qstr = d.symb->qstr;
+	  r.symb->units = d.symb->units;
+	  r.symb->name = d.symb->name;
 	  r.fmt = d.fmt;
 	  r.units = d.units;
-	}
 
-
-      if ((d.symb!=NULL))
-	{
 	  N=d.ID.size();
 	  r.symb->DSList.resize(N);
 	  r.symb->dx.resize(N);
-	  N=0;
 
+	  N=0;
 	  IDList::iterator iterend=d.ID.end();
-	  //	  for(IDList::iterator i=d.ID.begin();i!=d.ID.end();i++) 
 	  for(IDList::iterator i=d.ID.begin();i!=iterend;++i) 
 	    {
 	      r.ID.insert(r.ID.end(),*i);
@@ -3178,16 +3189,8 @@ int ret()
 	      N++;
 	    }
 
-	  if (d.symb) 
-	    {
-	      r.symb->type = d.symb->type;
-	      r.symb->fmt = d.symb->fmt;
-	      r.symb->qstr = d.symb->qstr;
-	      //	      r.symb->name = d.symb->name;
 
-	      SETBIT(r.symb->type,RETVAR_TYPE|PARTIALVAR_TYPE);
-	      r.symb->units = d.symb->units;
-	    }
+	  SETBIT(r.symb->type,RETVAR_TYPE|PARTIALVAR_TYPE);
 	  r.type = 0;
 	  SETBIT(r.type,RETVAR_TYPE|PARTIALVAR_TYPE);
 
@@ -3195,6 +3198,8 @@ int ret()
 	}
       else
 	{
+	  IDType NewID;
+
 	  ClearIDL(r.ID);
 	  r.ID.insert(r.ID.begin(),(NewID=GetNewID()));
 
@@ -3209,17 +3214,17 @@ int ret()
 	  // 
 	  r.val.setval(d.val.val(),sqrt(PropagateError(d)));
 
-	  if (d.symb)
-	    {
-	      r.symb->DSList.resize(1);
-	      r.symb->dx.resize(1);
-	      ClearIDL(r.symb->IDL);
-	      r.symb->IDL.insert(r.symb->IDL.begin(),NewID);
-	      SETBIT(r.symb->type, RETVAR_TYPE);
-	      SETBIT(r.symb->type, PARTIALVAR_TYPE);
-	      r.symb->dx[0]=MeasurementError[NewID]=r.val.rms();
-	      r.symb->DSList[0]=1.0;//sqrt(tdx);
-	    }
+	  // if (d.symb)
+	  //   {
+	  //     r.symb->DSList.resize(1);
+	  //     r.symb->dx.resize(1);
+	  //     ClearIDL(r.symb->IDL);
+	  //     r.symb->IDL.insert(r.symb->IDL.begin(),NewID);
+	  //     SETBIT(r.symb->type, RETVAR_TYPE);
+	  //     SETBIT(r.symb->type, PARTIALVAR_TYPE);
+	  //     r.symb->dx[0]=MeasurementError[NewID]=r.val.rms();
+	  //     r.symb->DSList[0]=1.0;//sqrt(tdx);
+	  //   }
 
 	}
       //
@@ -3228,23 +3233,20 @@ int ret()
       //
 
       int k=0;
-      //      if(1)
-	for (IDList::iterator ii=r.symb->IDL.begin();ii!=r.symb->IDL.end();++ii)
-	  {
+      for (IDList::iterator ii=r.symb->IDL.begin();ii!=r.symb->IDL.end();++ii)
+	{
 
 #ifdef VERBOSE
-	    ERROUT << "Onto DS stack: " << *ii << " " 
-		   << r.symb->DSList[k] << " " 
-		   << r.symb->dx[k] << " " 
-		   << endl;
+	  ERROUT << "Onto DS stack: " << *ii << " " 
+		 << r.symb->DSList[k] << " " 
+		 << r.symb->dx[k] << " " 
+		 << endl;
 #endif
-
-	    MeasurementError[*ii]=r.symb->dx[k];//d.val.rms();
-	    PUSH(DS[*ii],r.symb->DSList[k]);
-	    k++;
-	  }
-	//      else
-	//	PUSH(DS[NewID],1.0);
+	  
+	  MeasurementError[*ii]=r.symb->dx[k];//d.val.rms();
+	  PUSH(DS[*ii],r.symb->DSList[k]);
+	  k++;
+	}
 
 #ifdef VERBOSE
       prtTypes(d);
