@@ -75,12 +75,12 @@
 \date{}
 \maketitle
 \normalsize
-\ifpdf
-\else
-\begin{center}
-  \PDFVersion
-\end{center}
-\fi
+%% \ifpdf
+%% \else
+%% \begin{center}
+%%   \PDFVersion
+%% \end{center}
+%% \fi
 
 \begin{abstract} 
 \pagestyle{empty}
@@ -206,18 +206,18 @@ Use the {\tt "help"} command in interactive mode to get more help about the lang
 
 \section{Examples}
 \label{SEC:EXAMPLES}
-Following are some examples to demonstrate as well as test the
+Following are some examples to demonstrate the
 correctness of the error propagation algorithm.  In the following examples, various
 functions are written in different algebraic forms and the results for
-the different forms is shown to be exactly same (e.g. $\cos(x)$ vs.
+the different forms is shown to be exactly the same (e.g. $\cos(x)$ vs.
 $\sqrt{1-\sin^2(x)}$, $\tan(x)$ vs. $\sin(x)/\cos(x)$).  These
 examples also verify that the combination of a function and its
 inverse simply returns the argument (e.g $asin(\sin(x))=x$), as well
 as functions like $\sinh(x)/((\exp(x)-\exp(-x))/2)$ (which is really a
 complicated way of writing $1$!) returns a value of $1$ with no error.
 However, if the values of two independent variates $x_1$ and $x_2$ and
-their corresponding errors are same, the value of expressions like
-$\sin^2(x_1) + \cos^2(x_2)$ will be $1$ but the error will not be zero.
+their corresponding errors are the same, the value of expressions like
+$\sin^2(x_1) + \cos^2(x_2)$ will be $1$ but the error will be non-zero.
 \begin{verbatim}
    Value of x         =  1.00000 +/- 0.10000
    Value of y         =  2.00000 +/- 0.20000
