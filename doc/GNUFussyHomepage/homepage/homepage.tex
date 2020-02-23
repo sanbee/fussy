@@ -31,7 +31,6 @@
 \usepackage{natbib}
 \usepackage{marvosym}
 \usepackage{xcolor}
-\usepackage{txfonts}
 \usepackage{enumitem}
 \usepackage[breaklinks,colorlinks]{hyperref}
 
@@ -95,14 +94,9 @@ final expression.  These temporary variables are not independent variables and t
 information about their dependence on other constituent independent variables is
 preserved for error propagation.
 
-The scripting syntax of \Fussy\ is similar to that of {\tt C}.  It is therefore easy to
-use with minimal learning and can be used in every day scientific work.  Most other
-related work found in the literature is in the form of libraries for automatic
-differentiation.  Only two tools appear to have used it for automatic error propagation.
-Use of these libraries and tools require sophisticated programming and are targeted more
-for programmers than for regular every day scientific use.  Also, such libraries and
-tools are difficult to use for correct error propagation in expressions composed of
-sub-expressions.
+The syntax of \Fussy\ is similar to that of the {\tt C} programming language.  It is
+therefore easy to use with minimal learning and can be used in every day scientific work
+and can be used as a replacement for an interactive scientific calculator.
 
 \section*{Downloading}
 Currently the best way to download \Fussy\ is to clone it's git repository using the
@@ -111,14 +105,15 @@ following command:
      git clone https://git.savannah.gnu.org/git/fussy.git
 \end{verbatim}
 This will create a directory named ``fussy''.  The {\tt fussy} can be compiled on most
-GNU Linux, Linux-like OSes by running the {\tt build} script in this directory.
+GNU Linux/Linux-like OSes by running the {\tt ``build''} script in this directory.
 
+A tar-ball of the fussy source tree is in the works and will be released shortly.
 
 \section*{Documentation}
-Online manual can be found at https://www.gnu.org/software/fussy/manual.  The manual as
-man-pages, {\it info} pages are being written.
+Online manual can be found \href{https://www.gnu.org/software/fussy/manual/manual.html}{here}.  The manual as
+man-pages and {\it info} pages are being written.
 
-After starting {\tt fussy}, the {\tt help} command also provides brief help about
+The {\tt ``help''} command of the {\tt fussy} interpreter also provides brief help about
 available features and {\tt fussy} language syntax.
 
 

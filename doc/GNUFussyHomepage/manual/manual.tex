@@ -26,12 +26,11 @@
 \usepackage{ifpdf}
 \usepackage{amsmath}
 \usepackage[dvips]{graphicx, color}  % The figure package
-%\usepackage{palatino}
+\usepackage{palatino}
 %\usepackage{txfonts}     % Use Utopia font
 \usepackage{natbib}
 \usepackage{marvosym}
 \usepackage{xcolor}
-\usepackage{txfonts}
 \usepackage{enumitem}
 \usepackage[breaklinks,colorlinks]{hyperref}
 
@@ -83,42 +82,30 @@
 %% \fi
 
 \begin{abstract} 
-\pagestyle{empty}
-Formal propagation of random errors in a mathematical expression
-follow a precise prescription based on calculus.  This requires the
-computation of the variation of the function with respect to each of
-the independent variables used to construct the function.  These
-variations are added in quadrature to compute the final numerical
-error.  For complicated expressions, computation of all the partial
-derivatives is often cumbersome and hence error prone.
+\pagestyle{empty} Formal propagation of random errors in a mathematical expression follow
+a precise prescription based on calculus.  This requires the computation of the variation
+of the function with respect to each of the independent variables used to construct the
+function.  These variations are added in quadrature to compute the final numerical error.
+For complicated expressions, computation of all the partial derivatives is often
+cumbersome and hence error prone.
 
-The \Fussy\footnote{The name reflects the original intention of
-  designing a language for fuzzy arithmetic.  It is also a pun on
-  those who (wrongly) consider error propagation as too much fuss!}
-scripting language, described here, implements an algorithm for
-automatic propagation of random measurement errors in an arbitrary
-mathematical expression.  It is internally implemented as a virtual
-machine for efficient runtime performance and can be used as an
-interpreter by the user.  A simple {\tt C} binding to the interpreter
-is also provided.  Mathematical expressions can be implemented as a
-collection of sub-expressions, as sub-program units (functions or
-procedures) or as single atomic expressions.  Errors are correctly
-propagated when a complex expression is broken up into smaller
-sub-expressions.  Sub-expressions are assigned to temporary variables
-which can then be used to write the final expression.  These temporary
-variables are not independent variables and the information about
-their dependence on other constituent independent variables is
-preserved and used on-the-fly in error propagation.
+The \Fussy\footnote{The name reflects the original intention of designing a language for
+  fuzzy arithmetic.  It is also a pun on those who (wrongly) consider error propagation
+  as too much fuss!}  language implements an algorithm for automatic propagation of
+random measurement errors in an arbitrary mathematical expression.  It is internally
+implemented as a virtual machine for efficient run time performance and can be used as an
+interpreter by the user.  A simple {\tt C} binding to the interpreter is also provided.
+Mathematical expressions can be implemented as a collection of sub-expressions, as
+sub-program units (functions or procedures) or as single atomic expressions.  Errors are
+correctly propagated when a complex expression is broken up into smaller sub-expressions.
+Sub-expressions are assigned to temporary variables which can then be used to write the
+final expression.  These temporary variables are not independent variables and the
+information about their dependence on other constituent independent variables is
+preserved for error propagation.
 
-The scripting syntax of \Fussy\ is similar to that of {\tt C}.  It is
-therefore easy to use with minimal learning and can be used in every
-day scientific work.  Most other related work found in the literature
-is in the form of libraries for automatic differentiation.  Only two
-tools appear to have used it for automatic error propagation.  Use of
-these libraries and tools require sophisticated programming and are
-targeted more for programmers than for regular every day scientific
-use.  Also, such libraries and tools are difficult to use for correct
-error propagation in expressions composed of sub-expressions.
+The syntax of \Fussy\ is similar to that of the {\tt C} programming language.  It is
+therefore easy to use with minimal learning and can be used in every day scientific work
+and can be used as an interactive scientific calculator.
 \end{abstract}
             
 \newpage
@@ -127,63 +114,73 @@ error propagation in expressions composed of sub-expressions.
 
 \section{Introduction}
 
-If $\vec x$ is a vector of independent experimentally measured
-quantities with associated random measurement error $\delta \vec
-x$, the formal error on a function $f(\vec x)$ is given by
+Let $\vec x$ be a vector of independent experimentally measured
+quantities with associated random measurement error  $\delta \vec
+x$.  The formal error on a function $f(\vec x)$ is then given by
 \begin{equation}
   \delta f = \sqrt{\left| \vec{\nabla f} \cdot \vec{\delta x}\right|^2} = \sqrt{\sum_i {\left( {\partial f \over {\partial x_i}} 
         \delta x_i \right)}^2}
 \label{FERR}
 \end{equation}
 Further, if $f(\vec x)$ is a functional, e.g. $f(\vec x)=g(h(k(\vec
-x)))$, then the partial derivative of $f$ is given by the derivative
+x)))$, the partial derivative of $f$ is given by the derivative
 chain rule:
 \begin{equation}
 {\partial f \over \partial x_i} = {\partial g \over \partial h} 
 {\partial h \over \partial k} {\partial k \over \partial x_i}
 \label{DFUNCTIONAL}
 \end{equation}
-Therefore to compute $\delta f$ one requires:
+Therefore in general, to compute the propagated error $\delta f$ in the evaluation of $f$
+requires:
 \begin{enumerate}
 \item the partial derivative of the function with respect to each
 independent variable ($\partial f / \partial x_i$)
 \item $\delta x_i$ - the measurement error
 \item chain rules of differential calculus for the
-mathematical operators (which will use the $x_i$'s and $\partial f /
-\partial x_i$'s).  
+mathematical operators 
 \end{enumerate}
 
 
-The \Fussy\ interpreter is implemented internally as a stack-based virtual machine (VM).
-The derivative chain rule (Eq.~\ref{DFUNCTIONAL}) is implemented using a separate VM
-which maintains a stack {\it per independent variable} to hold the intermediate
-partial derivatives.  At the terminal nodes of a parsing tree (e.g.  the '{\tt =}'
-operator) the values from these stacks are used to evaluate Eq.~\ref{FERR}.  A user
-program written in \Fussy\ is compiled into the VM instruction-set, referred to as the
-op-codes, to manipulate the VM stack (\VMS), call built-in functions, perform basic
-mathematical operations or call user-defined sub-program (functions or procedures).
-These op-codes are function calls which perform the operation they represent
-(mathematical operators, built-in function call or branching to a sub-program unit) as
-well as the steps required for automatic error propagation.  Since user-defined
-programs/expressions are translated into these op-codes, errors are correctly propagated
-in the mathematical expression in any arbitrary user program.
+The \Fussy\ language internally maintains the information about dependent and independent
+variables in a mathematical expression, computes the required derivatives and
+automatically propagates the error in the final result.  The {\tt fussy} interpreter is
+implemented internally as a stack-based virtual machine (VM) which maintains a stack
+{\it per independent variable} to hold the intermediate partial derivatives.  At the
+terminal nodes of a parsing tree (e.g.  the '{\tt =}' operator) the values from these
+stacks are used to evaluate Eq.~\ref{FERR}.  A user program written in \Fussy\ is
+compiled into the VM instruction-set, referred to as the op-codes, to manipulate the VM
+stack (\VMS), call built-in functions, perform basic mathematical operations or call
+user-defined sub-program (functions or procedures).  These op-codes are function calls
+which perform the operation they represent (mathematical operators, built-in function
+call or branching to a sub-program unit) along with the steps required for automatic
+error propagation.  Since user-defined programs/expressions are compiled into these
+op-codes, errors are correctly propagated in the mathematical expression in any arbitrary
+user program.
 
-A simple {\tt C} binding to the interpreter is also provided.  The user program can be
-supplied to the interpreter via an in-memory string using the function {\tt calc(char}
-{\tt *InString,} {\tt edouble} {\tt \&ans,} {\tt FILE} {\tt *InStream,} {\tt FILE} {\tt
-  *OutStream)}.  The contents of the {\tt InString} are parsed and converted to a VM
+A simple {\tt C} binding to the interpreter is also provided.  A {\tt fussy} program can be
+supplied to the interpreter via an in-memory string with the following call
+\begin{verbatim}
+   calc(char *InString, edouble &ans, FILE *InStream, FILE *OutStream)  
+\end{verbatim}
+
+The contents of the {\tt InString} are parsed and converted to a VM
 instruction set.  The result of the execution of this program is returned in {\tt ans}.
 The last two arguments are not used in this case.  Alternatively, if {\tt InString} is
 set to {\tt NULL} and the last two arguments set to valid file pointers, the interpreter
 will take the input from {\tt InFile} and use {\tt OutFile} as the output stream.  A
-similar {\tt C++} interface of type {\tt calc(}{\tt char *InString,} {\tt ostream
-  \&ResultStream,} {\tt FILE *InStream,} {\tt FILE *OutStream)} writes the result of the
-program supplied in {\tt InString} or via the file pointer {\tt InStream} to the output
-stream {\tt ResultStream}.  {\tt OutStream} in both interfaces is used as the output file
-for the error messages.
+similar {\tt C++} interface of type
+\begin{verbatim}
+   calc(char *InString, ostream &ResultStream, FILE *InStream, FILE *OutStream)
+\end{verbatim}
 
-Section~\ref{SEC:EXAMPLES} contains a few examples demonstrating automatic error
-propagation.  Appendix~\ref{APPEN:SYNTAX} describes the syntax of the \Fussy\ language.
+writes the result of the program supplied in {\tt InString} or via the file pointer {\tt
+  InStream} to the output stream {\tt ResultStream}.  {\tt OutStream} in both interfaces
+is used as the output file for the error messages.
+
+The sections below describe the usage of the \Fussy\ interpreter and the language
+syntax. Section~\ref{SEC:EXAMPLES} contains a few examples demonstrating automatic error
+propagation and Section~\ref{APPEN:SYNTAX} describes the {\tt fussy} syntax.
+
 
 \subsection{Usage}
 {\tt fussy [-h|--help] [-q] [-d] [-t N] [prog1,prog2,...]}
@@ -202,22 +199,36 @@ propagation.  Appendix~\ref{APPEN:SYNTAX} describes the syntax of the \Fussy\ la
    N is the number of Ctrl-C trials after which the interpreter
    gives up preaching good behavior and quits
 \end{verbatim}
+
+At start-up, the interpreter loads the contents of {\tt \$HOME/.fussy} file, if found.
+Following this, the {\tt fussy} code in {\tt prog1}, {\tt prog2}, etc. is executed before the interpreter
+enters interactive state (unless {\tt quit} is called in the code in any of the supplied
+files).
+
 Use the {\tt "help"} command in interactive mode to get more help about the language syntax.
+
+\subsection{Configurable environment variables}
+
+The {\tt fussy} program is sensitive to the following UNIX shell environment variables.
+
+{\tt HOME}: The path from where the {\tt .fussy} file is loaded.
+
+{\tt FUSSY\_IGNOREEOF} (default value = 1000000): This can be set to an integer value.  FUSSY\_IGNOREEOF number of
+Ctrl-D inputs to the \Fussy\ interpreter will be ignored. \Fussy\ will exit on the next
+Ctrl-D input.
 
 \section{Examples}
 \label{SEC:EXAMPLES}
-Following are some examples to demonstrate the
-correctness of the error propagation algorithm.  In the following examples, various
-functions are written in different algebraic forms and the results for
-the different forms is shown to be exactly the same (e.g. $\cos(x)$ vs.
-$\sqrt{1-\sin^2(x)}$, $\tan(x)$ vs. $\sin(x)/\cos(x)$).  These
-examples also verify that the combination of a function and its
-inverse simply returns the argument (e.g $asin(\sin(x))=x$), as well
-as functions like $\sinh(x)/((\exp(x)-\exp(-x))/2)$ (which is really a
-complicated way of writing $1$!) returns a value of $1$ with no error.
-However, if the values of two independent variates $x_1$ and $x_2$ and
-their corresponding errors are the same, the value of expressions like
-$\sin^2(x_1) + \cos^2(x_2)$ will be $1$ but the error will be non-zero.
+Following are some examples to demonstrate that correctness of the error propagation
+algorithm.  In the following examples functions are written in different algebraic forms
+and the results for the different forms is shown to be exactly the same (e.g. $\cos(x)$
+vs.  $\sqrt{1-\sin^2(x)}$, $\tan(x)$ vs. $\sin(x)/\cos(x)$).  Other examples verify that
+the combination of a function and its inverse simply returns the argument (e.g
+$asin(\sin(x))=x$), as well as functions like $\sinh(x)/((\exp(x)-\exp(-x))/2)$ evaluate
+to a value of $1$ with no error (these are just a complicated way of writing $1$!).
+However, if the value of two independent variates $x_1$ and $x_2$ and their
+corresponding errors are the same, the value of expressions like $\sin^2(x_1) +
+\cos^2(x_2)$ will evaluate to $1$ but the error will be non-zero.
 \begin{verbatim}
    Value of x         =  1.00000 +/- 0.10000
    Value of y         =  2.00000 +/- 0.20000
@@ -308,10 +319,9 @@ equal to $L^\prime_n(x)\delta x$.
 \section{Syntax}
 \label{APPEN:SYNTAX}
 
-This appendix describes the \Fussy\ syntax.  Statements are
-interactively executed as soon as they are completed.  The virtual
-code for the sub-programs (function or procedure) is held in the
-memory and executed when the sub-programs are called.
+This section describes the syntax of the {\tt fussy} language.  Completed statements are
+immediately compiled and executed.  Compiled code for the sub-programs (function or
+procedure) is held in the memory and executed when the sub-programs are called.
 
 \subsection{Numbers}
 \label{NUMBERS}
@@ -319,56 +329,51 @@ Numbers in \Fussy\ are represented as floating point numbers and can
 be specified with or without the decimal point, or in the exponent
 format.  Optionally, an error can also be associated with the numbers
 via the {\tt pm} directive.  E.g., $75.3\pm 10.1$ can be expressed as
-{\tt 75.3pm10.1}.  Numbers can also be tagged with units (see
+{\tt 75.3pm10.1}.  Numbers (and variables) can also be tagged with units (see
 Section~\ref{UNITS}) or a {\tt C}-styled printing format (see
 Section~\ref{FORMATTING}).
 
 \subsubsection{Units}
 \label{UNITS}
    
-Numerical values can be specified along with their units.  As of now,
-the only units supported are degree, arcmin, arcsec, hours, minute,
-and seconds.  These can be specified by appending {\tt 'd', ''', '"',
-'h', 'm', 's'} respectively to the numeric values.  Internally, all
-numeric values are always stored in the MKS system of units.  The
-default units for a variable used to specify angles or time is
-radians.  If the values are specified along with any of the above
-mentioned units, the values are still stored internally as radians.
-However while printing (see Section~\ref{PRINT}), the values are
+Numerical values can be specified along with their units.  Currently, the only units
+supported are degree, arcmin, arcsec, hours, minute, and seconds.  These can be specified
+by appending {\tt 'd', ''', '"', 'h', 'm', 's'} respectively with the numeric values.
+Internally, all numeric values are always stored in the MKS system of units.  The default
+units for a variable used to specify angles or time is radians.  If the values are
+specified along with any of the above mentioned units, the values are still stored
+internally as radians.  However while printing (see Section~\ref{PRINT}), the values are
 formatted automatically and printed with the appropriate units.
 
 \subsection{Operators and built-in functions}
 
-The normal binary operators of type {\tt expr <op> expr}, where {\tt
-expr} is any expression/variable/constant and {\tt <op>} is one of
-{\tt '+', '-', '/', '*'}, '{\texttt{\^}}' and {\tt '**'} binary
-operators perform the usual mathematical operations in addition to
-error propagation.  The comparison operators '{\texttt{<}}',
-'{\texttt{>}}', '{\texttt{=}}', '{\texttt{!}}{\texttt{=}}',
-'{\texttt{<}}{\texttt{=}}', '{\texttt{>}}{\texttt{=}}' and the logical
-operators '{\texttt{|}}{\texttt{|}}' and '{\texttt{\&}}{\texttt{\&}}'
-have the usual meaning.  Apart from the usual operation, the {\tt
-var=expr} assignment operator also does the error propagation in the
-expression on the RHS and assigns it as the error for the variable on
-the LHS.  In addition to this, the assignment operator for partial
-variables ({\tt pvar:=expr}) is also defined.  This does not propagate
-the errors on the RHS but instead transfers all the required
-information for error propagation to the variable on the LHS (see
-Section~\ref{APPEN:SUBEXPRESSIONS}).  The result of these assignment
-statements is the value of the variable on the LHS.  Hence expressions
-like {\tt sin(x=0.1pm0.02)} are equivalent to {\tt
-'x=0.1pm0.02;sin(x);'}.  The prefix and postfix operators {\tt
-<op>var} and {\tt var<op>} where {\tt <op>} is either {\tt '++'} or
-{\tt '--'} and {\tt var} is any user-defined variable are also
-defined.  These increment or decrement the value of the variables by
-one.  The prefix and postfix operators operate on the variables before
-and after the variable is further used respectively.
+The normal binary operators of type {\tt expr <op> expr}, where {\tt expr} is any
+expression/variable/constant and {\tt <op>} is one of {\tt '+', '-', '/', '*'},
+'{\texttt{\^}}' and {\tt '**'} binary operators perform the usual mathematical operations
+in addition to error propagation.  The comparison operators '{\texttt{<}}',
+'{\texttt{>}}', '{\texttt{=}}', '{\texttt{!}}{\texttt{=}}', '{\texttt{<}}{\texttt{=}}',
+'{\texttt{>}}{\texttt{=}}' and the logical operators '{\texttt{|}}{\texttt{|}}' and
+'{\texttt{\&}}{\texttt{\&}}' have the usual meaning.  Apart from the usual operation, the
+{\tt var=expr} assignment operator also propagates the error in the expression on the RHS
+and assigns it as the error for the variable on the LHS.  Expressions like {\tt
+  sin(x=0.1pm0.02)} are equivalent to {\tt x=0.1pm0.02;sin(x);}.  The prefix and
+postfix operators {\tt <op>var} and {\tt var<op>} where {\tt <op>} is either {\tt '++'}
+or {\tt '--'} and {\tt var} is any user-defined variable are also defined.  These
+increment or decrement the value of the variables by one.  The prefix and postfix
+operators operate on the variables before and after the variable is further used
+respectively.
 
-In addition, two operators of type {\tt expr.<op>} where {\tt <op>} is
-either {\tt val} or {\tt rms} are also defined.  These operators
-extract the value and the associated (propagated) error in {\tt expr}
-which can be any mathematical expression or a variable.
+Two additional operators of type {\tt expr.<op>} where {\tt <op>} is either {\tt val} or
+{\tt rms} are defined.  These operators return the value and the associated (propagated)
+Root Mean Square error in {\tt expr} which can be any mathematical expression or a
+variable.
 
+\subsection{Partial assignment operator ``{\tt :=}''}
+The partial assignment operator ``{\tt pvar:=expr}'' assigns value of partial results to
+variables.  This does not propagate the errors on the RHS but instead transfers all the
+required information for error propagation to the variable on the LHS (see
+Section~\ref{APPEN:SUBEXPRESSIONS}).  Expressions like {\tt
+  sin(x:=0.1pm0.02)} are equivalent to {\tt x:=0.1pm0.02;sin(x);}.
 %The following built-in functions are available: {\tt sin}, {\tt cos},
 %{\tt tan}, {\tt asin}, {\tt acos}, {\tt atan}, {\tt atan2}, {\tt
 %sinh}, {\tt cosh}, {\tt tanh}, {\tt asinh}, {\tt acosh}, {\tt atanh},
@@ -417,15 +422,12 @@ the value or the type of a previously declared variable).  E.g.
    >H_0
     The Hubble constant
 \end{verbatim}
-A semi-colon ({\tt ';'}) is a delimiter to separate multiple
-expressions in a single line.  Statements on separate lines need not
-be delimited by semi-colons (though it is not an error to do so).
-Compound statements are a group of simple statements, grouped using the
-curly-brace pair ({\tt '\{'} and {\tt '\}'}) (e.g. {\tt \{a=1.5;
-b=2;\}}). As may be obvious, compound statements can also be nested.
-The {\tt '/\/*'} and {\tt '*/'} pair can be used as comment
-delimiters.  Comment delimiters however cannot be nested. 
-%E.g.
+A semi-colon ({\tt ';'}) is a delimiter to separate multiple expressions in a single
+line.  Statements on separate lines need not be delimited by semi-colons (though it is
+not an error to do so).  Compound statements are a group of simple statements, grouped
+using the curly-brace pair ({\tt '\{'} and {\tt '\}'}) -- e.g. {\tt \{a=1.5;
+  b=2;\}}). Compound statements can also be nested.  The {\tt '/\/*'} and {\tt '*/'} pair
+can be used as comment delimiters.  Comment delimiters however cannot be nested.
 
 \subsection{Sub-expressions}
 \label{APPEN:SUBEXPRESSIONS}
@@ -470,13 +472,12 @@ return} is not used, or is used without an {\tt expression}, the type
 becomes {\tt proc}.  The type of the sub-program therefore need not be
 declared.  It is an error to use a procedure in an expression or pass
 a procedure as an argument to another sub-program where a function
-should have been passed.
+is expected.
 
-A function or procedure declaration begins with a variable name
-followed by an argument list.  The argument list is enclosed by a
-round bracket pair ({\tt '('} and {\tt ')'}).  A {\tt '()'} specifies
-an empty argument list.  The function body is in enclosed between the
-{\tt '\{'} and {\tt '\}'} brackets.  E.g.
+A function or procedure declaration begins with a variable name followed by an argument
+list enclosed in the round bracket pair ({\tt '('} and {\tt ')'}).  A {\tt '()'}
+specifies an empty argument list.  The function body is enclosed between the {\tt
+  '\{'} and {\tt '\}'} brackets.  E.g.
 \begin{verbatim}
    >/* An example of a funtion declaration */
    >f() { return sin(PI/2); }
