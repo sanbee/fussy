@@ -17,8 +17,11 @@
  *   along with fussy.  If not, see <https://www.gnu.org/licenses/>.
  *
 ******************************************************************-->
-# fussy
-The _fussy_ program implements a scripting language with an algorithm
+# GNU _fussy_
+
+__This project is now part of the GNU project. This repos will be sync'ed with the [official GNU _fussy_ repos on Savannah](https://savannah.gnu.org/projects/fussy/).__
+
+The GNU _fussy_ program implements a scripting language with an algorithm
 for automatic error propagation of random measurement errors in an
 arbitrary mathematical expression.  The program can be used as a simple
 interactive calculator with error propagation.  Mathematical
@@ -30,7 +33,7 @@ is internally implemented as a virtual machine for efficient runtime
 performance and can be used as an interpreter in a client code as
 well.  A simple C binding to the interpreter is also provided.
 
-The scripting [syntax](https://github.com/sanbee/fussy/blob/wiki/FussySyntax.md#syntax-for-the-fussy-scripting-language) of _fussy_ is similar to the C programming language. It is easy, particularly for those familiar with programming in C, to use _fussy_ with minimal learning. In its simplest form, _fussy_ interpretor can be used interactively as a simple calculator with the added feature of automatic error prograpation (see syntax for [simple expressions](https://github.com/sanbee/fussy/blob/wiki/FussySyntax.md#expressionsstatements), [sub-expressions](https://github.com/sanbee/fussy/blob/wiki/FussySyntax.md#sub-expressions), and [functions/procedure](https://github.com/sanbee/fussy/blob/wiki/FussySyntax.md#functionprocedure)).
+The scripting [syntax](https://github.com/sanbee/fussy/blob/wiki/FussySyntax.md#syntax-for-the-fussy-scripting-language) of GNU _fussy_ is similar to the C programming language. It is easy, particularly for those familiar with programming in C, to use GNU _fussy_ with minimal learning. In its simplest form, GNU _fussy_ interpretor can be used interactively as a simple calculator with the added feature of automatic error prograpation (see syntax for [simple expressions](https://github.com/sanbee/fussy/blob/wiki/FussySyntax.md#expressionsstatements), [sub-expressions](https://github.com/sanbee/fussy/blob/wiki/FussySyntax.md#sub-expressions), and [functions/procedure](https://github.com/sanbee/fussy/blob/wiki/FussySyntax.md#functionprocedure)).
 
 ## Installation 
 
@@ -55,7 +58,7 @@ Testsuite summary for fussy 2.0
 ```    
 In case this does not work, you can re-build the "./configure" script by running the "build" script.
 
-In case this still fails to build _fussy_, please let us know.
+In case this still fails to build GNU _fussy_, please let us know.
 
 **If you find the software useful, we look forward to hearing from you with your comments/suggestions.**
 
