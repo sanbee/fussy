@@ -317,7 +317,7 @@ void prtCSymbTab()
 //
 void showCopyright(const char *Msg)
 {
-  cerr << "   fussy 2.0" << endl
+  cerr << "   GNU fussy 2.0" << endl
        << 
 #include "copyright.inc"
        << endl
