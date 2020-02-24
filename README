@@ -41,6 +41,17 @@ _fussy_ interpretor can be used interactively as a simple calculator
 with the added feature of automatic error prograpation (see syntax for
 simple expressions, sub-expressions, and functions/procedure).
 
+
+Installation
+------------
+
+The installation instructions in the INSTALL file should work for most
+GNU Linux-type OS distributions.  However if "./configure && make
+check" does not work for you, please try just running "./build".  The
+"build" script is distributed with GNU fussy.
+
+
+
 IF YOU FIND THE SOFTWARE USEFUL, WE LOOK FORWARD TO HEARING FROM YOU
 WITH YOUR COMMENTS/SUGGESTIONS.
 
