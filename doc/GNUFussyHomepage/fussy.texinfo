@@ -55,7 +55,7 @@ Examples
 * Recursion::
 
 Usage
-* Usage:
+* Usage::
 
 Syntax
 * Numbers::
@@ -73,8 +73,6 @@ Syntax
 @node Introduction
 @chapter Introduction
 
-@c index chapter, first
-@c index index entry, another
 Formal propagation of random errors in a mathematical expression
 follow a precise prescription based on calculus.  This requires the
 computation of the variation of the function with respect to each of
@@ -183,6 +181,7 @@ for the error messages.
 @t{fussy [-h|--help] [-q] [-d] [-t N] [prog1,prog2,...]}
 
 @verbatim
+
 -h or --help
    Print this help
 
@@ -195,6 +194,7 @@ for the error messages.
 -t N
    N is the number of Ctrl-C trials after which the interpreter
    gives up preaching good behavior and quits
+
 @end verbatim
 Use the @t{"help"} command in interactive mode to get more help about the language syntax.
 
@@ -224,6 +224,7 @@ However, if the values of two independent variates @math{x_1} and @math{x_2} and
 their corresponding errors are same, the value of expressions like
 @math{\sin^2(x_1) + \cos^2(x_2)} will be 1 but the error will not be zero.
 @verbatim
+
    Value of x         =  1.00000 +/- 0.10000
    Value of y         =  2.00000 +/- 0.20000
    Value of x1        =  1.00000 +/- 0.10000
@@ -258,6 +259,7 @@ their corresponding errors are same, the value of expressions like
 
    sin(x1)^2+cos(x1)^2   =  1.00000 +/- 0.00000
    sin(x1)^2+cos(x2)^2   =  1.00000 +/- 0.12859
+
 @end verbatim
 
 @node Recursion
@@ -274,12 +276,14 @@ The term in the parenthesis is also written
 as a recursive function @math{df(x)}.  It is shown that the propagated
 error in @math{f(x)} is equal to @math{f(x)df(x)\delta x}.
 @verbatim
+
    >f(x) {if (x==1) return x; else return x*f(--x);}
    >df(x){if (x==1) return x; else return 1/x+df(--x);}
    >f(x=10pm1)
            3628800.00000 +/- 10628640.00000
    >(f(x)*df(x)*x.rms).val
            10628640.00000
+
 @end verbatim
 Similarly, the recurrence relations for the Laguerre polynomial of
 order @math{n} and its derivative evaluated at @math{x} can be written
@@ -296,6 +300,7 @@ These are written in @value{Fussy} as @t{l(n,x)} and @t{dl(n,x)} and it is shown
 equal to @math{L^\prime_n(x)\delta x}.
 
 @verbatim
+
    >l(n,x){
       if (n<=0) return 1;
       if (n==1) return 1-x;
@@ -306,6 +311,7 @@ equal to @math{L^\prime_n(x)\delta x}.
                1.37500 +/-    0.50000
    >(dl(4,x)*x.rms).val
            0.50000
+
 @end verbatim
 
 @node Syntax
@@ -335,7 +341,7 @@ memory and executed when the sub-programs are called.
 Numbers in @value{Fussy} are represented as floating point numbers and can
 be specified with or without the decimal point, or in the exponent
 format.  Optionally, an error can also be associated with the numbers
-via the @t{pm} directive.  E.g., @math{75.3\pm 10.1} can be expressed as
+via the @t{pm} directive.  E.g., @math{75.3 +/- 10.1} can be expressed as
 @t{75.3pm10.1}.  Numbers can also be tagged with units (see Section @ref{Units})
 or a @t{C}-styled printing format (see Section @ref{Formatting}).
 
@@ -430,12 +436,14 @@ Assigning a value to a variable also creates the variable.  The type
 of the value assigned to the variable determines its type (and overrides
 the value or the type of a previously declared variable).  E.g.
 @verbatim
+
    >H_0=75pm10
    >H_0
              75.00000 +/-   10.00000
    >H_0="The Hubble constant\n"
    >H_0
     The Hubble constant
+
 @end verbatim
 A semi-colon (@t{';'}) is a delimiter to separate multiple
 expressions in a single line.  Statements on separate lines need not
@@ -458,6 +466,7 @@ computed on-the-fly when required, i.e.  when they are printed or are
 assigned to a normal variable using the @t{'='} operator or at an
 operator node of a parsing tree when used in another expression.  E.g.
 @verbatim
+
    >x=1pm0.1
    >s:=sin(x);c:=cos(x);
    >sin(x)/cos(x) /* Compute tan(x) as sin(x)/cos(x) */
@@ -471,6 +480,7 @@ operator node of a parsing tree when used in another expression.  E.g.
                      and one PARTIAL_VAR.  Error propagates 
                      differently */
        1.55741 +/-    0.26236
+
 @end verbatim
 
 @node Variables and function/procedure names
@@ -503,6 +513,7 @@ round bracket pair (@t{'('} and @t{')'}).  A @t{'()'} specifies
 an empty argument list.  The function body is in enclosed between the
 @t{'@{'} and @t{'@}'} brackets.  E.g.
 @verbatim
+
    >/* An example of a function declaration */
    >f() { return sin(PI/2); }
    >/* An example of a procedure declaration */ 
@@ -511,16 +522,19 @@ an empty argument list.  The function body is in enclosed between the
               1.00000
    >p() 
    Value of f() =    1.00000
+
 @end verbatim
 A sub-program can be passed as an argument to another sub-program.  An
 argument corresponding to a sub-program can be specified using the
 @t{func} (for a function) or @t{proc} (for a procedure) directive.
 E.g.
 @verbatim
+
    >f(x) { return sin(x); }
    >p(func fa,x) {print "The value of f(",x%5.2f,") =",fa(x),"\n";}
    >p(f,10)
    The value of f(10.00) =  -0.54402
+
 @end verbatim
 All symbols (variables, functions, procedures) used in the sub-program
 code must be either global variables declared @i{before} the
@@ -528,6 +542,7 @@ sub-program declaration or must be one of the argument list.
 Temporary variables, the scope of which is within the sub-program
 only, can be declared using the @t{auto} directive.  E.g.
 @verbatim
+
    >f(x) { return sin(x); }
    >p(func fa,x)
      {
@@ -537,6 +552,7 @@ only, can be declared using the @t{auto} directive.  E.g.
      }
    >p(f,10)
    The value of f(10.00) =  -0.54402
+
 @end verbatim
 
 
@@ -557,6 +573,7 @@ significance level, else return false.
 
 The syntax for the @t{if-else} statement is:
 @verbatim
+
     if (condition)
        if-body-statement;
 
@@ -565,6 +582,7 @@ The syntax for the @t{if-else} statement is:
     if (condition)
        if-body-statement else
        else-body-statement;
+
 @end verbatim
 The @t{if-body-statement} and the @t{else-body-statement} can be
 any valid compound or simple statement.  In case of a simple
@@ -575,8 +593,10 @@ statement, the terminating semi-colon is necessary.
 
 The syntax for the @t{while-loop} is:
 @verbatim
+
     while (condition)
        body-statement
+
 @end verbatim
 The @t{ body-statement} can be either a simple or a compound
 statement and in case it is a simple statement, the terminating
@@ -587,8 +607,10 @@ semi-colon defines the end of the loop.
 
 The syntax for the @t{for-loop} is:
 @verbatim
+
     for (init;condition;incr)
       body-statement
+
 @end verbatim
 where @t{init} is a comma (@t{','}) separate list of simple
 statements for initializing the loop variables.  E.g. @t{init} can
@@ -601,8 +623,10 @@ result of the @t{condition} statement is zero (logical false).
 E.g. following is a valid @t{for-loop} with 3 loop-variables, only
 one of which is checked in the condition:
 @verbatim
+
     for (i=0,j=0,k=0;i<10;i=i+1,j=j+1;k=k+1) 
        print "i= ",i," j= ",j," k= ",k,"\n";
+
 @end verbatim
 
 @node Print statement
@@ -610,10 +634,16 @@ one of which is checked in the condition:
 @cindex @t{print} statement
 @cindex @t{printn} statement
 
+@value{Fussy} supports formatted printing of numbers, variables and
+strings using @t{printf}-styled print-format specification.
+
 @menu
-* Print statement::
+* @t{print} and @t{printn} statements::
 * Formatting::
 @end menu
+
+@node @t{print} and @t{printn} statements
+@subsection The @t{print} and @t{printn} statements
 
 The @t{print} statement takes a comma separated list of objects to
 be printed.  These objects can be quoted-strings, variables,
@@ -653,8 +683,10 @@ With this, the value is printed in binary (1 or 0) format.  @t{%B} does the same
 The value is caste into a @t{unsigned long} integer before
 printing.
 @verbatim
+
    >x=10;x%B
         00000000 00000000 00000000 00001010
+
 @end verbatim
 If the units of a value are specified, the print format is also
 appropriately modified.  If a variable has units of time or angle, its
