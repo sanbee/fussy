@@ -14,7 +14,9 @@ Copyright @copyright{} 2020 Free Software Foundation, Inc.
 
 @titlepage
 @title GNU fussy
-@author Sanjay Bhatnagar
+@subtitle A calculator language with automatic error propagation
+@subtitle Fussy Version 2.0
+@author Author: Sanjay Bhatnagar
 @page
 @vskip 0pt plus 1filll
 @insertcopying
@@ -39,14 +41,21 @@ This manual is for GNU Fussy
 * Index::            Complete index.
 @end menu
 
-Detailed menu listing:
 @menu
+
+
+
+Detailed menu listing
+
 Introduction
-* Mathematical background::   Calculas of error propagation.
+* Mathematical background::   Calculus of error propagation.
 
 Examples
 * Algebraic forms::
 * Recursion::
+
+Usage
+* Usage:
 
 Syntax
 * Numbers::
@@ -80,7 +89,7 @@ The @value{Fussy}@footnote{The name reflects the original intention of
 scripting language, described here, implements an algorithm for
 automatic propagation of random measurement errors in an arbitrary
 mathematical expression.  It is internally implemented as a virtual
-machine for efficient runtime performance and can be used as an
+machine for efficient run time performance and can be used as an
 interpreter by the user.  A simple @t{C} binding to the interpreter
 is also provided.  Mathematical expressions can be implemented as a
 collection of sub-expressions, as sub-program units (functions or
@@ -109,6 +118,8 @@ composed of sub-expressions.
 
 @node Mathematical background
 @section Mathematical background
+@cindex Mathematical background
+@cindex Calculus of error propagation
 
 If @math{\vec x} is a vector of independent experimentally measured
 quantities with associated random measurement error @math{\delta \vec
@@ -166,6 +177,8 @@ for the error messages.
 
 @node Usage
 @chapter Usage
+@cindex Command-line
+@cindex Usage
 
 @t{fussy [-h|--help] [-q] [-d] [-t N] [prog1,prog2,...]}
 
@@ -197,6 +210,7 @@ correctness of the error propagation algorithm.
 
 @node Algebraic forms
 @section Algebraic forms
+@cindex Examples: Algebraic forms
 
 In the following examples, various
 functions are written in different algebraic forms and the results for
@@ -228,7 +242,7 @@ their corresponding errors are same, the value of expressions like
    sin(x1)*sin(x1)       =  0.70807 +/- 0.09093
    sin(x1)*sin(x2)       =  0.70807 +/- 0.06430
 
-   /* Expressions that evalute to just x */
+   /* Expressions that evaluate to just x */
 
    asin(sin(x))       =  1.00000 +/-  0.10000
    asinh(sinh(x))     =  1.00000 +/-  0.10000
@@ -248,12 +262,13 @@ their corresponding errors are same, the value of expressions like
 
 @node Recursion
 @section Recursion
+@cindex Examples: Recursion
 
 Following is an example of error propagation in a recursive function.
 The factorial of @math{x} is written as a recursive function @math{f(x)}.  Its
 derivative is given by 
 @tex
-$$f(x)\left[{1\over x} + {1\over x-1} + {1\over x-2} +...+{1\over 2} + 1\right]$$
+$$f(x)\left[{1\over x} + {1\over x-1} + {1\over x-2} +\cdots+{1\over 2} + 1\right]$$
 @end tex
 The term in the parenthesis is also written
 as a recursive function @math{df(x)}.  It is shown that the propagated
@@ -268,7 +283,7 @@ error in @math{f(x)} is equal to @math{f(x)df(x)\delta x}.
 @end verbatim
 Similarly, the recurrence relations for the Laguerre polynomial of
 order @math{n} and its derivative evaluated at @math{x} can be written
-as recusive functions.
+as recursive functions.
 @c @tex
 @c $$L_n(x) = \left\{
 @c 	1~~n=0\\
@@ -296,7 +311,7 @@ equal to @math{L^\prime_n(x)\delta x}.
 @node Syntax
 @chapter Syntax
 
-This appendix describes the @value{Fussy} syntax.  Statements are
+This section describes the @value{Fussy} syntax.  Statements are
 interactively executed as soon as they are completed.  The virtual
 code for the sub-programs (function or procedure) is held in the
 memory and executed when the sub-programs are called.
@@ -315,6 +330,8 @@ memory and executed when the sub-programs are called.
 
 @node Numbers
 @section Numbers
+@cindex Number formats
+
 Numbers in @value{Fussy} are represented as floating point numbers and can
 be specified with or without the decimal point, or in the exponent
 format.  Optionally, an error can also be associated with the numbers
@@ -324,6 +341,7 @@ or a @t{C}-styled printing format (see Section @ref{Formatting}).
 
 @node Units
 @section Units
+@cindex Units with numbers/variables
    
 Numerical values can be specified along with their units.  As of now,
 the only units supported are degree, arcmin, arcsec, hours, minute,
@@ -338,6 +356,8 @@ formatted automatically and printed with the appropriate units.
 
 @node Operators and built-in functions
 @section Operators and built-in functions
+@cindex Mathematical operators
+@cindex Build-in functions
 
 The normal binary operators of type @t{expr <op> expr}, where @t{expr} is any expression/variable/constant and @t{<op>} is one of
 @t{ '+', '-', '/', '*'}, @t{'\^'} and @t{'**'} binary
@@ -365,10 +385,14 @@ either @t{val} or @t{rms} are also defined.  These operators
 extract the value and the associated (propagated) error in @t{expr}
 which can be any mathematical expression or a variable.
 
-The following built-in functions are available: @t{sin}, @t{cos},
+The following built-in functions are available: 
+
+@t{sin}, @t{cos},
 @t{tan}, @t{asin}, @t{acos}, @t{atan}, @t{atan2}, @t{sinh}, @t{cosh}, @t{tanh}, @t{asinh}, @t{acosh}, @t{atanh},
 @t{exp}, @t{ln}, @t{log}, @t{fabs}, @t{fmod}, @t{sqrt}
-@t{int}.  The following functions, useful for astronomical
+@t{int}.  
+
+The following functions, useful for astronomical
 computations are defined.  The latitude and longitude used for these
 computations are set in the global system variables @t{LONGITUDE}
 and @t{LATITUDE}.
@@ -387,6 +411,7 @@ to the given value.
 
 @node Expressions/Statements
 @section Expressions/Statements
+@cindex Atomic mathematical expressions
 
 Numbers and variables can be combined with the mathematical operators
 and logical operators to form an expression.  Expressions can be used
@@ -423,6 +448,8 @@ delimiters.  Comment delimiters however cannot be nested.
 
 @node Sub-expressions
 @section Sub-expressions
+@cindex Sub-expressions
+@cindex Dependent and independent variables
 
 A special assignment operator @t{':='} is used to assign
 sub-expressions to user-defined variables.  Sub-expression variables
@@ -456,6 +483,8 @@ one or more alpha-numeric characters or @t{'_'}.
 
 @node Function/procedure
 @section Function/procedure
+@cindex User defined function and procedure
+@cindex Sub-program units
 
 Sub-programs can be written as functions or procedures.  The only
 difference between functions and procedures is that functions @i{
@@ -474,7 +503,7 @@ round bracket pair (@t{'('} and @t{')'}).  A @t{'()'} specifies
 an empty argument list.  The function body is in enclosed between the
 @t{'@{'} and @t{'@}'} brackets.  E.g.
 @verbatim
-   >/* An example of a funtion declaration */
+   >/* An example of a function declaration */
    >f() { return sin(PI/2); }
    >/* An example of a procedure declaration */ 
    >p() {print "Value of f() = ",f(),"\n";}
@@ -524,39 +553,42 @@ return true if the error on the evaluated value is within the
 significance level, else return false.
 
 @subsection @t{if-else}
+@cindex @t{if-else} statement
 
 The syntax for the @t{if-else} statement is:
 @verbatim
     if (condition)
-       if-body-statment;
+       if-body-statement;
 
          or
 
     if (condition)
-       if-body-statment else
-       else-body-statment;
+       if-body-statement else
+       else-body-statement;
 @end verbatim
 The @t{if-body-statement} and the @t{else-body-statement} can be
 any valid compound or simple statement.  In case of a simple
 statement, the terminating semi-colon is necessary.
 
 @subsection @t{while-loop}
+@cindex @t{while-loop}
 
 The syntax for the @t{while-loop} is:
 @verbatim
     while (condition)
-       body-statment
+       body-statement
 @end verbatim
 The @t{ body-statement} can be either a simple or a compound
 statement and in case it is a simple statement, the terminating
 semi-colon defines the end of the loop.
 
 @subsection @t{for-loop}
+@cindex @t{for-loop}
 
 The syntax for the @t{for-loop} is:
 @verbatim
     for (init;condition;incr)
-      body-statment
+      body-statement
 @end verbatim
 where @t{init} is a comma (@t{','}) separate list of simple
 statements for initializing the loop variables.  E.g. @t{init} can
@@ -575,6 +607,8 @@ one of which is checked in the condition:
 
 @node Print statement
 @section Print statement
+@cindex @t{print} statement
+@cindex @t{printn} statement
 
 @menu
 * Print statement::
@@ -590,8 +624,14 @@ defined by the format modifier associated with the values (see
 Section @ref{Formatting}).  All escaped-characters used in C-styled
 printing have the same effect as in the output of the C-styled @t{printf} statement.
 
+The @t{printn} statement is exactly the same as @t{print} statement
+but emits a new-line character at the end.
+
 @node Formatting
 @subsection Formatting
+@cindex Print formatting
+@cindex @t{printf}-styled formatting
+@cindex Print formatting: @t{%B} and @t{%b} operators
 
 Values can be formatted for printing in a variety of ways.  The format
 in which a variable is printed is associated with the variable and
