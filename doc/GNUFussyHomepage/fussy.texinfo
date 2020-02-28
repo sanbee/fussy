@@ -34,39 +34,40 @@ This manual is for GNU Fussy
 @end ifnottex
 
 @menu
-* Introduction::     Mathematical concept.
-* Usage::            Command-line options.
-* Examples::         Proof of correctness.
-* Syntax::           Language syntax.
-* Index::            Complete index.
-@end menu
-
-@menu
-
+* Introduction::                            Mathematical concept.
+* Usage::                                   Command-line options.
+* Examples::                                Proof of correctness.
+* Syntax::                                  Language syntax.
+* Index::                                   Complete index.
 
 
 Detailed menu listing
 
+@detailmenu
 Introduction
-* Mathematical background::   Calculus of error propagation.
+* Introduction::                            Mathematical concepts.
+* Mathematical background::                 Calculus of error propagation.
+
+Command-line usage
+* Usage::                                   Command-line options.
 
 Examples
-* Algebraic forms::
-* Recursion::
+* Examples::                                Proof of correctness.
+* Algebraic forms::                         Error propagation in algebraic expressions.
+* Recursion::                               Error propagation in recursive functions.
 
-Usage
-* Usage::
-
-Syntax
-* Numbers::
-* Units::
-* Operators and built-in functions::
-* Expressions/Statements::
-* Sub-expressions::
-* Variables and function/procedure names::
-* Function/procedure::
-* Control statements::
-* Print statement::
+Language syntax
+* Syntax::                                  Language syntax.
+* Numbers::                                 Number formats.
+* Units::                                   Physical units associated with numbers/variables.
+* Operators and built-in functions::        Mathematical operators and functions.
+* Expressions/Statements::                  Simple and compound statements.
+* Sub-expressions::                         Statistically dependent sub-expressions.
+* Variables and function/procedure names::  Variable, user-defined function names.
+* Function/procedure::                      User-defined functions/procedures.
+* Control statements::                      Program flow-control statements.
+* Print statement::                         Print statements and format.
+@end detailmenu
 @end menu
 
 
@@ -82,22 +83,23 @@ error.  For complicated expressions, computation of all the partial
 derivatives is often cumbersome and hence error prone.
 
 The @value{Fussy}@footnote{The name reflects the original intention of
-  designing a language for fuzzy arithmetic.  It is also a pun on
-  those who (wrongly) consider error propagation as too much fuss!}
-scripting language, described here, implements an algorithm for
-automatic propagation of random measurement errors in an arbitrary
-mathematical expression.  It is internally implemented as a virtual
-machine for efficient run time performance and can be used as an
-interpreter by the user.  A simple @t{C} binding to the interpreter
-is also provided.  Mathematical expressions can be implemented as a
-collection of sub-expressions, as sub-program units (functions or
-procedures) or as single atomic expressions.  Errors are correctly
-propagated when a complex expression is broken up into smaller
+designing a language for fuzzy arithmetic.  It is also a pun on those
+who (wrongly) consider error propagation as too much fuss!}  scripting
+language, described here, implements an algorithm for automatic
+propagation of random measurement errors in an arbitrary mathematical
+expression.  It is internally implemented as a virtual machine for
+efficient run time performance and can be used as an interpreter by the
+user.  A simple @t{C} binding to the interpreter is also provided.
+Mathematical expressions can be implemented as a collection of
+as single atomic expressions (Section @ref{Expressions/Statements}),
+sub-expressions (Section @ref{Sub-expressions}), or as sub-program units
+(functions or procedures; Section @ref{Function/procedure}).  Errors are
+correctly propagated when a complex expression is broken up into smaller
 sub-expressions.  Sub-expressions are assigned to temporary variables
 which can then be used to write the final expression.  These temporary
-variables are not independent variables and the information about
-their dependence on other constituent independent variables is
-preserved and used on-the-fly in error propagation.
+variables are not independent variables and the information about their
+dependence on other constituent independent variables is preserved and
+used on-the-fly in error propagation.
 
 The scripting syntax of fussy is similar to that of the @t{C} programming
 language.  It is therefore easy to use with minimal learning and can
@@ -134,6 +136,7 @@ $${\partial f \over \partial x_i} = {\partial g \over \partial h}
 {\partial h \over \partial k} {\partial k \over \partial x_i}$$
 @end tex
 Therefore to compute @math{\delta f} one requires:
+
 @enumerate
 @item the partial derivative of the function with respect to each
 independent variable (@math{\partial f / \partial x_i})
@@ -162,38 +165,45 @@ programs/expressions are translated into these op-codes, errors are
 correctly propagated in the mathematical expression in any arbitrary
 user program.
 
-A simple @t{C} binding to the interpreter is also provided.  The user program can be
-supplied to the interpreter via an in-memory string using the function @t{calc(char,*InString, edouble &ans, FILE *InStream, FILE *OutStream)}.  The contents of the @t{InString} are parsed and converted to a VM
-instruction set.  The result of the execution of this program is returned in @t{ans}.
-The last two arguments are not used in this case.  Alternatively, if @t{InString} is
-set to @t{NULL} and the last two arguments set to valid file pointers, the interpreter
-will take the input from @t{InFile} and use @t{OutFile} as the output stream.  A
-similar @t{C++} interface of type @t{calc(char *InString, ostream &ResultStream, FILE *InStream, FILE *OutStream)} writes the result of the
-program supplied in @t{InString} or via the file pointer @t{InStream} to the output
-stream @t{ResultStream}.  @t{OutStream} in both interfaces is used as the output file
-for the error messages.
+A simple @t{C} binding to the interpreter is also provided.  The user
+program can be supplied to the interpreter via an in-memory string using
+the function @t{calc(char,*InString, edouble &ans, FILE *InStream, FILE
+*OutStream)}.  The contents of the @t{InString} are parsed and converted
+to a VM instruction set.  The result of the execution of this program is
+returned in @t{ans}.  The last two arguments are not used in this case.
+Alternatively, if @t{InString} is set to @t{NULL} and the last two
+arguments set to valid file pointers, the interpreter will take the
+input from @t{InFile} and use @t{OutFile} as the output stream.  A
+similar @t{C++} interface of type @t{calc(char *InString, ostream
+&ResultStream, FILE *InStream, FILE *OutStream)} writes the result of
+the program supplied in @t{InString} or via the file pointer
+@t{InStream} to the output stream @t{ResultStream}.  @t{OutStream} in
+both interfaces is used as the output file for the error messages.
 
 @node Usage
 @chapter Usage
 @cindex Command-line
 @cindex Usage
 
-@t{fussy [-h|--help] [-q] [-d] [-t N] [prog1,prog2,...]}
+@value{Fussy} can be run from the command-line with the following
+options:
 
 @verbatim
 
--h or --help
-   Print this help
+   fussy [-h|--help] [-q] [-d] [-t N] [prog1,prog2,...]
 
--q
-   Run in quiet mode.  Do not print the copyright information
+   -h or --help
+      Print this help
 
--d
-   Sets the debugging mode (meant for developers)
+   -q
+      Run in quiet mode.  Do not print the copyright information
 
--t N
-   N is the number of Ctrl-C trials after which the interpreter
-   gives up preaching good behavior and quits
+   -d
+      Sets the debugging mode (meant for developers)
+
+   -t N
+      N is the number of Ctrl-C trials after which the interpreter
+      gives up preaching good behavior and quits
 
 @end verbatim
 Use the @t{"help"} command in interactive mode to get more help about the language syntax.
@@ -378,7 +388,7 @@ the LHS.  In addition to this, the assignment operator for partial
 variables (@t{pvar:=expr}) is also defined.  This does not propagate
 the errors on the RHS but instead transfers all the required
 information for error propagation to the variable on the LHS (see
-Section @ref{Sub-expressions,,}).  The result of these assignment
+Section @ref{Sub-expressions}).  The result of these assignment
 statements is the value of the variable on the LHS.  Hence expressions
 like @t{sin(x=0.1pm0.02)} are equivalent to @t{x=0.1pm0.02;sin(x)}.  The prefix and postfix operators @t{<op>var} and @t{var<op>} where @t{<op>} is either @t{'++'} or
 @t{'--'} and @t{var} is any user-defined variable are also
@@ -455,8 +465,9 @@ delimiters.  Comment delimiters however cannot be nested.
 %E.g.
 
 @node Sub-expressions
-@section Sub-expressions
+@section Sub-expressions and the special @t{:=} operator
 @cindex Sub-expressions
+@cindex @t{:=} operator
 @cindex Dependent and independent variables
 
 A special assignment operator @t{':='} is used to assign
