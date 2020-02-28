@@ -50,6 +50,7 @@ Introduction
 
 Command-line usage
 * Usage::                                   Command-line options.
+* Environment Variables::                   Configurable environment variables.
 
 Examples
 * Examples::                                Proof of correctness.
@@ -185,6 +186,12 @@ both interfaces is used as the output file for the error messages.
 @cindex Command-line
 @cindex Usage
 
+@menu
+* Environment Variables::
+@end menu
+
+
+
 @value{Fussy} can be run from the command-line with the following
 options:
 
@@ -207,6 +214,22 @@ options:
 
 @end verbatim
 Use the @t{"help"} command in interactive mode to get more help about the language syntax.
+
+The file @t{$HOME/.fussy}, if present, is processed at the very
+beginning of the start of the program.
+
+@node Environment Variables
+@section Environment Variables
+
+fussy is sensitive to the following environment variables:
+
+@enumerate
+@item @t{HOME}: The path where it looks for the @t{.fussy}
+configuration file
+@item @t{FUSSY_IGNOREEOF}: An integer value indicating the number of
+times a @t{Ctrl-D} input to the interpreter will be ignored before
+quitting.  Default values is @math{10^6}.
+@end enumerate
 
 @node Examples
 @chapter Examples
