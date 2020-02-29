@@ -12,6 +12,11 @@ This is a user manual for the GNU Fussy calculator language
 Copyright @copyright{} 2020 Free Software Foundation, Inc.
 @end copying
 
+@dircategory Mathematics
+@direntry
+* fussy: (fussy).       A calculator language with automatic error propagation
+@end direntry
+
 @titlepage
 @title GNU fussy
 @subtitle A calculator language with automatic error propagation
@@ -41,10 +46,10 @@ This manual is for GNU Fussy
 * Index::                                   Complete index.
 
 
-Detailed menu listing
+ --- Detailed node listing ---
 
 @detailmenu
-Introduction
+Concepts
 * Introduction::                            Mathematical concepts.
 * Mathematical background::                 Calculus of error propagation.
 
@@ -62,6 +67,7 @@ Language syntax
 * Numbers::                                 Number formats.
 * Units::                                   Physical units associated with numbers/variables.
 * Operators and built-in functions::        Mathematical operators and functions.
+* Partial assignment operator @t{:=}::      Assignment operator for dependent variables.
 * Expressions/Statements::                  Simple and compound statements.
 * Sub-expressions::                         Statistically dependent sub-expressions.
 * Variables and function/procedure names::  Variable, user-defined function names.
