@@ -359,6 +359,7 @@ memory and executed when the sub-programs are called.
 * Numbers::
 * Units::
 * Operators and built-in functions::
+* Partial assignment operator @t{:=}::
 * Expressions/Statements::
 * Sub-expressions::
 * Variables and function/procedure names::
@@ -448,6 +449,18 @@ to the given value.
 to the given value.
 @end itemize
 
+@node Partial assignment operator @t{:=}
+@section Partial assignment operator @t{:=}
+@cindex Partial assignment operator @t{:=}
+@cindex @t{:=} operator
+
+The partial assignment operator @t{:=} assigns value of partial
+results to variables. Expression like @t{pvar:=val} does not propagate
+the errors on the @t{val} but instead transfers all the required
+information for error propagation to the variable @t{pvar} (see
+Section @ref{Sub-expressions}). Expressions like @t{sin(x:=0.1pm0.02)} are
+equivalent to @t{x:=0.1pm0.02;sin(x);}.
+
 @node Expressions/Statements
 @section Expressions/Statements
 @cindex Atomic mathematical expressions
@@ -488,12 +501,11 @@ delimiters.  Comment delimiters however cannot be nested.
 %E.g.
 
 @node Sub-expressions
-@section Sub-expressions and the special @t{:=} operator
+@section Sub-expressions 
 @cindex Sub-expressions
-@cindex @t{:=} operator
 @cindex Dependent and independent variables
 
-A special assignment operator @t{':='} is used to assign
+The special assignment operator @t{':='} is used to assign
 sub-expressions to user-defined variables.  Sub-expression variables
 are different from normal variables in that their propagated error is
 computed on-the-fly when required, i.e.  when they are printed or are
