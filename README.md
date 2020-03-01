@@ -19,7 +19,7 @@
 ******************************************************************-->
 # GNU _fussy_
 
-__This project is now part of the GNU project. This repos will be sync'ed with the [official GNU _fussy_ repos on Savannah](https://savannah.gnu.org/projects/fussy/).__
+__This project is now part of the GNU project. This repos will be sync'ed with the official [GNU _fussy_](https://www.gnu.org/software/fussy) repos on [Savannah](https://savannah.gnu.org/projects/fussy/).__
 
 The GNU _fussy_ program implements a scripting language with an algorithm
 for automatic error propagation of random measurement errors in an
