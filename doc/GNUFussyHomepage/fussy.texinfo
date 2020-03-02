@@ -67,7 +67,7 @@ Language syntax
 * Numbers::                                 Number formats.
 * Units::                                   Physical units associated with numbers/variables.
 * Operators and built-in functions::        Mathematical operators and functions.
-* Partial assignment operator @t{:=}::      Assignment operator for dependent variables.
+* Partial assignment operator::             Assignment operator for dependent variables.
 * Expressions/Statements::                  Simple and compound statements.
 * Sub-expressions::                         Statistically dependent sub-expressions.
 * Variables and function/procedure names::  Variable, user-defined function names.
@@ -365,7 +365,7 @@ memory and executed when the sub-programs are called.
 * Numbers::
 * Units::
 * Operators and built-in functions::
-* Partial assignment operator @t{:=}::
+* Partial assignment operator::
 * Expressions/Statements::
 * Sub-expressions::
 * Variables and function/procedure names::
@@ -455,10 +455,10 @@ to the given value.
 to the given value.
 @end itemize
 
-@node Partial assignment operator @t{:=}
-@section Partial assignment operator @t{:=}
-@cindex Partial assignment operator @t{:=}
-@cindex @t{:=} operator
+@node Partial assignment operator
+@section Partial assignment operator
+@cindex Partial assignment operator
+@cindex Special assignment operator
 
 The partial assignment operator @t{:=} assigns value of partial
 results to variables. Expression like @t{pvar:=val} does not propagate
