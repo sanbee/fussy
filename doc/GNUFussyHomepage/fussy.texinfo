@@ -43,6 +43,7 @@ This manual is for GNU Fussy
 * Usage::                                   Command-line options.
 * Examples::                                Proof of correctness.
 * Syntax::                                  Language syntax.
+* General interactive commands::            Commands for the interactive session.
 * Index::                                   Complete index.
 
 
@@ -74,6 +75,9 @@ Language syntax
 * Function/procedure::                      User-defined functions/procedures.
 * Control statements::                      Program flow-control statements.
 * Print statement::                         Print statements and format.
+
+Commands for the interpreter
+* General interactive commands::            Commands for the interactive session.
 @end detailmenu
 @end menu
 
@@ -754,6 +758,35 @@ and are printed in the @t{XXhXXmXX.XXs} and @t{XXdXX'XX.XX"} styles respectively
 @c This is the second item.
 @c @end enumerate
 
+
+@node General interactive commands
+@chapter General interactive commands
+@cindex General interactive commands
+
+Following are some commands useful in an interactive session:
+@menu
+* Virtual machine commands::
+@end menu
+
+@itemize
+@item @t{quit/bye}: The only two ways to quit from the interpreter.
+              Politer (more civlized) of the two commands is more 
+              recommended!
+              Typing Ctrl-D has no effect and typing Ctrl-C will
+              attempt to teach a thing or two about life!
+@item @t{setfmt}: Set the system parameter 'fmt' used as the default format for printing numbers.
+@item @t{warranty}: Prints the warranty information.
+@end itemize
+
+@node Virtual machine commands
+@section Virtual machine commands
+@cindex Virtual machine commands
+@itemize
+@item @t{showvm}: Prints the resident VM program as op-codes.
+@item @t{showsym}: Prints the symbol table of variables.
+@item @t{showcsym}: Prints the symbol table of constants.
+@item @t{showid}: Prints the list of allocated IDs.
+@end itemize
 
 @node Index
 @unnumbered Index
