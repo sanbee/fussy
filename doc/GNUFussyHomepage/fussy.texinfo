@@ -67,8 +67,9 @@ Language syntax
 * Syntax::                                  Language syntax.
 * Numbers::                                 Number formats.
 * Units::                                   Physical units associated with numbers/variables.
-* Operators and built-in functions::        Mathematical operators and functions.
-* Partial assignment operator::             Assignment operator for dependent variables.
+* Operators::                               Mathematical operators.
+* Built-in functions and constants::        Built-in mathematical functions and constants.
+* Special operators::                       Assignment operator for dependent variables.
 * Expressions/Statements::                  Simple and compound statements.
 * Sub-expressions::                         Statistically dependent sub-expressions.
 * Variables and function/procedure names::  Variable, user-defined function names.
@@ -220,7 +221,7 @@ options:
 
    -t N
       N is the number of Ctrl-C trials after which the interpreter
-      gives up preaching good behavior and quits
+      gives up preaching good behavior and quits.  Default is 10000.
 
 @end verbatim
 Use the @t{"help"} command in interactive mode to get more help about the language syntax.
@@ -368,8 +369,9 @@ memory and executed when the sub-programs are called.
 @menu
 * Numbers::
 * Units::
-* Operators and built-in functions::
-* Partial assignment operator::
+* Operators::
+* Built-in functions and constants::
+* Special operators::
 * Expressions/Statements::
 * Sub-expressions::
 * Variables and function/procedure names::
@@ -404,10 +406,10 @@ mentioned units, the values are still stored internally as radians.
 However while printing (see Section @ref{Print statement}), the values are
 formatted automatically and printed with the appropriate units.
 
-@node Operators and built-in functions
-@section Operators and built-in functions
+@node Operators
+@section Operators
 @cindex Mathematical operators
-@cindex Build-in functions
+
 
 The normal binary operators of type @t{expr <op> expr}, where @t{expr} is any expression/variable/constant and @t{<op>} is one of
 @t{ '+', '-', '/', '*'}, @t{'\^'} and @t{'**'} binary
@@ -435,17 +437,15 @@ either @t{val} or @t{rms} are also defined.  These operators
 extract the value and the associated (propagated) error in @t{expr}
 which can be any mathematical expression or a variable.
 
+@node Built-in functions and constants
+@section Built-in functions and constants
+@cindex Build-in functions
+
 The following built-in functions are available: 
 
-@t{sin}, @t{cos},
-@t{tan}, @t{asin}, @t{acos}, @t{atan}, @t{atan2}, @t{sinh}, @t{cosh}, @t{tanh}, @t{asinh}, @t{acosh}, @t{atanh},
-@t{exp}, @t{ln}, @t{log}, @t{fabs}, @t{fmod}, @t{sqrt}
-@t{int}.  
+@t{sin}, @t{cos}, @t{tan}, @t{asin}, @t{acos}, @t{atan}, @t{atan2}, @t{sinh}, @t{cosh}, @t{tanh}, @t{asinh}, @t{acosh}, @t{atanh}, @t{exp}, @t{ln}, @t{log}, @t{fabs}, @t{fmod}, @t{sqrt}, @t{int}.
 
-The following functions, useful for astronomical
-computations are defined.  The latitude and longitude used for these
-computations are set in the global system variables @t{LONGITUDE}
-and @t{LATITUDE}.
+The following functions, useful for astronomical computations are defined.  The latitude and longitude used for these computations are set in the global system variables @t{LONGITUDE} and @t{LATITUDE}.
 @itemize
 @item @t{time()}:  returns the current time in the @t{hms} format.
 @item @t{lst()}:   returns the Local Sideral time in the @t{hms} format.
@@ -459,17 +459,68 @@ to the given value.
 to the given value.
 @end itemize
 
-@node Partial assignment operator
-@section Partial assignment operator
-@cindex Partial assignment operator
-@cindex Special assignment operator
+@subsection Built-in constants
+@cindex Constants
 
-The partial assignment operator @t{:=} assigns value of partial
-results to variables. Expression like @t{pvar:=val} does not propagate
-the errors on the @t{val} but instead transfers all the required
-information for error propagation to the variable @t{pvar} (see
-Section @ref{Sub-expressions}). Expressions like @t{sin(x:=0.1pm0.02)} are
-equivalent to @t{x:=0.1pm0.02;sin(x);}.
+The following useful constants are available:
+
+@itemize
+@item @t{PI}:    The value of PI
+@item @t{C}:     The speed of light in meter/second
+@item @t{R2D}:   Factor to convert angles in degree to radian
+@item @t{A2R}:   Factor to convert angles in arcsecond to radian
+@item @t{kb}:    The Boltzmann constant
+@item @t{PC2M}:  Factor to convert from Parsec to meter
+@item @t{PC2LY}: Factor to convert from Parsec to Lightyear
+@item @t{AU2M}:  Factor to convert from Astronomical Unit to meter
+@item @t{sigma}: [NOT YET USED] Threshold to use for the result of logical operators
+@end itemize
+
+@node Special operators
+@section Special operators
+@cindex Special operators
+
+The fussy language defines the following special operators:
+
+@enumerate
+@item '@t{:=}': For assignment of partial results/sub-expression
+               values.
+
+               The partial assignment operator @t{:=} assigns value of
+               partial results to variables. Expression like
+               @t{pvar:=val} does not propagate the errors on the
+               @t{val} but instead transfers all the required
+               information for error propagation to the variable
+               @t{pvar} (see Section
+               @ref{Sub-expressions}). Expressions like
+               @t{sin(x:=0.1pm0.02)} are equivalent to
+               @t{x:=0.1pm0.02;sin(x);}.
+@cindex Partial assignent operator
+
+@item         '@t{pm}': For associating an error with numerical values.
+	      E.g. 10 +/- 1.0 is expressed as 10pm1.
+@cindex '@t{pm}' operator
+
+@item         '@t{<expr>.rms}', '@t{<expr>.val}': For extracting the associated error 
+	      and the value of the expression <expr>.  E.g. x.rms
+	      is the error associated with x while x.val is the 
+	      value of x.
+@cindex '@t{.rms}' operator
+@cindex '@t{.val}' operator
+
+
+@item         '@t{<expr>%<format>}': Sets the print format of the result of the
+	      expression <expr> to the printf style format <format>. 
+	      E.g. x%10.5f will print the value of x as a float in a
+	      10 character field with 5 places after decimal.
+@cindex '@t{%FMT}' operator
+
+@item         '@t{<var>}.': Operator to set the default print format of a variable.
+	      E.g. x.=%7.2f will replace the default printf format (%10.5f)
+	      by %7.2f.
+@cindex '@t{<var>.} operator
+@end enumerate
+
 
 @node Expressions/Statements
 @section Expressions/Statements
@@ -770,7 +821,9 @@ Following are some commands useful in an interactive session:
 
 @itemize
 @item @t{quit/bye}: The only two ways to quit from the interpreter.
-              Politer (more civlized) of the two commands is recommended.  Typing @t{Ctrl-D} will exit the interpreter
+              Politer (more civlized) of the two commands is more 
+              recommended!
+              Typing @t{Ctrl-D} will exit the interpreter
               after number of trials given by the environment variable
               @t{FUSSY_INGNOREEOF} (see Section @ref{Environment variables}) and typing @t{Ctrl-C} will attempt to teach a
               thing or two about life!
