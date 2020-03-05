@@ -19,10 +19,10 @@
 ******************************************************************-->
 
 
-FUSSY
+GNU FUSSY
 
 
-The _fussy_ program implements a scripting language with an algorithm
+The GNU _fussy_ program implements a scripting language with an algorithm
 for automatic error propagation of random measurement errors in an
 arbitrary mathematical expression. The program can be used a simple
 interactive calculator with error propagation. Mathematical expressions
@@ -34,12 +34,23 @@ implemented as a virtual machine for efficient runtime performance and
 can be used as an interpreter in a client code as well. A simple C
 binding to the interpreter is also provided.
 
-The scripting syntax of _fussy_ is similar to that of C programming
+The syntax of _fussy_ is similar to that of C programming
 language. It is easy, particularly for those familiar with programming
 in C, to use _fussy_ with minimal learning. In its simplest form,
 _fussy_ interpretor can be used interactively as a simple calculator
 with the added feature of automatic error prograpation (see syntax for
 simple expressions, sub-expressions, and functions/procedure).
+
+
+Installation
+------------
+
+The installation instructions in the INSTALL file should work for most
+GNU Linux-type OS distributions.  However if "./configure && make
+check" does not work for you, please try just running "./build".  The
+"build" script is distributed with GNU fussy.
+
+
 
 IF YOU FIND THE SOFTWARE USEFUL, WE LOOK FORWARD TO HEARING FROM YOU
 WITH YOUR COMMENTS/SUGGESTIONS.
@@ -47,7 +58,16 @@ WITH YOUR COMMENTS/SUGGESTIONS.
 PLEASE ALSO REFER TO ITS USAGE IN YOUR PUBLICATION BY QUOTING THE
 FOLLOWING:
 
--   PROJECT LOCATION: HTTPS://GITHUB.COM/SANBEE/FUSSY
--   WEB-PAPER DESCRIBING THE ALGORITHM:
-    HTTP://SANBEE.GITHUB.IO/FUSSY/HTML/FUSSY.HTML
+-   Project homepage:
+         https://www.gnu.org/software/fussy
+
+-   Code reposatories:
+         https://savannah.gnu.org/projects/fussy
+         HTTPS://GITHUB.COM/SANBEE/FUSSY
+
+-   GNU fussy manual:
+         https://www.gnu.org/software/fussy/manual
+
+-   Web-paper: 
+         HTTP://SANBEE.GITHUB.IO/FUSSY/HTML/FUSSY.HTML
 

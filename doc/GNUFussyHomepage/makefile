@@ -1,5 +1,5 @@
 #******************************************************************
-# * Copyright (c) 2020 S.Bhatnagar
+# * Copyright (c) 2000-2018, 2019 S.Bhatnagar
 # *
 #   This file is part of fussy.
 #
@@ -17,20 +17,13 @@
 #   along with fussy.  If not, see <https://www.gnu.org/licenses/>.
 # *
 #******************************************************************
-FUSSYMAN=manual.tex
-LATEX=latex
-LATEX2HTML:=htlatex
-BIBTEX=bibtex
-DVIPS=dvips
-SOURCEDIR=LaTeX
+FUSSYINFO=fussy.texinfo
+GENDOC=./gendoc.sh
+all:  manual
 
-all: manual.html manual.ps
+manual: fussy.texinfo
+	gendocs.sh --email bug-fussy@gnu.org fussy "GNU fussy - A calculator language with automatic error propagation"
 
-manual.ps:
-	$(LATEX) $(FUSSYMAN)
+clean: 
+	\rm -rf *.{cp,cps,info,log,toc,aux} *~ manual
 
-manual.html: 
-	$(LATEX2HTML) $(FUSSYMAN)
-
-clean:
-	rm -rf *.png *.html *.4ct *.4tc *.css *.aux *.idv *.dvi *.lg *.log *.xref *.tmp

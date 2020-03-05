@@ -67,8 +67,13 @@ doc/fussy.html: doc/LaTeX/fussy.tex
 	mkdir doc/fussy.html ; cd doc/LaTeX ; mkdir tmp ; cd tmp ; cp -r ../* . ; \
 	htlatex fussy.tex "xhtml, mathml" "" -d../../../doc/fussy.html/ ; cd ../ ; \rm -rf tmp
 endif
+doc_DATA += doc/GNUFussyHomepage/fussy.info
+doc/GNUFussyHomepage/fussy.info: doc/GNUFussyHomepage/fussy.texinfo
+	cd doc/GNUFussyHomepage && make manual
 all-clean: maintainer-clean
 	\rm -rf doc/LaTeX/fussy.{pdf,aux,toc,out,log} doc/fussy.html
+	cd doc/GNUFussyHomepage && make clean
+
 endif
 
 
