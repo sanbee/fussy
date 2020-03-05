@@ -74,4 +74,4 @@ In case this still fails to build GNU _fussy_, please let us know.
          https://www.gnu.org/software/fussy/manual
 
   * **Web-paper:** 
-         HTTP://SANBEE.GITHUB.IO/FUSSY/HTML/FUSSY.HTML
+         http://sanbee.github.io/fussy/HTML/fussy.html
