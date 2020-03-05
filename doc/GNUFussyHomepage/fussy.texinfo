@@ -261,7 +261,7 @@ functions are written in different algebraic forms and the results for
 the different forms is shown to be exactly same (e.g. @math{\cos(x)} vs.
 @math{\sqrt{1-\sin^2(x)}}, @math{\tan(x)} vs. @math{\sin(x)/\cos(x)}).  These
 examples also verify that the combination of a function and its
-inverse simply returns the argument (e.g @math{asin(\sin(x))=x}), as well
+inverse simply returns the argument (e.g @math{\arcsin(\sin(x))=x}), as well
 as functions like @math{\sinh(x)/((\exp(x)-\exp(-x))/2)} (which is really a
 complicated way of writing 1!) returns a value of 1 with no error.
 However, if the values of two independent variates @math{x_1} and @math{x_2} and
