@@ -64,5 +64,14 @@ In case this still fails to build GNU _fussy_, please let us know.
 
 **Please also refer to its usage in your publication by quoting the following:**
 
-  * **Project location: https://github.com/sanbee/fussy**
-  * **Web-paper describing the algorithm: http://sanbee.github.io/fussy/HTML/fussy.html**
+  *  **Project homepage:**
+         https://www.gnu.org/software/fussy
+
+  *  **Code reposatories:**
+         https://savannah.gnu.org/projects/fussy , HTTPS://GITHUB.COM/SANBEE/FUSSY
+
+  * **GNU fussy manual:**
+         https://www.gnu.org/software/fussy/manual
+
+  * **Web-paper:** 
+         HTTP://SANBEE.GITHUB.IO/FUSSY/HTML/FUSSY.HTML
