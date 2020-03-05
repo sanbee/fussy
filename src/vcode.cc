@@ -3157,7 +3157,7 @@ int ret()
 	  r.symb->fmt = d.symb->fmt;
 	  r.symb->qstr = d.symb->qstr;
 	  r.symb->units = d.symb->units;
-	  r.symb->name = d.symb->name;
+	  //	  r.symb->name = d.symb->name;
 	  r.fmt = d.fmt;
 	  r.units = d.units;
 
