@@ -495,7 +495,7 @@ The fussy language defines the following special operators:
                @ref{Sub-expressions}). Expressions like
                @t{sin(x:=0.1pm0.02)} are equivalent to
                @t{x:=0.1pm0.02;sin(x);}.
-@cindex Partial assignent operator
+@cindex Partial assignment operator
 
 @item         '@t{pm}': For associating an error with numerical values.
 	      E.g. 10 +/- 1.0 is expressed as 10pm1.
@@ -821,7 +821,7 @@ Following are some commands useful in an interactive session:
 
 @itemize
 @item @t{quit/bye}: The only two ways to quit from the interpreter.
-              Politer (more civlized) of the two commands is more 
+              Politer (more civilized) of the two commands is more 
               recommended!
               Typing @t{Ctrl-D} will exit the interpreter
               after number of trials given by the environment variable
