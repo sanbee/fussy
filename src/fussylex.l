@@ -103,9 +103,11 @@ void fussy_inp(char *buf, int *result, int max_size)
 {                                   
   int N;
   static size_t Count=0;
+  char *tt=NULL;
 
   if (GlobalFlag & FLAG_MORE_INP) Calc_prompt=" ";
-  else Calc_prompt=">";
+  //  else Calc_prompt=">";
+  else Calc_prompt=((tt=getenv("FUSSY_PROMPT"))==NULL?">":tt);
 
   if (Calc_line && (Count==strlen(Calc_line))) 
     {

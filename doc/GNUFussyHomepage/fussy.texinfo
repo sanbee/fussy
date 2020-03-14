@@ -240,6 +240,9 @@ configuration file
 @item @t{FUSSY_IGNOREEOF}: An integer value indicating the number of
 times a @t{Ctrl-D} input to the interpreter will be ignored before
 quitting.  Default values is @math{10^6}.
+@item @t{FUSSY_PROMPT}: A string value used as the prompt in
+interactive session.  If not set, a default value of @t{'>'} is
+used. Set it to @t{""} for no prompt.
 @end enumerate
 
 @node Examples
