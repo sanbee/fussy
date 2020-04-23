@@ -315,6 +315,7 @@ MM      "--"
 DOTVAL  ".val"
 DOTRMS  ".rms"
 FORCE   "->"
+XNUM    "xnum"
 QUIT    (([Qq][Uu][Ii][Tt])|([Bb][Yy][Ee]))
 FMT     (%({DIGIT}?"hms"|{DIGIT}?"dms"|"rad"|({S}?{NUM}?[fdeEcsxXoBbgG])))
 
@@ -464,6 +465,7 @@ EHEX    ({HEXD}({SPACE}?{ERROP}{SPACE}?{HEXD})?)
                            INCR_INDEX;
                            return NUMBER;
                          }
+{XNUM}                   {ECHO;return XNUM;}
 {POW}                    {ECHO;                        return POW;} 
 {EQ}                     {ECHO;                        return EQ; }
 {FORCE}                  {ECHO;                        return FORCE;}

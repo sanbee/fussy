@@ -2346,6 +2346,36 @@ int setfmt()
 //-----------------------------------------------------------------
 // VM instruction: Instruction for the assignment operator
 //
+int mkxnum()
+{
+  StackType d1,d2,d;
+  IDType i;
+  DBG("mkenum");
+  
+  d2=TOP(stck);   POP(stck);
+  d1=TOP(stck);   POP(stck);
+
+  // Make a new number with the value from d1 and error from d2 and push that on the
+  // stack
+  d.symb=makeTmpSymb(1,RETVAR_TYPE);
+  d.symb->dx.resize(1);
+  d.symb->dx[0]=1;
+  d.symb->value.setval(d1.val.val(),d2.val.val());
+  d.val.setval(d1.symb->value.val(),d2.symb->value.val());
+  i = *(d.symb->IDL.begin());
+  d.ID.insert(d.ID.end(),i);
+  MeasurementError[i]=d2.val.val();
+  PUSH(DS[i],1.0);
+
+  //  cerr << "mkenum: "; prtSymb<Calc_Symbol *>(d1.symb); cerr << " " << d1.symb->name <<  endl;
+
+  PUSH(stck,d);
+  DEFAULT_RETURN;
+}   
+//
+//-----------------------------------------------------------------
+// VM instruction: Instruction for the assignment operator
+//
 int assgn()
 {
   StackType d1,d2;
@@ -2359,6 +2389,8 @@ int assgn()
   
   d2=TOP(stck);    POP(stck);
   d1=TOP(stck);    POP(stck);
+
+  //  cerr << "ASGN: " << d1.val << " " << d2.val << endl;
 
   tdx = PropagateError(d2);
   ClearDS(d1);

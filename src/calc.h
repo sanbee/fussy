@@ -103,6 +103,6 @@ int ifcode(),whilecode(),forcode(),printcode();
 int eq(), gt(), lt(), le(), ge(), door(), doand(), donot(), ne();
 int setfmt(), call(), ret(), break_code();
 int timeofday(), mjd(), fmjd(), lst(), getday(), getmonth(), getyear(), prtStckSize();
-int setlong(),setlat(),getval(),getrms(),quit(),pre_incr(),post_incr(),pre_decr(),post_decr();
+int setlong(),setlat(),getval(),getrms(),mkxnum(),quit(),pre_incr(),post_incr(),pre_decr(),post_decr();
 int setgfmt();
 #endif

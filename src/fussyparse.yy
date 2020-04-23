@@ -127,7 +127,7 @@
   long int NArg;
 }
 
-%token <symb> NUMBER CONSTANT VAR SYS_VAR PARTIAL_VAR BUILTIN BUILTIN2 UNDEF QSTRING FMT GETVAL GETRMS FUNC PROC FSUC PSUC FUNCDECL PROCDECL PP MM
+%token <symb> NUMBER CONSTANT VAR SYS_VAR PARTIAL_VAR BUILTIN BUILTIN2 UNDEF QSTRING FMT GETVAL GETRMS FUNC PROC FSUC PSUC FUNCDECL PROCDECL PP MM XNUM
 %type  <symb> symbtab_obj defn subprog qstr argnames
 %token <Inst> PRINT PRINTN IF WHILE FOR ELSE BREAK RETURN WARRANTY PRTSY PRTID CPRTSY CPRTLSY PRTVM CSS PRTSS HELP
 %token <NArg> LE GE PS EQ GT LT POW FINISH CSP AUTO ENDOFINPUT TOD MJD FMJD LST GETDAY GETMONTH GETYEAR SETLONG SETLAT SETGFMT
@@ -613,6 +613,7 @@ qstr: QSTRING                {
 //-------------------------------------------------------------------
 //
 expr:  symbtab_obj           {}
+| XNUM '(' symbtab_obj ',' symbtab_obj ')'      {emit(mkxnum);}
 | TOD  '(' ')'               {emit(timeofday);}
 | MJD  '(' ')'               {emit(mjd);}
 | FMJD '(' ')'               {emit(fmjd);}
