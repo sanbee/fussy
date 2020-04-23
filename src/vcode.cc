@@ -2344,7 +2344,9 @@ int setfmt()
 }
 //
 //-----------------------------------------------------------------
-// VM instruction: Instruction for the assignment operator
+// VM instruction: Instruction for the xnum(v,e) command.  This constructs an extended
+// number with value=d1.val.val() and error=d2.val.val() as a tmp. symbol and pushes it
+// on the stack.
 //
 int mkxnum()
 {
@@ -2358,12 +2360,12 @@ int mkxnum()
   // Make a new number with the value from d1 and error from d2 and push that on the
   // stack
   d.symb=makeTmpSymb(1,RETVAR_TYPE);
-  d.symb->dx.resize(1);
-  d.symb->dx[0]=1;
-  d.symb->value.setval(d1.val.val(),d2.val.val());
-  d.val.setval(d1.symb->value.val(),d2.symb->value.val());
   i = *(d.symb->IDL.begin());
   d.ID.insert(d.ID.end(),i);
+  // d.symb->dx.resize(1);
+  // d.symb->dx[0]=1;
+  d.symb->value.setval(d1.val.val(),d2.val.val());
+  d.val.setval(d1.symb->value.val(),d2.symb->value.val());
   MeasurementError[i]=d2.val.val();
   PUSH(DS[i],1.0);
 
