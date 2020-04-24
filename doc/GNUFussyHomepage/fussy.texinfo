@@ -446,10 +446,9 @@ which can be any mathematical expression or a variable.
 
 The following built-in functions are available: 
 
-@t{sin}, @t{cos}, @t{tan}, @t{asin}, @t{acos}, @t{atan}, @t{atan2}, @t{sinh}, @t{cosh}, @t{tanh}, @t{asinh}, @t{acosh}, @t{atanh}, @t{exp}, @t{ln}, @t{log}, @t{fabs}, @t{fmod}, @t{sqrt}, @t{int}.
-
-The following functions, useful for astronomical computations are defined.  The latitude and longitude used for these computations are set in the global system variables @t{LONGITUDE} and @t{LATITUDE}.
 @itemize
+@item @t{sin}, @t{cos}, @t{tan}, @t{asin}, @t{acos}, @t{atan}, @t{atan2}, @t{sinh}, @t{cosh}, @t{tanh}, @t{asinh}, @t{acosh}, @t{atanh}, @t{exp}, @t{ln}, @t{log}, @t{fabs}, @t{fmod}, @t{sqrt}, @t{int}.
+
 @item @t{xnum(expr1, expr2)}: returns an extended-number with value
 equal to @t{.val} operator (@ref{Special operators}) applied to the
 result of the first parameter (expression @t{expr1}) and error equal
@@ -458,6 +457,11 @@ to the @t{.val} operator applied to the second parameter (expression
 of the dependence in @t{expr1} and @t{expr2}.  E.g. @t{xnum(10,2)}
 will return a number @t{10pm2}.  @t{x=11; xnum(x,3)} will return a
 number @t{11pm3}, etc.
+@cindex '@t{xnum}' function
+@end itemize
+
+The following functions, useful for astronomical computations are defined.  The latitude and longitude used for these computations are set in the global system variables @t{LONGITUDE} and @t{LATITUDE}.
+@itemize
 @item @t{time()}:  returns the current time in the @t{hms} format.
 @item @t{lst()}:   returns the Local Sideral time in the @t{hms} format.
 @item @t{day()}:   returns the current day.
