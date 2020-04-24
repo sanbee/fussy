@@ -613,7 +613,7 @@ qstr: QSTRING                {
 //-------------------------------------------------------------------
 //
 expr:  symbtab_obj           {}
-| XNUM '(' symbtab_obj ',' symbtab_obj ')'      {emit(mkxnum);}
+| XNUM '(' expr ',' expr ')'      {emit(mkxnum);}
 | TOD  '(' ')'               {emit(timeofday);}
 | MJD  '(' ')'               {emit(mjd);}
 | FMJD '(' ')'               {emit(fmjd);}

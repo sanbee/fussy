@@ -2362,14 +2362,18 @@ int mkxnum()
   d.symb=makeTmpSymb(1,RETVAR_TYPE);
   i = *(d.symb->IDL.begin());
   d.ID.insert(d.ID.end(),i);
+  MeasurementError[i]=d2.val.val();
+  PUSH(DS[i],1.0);
   // d.symb->dx.resize(1);
   // d.symb->dx[0]=1;
   d.symb->value.setval(d1.val.val(),d2.val.val());
   d.val.setval(d1.symb->value.val(),d2.symb->value.val());
-  MeasurementError[i]=d2.val.val();
-  PUSH(DS[i],1.0);
 
   //  cerr << "mkenum: "; prtSymb<Calc_Symbol *>(d1.symb); cerr << " " << d1.symb->name <<  endl;
+
+  // Release the IDs of the objects on the stack if they are temp. vars/numers. 
+  LetGoID(d1,RETVAR_TYPE,1,0);
+  LetGoID(d2,RETVAR_TYPE,1,0);
 
   PUSH(stck,d);
   DEFAULT_RETURN;
