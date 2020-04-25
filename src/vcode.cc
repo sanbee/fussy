@@ -2366,8 +2366,8 @@ int mkxnum()
   PUSH(DS[i],1.0);
   // d.symb->dx.resize(1);
   // d.symb->dx[0]=1;
-  d.symb->value.setval(d1.val.val(),d2.val.val());
-  d.val.setval(d1.symb->value.val(),d2.symb->value.val());
+  d.symb->value.setval(d1.symb->value.val(),d2.symb->value.val());
+  d.val.setval(d1.val.val(),d2.val.val());
 
   //  cerr << "mkenum: "; prtSymb<Calc_Symbol *>(d1.symb); cerr << " " << d1.symb->name <<  endl;
 

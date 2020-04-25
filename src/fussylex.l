@@ -465,7 +465,6 @@ EHEX    ({HEXD}({SPACE}?{ERROP}{SPACE}?{HEXD})?)
                            INCR_INDEX;
                            return NUMBER;
                          }
-{XNUM}                   {ECHO;return XNUM;}
 {POW}                    {ECHO;                        return POW;} 
 {EQ}                     {ECHO;                        return EQ; }
 {FORCE}                  {ECHO;                        return FORCE;}
@@ -511,6 +510,7 @@ year                     {ECHO;                        return GETYEAR;}
 setlong                  {ECHO;                        return SETLONG;}
 setlat                   {ECHO;                        return SETLAT;}
 setfmt                   {ECHO;                        return SETGFMT;}
+{XNUM}                   {ECHO;                        return XNUM;}
 [a-zA-Z_]+[a-zA-Z0-9_]*  {/* Variables/function names*/
                             Calc_Symbol *s;
                             ECHO;
@@ -520,6 +520,7 @@ setfmt                   {ECHO;                        return SETGFMT;}
                             if ((s=calcgetSymb(yytext))!=0) 
                               {
                                 yylval.symb=s;
+				//This returns to a token (e.g. BUILTIN) approrpate for the parser
                                 return gettype(s->type);
                               }
                             else {return UNDEF;}
