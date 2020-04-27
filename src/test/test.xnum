@@ -1,0 +1,9 @@
+x=10pm1.2
+printn "x=",x;
+x=xnum(10,3.2);
+printn "Modified x=xnum(10,3,2): ",x;
+x=xnum(xnum(x,0),1.0);
+printn "x=xnum(xnum(x,0),1.0)=",x;
+
+f(x,e){return xnum(x,e);}
+printn "f(11,1.1)=",f(11,1.1);
