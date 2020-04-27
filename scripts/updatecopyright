@@ -25,7 +25,7 @@
 year=`date "+%G"`
 let pyear=$year-1
 years=`echo "2000-"$pyear, $year`
-files=`ls *.cc *.h *.c *.y *.l warranty copyright* typeMake vmMake -I y.tab.*`
+files=`ls *.cc *.h *.c *.y *.l warranty copyright* typeMake vmMake -I y.tab.* makefile *.texinfo *.tex`
 for f in $files
 do
     if ( test -d $f );

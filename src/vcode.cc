@@ -1,6 +1,6 @@
 //$Id: vcode.cc,v 1.5 2006/08/07 23:03:52 sbhatnag Exp $
 /******************************************************************
- * Copyright (c) 2000-2018, 2019 S.Bhatnagar
+ * Copyright (c) 2000-2019, 2020 S.Bhatnagar
  *
  *  This file is part of fussy.
  *

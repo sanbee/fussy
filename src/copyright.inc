@@ -1,5 +1,5 @@
 /***********************************************************************
- * Copyright (c) 2000-2018, 2019 S.Bhatnagar
+ * Copyright (c) 2000-2019, 2020 S.Bhatnagar
  *
  *  This file is part of fussy.
  *
@@ -16,4 +16,4 @@
  *  You should have received a copy of the GNU General Public License
  *  along with fussy.  If not, see <https://www.gnu.org/licenses/>.
  **********************************************************************/
-"   Copyright (c) 2000-2018, 2019 S.Bhatnagar (sbhatnag (AT) nrao (DOT) edu)"
+"   Copyright (c) 2000-2019, 2020 S.Bhatnagar (sbhatnag (AT) nrao (DOT) edu)"

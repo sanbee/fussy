@@ -1,7 +1,7 @@
 //-*-C++-*-
 // $Id: BitField.h,v 1.2 2006/01/17 18:57:09 sbhatnag Exp $
 /*****************************************************************
- * Copyright (c) 2000-2018, 2019 S.Bhatnagar
+ * Copyright (c) 2000-2019, 2020 S.Bhatnagar
  *
  *  This file is part of fussy.
  *
