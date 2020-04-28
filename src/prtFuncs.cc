@@ -356,7 +356,7 @@ void showHelp()
   cerr << "\t" << "asinh, acosh, atanh, exp, ln, log, fabs, fmod, sqrt, int" << endl;
   cerr << "\t" << "floor, ceil, xnum (construct an extended-number)" << endl;
   cerr << "\t" << "floor, ceil" << endl;
-  cerr << "\t" << "xnum (construct an extended-number)" << endl;
+  cerr << "\t" << "xnum(V,E) (construct an independent extended-number (V +/- E))" << endl;
 
   cerr << endl << "Some useful constants:" << endl;
   cerr << "\t PI: The value of PI" << endl;
