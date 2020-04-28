@@ -2356,6 +2356,11 @@ int mkxnum()
   
   d2=TOP(stck);   POP(stck);
   d1=TOP(stck);   POP(stck);
+  if (ISSET(d1.symb->type,QSTRING_TYPE))
+    ReportErr("arg1 for xnum is a qstring","###Runtime",0);
+
+  if (ISSET(d2.symb->type,QSTRING_TYPE))
+    ReportErr("arg2 for xnum is a qstring","###Runtime",0);
 
   // Make a new number with the value from d1 and error from d2 and push that on the
   // stack

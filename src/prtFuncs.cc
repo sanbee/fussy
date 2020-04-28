@@ -354,7 +354,9 @@ void showHelp()
   cerr << endl << "Mathematical functions available:" << endl;
   cerr << "\t" << "sin, cos, tan, asin, acos, atan, atan2, sinh, cosh, tanh" << endl;
   cerr << "\t" << "asinh, acosh, atanh, exp, ln, log, fabs, fmod, sqrt, int" << endl;
+  cerr << "\t" << "floor, ceil, xnum (construct an extended-number)" << endl;
   cerr << "\t" << "floor, ceil" << endl;
+  cerr << "\t" << "xnum (construct an extended-number)" << endl;
 
   cerr << endl << "Some useful constants:" << endl;
   cerr << "\t PI: The value of PI" << endl;
