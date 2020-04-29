@@ -2356,14 +2356,19 @@ int mkxnum()
   
   d2=TOP(stck);   POP(stck);
   d1=TOP(stck);   POP(stck);
+  string msg;
   if (ISSET(d1.symb->type,QSTRING_TYPE) ||
-      ISSET(d1.symb->type,FMT_TYPE)
-      )
-    ReportErr("arg. 1 for xnum is NaN (qstring or FTM type)","###Runtime",0);
-
+      ISSET(d1.symb->type,FMT_TYPE))
+    msg="arg. 1";
   if (ISSET(d2.symb->type,QSTRING_TYPE) ||
       ISSET(d2.symb->type,FMT_TYPE))
-    ReportErr("arg. 2 for xnum is NaN (qstring or FTM type)","###Runtime",0);
+    msg += (msg == ""? "arg. 2":" & 2");
+
+  if (msg != "")
+    {
+      msg += " for xnum is NaN (qstring or FTM type)";
+      ReportErr(msg.c_str(),"###Runtime",0);
+    }
 
   // Make a new number with the value from d1 and error from d2 and push that on the
   // stack
