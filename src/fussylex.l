@@ -291,6 +291,8 @@ void HandleExtendedNum(const char *Units, const double &ToRadians)
 //
 //-----------------------------------------------------------------
 //
+// FREAL   ({NUM}([Dd]{S}{DIGIT})?)
+// RNUM    ({CREAL}|{FREAL})
 %}
 DIGIT   [0-9]+
 HEXD    0x[0-9a-fA-F]++
@@ -323,8 +325,7 @@ ERROP   ({PM}|{PMSIGN})
 SPACE   [ ]++
 NUM     ({DIGIT}|{DIGIT}{DOT}|{DOT}{DIGIT}|{DIGIT}{DOT}{DIGIT})
 CREAL   ({NUM}([Ee]{S}{DIGIT})?)
-FREAL   ({NUM}([Dd]{S}{DIGIT})?)
-RNUM    ({CREAL}|{FREAL})
+RNUM    ({CREAL})
 
 HDEG    ({RNUM}h)
 HMIN    ({RNUM}m)
