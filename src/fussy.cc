@@ -55,6 +55,7 @@
 #include "namespace.h"
 #include "config.h"
 #include <sstream>
+#include <readline/history.h>
 
 extern int   calc_debug;
 extern FILE  *rl_instream;
@@ -125,6 +126,14 @@ void LoadFile(const char *Name)
     }
   else	
     ReportErr(strerror(errno),"###Informational",ErrorObj::Informational);
+}
+//
+//---------------------------------------------------------------------
+//
+void allDone(const bool bePolite=true,const int exitStatus=0)
+{
+  if (bePolite)  {ErrorObj tt; tt << "Goodbye!" << endl;}
+  exit(exitStatus);
 }
 //
 //---------------------------------------------------------------------
@@ -263,8 +272,8 @@ int main(int argc, char *argv[])
     catch (ErrorObj& e)        {e << e.what() << endl;}
     catch (BreakException& x)  {}
     catch (ReturnException& x) {}
-    catch (ExitException& x)   {ErrorObj tt; tt << "Goodbye!" << endl;exit(0);}
+    catch (ExitException& x)   {allDone(!beQuiet);}
     catch (...) {MsgStream << "Caught an unknown exception" << endl;}
-  if (VMState_Quit)  {ErrorObj tt; tt << "Goodbye!" << endl;exit(0);}
+  if (VMState_Quit)  {allDone(!beQuiet);}
 }
 

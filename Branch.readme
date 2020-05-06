@@ -1,0 +1,5 @@
+Branch name: calcsymb
+
+Description: This is a branch where the work for eliminating the difference between
+CalcSymbol and StackType will be done.  There is no fundamental reason now to distinguish
+between objects in the symbol table (CalcSymbol) and objects on the stacks (StackType).

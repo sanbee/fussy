@@ -240,6 +240,9 @@ configuration file
 @item @t{FUSSY_IGNOREEOF}: An integer value indicating the number of
 times a @t{Ctrl-D} input to the interpreter will be ignored before
 quitting.  Default values is @math{10^6}.
+@item @t{FUSSY_PROMPT}: A string value used as the prompt in
+interactive session.  If not set, a default value of @t{'>'} is
+used. Set it to @t{""} for no prompt.
 @end enumerate
 
 @node Examples
@@ -495,7 +498,7 @@ The fussy language defines the following special operators:
                @ref{Sub-expressions}). Expressions like
                @t{sin(x:=0.1pm0.02)} are equivalent to
                @t{x:=0.1pm0.02;sin(x);}.
-@cindex Partial assignent operator
+@cindex Partial assignment operator
 
 @item         '@t{pm}': For associating an error with numerical values.
 	      E.g. 10 +/- 1.0 is expressed as 10pm1.
@@ -821,7 +824,7 @@ Following are some commands useful in an interactive session:
 
 @itemize
 @item @t{quit/bye}: The only two ways to quit from the interpreter.
-              Politer (more civlized) of the two commands is more 
+              Politer (more civilized) of the two commands is more 
               recommended!
               Typing @t{Ctrl-D} will exit the interpreter
               after number of trials given by the environment variable

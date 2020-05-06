@@ -103,9 +103,11 @@ void fussy_inp(char *buf, int *result, int max_size)
 {                                   
   int N;
   static size_t Count=0;
+  char *tt=NULL;
 
   if (GlobalFlag & FLAG_MORE_INP) Calc_prompt=" ";
-  else Calc_prompt=">";
+  //  else Calc_prompt=">";
+  else Calc_prompt=((tt=getenv("FUSSY_PROMPT"))==NULL?">":tt);
 
   if (Calc_line && (Count==strlen(Calc_line))) 
     {
@@ -289,6 +291,8 @@ void HandleExtendedNum(const char *Units, const double &ToRadians)
 //
 //-----------------------------------------------------------------
 //
+// FREAL   ({NUM}([Dd]{S}{DIGIT})?)
+// RNUM    ({CREAL}|{FREAL})
 %}
 DIGIT   [0-9]+
 HEXD    0x[0-9a-fA-F]++
@@ -321,8 +325,7 @@ ERROP   ({PM}|{PMSIGN})
 SPACE   [ ]++
 NUM     ({DIGIT}|{DIGIT}{DOT}|{DOT}{DIGIT}|{DIGIT}{DOT}{DIGIT})
 CREAL   ({NUM}([Ee]{S}{DIGIT})?)
-FREAL   ({NUM}([Dd]{S}{DIGIT})?)
-RNUM    ({CREAL}|{FREAL})
+RNUM    ({CREAL})
 
 HDEG    ({RNUM}h)
 HMIN    ({RNUM}m)
