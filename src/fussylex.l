@@ -1,7 +1,7 @@
 %{/* -*- C++ -*- */
 /* $Id: fussy.l,v 1.4 2006/08/05 20:07:41 sbhatnag Exp $ */
 /******************************************************************
- * Copyright (c) 2000-2018, 2019 S.Bhatnagar
+ * Copyright (c) 2000-2019, 2020 S.Bhatnagar
  *
  *  This file is part of fussy.
  *
@@ -317,6 +317,7 @@ MM      "--"
 DOTVAL  ".val"
 DOTRMS  ".rms"
 FORCE   "->"
+XNUM    "xnum"
 QUIT    (([Qq][Uu][Ii][Tt])|([Bb][Yy][Ee]))
 FMT     (%({DIGIT}?"hms"|{DIGIT}?"dms"|"rad"|({S}?{NUM}?[fdeEcsxXoBbgG])))
 
@@ -510,6 +511,7 @@ year                     {ECHO;                        return GETYEAR;}
 setlong                  {ECHO;                        return SETLONG;}
 setlat                   {ECHO;                        return SETLAT;}
 setfmt                   {ECHO;                        return SETGFMT;}
+{XNUM}                   {ECHO;                        return XNUM;}
 [a-zA-Z_]+[a-zA-Z0-9_]*  {/* Variables/function names*/
                             Calc_Symbol *s;
                             ECHO;
@@ -519,6 +521,7 @@ setfmt                   {ECHO;                        return SETGFMT;}
                             if ((s=calcgetSymb(yytext))!=0) 
                               {
                                 yylval.symb=s;
+				//This returns to a token (e.g. BUILTIN) approrpate for the parser
                                 return gettype(s->type);
                               }
                             else {return UNDEF;}

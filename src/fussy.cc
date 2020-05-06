@@ -1,6 +1,6 @@
 // $Id: fussy.cc,v 1.3 2006/03/10 21:38:37 sbhatnag Exp $
 /******************************************************************
- * Copyright (c) 2000-2018, 2019 S.Bhatnagar
+ * Copyright (c) 2000-2019, 2020 S.Bhatnagar
  *
  *  This file is part of fussy.
  *

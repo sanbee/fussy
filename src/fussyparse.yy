@@ -127,7 +127,7 @@
   long int NArg;
 }
 
-%token <symb> NUMBER CONSTANT VAR SYS_VAR PARTIAL_VAR BUILTIN BUILTIN2 UNDEF QSTRING FMT GETVAL GETRMS FUNC PROC FSUC PSUC FUNCDECL PROCDECL PP MM
+%token <symb> NUMBER CONSTANT VAR SYS_VAR PARTIAL_VAR XNUM BUILTIN BUILTIN2 UNDEF QSTRING FMT GETVAL GETRMS FUNC PROC FSUC PSUC FUNCDECL PROCDECL PP MM
 %type  <symb> symbtab_obj defn subprog qstr argnames
 %token <Inst> PRINT PRINTN IF WHILE FOR ELSE BREAK RETURN WARRANTY PRTSY PRTID CPRTSY CPRTLSY PRTVM CSS PRTSS HELP
 %token <NArg> LE GE PS EQ GT LT POW FINISH CSP AUTO ENDOFINPUT TOD MJD FMJD LST GETDAY GETMONTH GETYEAR SETLONG SETLAT SETGFMT
@@ -642,6 +642,14 @@ expr:  symbtab_obj           {}
 			        }
 			       emit2(bltin2, (Instruction)$1->otype.func2);
                              }
+| XNUM '(' arglist ')'       {
+                              if ($3 != 2) 
+                               {
+			          string msg="xnum needs exactly 2 argument";
+			          ReportErr(msg.c_str(),"###Error",ErrorObj::Recoverable);
+			        }
+                              emit(mkxnum);
+                            }
 | expr '@' FMT               {ReportErr("Unit conversion not yet implemented","###Error",0);}
 | expr '+' expr              {emit(add);}
 | expr '-' expr              {emit(sub);}

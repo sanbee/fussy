@@ -1,6 +1,6 @@
 //$Id: vcode.cc,v 1.5 2006/08/07 23:03:52 sbhatnag Exp $
 /******************************************************************
- * Copyright (c) 2000-2018, 2019 S.Bhatnagar
+ * Copyright (c) 2000-2019, 2020 S.Bhatnagar
  *
  *  This file is part of fussy.
  *
@@ -2344,6 +2344,55 @@ int setfmt()
 }
 //
 //-----------------------------------------------------------------
+// VM instruction: Instruction for the xnum(v,e) command.  This constructs an extended
+// number with value=d1.val.val() and error=d2.val.val() as a tmp. symbol and pushes it
+// on the stack.
+//
+int mkxnum()
+{
+  StackType d1,d2,d;
+  IDType i;
+  DBG("mkenum");
+  
+  d2=TOP(stck);   POP(stck);
+  d1=TOP(stck);   POP(stck);
+  string msg;
+  if (ISSET(d1.symb->type,QSTRING_TYPE) ||
+      ISSET(d1.symb->type,FMT_TYPE))
+    msg="arg. 1";
+  if (ISSET(d2.symb->type,QSTRING_TYPE) ||
+      ISSET(d2.symb->type,FMT_TYPE))
+    msg += (msg == ""? "arg. 2":" & 2");
+
+  if (msg != "")
+    {
+      msg += " for xnum is NaN (qstring or FTM type)";
+      ReportErr(msg.c_str(),"###Runtime",0);
+    }
+
+  // Make a new number with the value from d1 and error from d2 and push that on the
+  // stack
+  d.symb=makeTmpSymb(1,RETVAR_TYPE);
+  i = *(d.symb->IDL.begin());
+  d.ID.insert(d.ID.end(),i);
+  MeasurementError[i]=d2.val.val();
+  PUSH(DS[i],1.0);
+  // d.symb->dx.resize(1);
+  // d.symb->dx[0]=1;
+  d.symb->value.setval(d1.symb->value.val(),d2.symb->value.val());
+  d.val.setval(d1.val.val(),d2.val.val());
+
+  //  cerr << "mkenum: "; prtSymb<Calc_Symbol *>(d1.symb); cerr << " " << d1.symb->name <<  endl;
+
+  // Release the IDs of the objects on the stack if they are temp. vars/numers. 
+  LetGoID(d1,RETVAR_TYPE,1,0);
+  LetGoID(d2,RETVAR_TYPE,1,0);
+
+  PUSH(stck,d);
+  DEFAULT_RETURN;
+}   
+//
+//-----------------------------------------------------------------
 // VM instruction: Instruction for the assignment operator
 //
 int assgn()
@@ -2359,6 +2408,8 @@ int assgn()
   
   d2=TOP(stck);    POP(stck);
   d1=TOP(stck);    POP(stck);
+
+  //  cerr << "ASGN: " << d1.val << " " << d2.val << endl;
 
   tdx = PropagateError(d2);
   ClearDS(d1);
