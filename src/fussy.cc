@@ -223,31 +223,29 @@ int main(int argc, char *argv[])
       InitFussy(); // Initialze all internal tables
       if (!beQuiet) showCopyright("   For details type `warranty'.");
       boot();      // Boot the virtual machine
-      if (n>=argc)
-	{
-	  Name += "/."; Name += basename(argv[0]);
-	  try
-	    {
-	      LoadFile(Name.c_str());
-	      
-	      // 	      MsgStream << "###Informational: Loaded file \"" << Name
-	      // 			<< "\"..." << endl;
-	    }
-	  catch(ErrorObj&x) 
-	    {
-	      // Don't act up too much if the user doesn't even care
-	      // to have the ~/.fussy file!
-	    };
-	}
-      else
-	for (int j=n;j<argc;j++) 
-	  try
-	    {
-	      MsgStream << "###Informational: Loading file \"" << argv[j]
-			<< "\"..." << endl;
-	      LoadFile(argv[j]);
-	    }
-	  catch (ErrorObj& x) {x<< x.what() << endl;}
+      {
+	Name += "/."; Name += basename(argv[0]);
+	try
+	  {
+	    LoadFile(Name.c_str());
+	    
+	    if (!beQuiet) MsgStream << "###Informational: Loaded file \"" << Name
+				    << "\"..." << endl;
+	  }
+	catch(ErrorObj&x) 
+	  {
+	    // Don't act up too much if the user doesn't even care
+	    // to have the ~/.fussy file!
+	  };
+      }
+      for (int j=n;j<argc;j++) 
+	try
+	  {
+	    if (!beQuiet) MsgStream << "###Informational: Loading file \"" << argv[j]
+				    << "\"..." << endl;
+	    LoadFile(argv[j]);
+	  }
+	catch (ErrorObj& x) {x<< x.what() << endl;}
     }
   catch (ErrorObj& e)        {e << e.what() << endl;}
   catch (BreakException& x)  {}
