@@ -229,7 +229,7 @@ int main(int argc, char *argv[])
 	  {
 	    LoadFile(Name.c_str());
 	    
-	    if (!beQuiet) MsgStream << "###Informational: Loaded file \"" << Name
+	    if (!beQuiet) MsgStream << "###Informational: Loading file \"" << Name
 				    << "\"..." << endl;
 	  }
 	catch(ErrorObj&x) 
