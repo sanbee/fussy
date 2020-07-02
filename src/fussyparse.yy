@@ -475,7 +475,6 @@ arglist_components: expr   {}
 | qstr                     {}
 | FUNC                     {mpush($1);}
 | PROC                     {mpush($1);}
-| BUILTIN                  {mpush($1);}
 ;
 //
 //-------------------------------------------------------------------
@@ -491,7 +490,6 @@ argnames: UNDEF            {$$=$1;}
 | VAR                      {$$=$1;}
 | FUNC                     {$$=$1;}
 | PROC                     {$$=$1;}
-| BUILTIN                  {$$=$1;}
 | CONSTANT                 {$$=$1;}
 | QSTRING                  {$$=$1;}
 ;
@@ -500,7 +498,6 @@ argnames: UNDEF            {$$=$1;}
 //
 subprog_arg: FUNCDECL argnames   {$$=FUNC_TYPE;}
 | PROCDECL argnames              {$$=PROC_TYPE;}
-| BUILTIN argnames               {$$=FUNC_TYPE;}
 ;
 //
 //-------------------------------------------------------------------
