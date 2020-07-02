@@ -114,7 +114,7 @@ void fussy_inp(char *buf, int *result, int max_size)
       free(Calc_line);Count=0;
       Calc_line=NULL;
     }
-  if (Calc_line==NULL) 
+  if (Calc_line==NULL)
     {
       Calc_line=(char *) readline((char *)Calc_prompt.c_str());
       // If readline retuns NULL (e.g., when the input is Ctrl-D), print a message and
@@ -126,7 +126,7 @@ void fussy_inp(char *buf, int *result, int max_size)
 	      FUSSY_IGNOREEOF--;
 	      fprintf(rl_outstream,"Use \'quit\' to exit.  Will ignore next %d EOF(s).\n",FUSSY_IGNOREEOF);
 	    }
-	  else
+	  else if (rl_instream == stdin) // Honour EOF if control gets here and the input was from stdin
 	    {
 	      VMState_Quit=true;
 	      // exit(0);
