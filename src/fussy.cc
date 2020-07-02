@@ -223,6 +223,7 @@ int main(int argc, char *argv[])
       InitFussy(); // Initialze all internal tables
       if (!beQuiet) showCopyright("   For details type `warranty'.");
       boot();      // Boot the virtual machine
+      if (n ==  argc)
       {
 	Name += "/."; Name += basename(argv[0]);
 	try
@@ -238,6 +239,8 @@ int main(int argc, char *argv[])
 	    // to have the ~/.fussy file!
 	  };
       }
+      else
+	{
       for (int j=n;j<argc;j++) 
 	try
 	  {
@@ -246,6 +249,7 @@ int main(int argc, char *argv[])
 	    LoadFile(argv[j]);
 	  }
 	catch (ErrorObj& x) {x<< x.what() << endl;}
+	}
     }
   catch (ErrorObj& e)        {e << e.what() << endl;}
   catch (BreakException& x)  {}
