@@ -224,10 +224,15 @@ options:
       gives up preaching good behavior and quits.  Default is 10000.
 
 @end verbatim
-Use the @t{"help"} command in interactive mode to get more help about the language syntax.
+Use the @t{"help"} command in interactive mode to get more help about
+the language syntax.
 
-The file @t{$HOME/.fussy}, if present, is processed at the very
-beginning of the start of the program.
+In the absence of any file(s) to be load specified on the command
+line, the file @t{$HOME/.fussy}, if present, is load at the start of
+the program.  If file(s) to load are specified on the command line,
+they are loaded in the order supplied. In this case, @t{$HOME/.fussy}
+is not automatically loaded.  This is to allow user-control on
+sequence in which files are loaded, including @t{$HOME/.fussy}.
 
 @node Environment variables
 @section Environment variables
